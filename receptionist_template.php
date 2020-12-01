@@ -13,11 +13,13 @@
     </head>
     <body>
         <header>
-        <img>
-        <div>
-            <img>
-            <p>Welcome, </p>
-            <a><img></img></a>
+        <div id="header">
+        <img src="assets/bookIT_Logo.png">
+            <div class="right-float">
+                <img>
+                <p>Welcome, </p>
+                <a><img></img></a>
+            </div>
         </div>
         </header>
         <nav><ul>

@@ -31,14 +31,10 @@ ul {
   overflow: auto;
 }
 
-li{
-  
-}
-
 li a {
   display: block;
   color: #fff;
-  padding: 20px 30px;
+  padding: 22px 35px;
   text-decoration: none;
   font-weight: bold;
   border-bottom: 1px solid #C6C6C6;
