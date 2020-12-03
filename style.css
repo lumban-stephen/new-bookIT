@@ -2,7 +2,6 @@
     margin: 0px;
     padding: 0px;
     font-family: 'Montserrat', sans-serif;
-
 }
 
 #header {
@@ -50,4 +49,10 @@ li a.active {
 li a:hover:not(.active) {
   background-color: #11C3FF;
   color: white;
+}
+
+#content {
+  margin-top: 3%;
+  margin-left: 17%;
+
 }
