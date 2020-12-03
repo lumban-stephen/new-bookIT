@@ -35,5 +35,17 @@
         <div id="content">
             <!--Code Here only-->
             <!--Booking page code in here-->
+
+    
+    <?php
+    echo $_SESSION['room_code'];
+    echo $_SESSION['numguest']; 
+              ?>
+
+
+
+
+
+
         </div>
     </body>
