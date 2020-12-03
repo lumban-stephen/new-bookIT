@@ -30,6 +30,7 @@ ul {
   position: fixed;
   height: 100%;
   overflow: auto;
+  position: static;
 }
 
 li a {
