@@ -69,6 +69,10 @@
     $checkout=$_POST['checkout'];
     $numguest=$_POST['numguest'];
 
+    $_SESSION['checkin'] = $checkin;
+    $_SESSION['checkout'] = $checkout;
+    $_SESSION['numguest'] = $numguest;
+
         $sql = "SELECT DISTINCT t.room_code as 'room_code'
     FROM room_type t 
     WHERE t.roomtype_id NOT IN(
@@ -80,7 +84,7 @@
     if(mysqli_num_rows($result) > 0){
     while($row = $result->fetch_assoc()){
                 
-                echo "<form action='receptionist_booking.php' method='POST'>".
+                echo "<form action='' method='POST'>".
                 $row['room_code']."<br>
                 <input type='submit' name='select' value='select'>
                 <input type='hidden' name='room' value='{$row['room_code']}'>
@@ -93,8 +97,8 @@
         $room_code = $_POST['room'];
         
         $_SESSION['room_code'] = $room_code;
-        $_SESSION['numguest'] = $numguest;
-        //header("location:receptionist_booking.php");   
+        
+        header("location:receptionist_booking.php");   
 }
 
         ?>
