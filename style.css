@@ -1,13 +1,16 @@
 * {
     margin: 0px;
     padding: 0px;
+    box-sizing: border-box;
     font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
 }
 
 #header {
-	padding: 1px 25px;
+	padding: 1px 15px;
 	background: #11C3FF;
 	color: white;
+  height: 65px;
 }
 
 .right-float {
@@ -15,8 +18,8 @@
 }
 
 div img {
-    height: 75px;
-    width: 160px;
+    height: 65px;
+    width: 145px;
 
 }
 
@@ -54,5 +57,31 @@ li a:hover:not(.active) {
 #content {
   margin-top: 3%;
   margin-left: 17%;
+  margin-right: 8%;
+}
+input[type=email], input[type=text],input[type=number] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
 
+input[type=email]:focus, input[type=text]:focus,input[type=number]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+select[name="numguest"], select[name="roomtype"], input[type="Date"] {
+  width: 35%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+select[name="numguest"]:focus, select[name="roomtype"]:focus, input[type="Date"]:focus {
+  background-color: #ddd;
+  outline: none;
 }
