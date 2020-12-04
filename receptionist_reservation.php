@@ -63,8 +63,7 @@
     include 'connection.php';
     //error_reporting(0);
     if(isset($_POST['submit'])){
-    echo "<link rel='stylesheet' href='css.css'>";
-    
+        
     $checkin=$_POST['checkin'];
     $checkout=$_POST['checkout'];
     $numguest=$_POST['numguest'];
@@ -73,7 +72,7 @@
     $_SESSION['checkout'] = $checkout;
     $_SESSION['numguest'] = $numguest;
 
-        $sql = "SELECT DISTINCT t.room_code as 'room_code'
+    $sql = "SELECT DISTINCT t.room_code as 'room_code'
     FROM room_type t 
     WHERE t.roomtype_id NOT IN(
     SELECT g.roomtype_id FROM guests g where $checkin between g.date_in and g.date_out) AND t.roomtype_id NOT IN(
