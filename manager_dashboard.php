@@ -13,23 +13,31 @@
     </head>
     <body>
         <header>
-        <img>
-        <div>
-            <img>
-            <p>Welcome, </p>
-            <a><img></img></a>
+        <div id="header">
+        <img src="assets/bookIT_Logo.png">
+            <div class="right-float">
+                <img>
+                <p>Welcome, </p>
+                <a><img></img></a>
+            </div>
         </div>
         </header>
-        <nav><ul>
-                <li><a>Dashboard</a></li>
-                <li><a>Revenue</a></li>
-                <li><a>Records</a></li>
-                <li><a>Guests</a></li>
-                <li><a>Room Management</a></li>
-                <li><a>Staff Management</a></li>
+        <nav>
+            <ul>
+                <li><a href="#">Dashboard</a></li>
+                <li><a href="manager_revenue.php">Revenue</a></li>
+                <li><a href="manager_records.php">Records</a></li>
+                <li><a href="manager_guests.php">Guests</a></li>
+                <li><a href="manager_room-mgt.php">Room Management</a></li>
+                <li><a href="manager_staff.php">Staff Management</a></li>
             </ul>
         </nav>
         <div id="content">
             <!--Code here for manager_dashboard-->
+            <div class="dash-box" id="mgt-guests-in"></div>
+            <div class="dash-box" id="mgt-vacancies"></div>
+            <div class="dash-box" id="mgt-coming"></div>
+            <div class="dash-box" id="mgt-reservation"></div>
+            <div class="dash-long-box" id="mgt-earnings"></div>
         </div>
     </body>

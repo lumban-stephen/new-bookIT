@@ -60,6 +60,7 @@ li a:hover:not(.active) {
   color: white;
 }
 
+<<<<<<< HEAD
 #content {
   margin-top: 2%;
   margin-left: 17%;
@@ -93,3 +94,58 @@ select[name="numguest"]:focus, select[name="roomtype"]:focus, input[type="Date"]
 }
 
 
+=======
+#mgt-guests-in {
+  border: 1px solid rgba(213, 213, 213, 0.37);
+  box-sizing: border-box;
+  left: 227px;
+  top: 142px;
+  border-radius: 0px;
+  background: #72205A;
+  position: absolute;
+}
+
+#mgt-vacancies {
+  position: absolute;
+  left: 477px;
+  top: 142px;
+  background: #C70039;
+  border: 1px solid rgba(213, 213, 213, 0.37);
+  box-sizing: border-box;
+}
+
+#mgt-coming {
+  position: absolute;
+  left: 720px;
+  top: 142px;
+  background: rgba(254, 194, 0, 0.85);
+  border: 1px solid rgba(213, 213, 213, 0.37);
+  box-sizing: border-box;
+}
+
+#mgt-reservation {
+  position: absolute;
+  left: 227px;
+  top: 331px;
+  background: #C5195A;
+  border: 1px solid rgba(213, 213, 213, 0.37);
+  box-sizing: border-box;
+}
+
+#mgt-earnings {
+  position: absolute;
+  left: 477px;
+  top: 331px;
+  background: #E35D40;
+}
+
+.dash-box {
+  height: 149px;
+  width: 190px;
+}
+
+.dash-long-box {
+  width: 433px;
+  height: 149px;
+}
+>>>>>>> 7657ea3bcdf24850735fa8a5211353b41c09aeb8
