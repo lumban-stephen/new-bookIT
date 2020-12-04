@@ -23,7 +23,10 @@
 div img {
     height: 65px;
     width: 145px;
-
+}
+#header p{
+  margin-top: 1em;
+  
 }
 
 /* NAVBAR STYLES
@@ -145,7 +148,6 @@ select[name="numguest"]:focus, select[name="roomtype"]:focus, input[type="Date"]
   width: 433px;
   height: 149px;
 }
-
 .center-box {
   margin-left: 500px;
 }

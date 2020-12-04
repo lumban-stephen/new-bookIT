@@ -15,9 +15,13 @@
         <header>
         <div id="header">
         <img src="assets/bookIT_Logo.png">
-            <div class="right-float">
+           <div class="right-float">
                 <img>
-                <p>Welcome, </p>
+            </div>
+            <div class="right-float">
+                <p>Welcome,</p>
+            </div>
+            <div class="right-float">
                 <a><img></img></a>
             </div>
         </div>
