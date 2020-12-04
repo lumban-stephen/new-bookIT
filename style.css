@@ -58,6 +58,8 @@ li a:hover:not(.active) {
   left: 227px;
   top: 142px;
   border-radius: 0px;
+  background: #72205A;
+  position: absolute;
 }
 
 #mgt-vacancies {
