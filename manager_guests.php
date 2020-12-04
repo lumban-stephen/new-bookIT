@@ -20,13 +20,14 @@
             <a><img></img></a>
         </div>
         </header>
-        <nav><ul>
-                <li><a>Dashboard</a></li>
-                <li><a>Revenue</a></li>
-                <li><a>Records</a></li>
-                <li><a>Guests</a></li>
-                <li><a>Room Management</a></li>
-                <li><a>Staff Management</a></li>
+        <nav>
+            <ul>
+                <li><a href="manager_dashboard.php">Dashboard</a></li>
+                <li><a href="manager_revenue.php">Revenue</a></li>
+                <li><a href="manager_records.php">Records</a></li>
+                <li><a href="#">Guests</a></li>
+                <li><a href="manager_room-mgt.php">Room Management</a></li>
+                <li><a href="manager_staff.php">Staff Management</a></li>
             </ul>
         </nav>
         <div id="content">
