@@ -37,6 +37,23 @@
             </ul>
         </nav>
         <div id="content">
-            <!--Code here for manager revenue page code-->
+            <!--Code here for manager records page code-->
+            <h2>Records</h2>
+            <br>
+            <table id="customers">
+              <tr>
+                <th>Record Type</th>
+                <th>Record Description</th>
+                <th>Date</th>
+                <th>Time</th>
+              </tr>
+              <tr>
+                <td>1001</td>
+                <td>Aircon- Single bed</td>
+                <td>10-29-2020</td>
+                <td>9:00am</td>
+              </tr>
+            </table>        
+
         </div>
     </body>

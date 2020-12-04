@@ -39,6 +39,30 @@
         </nav>
         <div id="content">
             <!--Code Here only-->
-            <!--Guests page code in here-->
+            <div class="search-container">
+                <form action="/action_page.php">
+                  <label>Search Guest Name: </label>
+                  <input type="text" placeholder="Search.." name="search">
+                  <button type="submit"><i class="fa fa-search"></i></button>
+                </form>
+            </div>
+
+            <br>
+            <table id="Table">
+              <tr>
+                <th>Guest Name</th>
+                <th>Room Number</th>
+                <th>Actions</th>
+                <th>More Info</th>
+              </tr>
+              <tr>
+                <td>Johnny Doe</td>
+                <td>101</td>
+                <td><button class="Offerbutton">Offer<br>Amenities</button>
+                    <button class="Extendbutton">Extend<br>Stay</button>
+                    <button class="Checkoutbutton">Early<br>Checkout</button></td>
+                <td><button class="Viewbutton">View</button></td>
+              </tr>
+            </table>  
         </div>
     </body>

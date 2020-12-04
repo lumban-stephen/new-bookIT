@@ -39,6 +39,21 @@
         </nav>
         <div id="content">
             <!--Code Here only-->
-            <!--Records page code in here-->
+            <h2>Records</h2>
+            <br>
+            <table id="Table">
+              <tr>
+                <th>Record Type</th>
+                <th>Record Description</th>
+                <th>Date</th>
+                <th>Time</th>
+              </tr>
+              <tr>
+                <td>1001</td>
+                <td>Aircon- Single bed</td>
+                <td>10-29-2020</td>
+                <td>9:00am</td>
+              </tr>
+            </table>        
         </div>
     </body>
