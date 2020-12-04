@@ -33,7 +33,19 @@
             </ul>
         </nav>
         <div id="content">
-            <!--Code Here only-->
-            <!--Dashboard code should be consist of different divs-->
+            <h2>Dashboard</h2>
+                <div class="page-content">
+                  <div class="grid">
+                    <article></article>
+                    <article></article>
+                    <article></article>
+                    <article></article>
+                    <article></article>
+                    <article></article>
+                    <article></article>
+                    <article></article>
+                  </div>
+                </div>
+                
         </div>
     </body>

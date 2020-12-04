@@ -5,12 +5,16 @@
     font-family: 'Montserrat', sans-serif;
     font-weight: bold;
 }
-
+/* HEADER STYLES
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
 #header {
 	padding: 1px 15px;
-	background: #11C3FF;
+	background-color: #11C3FF;
 	color: white;
   height: 65px;
+  width: 100%;
+  position: -webkit-sticky;
+  position: sticky;
 }
 
 .right-float {
@@ -23,6 +27,8 @@ div img {
 
 }
 
+/* NAVBAR STYLES
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
 ul {
   list-style-type: none;
   margin: 0;
@@ -85,3 +91,5 @@ select[name="numguest"]:focus, select[name="roomtype"]:focus, input[type="Date"]
   background-color: #ddd;
   outline: none;
 }
+
+
