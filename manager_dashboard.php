@@ -33,11 +33,10 @@
             </ul>
         </nav>
         <div id="content">
-            <!--Code here for manager_dashboard-->
-            <div class="dash-box" id="mgt-guests-in"></div>
-            <div class="dash-box" id="mgt-vacancies"></div>
-            <div class="dash-box" id="mgt-coming"></div>
-            <div class="dash-box" id="mgt-reservation"></div>
-            <div class="dash-long-box" id="mgt-earnings"></div>
+                <div class="dash-box" id="mgt-guests-in"></div>
+                <div class="dash-box" id="mgt-vacancies"></div>
+                <div class="dash-box" id="mgt-coming"></div>
+                <div class="dash-box" id="mgt-reservation"></div>
+                <div class="dash-long-box" id="mgt-earnings"></div>
         </div>
     </body>

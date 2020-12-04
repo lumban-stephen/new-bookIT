@@ -59,7 +59,6 @@ li a:hover:not(.active) {
   color: white;
 }
 
-<<<<<<< HEAD
 #content {
   margin-top: 2%;
   margin-left: 17%;
@@ -93,7 +92,6 @@ select[name="numguest"]:focus, select[name="roomtype"]:focus, input[type="Date"]
 }
 
 
-=======
 #mgt-guests-in {
   border: 1px solid rgba(213, 213, 213, 0.37);
   box-sizing: border-box;
@@ -147,4 +145,7 @@ select[name="numguest"]:focus, select[name="roomtype"]:focus, input[type="Date"]
   width: 433px;
   height: 149px;
 }
->>>>>>> 7657ea3bcdf24850735fa8a5211353b41c09aeb8
+
+.center-box {
+  margin-left: 500px;
+}
