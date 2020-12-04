@@ -22,14 +22,15 @@
             </div>
         </div>
         </header>
-        <nav><ul>
-                <li><a>Dashboard</a></li>
-                <li><a>Check In</a></li>
-                <li><a>Check Out</a></li>
-                <li><a>Reservation</a></li>
-                <li><a>Records</a></li>
-                <li><a>To Do List</a></li>
-                <li><a>Guests</a></li>
+        <nav>
+            <ul>
+                <li><a href="receptionist_dashboard.php">Dashboard</a></li>
+                <li><a href="receptionist_checkin.php">Check In</a></li>
+                <li><a href="receptionist_checkout.php">Check Out</a></li>
+                <li><a href="receptionist_reservation.php">Reservation</a></li>
+                <li><a href="receptionist_records.php">Records</a></li>
+                <li><a href="receptionist_toDoList.php">To Do List</a></li>
+                <li><a href="receptionist_guests.php">Guests</a></li>
             </ul>
         </nav>
         <div id="content">
