@@ -1,0 +1,36 @@
+.amty-box {
+    display: inline-block;
+}
+
+.amty-box img {
+    height: 145px;
+    width: 160px;
+}
+
+.minus {
+    height: 20px;
+    width: 20px;
+}
+.plus {
+    height: 20px;
+    width: 20px;
+}
+
+.amty {
+    height: 210px;
+}
+
+.counter {
+    height:30px;
+}
+
+.amty-btn {
+    width: 154px;
+    height: 54px;
+    left: 590px;
+    top: 466px;
+
+    background: #81B1D5;
+    border: 1px solid rgba(213, 213, 213, 0.37);
+    box-sizing: border-box;
+}
