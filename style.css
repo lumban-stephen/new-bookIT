@@ -95,7 +95,7 @@ select[name="numguest"]:focus, select[name="roomtype"]:focus, input[type="Date"]
   outline: none;
 }
 
-
+/*Manager Dashboard*/
 #mgt-guests-in {
   border: 1px solid rgba(213, 213, 213, 0.37);
   box-sizing: border-box;
@@ -143,6 +143,21 @@ select[name="numguest"]:focus, select[name="roomtype"]:focus, input[type="Date"]
 .dash-box {
   height: 149px;
   width: 190px;
+}
+
+.dash-box p {
+  color: whitesmoke;
+  font-size: 20px;
+  font-family: 'Montserrat', sans-serif;
+  padding: 8px;
+  text-align: center;
+}
+
+.dash-long-box p {
+  color: whitesmoke;
+  font-size: 24px;
+  font-family: 'Montserrat', sans-serif;
+  padding: 16px;
 }
 
 .dash-long-box {
@@ -290,6 +305,7 @@ select[name="numguest"]:focus, select[name="roomtype"]:focus, input[type="Date"]
   }
   .search-container input[type=text] {
     border: 1px solid #ccc;  
+<<<<<<< Updated upstream
 }
 
 .searchButton{ 
@@ -302,3 +318,7 @@ select[name="numguest"]:focus, select[name="roomtype"]:focus, input[type="Date"]
         border: none; 
         cursor: pointer; 
     }  
+=======
+  }
+}
+>>>>>>> Stashed changes
