@@ -3,6 +3,7 @@
     padding: 0px;
     box-sizing: border-box;
     font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
 }
 /* HEADER STYLES
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
@@ -246,7 +247,7 @@ select[name="numguest"]:focus, select[name="roomtype"]:focus, input[type="Date"]
 .Offerbutton,.Extendbutton .Checkoutbutton.Viewbutton{
   display:block;
   margin:0.4em auto;
-
+}
 /** GUEST PAGE
 -------------------------------------------------*/
 .search-container {
@@ -289,3 +290,15 @@ select[name="numguest"]:focus, select[name="roomtype"]:focus, input[type="Date"]
   }
   .search-container input[type=text] {
     border: 1px solid #ccc;  
+}
+
+.searchButton{ 
+        background-color: #0074D9; 
+        color: #f2f2f2; 
+        float: right; 
+        padding: 5px 10px; 
+        margin-right: 16px; 
+        font-size: 12px; 
+        border: none; 
+        cursor: pointer; 
+    }  
