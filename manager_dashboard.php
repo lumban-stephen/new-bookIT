@@ -37,10 +37,10 @@
             </ul>
         </nav>
         <div id="content">
-                <div class="dash-box" id="mgt-guests-in"></div>
-                <div class="dash-box" id="mgt-vacancies"></div>
-                <div class="dash-box" id="mgt-coming"></div>
-                <div class="dash-box" id="mgt-reservation"></div>
-                <div class="dash-long-box" id="mgt-earnings"></div>
+                <div class="dash-box" id="mgt-guests-in"><p>Guests In</p></div>
+                <div class="dash-box" id="mgt-vacancies"><p>Vacancies</p></div>
+                <div class="dash-box" id="mgt-coming"><p>Coming</p></div>
+                <div class="dash-box" id="mgt-reservation"><p>Reservation</p></div>
+                <div class="dash-long-box" id="mgt-earnings"><p>Earnings</p></div>
         </div>
     </body>
