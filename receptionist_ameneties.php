@@ -10,6 +10,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>BookIT</title>
         <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="ameneties.css">
     </head>
     <body>
         <header>
@@ -38,7 +39,77 @@
             </ul>
         </nav>
         <div id="content">
-            <!--Code Here only-->
-            <!--ameneties page code in here-->
+            <div class="amty">
+                <p>Hygiene</p>
+                <div class="amty-box">
+                    <img src="assets/img-dummy.jpg">
+                    <p class="name"></p>
+                    <div class="counter"><div class="minus"></div><!--Insert php number--><div class="plus"></div></div>
+                </div>
+                <div class="amty-box">
+                    <img src="assets/img-dummy.jpg">
+                    <p class="name"></p>
+                    <div class="counter"><img class="minus"><!--Insert php number--><img class="plus"></div>
+                </div>
+                <div class="amty-box">
+                    <img src="assets/img-dummy.jpg">
+                    <p class="name"></p>
+                    <div class="counter"><img class="minus"><!--Insert php number--><img class="plus"></div>
+                </div>
+                <hr>
+            </div>
+            <div class="amty">
+                <p>Food</p>
+                <div class="amty-box">
+                    <img src="assets/img-dummy.jpg">
+                    <p class="name"></p>
+                    <div class="counter"><img class="minus"><!--Insert php number--><img class="plus"></div>
+                </div>
+                <div class="amty-box">
+                    <img src="assets/img-dummy.jpg">
+                    <p class="name"></p>
+                    <div class="counter"><img class="minus"><!--Insert php number--><img class="plus"></div>
+                </div>
+                <div class="amty-box">
+                    <img src="assets/img-dummy.jpg">
+                    <p class="name"></p>
+                    <div class="counter"><img class="minus"><!--Insert php number--><img class="plus"></div>
+                </div>
+                <div class="amty-box">
+                    <img src="assets/img-dummy.jpg">
+                    <p class="name"></p>
+                    <div class="counter"><img class="minus"><!--Insert php number--><img class="plus"></div>
+                </div>
+                <hr>
+            </div>
+            <div class="amty">
+                <p>Extras</p>
+                <div class="amty-box">
+                    <img src="assets/img-dummy.jpg">
+                    <p class="name"></p>
+                    <div class="counter"><img class="minus"><!--Insert php number--><img class="plus"></div>
+                </div>
+                <div class="amty-box">
+                    <img src="assets/img-dummy.jpg">
+                    <p class="name"></p>
+                    <div class="counter"><img class="minus"><!--Insert php number--><img class="plus"></div>
+                </div>
+                <div class="amty-box">
+                    <img src="assets/img-dummy.jpg">
+                    <p class="name"></p>
+                    <div class="counter"><img class="minus"><!--Insert php number--><img class="plus"></div>
+                </div>
+                <hr>
+            </div>
+            <div class="amty">
+                <p>Guest Details</p>
+                <div class="amty-desc">
+                    <p>Guest Name: </p>
+                    <p>Bill ID: </p>
+                    <p>Total Amount: </p>
+                    <div class="amty-btn bluegray">Process Order</div>
+                    <div class="amty-btn green">Check In</div>
+                </div>
+            </div>
         </div>
     </body>
