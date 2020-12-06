@@ -40,5 +40,71 @@
         <div id="content">
             <!--Code Here only-->
             <!--Check in page code in here-->
+
+    <?php
+    include 'connection.php';
+    //error_reporting(0);
+    if(isset($_POST['submit'])){
+        
+    $checkin=$_POST['checkin'];
+    $checkout=$_POST['checkout'];
+    $numguest=$_POST['numguest'];
+
+    $_SESSION['checkin'] = $checkin;
+    $_SESSION['checkout'] = $checkout;
+    $_SESSION['numguest'] = $numguest;
+
+    $sql = "SELECT DISTINCT t.room_code as 'room_code'
+    FROM room_type t 
+    WHERE t.roomtype_id NOT IN(
+    SELECT g.roomtype_id FROM guests g where $checkin between g.date_in and g.date_out) AND t.roomtype_id NOT IN(
+    SELECT g.roomtype_id FROM guests g where $checkout between g.date_in and g.date_out) AND t.room_cap>=$numguest";
+
+    $result = $conn->query($sql); 
+
+    if(mysqli_num_rows($result) > 0){
+    while($row = $result->fetch_assoc()){
+                
+                echo "<form action='' method='POST'>".
+                $row['room_code']."<br>
+                <input type='submit' name='select' value='select'>
+                <input type='hidden' name='room' value='{$row['room_code']}'>
+                </form>";}
+    }else{
+        echo 'No available room.';
+    }}
+
+    if(isset($_POST['select'])){  
+        $room_code = $_POST['room'];
+        
+        $_SESSION['room_code'] = $room_code;
+        
+        header("location:receptionist_booking.php");   
+}
+
+        ?>
+             <form method="post" action="">  
+<label>Number of Guests</label>
+<select name="numguest" class="button" required>
+    <option value="Select">Select</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>  
+</select> 
+<br><br>
+
+<label>Check-in</label><br>
+        <input type="date" name="checkin" class="button" required>
+        <br><br>
+
+        <label>Check-out</label><br>
+        <input type="date" name="checkout" class="button" required>
+        <br><br>
+<input type="submit" name="submit" value="search" class="submit">
+        <br><br>
+</form>
+
         </div>
     </body>

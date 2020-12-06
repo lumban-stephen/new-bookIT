@@ -42,7 +42,9 @@
             <!--Booking page code in here-->
 
             <?php
-            
+            include 'connection.php';
+            //error_reporting(0);
+
             echo "<form method='post' action=''>  
                 <label>First Name</label>
                 <input type='text' name='fname' class='button' required>
@@ -75,24 +77,16 @@
                 <label>E-mail</label>
                 <input type='email' name='email' class='button'>
                 <br><br>
-        
 
-                <input type='submit' name='submit' value='Book Reservation' class='submit'>
+                <input type='submit' name='book' value='Book Reservation' class='submit'>
                 <br><br>
 
-                <input type='submit' name='submit' value='Cancel Booking' class='cancel'>
+                <input type='submit' name='cancel' value='Cancel Booking' class='cancel'>
                 <br><br>
             </form>";
 
 
-            ?>
-            
-
-
-            <?php 
-            include 'connection.php';
-            //error_reporting(0);
-            if(isset($_POST['submit'])){
+            if(isset($_POST['book'])){
             echo "<div class='content'>Successfully submitted!!</div>";
 
                 $fname=$_POST['fname'];
@@ -100,21 +94,20 @@
                 $mname=$_POST['mname'];
                 $phone=$_POST['phone'];
                 $email=$_POST['email'];
+
+                //$checkin=$_SESSION['checkin'];
+                //$checkout=$_SESSION['checkout'];
+                //$numguest=$_SESSION['numguest'];
+                //$room_code=$_SESSION['room_code'];
+
                 $stays=(strtotime($_SESSION['checkout'])-strtotime($_SESSION['checkin']))/60/60/24; //number of stays
 
                 //get room_id
                 $sql = "SELECT r.room_id AS room_id, t.room_cost AS room_cost,t.roomtype_id AS roomtype_id
                 FROM rooms r,room_type t
                 WHERE r.roomtype_id = t.roomtype_id AND 
-                t.room_code='$_SESSION['room_code']'";
+                t.room_code='{$_SESSION['room_code']}'";
                 $result = $conn->query($sql);
-
-                /*while($row = $result->fetch_assoc()){
-                    if($row['room_status']==="Vacant"){
-                        $room_id = $row['room_id'];
-                        $room_cost = $row['room_cost'];
-                    }
-                }*/
 
                 while($row = $result->fetch_assoc()){
                         $room_id = $row['room_id'];
@@ -147,8 +140,8 @@
 
 
             //create data in payments
-            $prepare4 = $conn->prepare("INSERT INTO payments(payment_amount,roomtype_id) VALUES (?,?)");
-            $prepare4->bind_param("ii",$payment,$roomtype_id);
+            $prepare4 = $conn->prepare("INSERT INTO payments(payment_amount) VALUES (?)");
+            $prepare4->bind_param("i",$payment);
             $prepare4->execute();
 
             //get payment_id ($conn->insert_id : get the last generated id)
@@ -158,30 +151,44 @@
             $prepare5= $conn->prepare("UPDATE guests SET payment_id =? WHERE guest_id=?");
             $prepare5->bind_param("ii", $payment_id, $guest_id);
             $prepare5->execute();
-            }
 
+            //create data in bill
+            $prepare6 = $conn->prepare("INSERT INTO bill(bill_date,subtotal,payment_id,guest_id) VALUES (?,?,?,?)");
+            $prepare6->bind_param("siii",$_SESSION['checkin'],$payment,$payment_id,$guest_id);
+            $prepare6->execute();
 
-            //if cancel booking
-            if(isset($_POST['cancel'])){}
+            //get bill_id ($conn->insert_id : get the last generated id)
+            $bill_id= $conn->insert_id;
+
+            //create data in bill_items
+            $prepare7 = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_date,roomtype_id) VALUES (?,?,?,?)");
+            $prepare7->bind_param("iisi",$stays,$bill_id,$_SESSION['checkin'],$roomtype_id);
+            $prepare7->execute();
+
             unset($_SESSION['checkin']);
             unset($_SESSION['checkout']);
             unset($_SESSION['numguest']);
             unset($_SESSION['room_code']);
-            header("location:receptionist_reservation.php");
+
+            }
+
+
+            //if cancel booking
+            if(isset($_POST['cancel'])){
+            unset($_SESSION['checkin']);
+            unset($_SESSION['checkout']);
+            unset($_SESSION['numguest']);
+            unset($_SESSION['room_code']);
+            header("location:receptionist_reservation.php");}
 
             ?>
+            
+
+
+
             <br>
             <br>
             <br>
-
-
-            <?php
-            echo $_SESSION['room_code'];
-            echo $_SESSION['numguest']; 
-                    ?>
-
-
-
 
 
 

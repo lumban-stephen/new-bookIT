@@ -40,5 +40,38 @@
         <div id="content">
             <!--Code Here only-->
             <!--receptionist check in form page code in here-->
+
+
+             <label>ID Type</label>
+                <select name='roomtype' class='button'>
+                <option value='Select'>Select</option>
+                <option value='passport'>passport</option>
+                <option value='driver license'>driver license</option>
+                <option value='PhilHealth'>PhilHealth</option>
+                <option value='SSS UMID'>SSS UMID</option>
+                <option value='POSTAL'>POSTAL</option>
+                <option value='TIN'>TIN</option>
+                <option value='SENIOR CITIZEN'>SENIOR CITIZEN</option>
+                <option value='OFW'>OFW</option>
+                <option value='OTHERS'>OTHERS</option>
+                </select>
+                <br><br>
+
+                <label>ID_number</label>
+                <input type='text' name='ID_number' class='button' >
+                <br><br>
+
+                <label>File Upload</label>
+                <input type='file' name='file'>
+                <br><br>
+                <label>Address</label>
+                <input type='text' name='address' class='button' >
+                <br><br>
+
+
+
+
+
+                
         </div>
     </body>
