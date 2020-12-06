@@ -41,6 +41,37 @@
             <!--Code Here only-->
             <!--receptionist check in form page code in here-->
 
+            <?php
+            include 'connection.php';
+            //error_reporting(0);
+
+            echo "<form method='post' action=''>  
+                <label>First Name</label><br>".$_SESSION['fname']."
+                <br><br>
+
+                <label>Last Name</label><br>".$_SESSION['lname']."
+                <br><br>
+
+                <label>Middle Name</label><br>".$_SESSION['mname']."
+                <br><br>
+
+                <label>Check-in</label><br>".$_SESSION['checkin']."
+                <br><br>
+
+                <label>Check-out</label><br>".$_SESSION['checkout']."
+                <br><br>
+
+                <label>Number of Guests</label><br>".$_SESSION['numguest']."
+                <br><br>
+
+                <label>Room Selected</label><br>".$_SESSION['room_code']."
+                <br><br>
+
+                <label>Phone Number</label><br>".$_SESSION['phone']."
+                <br><br>
+
+                <label>E-mail</label><br>".$_SESSION['email']."
+                <br><br>
 
              <label>ID Type</label>
                 <select name='roomtype' class='button'>
@@ -67,10 +98,12 @@
                 <label>Address</label>
                 <input type='text' name='address' class='button' >
                 <br><br>
+                <input type='submit' name='checkin' value='CHECKIN' class='submit'>
+                <br><br>
 
+            </form>";
 
-
-
+?>
 
                 
         </div>
