@@ -26,17 +26,16 @@
             </div>
         </div>
         </header>
-        <nav>
-            <ul>
+        <nav><ul>
                 <li><a href="manager_dashboard.php">Dashboard</a></li>
                 <li><a href="manager_revenue.php">Revenue</a></li>
                 <li><a href="manager_records.php">Records</a></li>
-                <li><a href="#">Guests</a></li>
+                <li><a href="manager_guests.php">Guests</a></li>
                 <li><a href="manager_room-mgt.php">Room Management</a></li>
-                <li><a href="manager_staff.php">Staff Management</a></li>
+                <li><a href="#">Staff Management</a></li>
             </ul>
         </nav>
         <div id="content">
-            <!--Code here for manager guest code-->
+            <!--Code here for manager_staff-->
         </div>
     </body>

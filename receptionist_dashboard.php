@@ -17,23 +17,33 @@
         <img src="assets/bookIT_Logo.png">
             <div class="right-float">
                 <img>
-                <p>Welcome, </p>
+            </div>
+            <div class="right-float">
+                <p>Welcome,</p>
+            </div>
+            <div class="right-float">
                 <a><img></img></a>
             </div>
         </div>
         </header>
-        <nav><ul>
-                <li><a>Dashboard</a></li>
-                <li><a>Check In</a></li>
-                <li><a>Check Out</a></li>
-                <li><a>Reservation</a></li>
-                <li><a>Records</a></li>
-                <li><a>To Do List</a></li>
-                <li><a>Guests</a></li>
+        <nav>
+            <ul>
+                <li><a href="#">Dashboard</a></li>
+                <li><a href="receptionist_checkin.php">Check In</a></li>
+                <li><a href="receptionist_checkout.php">Check Out</a></li>
+                <li><a href="receptionist_reservation.php">Reservation</a></li>
+                <li><a href="receptionist_records.php">Records</a></li>
+                <li><a href="receptionist_toDoList.php">To Do List</a></li>
+                <li><a href="receptionist_guests.php">Guests</a></li>
             </ul>
         </nav>
         <div id="content">
-            <!--Code Here only-->
-            <!--Dashboard code should be consist of different divs-->
+            <h2>Dashboard</h2>
+                <div class="dash-box" id="mgt-guests-in"></div>
+                <div class="dash-box" id="mgt-vacancies"></div>
+                <div class="dash-box" id="mgt-coming"></div>
+                <div class="dash-box" id="mgt-reservation"></div>
+                <div class="dash-long-box" id="mgt-earnings"></div>
+                
         </div>
     </body>

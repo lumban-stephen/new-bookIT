@@ -13,23 +13,47 @@
     </head>
     <body>
         <header>
-        <img>
-        <div>
-            <img>
-            <p>Welcome, </p>
-            <a><img></img></a>
+        <div id="header">
+        <img src="assets/bookIT_Logo.png">
+            <div class="right-float">
+                <img>
+            </div>
+            <div class="right-float">
+                <p>Welcome,</p>
+            </div>
+            <div class="right-float">
+                <a><img></img></a>
+            </div>
         </div>
         </header>
-        <nav><ul>
-                <li><a>Dashboard</a></li>
-                <li><a>Revenue</a></li>
-                <li><a>Records</a></li>
-                <li><a>Guests</a></li>
-                <li><a>Room Management</a></li>
-                <li><a>Staff Management</a></li>
+        <nav>
+            <ul>
+                <li><a href="manager_dashboard.php">Dashboard</a></li>
+                <li><a href="manager_revenue.php">Revenue</a></li>
+                <li><a href="#">Records</a></li>
+                <li><a href="manager_guests.php">Guests</a></li>
+                <li><a href="manager_room-mgt.php">Room Management</a></li>
+                <li><a href="manager_staff.php">Staff Management</a></li>
             </ul>
         </nav>
         <div id="content">
-            <!--Code here for manager revenue page code-->
+            <!--Code here for manager records page code-->
+            <h2>Records</h2>
+            <br>
+            <table id="customers">
+              <tr>
+                <th>Record Type</th>
+                <th>Record Description</th>
+                <th>Date</th>
+                <th>Time</th>
+              </tr>
+              <tr>
+                <td>1001</td>
+                <td>Aircon- Single bed</td>
+                <td>10-29-2020</td>
+                <td>9:00am</td>
+              </tr>
+            </table>        
+
         </div>
     </body>
