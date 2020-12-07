@@ -150,6 +150,7 @@
             //get customer_id ($conn->insert_id : get the last generated id)
             $customer_id = $conn->insert_id;
             
+            
             //create data in guests
             $prepare2 = $conn->prepare("INSERT INTO guests(date_in,date_out,guests_count,room_id,customer_id,roomtype_id) VALUES (?,?,?,?,?,?)");
             $prepare2->bind_param("ssiiii",$_SESSION['checkin'],$_SESSION['checkout'],$_SESSION['numguest'],$room_id,$customer_id,$roomtype_id);
@@ -157,6 +158,7 @@
 
             //get guest_id ($conn->insert_id : get the last generated id)
             $guest_id = $conn->insert_id;
+
 
             //create data in schedule
             $prepare3 = $conn->prepare("INSERT INTO schedule(guest_id,customer_id,room_id,roomtype_id) VALUES (?,?,?,?)");
@@ -195,6 +197,13 @@
                 <input type='submit' name='back' value='finish booking' class='submit'>
                 <br><br>
                 </form>";
+
+            //sessions to use in checkinform.php
+            $_SESSION['guest_id'] = $guest_id;
+            $_SESSION['customer_id']=$customer_id;
+            $_SESSION['room_id']=$room_id;
+            $_SESSION['roomtype_id']=$roomtype_id;
+            $_SESSION['roomtype_id']=$roomtype_id;
 
             }
 

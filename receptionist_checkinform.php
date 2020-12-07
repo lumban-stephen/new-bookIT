@@ -45,7 +45,7 @@
             include 'connection.php';
             //error_reporting(0);
 
-            echo "<form method='post' action=''>  
+            echo "<form method='post' action='' enctype='multipart/form-data'>  
                 <label>First Name</label><br>".$_SESSION['fname']."
                 <br><br>
 
@@ -74,7 +74,7 @@
                 <br><br>
 
              <label>ID Type</label>
-                <select name='roomtype' class='button'>
+                <select name='id_type' class='button'>
                 <option value='Select'>Select</option>
                 <option value='passport'>passport</option>
                 <option value='driver license'>driver license</option>
@@ -98,10 +98,75 @@
                 <label>Address</label>
                 <input type='text' name='address' class='button' >
                 <br><br>
-                <input type='submit' name='checkin' value='CHECKIN' class='submit'>
+                <input type='submit' name='amenities' value='Proceed to Amenities' class='submit'>
+
+                <input type='submit' name='cancel' value='Cancel Check-in' class='submit'>
                 <br><br>
 
             </form>";
+
+    if(isset($_POST['amenities'])){
+        $id_type = $_POST['id_type'];
+        $ID_number = $_POST['ID_number'];
+        $address = $_POST['address'];
+
+        $files = $_FILES['file'];
+        $filename = $files['name'];
+        $tmp = $files['tmp_name'];
+        $location = 'assets/'.$filename;
+
+        move_uploaded_file($tmp,$location);
+
+        //insert address to cuctomers table
+        $prepare1= $conn->prepare("UPDATE customers SET address =? WHERE customer_id=?");
+        $prepare1->bind_param("si", $address, $_SESSION['customer_id']);
+        $prepare1->execute();
+
+        //insert ID details to guests table
+        $prepare2= $conn->prepare("UPDATE guests SET ID_type =?, ID_number=?, files=? WHERE customer_id=?");
+        $prepare2->bind_param("sssi", $id_type,$ID_number, $filename, $_SESSION['customer_id']);
+        $prepare2->execute();
+
+        //create data in checked-in-guests
+        $prepare3= $conn->prepare("INSERT INTO checked_in_guests(guest_id,room_id,roomtype_id,payment_id) VALUES (?,?,?,?)");
+        $prepare3->bind_param("iiii", $_SESSION['guest_id'], $_SESSION['room_id'], $_SESSION['roomtype_id'], $_SESSION['payment_id']);
+        $prepare3->execute();
+
+//do you need this in ameneties.php?
+        //unset($_SESSION['customer_id']);
+        unset($_SESSION['fname']);
+        unset($_SESSION['room_code']);
+        unset($_SESSION['lname']);
+        unset($_SESSION['mname']);
+        unset($_SESSION['phone']);
+        unset($_SESSION['email']);
+        unset($_SESSION['checkin']);
+        unset($_SESSION['checkout']);
+        unset($_SESSION['numguest']);
+        unset($_SESSION['room_code']);
+        unset($_SESSION['guest_id']);
+        unset($_SESSION['room_id']);
+        unset($_SESSION['roomtype_id']);
+        unset($_SESSION['payment_id']);
+
+         header("location:receptionist_ameneties.php");
+    }
+
+//cancel check in
+    if(isset($_POST['cancel'])){
+        unset($_SESSION['customer_id']);
+        unset($_SESSION['fname']);
+        unset($_SESSION['room_code']);
+        unset($_SESSION['lname']);
+        unset($_SESSION['mname']);
+        unset($_SESSION['phone']);
+        unset($_SESSION['email']);
+        unset($_SESSION['checkin']);
+        unset($_SESSION['checkout']);
+        unset($_SESSION['numguest']);
+        unset($_SESSION['room_code']);
+        header("location:receptionist_dashboard.php");}
+
 
 ?>
 
