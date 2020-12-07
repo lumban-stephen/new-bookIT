@@ -38,5 +38,22 @@
         </nav>
         <div id="content">
             <!--Code here for manager room management code-->
+            <table id="Table">
+              <tr>
+                <th>Room Number</th>
+                <th>Room Status</th>
+                <th>Room rate per night</th>
+                <th>Room Description</th>
+                <th>Actions</th>
+              </tr>
+              <tr>
+                <td>101</td>
+                <td style="color:green;">Maintenance</td>
+                <td>Php 2000</td>
+                <td>Aircon- Single Bed</td>
+                <td>
+                    <button class='Extendbutton'>Extend<br>Stay</button>
+                    <button class='Checkoutbutton'>Enable<br>Room</button></td>
+               </tr>
         </div>
     </body>
