@@ -13,8 +13,6 @@
 	color: white;
   height: 65px;
   width: 100%;
-  position: -webkit-sticky;
-  position: sticky;
 }
 
 .right-float {
@@ -38,9 +36,8 @@ ul {
   padding: 0;
   width: 13%;
   background-color: #0088B6;
-  position: fixed;
+  position: absolute;
   height: 100%;
-  overflow: auto;
 
 }
 
@@ -67,6 +64,7 @@ li a:hover:not(.active) {
   margin-top: 2%;
   margin-left: 17%;
   margin-right: 8%;
+  margin-bottom: 2%;
 }
 input[type=email], input[type=text],input[type=number] {
   width: 100%;
@@ -190,7 +188,7 @@ select[name="numguest"]:focus, select[name="roomtype"]:focus, input[type="Date"]
 #Table th {
   padding-top: 12px;
   padding-bottom: 12px;
-  text-align: left;
+  text-align: center;
   background-color: #0088B6;
   color: white;
   overflow: hidden;
@@ -211,8 +209,13 @@ select[name="numguest"]:focus, select[name="roomtype"]:focus, input[type="Date"]
   margin:0 0.3em 0.3em 0;
   box-shadow:inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
   font-weight: bold;
-
 }
+
+.Offerbutton a{
+  color:white;
+  text-decoration: none;
+}
+
 .Extendbutton {
   background-color: #81B1D5;
   border: none;
@@ -259,10 +262,11 @@ select[name="numguest"]:focus, select[name="roomtype"]:focus, input[type="Date"]
  top:0.1em;
 }
 @media all and (max-width:30em){
-.Offerbutton,.Extendbutton .Checkoutbutton.Viewbutton{
+.Offerbutton,.Extendbutton .Checkoutbutton .Viewbutton{
   display:block;
   margin:0.4em auto;
 }
+
 /** GUEST PAGE
 -------------------------------------------------*/
 .search-container {
