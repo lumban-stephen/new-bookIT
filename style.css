@@ -59,11 +59,11 @@ li a:hover:not(.active) {
   background-color: #11C3FF;
   color: white;
 }
-
+/*Content styles*/
 #content {
   margin-top: 2%;
   margin-left: 17%;
-  margin-right: 8%;
+  margin-right: 5%;
   margin-bottom: 2%;
 }
 input[type=email], input[type=text],input[type=number] {
