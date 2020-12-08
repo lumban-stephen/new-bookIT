@@ -22,10 +22,20 @@
                 <p>Welcome,</p>
             </div>
             <div class="right-float">
-                <a><img></img></a>
+                <a>
+                    <form method="post" action="#">
+	                    <button name="logout">Logout</button>
+                    </form>
+                </a>
             </div>
         </div>
         </header>
+        <?php
+            if(isset($_POST['logout'])){
+                session_destroy();
+                header("location:index.php");
+            }
+        ?>
         <nav>
             <ul>
                 <li><a href="#">Dashboard</a></li>
