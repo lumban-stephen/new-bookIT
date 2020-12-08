@@ -197,6 +197,21 @@ li a:hover:not(.active) {
 
 /** BUTTONS: RECORDS AND GUEST;
 -------------------------------------------------*/
+.Logoutbutton {
+  background-color: #CF3823;
+  border: none;
+  color: white;
+  padding:0.4em 1em;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin:0 0.3em 0.3em 0;
+  cursor: pointer;
+  box-shadow:inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
+  font-weight: bold;
+  margin: 15px 5px 15px 10px;
+}
 .Offerbutton {
   background-color: #53B7EA;
   border: none;
@@ -258,14 +273,16 @@ li a:hover:not(.active) {
   font-weight: bold;
 }
 
-.Offerbutton:active,.Extendbutton:active, .Checkoutbutton:active,.Viewbutton:active{
+.Offerbutton:active,.Extendbutton:active, .Checkoutbutton:active,.Viewbutton:active .Logoutbutton:active{
  top:0.1em;
 }
 @media all and (max-width:30em){
-.Offerbutton,.Extendbutton .Checkoutbutton .Viewbutton{
+.Offerbutton,.Extendbutton .Checkoutbutton .Viewbutton .Logoutbutton:active{
   display:block;
   margin:0.4em auto;
 }
+
+
 
 /** GUEST PAGE
 -------------------------------------------------*/
