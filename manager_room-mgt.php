@@ -62,7 +62,7 @@
             $display = $conn->query($sql);
 
         
-            if($rows = $display != NULL){ //I didn't put fetch assoc because the first value won't show if the fetch_assoc() is called twice.
+            if($rows = $display != NULL){ 
             while($rows = $display->fetch_assoc()){
                 echo
                     "<tr><td>". $rows['Room Number']. "</td>
@@ -88,7 +88,7 @@
                 }
                 echo "</table>";
             }else{
-                  echo "No guest checked-in. ";
+                  echo "No rooms added";
                 }
             $conn->close();        
             ?>
