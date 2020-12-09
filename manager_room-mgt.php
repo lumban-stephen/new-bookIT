@@ -38,6 +38,7 @@
         </nav>
         <div id="content">
             <!--Code here for manager room management code-->
+            <h2>Rooms</h2>
             <table id="Table">
               <tr>
                 <th>Room Number</th>
@@ -69,21 +70,21 @@
                          <td>". $rows['Room Status']. "</td>
                          <td>". $rows['Room Cost']. "</td>
                          <td>". $rows['Room Description']. "</td>";
-                    if ($rows['Room Status'] == 'Available' || 'Used by Guest') {
+                    if ($rows['Room Status'] == 'Available') {
                         echo "<td>
-                                <button class='Extendbutton'>Extend<br>Stay</button>
-                                <button class='Greenbutton'>Enable<br>Room</button></td>
+                                <button class= 'Extendbutton'>Extend<br>Stay</button>
+                                <button class= 'Greenbutton'>Enable<br>Room</button></td>
                              </tr>";
-                    }else if ($rows['Room Status'] == 'Maintenance' || 'Unavailable') {
+                    }elseif ($rows['Room Status'] == 'Maintenance' ||$rows['Room Status'] == 'Unavailable') {
                         echo "<td>
-                                <button class='Extendbutton'>Extend<br>Stay</button>
-                                <button class='Checkoutbutton'>Disable<br>Room</button></td>
+                                <button class= 'Extendbutton'>Extend<br>Stay</button>
+                                <button class= 'Checkoutbutton'>Disable<br>Room</button></td>
                              </tr>";
-                    }else{
+                    }elseif($rows['Room Status'] == 'Used by guest'){
                         echo "<td>
-                                <button class='Extendbutton'>Extend<br>Stay</button>
-                                <button class='Checkoutbutton'>Enable<br>Room</button></td>
-                             </tr>";                        
+                                <button class= 'Extendbutton'>Extend<br>Stay</button>
+                                <button class= 'Graybutton'>No Actions<br>Room is in use</button></td>
+                             </tr>";                     
                     }
                 }
                 echo "</table>";

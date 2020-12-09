@@ -84,7 +84,7 @@
                              <td><button  class='Offerbutton'><a href='receptionist_ameneties.php'>Offer<br>Amenities</a></button>
                                  <button class='Extendbutton'>Extend<br>Stay</button>
                                  <button class='Checkoutbutton'>Early<br>Checkout</button></td>
-                             <td><a class='Viewbutton' href= 'receptionist_guestview.php?id=".$rows['SID']."'>View</a></button></td></tr>"; /*When the button is clicked, it sends the guest ID of the row to guest_view.php*/
+                             <td><button class= 'Viewbutton'><a href= 'receptionist_guestview.php?id=".$rows['SID']."'>View</a></button></td></tr>"; /*When the button is clicked, it sends the guest ID of the row to guest_view.php*/
                       }
                     echo "</table>";
                 }else{
