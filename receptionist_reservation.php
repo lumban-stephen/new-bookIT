@@ -77,7 +77,7 @@
     $_SESSION['checkout'] = $checkout;
     $_SESSION['numguest'] = $numguest;
 
-    $sql = "SELECT DISTINCT t.room_code as 'room_code'
+    $sql = "SELECT t.room_code as 'room_code'
     FROM room_type t 
     WHERE t.roomtype_id NOT IN(
     SELECT g.roomtype_id FROM guests g where $checkin between g.date_in and g.date_out) AND t.roomtype_id NOT IN(

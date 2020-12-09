@@ -64,6 +64,10 @@
                 <label>Check-out</label><br>".$_SESSION['checkout']."
                 <br><br>
 
+                <label>Check-in Time</label>
+                <input type='time' name='time' class='button'>
+                <br><br>
+
                 <label>Number of Guests</label><br>".$_SESSION['numguest']."
                 <br><br>
 
@@ -82,43 +86,13 @@
                 <br><br>
             </form>";
 
-
-            if(isset($_POST['book'])){
-            //echo "<div class='content'>Successfully submitted!!</div>";
-
+        if(isset($_POST['book'])){
                 $fname=$_POST['fname'];
                 $lname=$_POST['lname'];
                 $mname=$_POST['mname'];
                 $phone=$_POST['phone'];
                 $email=$_POST['email'];
-
-            echo "<label>First Name : </label>".$fname."<br>
-            <label>Last Name : </label>".$lname."<br>
-            <label>Middle Name : </label>".$mname."<br>
-            <label>Check-in : </label>".$_SESSION['checkin']."<br>
-            <label>Check-out : </label>".$_SESSION['checkout']."<br>
-            <label>Number of Guests : </label>".$_SESSION['numguest']."<br>
-            <label>Room Selected : </label>".$_SESSION['room_code']."<br>
-            <label>Phone Number : </label>".$phone."<br>
-            <label>E-mail : </label>".$email;
-
-            echo "<form method='post' action=''><input type='submit' name='confirm' value='Confirm' class='submit'>
-                <br><br>
-                <input type='submit' name='cancel' value='Cancel' class='submit'>
-                <br><br>
-                <input type='hidden' name='fname' value='{$fname}'>
-                <input type='hidden' name='lname' value='{$lname}'>
-                <input type='hidden' name='mname' value='{$mname}'>
-                <input type='hidden' name='phone' value='{$phone}'>
-                <input type='hidden' name='email' value='{$email}'>
-                </form>";}
-
-            if(isset($_POST['confirm'])){
-                $fname=$_POST['fname'];
-                $lname=$_POST['lname'];
-                $mname=$_POST['mname'];
-                $phone=$_POST['phone'];
-                $email=$_POST['email'];
+                $time=$_POST['time'];
                 $_SESSION['fname']=$fname;
                 $_SESSION['lname']=$lname;
                 $_SESSION['mname']=$mname;
@@ -191,26 +165,21 @@
             $prepare7 = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_date,roomtype_id) VALUES (?,?,?,?)");
             $prepare7->bind_param("iisi",$stays,$bill_id,$_SESSION['checkin'],$roomtype_id);
             $prepare7->execute();
-            
-            echo "<form method='post' action=''><input type='submit' name='checkin' value='Check-in' class='submit'>
-                <br><br>
-                <input type='submit' name='back' value='finish booking' class='submit'>
-                <br><br>
-                </form>";
 
+            //create data in records
+            $record_type="COMING";
+            $prepare7 = $conn->prepare("INSERT INTO records(record_type,record_date,record_time,guest_id,room_id,payment_id) VALUES (?,?,?,?,?,?)");
+            $prepare7->bind_param("sssiii",$record_type,$_SESSION['checkin'],$time,$guest_id,$room_id,$payment_id);
+            $prepare7->execute();
+            
             //sessions to use in checkinform.php
             $_SESSION['guest_id'] = $guest_id;
             $_SESSION['customer_id']=$customer_id;
             $_SESSION['room_id']=$room_id;
             $_SESSION['roomtype_id']=$roomtype_id;
-            $_SESSION['roomtype_id']=$roomtype_id;
+            $_SESSION['payment_id']=$payment_id;
 
             }
-
-            //if check in
-            if(isset($_POST['checkin'])){
-
-            header("location:receptionist_checkinform.php");}
 
             //if cancel booking
             if(isset($_POST['cancel'])){
@@ -220,13 +189,6 @@
             unset($_SESSION['room_code']);
             header("location:receptionist_reservation.php");}
 
-            //if finish booking
-            if(isset($_POST['back'])){
-            unset($_SESSION['checkin']);
-            unset($_SESSION['checkout']);
-            unset($_SESSION['numguest']);
-            unset($_SESSION['room_code']);
-            header("location:receptionist_dashboard.php");}
 
             ?>
             
