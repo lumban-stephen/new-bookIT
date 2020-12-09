@@ -1,6 +1,5 @@
 <?php
-    include 'connection.php';
-    session_start();
+   session_start();
 ?>
 
 <!DOCTYPE html>
@@ -41,8 +40,9 @@
         <div id="content">
             <!--Code Here only-->
             <!--Check in page code in here-->
-    <hr>
+
     <?php
+    include 'connection.php';
     //error_reporting(0);
     if(isset($_POST['search'])){
         

@@ -40,10 +40,11 @@
         <div id="content">
             <!--Code Here only-->
             <!--Booking page code in here-->
+
             <?php
             include 'connection.php';
             //error_reporting(0);
-            echo "<div class='Booking-form'>";
+
             echo "<form method='post' action=''>  
                 <label>First Name</label>
                 <input type='text' name='fname' class='button' required>
@@ -227,9 +228,8 @@
             unset($_SESSION['room_code']);
             header("location:receptionist_dashboard.php");}
 
-            echo "</div>";
             ?>
-
+            
 
 
 
