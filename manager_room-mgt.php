@@ -38,5 +38,60 @@
         </nav>
         <div id="content">
             <!--Code here for manager room management code-->
+            <table id="Table">
+              <tr>
+                <th>Room Number</th>
+                <th>Room Status</th>
+                <th>Room rate per night</th>
+                <th>Room Description</th>
+                <th>Actions</th>
+              </tr>
+        <?php
+            include 'connection.php';
+            
+            $sql = "SELECT r.room_id AS 'Room Number',
+                        r.room_status AS 'Room Status',
+                        t.room_cost AS 'Room Cost', t.room_desc AS 'Room Description'
+                    FROM
+                        Rooms r, room_type t
+                    WHERE
+                        r.roomtype_id = t.roomtype_id
+                    GROUP BY
+                    r.room_id;";
+
+            $display = $conn->query($sql);
+
+        
+            if($rows = $display != NULL){ //I didn't put fetch assoc because the first value won't show if the fetch_assoc() is called twice.
+            while($rows = $display->fetch_assoc()){
+                echo
+                    "<tr><td>". $rows['Room Number']. "</td>
+                         <td>". $rows['Room Status']. "</td>
+                         <td>". $rows['Room Cost']. "</td>
+                         <td>". $rows['Room Description']. "</td>";
+                    if ($rows['Room Status'] == 'Available' || 'Used by Guest') {
+                        echo "<td>
+                                <button class='Extendbutton'>Extend<br>Stay</button>
+                                <button class='Greenbutton'>Enable<br>Room</button></td>
+                             </tr>";
+                    }else if ($rows['Room Status'] == 'Maintenance' || 'Unavailable') {
+                        echo "<td>
+                                <button class='Extendbutton'>Extend<br>Stay</button>
+                                <button class='Checkoutbutton'>Disable<br>Room</button></td>
+                             </tr>";
+                    }else{
+                        echo "<td>
+                                <button class='Extendbutton'>Extend<br>Stay</button>
+                                <button class='Checkoutbutton'>Enable<br>Room</button></td>
+                             </tr>";                        
+                    }
+                }
+                echo "</table>";
+            }else{
+                  echo "No guest checked-in. ";
+                }
+            $conn->close();        
+            ?>
+
         </div>
     </body>
