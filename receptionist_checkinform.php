@@ -208,21 +208,27 @@
         $prepare4->bind_param("isi", $guest_id,$room_status, $_SESSION['room_id']);
         $prepare4->execute();
 
-        //unset($_SESSION['customer_id']);
-        unset($_SESSION['fname']);
+    //insert data in records
+            $record_type="STAYING";
+            $prepare5 = $conn->prepare("INSERT INTO records(record_type,record_date,record_time,guest_id,room_id,payment_id) VALUES (?,?,?,?,?,?)");
+            $prepare5->bind_param("sssiii",$record_type,$_SESSION['checkin'],$time,$guest_id,$room_id,$payment_id);
+            $prepare5->execute();
+
+        unset($_SESSION['customer_id']);
+        //unset($_SESSION['fname']);
         unset($_SESSION['room_code']);
-        unset($_SESSION['lname']);
-        unset($_SESSION['mname']);
+        //unset($_SESSION['lname']);
+        //unset($_SESSION['mname']);
         unset($_SESSION['phone']);
         unset($_SESSION['email']);
         unset($_SESSION['checkin']);
         unset($_SESSION['checkout']);
         unset($_SESSION['numguest']);
         unset($_SESSION['room_code']);
-        unset($_SESSION['guest_id']);
+        //unset($_SESSION['guest_id']);
         unset($_SESSION['room_id']);
         unset($_SESSION['roomtype_id']);
-        unset($_SESSION['payment_id']);
+        //unset($_SESSION['payment_id']);
 
          header("location:receptionist_ameneties.php");
     }
@@ -235,6 +241,10 @@
         $phone=$_POST['phone'];
         $email=$_POST['email'];
         $address = $_POST['address'];
+
+        $_SESSION['fname']=$fname;
+        $_SESSION['lname']=$lname;
+        $_SESSION['mname']=$mname;
 
         $id_type = $_POST['id_type'];
         $ID_number = $_POST['ID_number'];
@@ -307,6 +317,8 @@
 
             //get bill_id ($conn->insert_id : get the last generated id)
             $bill_id= $conn->insert_id;
+            $_SESSION['bill_id']=$bill_id;
+
 
             //create data in bill_items
             $prepare7 = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_date,roomtype_id) VALUES (?,?,?,?)");
@@ -325,12 +337,35 @@
         $prepare9->execute();
 
         $room_status="Used by guest";
-            //insert guest_id rooms
+    //insert guest_id rooms
         $prepare10= $conn->prepare("UPDATE rooms SET guest_id =?,room_status=? WHERE room_id=?");
         $prepare10->bind_param("isi", $guest_id,$room_status, $room_id);
         $prepare10->execute();
+
+    //insert data in records
+        $time=date("h:i:s");
+        $record_type="STAYING";
+        $prepare11 = $conn->prepare("INSERT INTO records(record_type,record_date,record_time,guest_id,room_id,payment_id) VALUES (?,?,?,?,?,?)");
+        $prepare11->bind_param("sssiii",$record_type,$_SESSION['checkin'],$time,$guest_id,$room_id,$payment_id);
+        $prepare11->execute();
         
             header("location:receptionist_ameneties.php");
+
+        //unset($_SESSION['customer_id']);
+        //unset($_SESSION['fname']);
+        unset($_SESSION['room_code']);
+        //unset($_SESSION['lname']);
+        //unset($_SESSION['mname']);
+        //unset($_SESSION['phone']);
+        //unset($_SESSION['email']);
+        unset($_SESSION['checkin']);
+        unset($_SESSION['checkout']);
+        unset($_SESSION['numguest']);
+        unset($_SESSION['room_code']);
+        //unset($_SESSION['guest_id']);
+        unset($_SESSION['room_id']);
+        unset($_SESSION['roomtype_id']);
+        //unset($_SESSION['payment_id']);
 
             }
 

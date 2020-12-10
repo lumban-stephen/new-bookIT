@@ -160,6 +160,7 @@
 
             //get bill_id ($conn->insert_id : get the last generated id)
             $bill_id= $conn->insert_id;
+            $_SESSION['bill_id']=$bill_id;
 
             //create data in bill_items
             $prepare7 = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_date,roomtype_id) VALUES (?,?,?,?)");
