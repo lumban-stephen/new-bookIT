@@ -13,18 +13,23 @@
         <link rel="stylesheet" href="style.css"> 
     </style>
     </head>
-    <body>
+    <body class="loginbody">
+    <div class="box-head"></div>
           <!-- <form action="" method="post">
               <div>Log In</div>
               <input type = "text" name = "username" placeholder = "Username" required>
               <input type = "password" name = "password" placeholder = "Password" required>
               <button type = "submit" class="submitlogin" name = "login">Login</button>
         </form> -->
+    <div class="content-image">
+        <img src="assets/bookIT_Logo.png">
+    </div>
             <div id="login-form">
+                <h1>Log-in</h1>
                 <form action="" method="post">
-                    <input type="email" name="email" placeholder="Enter email" required>
-                    <input type="password" name="password" placeholder="Enter password" required>
-                    <button name="login">Log in</button>
+                    <input type="email" class="field" name="email" placeholder="Enter email" required>
+                    <input type="password" class="field" name="password" placeholder="Enter password" required><br><br>
+                    <button class="Greenbutton"name="login">Log in</button>
                 </form>
             </div>
             <?php
@@ -52,4 +57,5 @@
                 
                 $conn->close();
           ?>
+    <div class="box-foot"></div>
     </body>
