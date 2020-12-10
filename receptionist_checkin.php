@@ -1,6 +1,5 @@
 <?php
-    include 'connection.php';
-    session_start();
+   session_start();
 ?>
 
 <!DOCTYPE html>
@@ -41,8 +40,9 @@
         <div id="content">
             <!--Code Here only-->
             <!--Check in page code in here-->
-    <hr>
+
     <?php
+    include 'connection.php';
     //error_reporting(0);
     if(isset($_POST['search'])){
         
@@ -55,10 +55,10 @@
     $_SESSION['numguest'] = $numguest;
 
     $sql1 = "SELECT t.room_code as 'room_code',t.room_desc AS room_desc
-    FROM room_type t 
+    FROM room_type t, rooms r
     WHERE t.roomtype_id NOT IN(
     SELECT g.roomtype_id FROM guests g where $checkin between g.date_in and g.date_out) AND t.roomtype_id NOT IN(
-    SELECT g.roomtype_id FROM guests g where $checkout between g.date_in and g.date_out) AND t.room_cap>=$numguest";
+    SELECT g.roomtype_id FROM guests g where $checkout between g.date_in and g.date_out) AND t.room_cap>=$numguest AND t.roomtype_id=r.roomtype_id AND r.room_status != 'Maintenance'";
 
     $result1 = $conn->query($sql1); 
 
@@ -73,79 +73,11 @@
     }else{
         echo 'No available room.';
     }
-
-    $sql2 = "SELECT t.room_code as 'room_code', CONCAT(c.fname,', ',c.MI,', ',c.lname) as 'NAME', g.date_in as 'date_in', g.date_out as 'date_out',t.room_desc AS room_desc, c.fname AS fname, c.lname as lname, c.MI as mname, c.phone as phone, c.email as email,c.customer_id as customer_id, g.guest_id as guest_id, r.room_id as room_id, t.roomtype_id as roomtype_id, g.payment_id as payment_id
-    FROM guests g, customers c, room_type t,rooms r
-    WHERE c.customer_id=g.customer_id AND g.roomtype_id=t.roomtype_id AND g.date_in>=$checkin AND r.roomtype_id=t.roomtype_id
-    GROUP BY g.date_in";
-
-    $result2 = $conn->query($sql2); 
-
-    if(mysqli_num_rows($result2) > 0){
-    while($row = $result2->fetch_assoc()){
-                
-                echo "<form action='' method='POST'><label>Name: </label>".$row['NAME']."<br>
-
-                <label>Check-in: </label>".$row['date_in']."\t
-
-                <label>Check-out: </label>".$row['date_out']."
-                <br>
-                <label>Room: </label>".$row['room_code']."\t".$row['room_desc']."
-                <br>
-
-                <input type='hidden' name='fname' value='{$row['fname']}'>
-                <input type='hidden' name='lname' value='{$row['lname']}'>
-                <input type='hidden' name='mname' value='{$row['mname']}'>
-                <input type='hidden' name='phone' value='{$row['phone']}'>
-                <input type='hidden' name='email' value='{$row['email']}'>
-                <input type='hidden' name='room_code' value='{$row['room_code']}'>
-                <input type='hidden' name='guest_id' value='{$row['guest_id']}'>
-                <input type='hidden' name='customer_id' value='{$row['customer_id']}'>
-                <input type='hidden' name='room_id' value='{$row['room_id']}'>
-                <input type='hidden' name='roomtype_id' value='{$row['roomtype_id']}'>
-                <input type='hidden' name='payment_id' value='{$row['payment_id']}'>
-
-                <input type='submit' name='select' value='select'>
-                </form><br>
-
-                ";}
-    }else{
-        echo 'No list.';
     }
 
-
-
-
-}
-
-    if(isset($_POST['select'])){
-        $fname=$_POST['fname'];
-        $lname=$_POST['lname'];
-        $mname=$_POST['mname'];
-        $phone=$_POST['phone'];
-        $email=$_POST['email'];
-        $room_code = $_POST['room_code'];
-
-        $guest_id=$_POST['guest_id'];
-        $customer_id=$_POST['customer_id'];
-        $room_id=$_POST['room_id'];
-        $roomtype_id=$_POST['roomtype_id'];
-        $payment_id=$_POST['payment_id'];
-
-
-        $_SESSION['fname']=$fname;
-        $_SESSION['lname']=$lname;
-        $_SESSION['mname']=$mname;
-        $_SESSION['phone']=$phone;
-        $_SESSION['email']=$email;  
+     if(isset($_POST['select'])){  
+        $room_code = $_POST['room'];
         $_SESSION['room_code'] = $room_code;
-
-        $_SESSION['guest_id'] = $guest_id;
-        $_SESSION['customer_id'] = $customer_id;
-        $_SESSION['room_id'] = $room_id;
-        $_SESSION['roomtype_id'] = $roomtype_id;
-        $_SESSION['payment_id'] = $payment_id;
-        
         header("location:receptionist_checkinform.php");   
 }
 
