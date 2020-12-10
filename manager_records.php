@@ -38,15 +38,39 @@
         </nav>
         <div id="content">
             <!--Code here for manager records page code-->
+            <?php
+            include 'connection.php';
+            //error_reporting(0);?>
+
+
            <h2>Records</h2>
             <br>
             <table id="Table">
               <tr>
                 <th>Record Type</th>
+                <th>Room Number</th>
                 <th>Record Description</th>
                 <th>Date</th>
                 <th>Time</th>
               </tr>
+
+<?php
+$sql = "SELECT r.room_code as room_code, rec.record_type as record_type, rec.record_desc as record_desc, rec.record_date as record_date, rec.record_time as record_time
+    FROM records rec,rooms r
+    WHERE rec.room_id=r.room_id";
+
+    $result = $conn->query($sql); 
+
+    if(mysqli_num_rows($result) > 0){
+        echo "<tr>
+                <td>".$row['record_type']."</td>
+                <td>".$row['room_code']."</td>
+                <td>".$row['record_desc']."</td>
+                <td>".$row['record_date']."</td>
+                <td>".$row['record_time']."</td>
+              </tr>";}
+  ?>
+
               <tr>
                 <td>1001</td>
                 <td>Aircon- Single bed</td>
