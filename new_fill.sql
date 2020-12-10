@@ -161,9 +161,3 @@ INSERT INTO `users` (`fname`,`lname`,`MI`, `email`, `password`, `user_type`) VAL
 ('Ash', 'Ketchum', 'P', 'admin@email.com', 'admin', 'Admin'),
 ('Luffy', 'Monkey', 'D', 'rec@email.com', 'receptionist', 'Receptionist')
 ;
-
-
-
-INSERT INTO `task` (`task_name`,`task_desc`,task_status) VALUES
-('clean room','a customer spilled juice on the bed.','INCOMPLETE'),('Order equipmemts','check the storage, and order them.','INCOMPLETE')
-;

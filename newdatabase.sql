@@ -158,6 +158,3 @@ ALTER TABLE `bill_items`
 ADD CONSTRAINT `billitems_bill_pk` FOREIGN KEY (`bill_id`) REFERENCES `bill` (`bill_id`),
  ADD CONSTRAINT `billitems_roomtype_pk` FOREIGN KEY (`roomtype_id`) REFERENCES `Room_Type` (`roomtype_id`),
   ADD CONSTRAINT `billitems_amenities_pk` FOREIGN KEY (`amenity_id`) REFERENCES `amenities` (`amenity_id`);
-
-
-ALTER TABLE task ADD task_name varchar(100);

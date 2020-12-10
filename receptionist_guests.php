@@ -26,7 +26,7 @@
             </div>
         </div>
         </header>
-        <nav>
+       <nav>
             <ul>
                 <li><a href="receptionist_dashboard.php">Dashboard</a></li>
                 <li><a href="receptionist_checkin.php">Check In</a></li>
@@ -37,6 +37,7 @@
                 <li><a href="#">Guests</a></li>
             </ul>
         </nav>
+
         <div id="content">
             <!--Code Here only-->
             <div class="search-container">
@@ -54,6 +55,7 @@
                 <th>Actions</th>
                 <th>More Info</th>
               </tr>
+
             <?php
         include 'connection.php';
         
@@ -90,7 +92,6 @@
                 }
                $conn->close();        
         ?>
-            </table>  
-
         </div>
+
     </body>
