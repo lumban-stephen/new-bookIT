@@ -39,73 +39,119 @@
             </ul>
         </nav>
         <div id="content">
+            <!--Code Here only-->
+            <!--receptionist check in form page code in here-->
+<?php
+include 'connection.php';
+//echo "<link rel='stylesheet' href='ameneties.css'>";
+
+?>
+
+        <p>Hygiene</p>
             <div class="amty">
-                <p>Hygiene</p>
-                <div class="amty-box">
-                    <img src="assets/img-dummy.jpg">
-                    <p class="name"></p>
-                    <div class="counter"><div class="minus"></div><!--Insert php number--><div class="plus"></div></div>
+                
+                <?php
+                $Hygiene="Hygiene";
+                $sql1 = "SELECT * FROM amenities WHERE amenity_type = 'Hygiene'";
+$result1 = $conn->query($sql1);
+                while($row1 = $result1->fetch_assoc()){
+
+    echo "<div class='amty-box'>
+            <img src='assets/img-dummy.jpg'>
+                <p class='name'>".$row1['amenity_name']."</p>
+                <div class='counter'>
+                    <select name='count'>
+    <option value='Select'>Select</option>
+    <option value='1'>1</option>
+    <option value='2'>2</option>
+    <option value='3'>3</option>
+    <option value='4'>4</option>
+    <option value='5'>5</option>  
+</select> 
                 </div>
-                <div class="amty-box">
-                    <img src="assets/img-dummy.jpg">
-                    <p class="name"></p>
-                    <div class="counter"><img class="minus"><!--Insert php number--><img class="plus"></div>
-                </div>
-                <div class="amty-box">
-                    <img src="assets/img-dummy.jpg">
-                    <p class="name"></p>
-                    <div class="counter"><img class="minus"><!--Insert php number--><img class="plus"></div>
-                </div>
-                <hr>
+            </div>"; }
+            ?>
+                
             </div>
+        <hr>
+
+        <p>Food</p>
             <div class="amty">
-                <p>Food</p>
-                <div class="amty-box">
-                    <img src="assets/img-dummy.jpg">
-                    <p class="name"></p>
-                    <div class="counter"><img class="minus"><!--Insert php number--><img class="plus"></div>
+                
+                <?php
+                $sql2 = "SELECT * FROM amenities WHERE amenity_type = 'Foods'";
+    $result2 = $conn->query($sql2);
+                while($row2 = $result2->fetch_assoc()){
+
+    echo "<div class='amty-box'>
+            <img src='assets/img-dummy.jpg'>
+                <p class='name'>".$row2['amenity_name']."</p>
+                <div class='counter'>
+                    <img src='assets/minus.png' class='minus' style='width:20px;height:20px;'>
+                    <!--Insert php number-->5
+                    <img src='assets/plus.png' class='plus' style='width:20px;height:20px;'>
                 </div>
-                <div class="amty-box">
-                    <img src="assets/img-dummy.jpg">
-                    <p class="name"></p>
-                    <div class="counter"><img class="minus"><!--Insert php number--><img class="plus"></div>
-                </div>
-                <div class="amty-box">
-                    <img src="assets/img-dummy.jpg">
-                    <p class="name"></p>
-                    <div class="counter"><img class="minus"><!--Insert php number--><img class="plus"></div>
-                </div>
-                <div class="amty-box">
-                    <img src="assets/img-dummy.jpg">
-                    <p class="name"></p>
-                    <div class="counter"><img class="minus"><!--Insert php number--><img class="plus"></div>
-                </div>
-                <hr>
+            </div>"; }
+            ?>
+                
             </div>
+        <hr>
+
+    <p>Drinks</p>
             <div class="amty">
-                <p>Extras</p>
-                <div class="amty-box">
-                    <img src="assets/img-dummy.jpg">
-                    <p class="name"></p>
-                    <div class="counter"><img class="minus"><!--Insert php number--><img class="plus"></div>
+                
+                <?php
+                $sql3 = "SELECT * FROM amenities WHERE amenity_type = 'Drinks'";
+$result3 = $conn->query($sql3);
+                while($row3 = $result3->fetch_assoc()){
+
+    echo "<div class='amty-box'>
+            <img src='assets/img-dummy.jpg'>
+                <p class='name'>".$row3['amenity_name']."</p>
+                <div class='counter'>
+                    <img src='assets/minus.png' class='minus' style='width:20px;height:20px;'>
+                    <!--Insert php number-->5
+                    <img src='assets/plus.png' class='plus' style='width:20px;height:20px;'>
                 </div>
-                <div class="amty-box">
-                    <img src="assets/img-dummy.jpg">
-                    <p class="name"></p>
-                    <div class="counter"><img class="minus"><!--Insert php number--><img class="plus"></div>
-                </div>
-                <div class="amty-box">
-                    <img src="assets/img-dummy.jpg">
-                    <p class="name"></p>
-                    <div class="counter"><img class="minus"><!--Insert php number--><img class="plus"></div>
-                </div>
-                <hr>
+            </div>"; }
+            ?>
             </div>
+        <hr>
+
+
+
+        <p>Extras</p>
+            <div class="amty">
+            <?php
+                $sql4 = "SELECT * FROM amenities WHERE amenity_type = 'Extras'";
+$result4 = $conn->query($sql4);
+                while($row4 = $result4->fetch_assoc()){
+
+    echo "<div class='amty-box'>
+            <img src='assets/img-dummy.jpg'>
+                <p class='name'>".$row4['amenity_name']."</p>
+                <div class='counter'>
+                    <img src='assets/minus.png' class='minus' style='width:20px;height:20px;'>
+                    <!--Insert php number-->5
+                    <img src='assets/plus.png' class='plus' style='width:20px;height:20px;'>
+                </div>
+            </div>"; }
+            ?>
+
+            </div>
+        <hr>
+
             <div class="amty">
                 <p>Guest Details</p>
                 <div class="amty-desc">
-                    <p>Guest Name: </p>
-                    <p>Bill ID: </p>
+                    <?php
+echo "<p>Guest Name:".$_SESSION['fname']." ".$_SESSION['mname']." ".$_SESSION['lname']." </p>
+    <p>Bill ID: ".$_SESSION['bill_id']."</p>
+
+";
+
+
+                      ?>
                     <p>Total Amount: </p>
                     <div class="amty-btn bluegray">Process Order</div>
                     <div class="amty-btn green">Check In</div>

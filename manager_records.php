@@ -38,9 +38,9 @@
         </nav>
         <div id="content">
             <!--Code here for manager records page code-->
-           <h2>Records</h2>
+            <h2>Records</h2>
             <br>
-            <table id="Table">
+            <table id="customers">
               <tr>
                 <th>Record Type</th>
                 <th>Record Description</th>

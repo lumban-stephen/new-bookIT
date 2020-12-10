@@ -9,14 +9,14 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Log In</title>
-        <link rel="stylesheet" href="style.css"> 
+        <link rel="stylesheet" href="style.css"> @import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700|Poppins:400,500&display=swap');
     </style>
     </head>
     <body>
-          <form action="" method="post">
-              <div>Log In</div>
-              <input type = "text" name = "username" placeholder = "Username" required>
-              <input type = "password" name = "password" placeholder = "Password" required>
+          <form action="" method="post" class="loginpage">
+              <header>Login</header>
+              <div class="field"><span class="fa fa-user"></span><input type = "text" name = "username" placeholder = "Username" required></div>
+              <div class="field"><span class="fa fa-lock"></span><input type = "password" name = "password" placeholder = "Password" required></div>
               <button type = "submit" class="submitlogin" name = "login">Login</button>
         </form>
             <?php

@@ -13,6 +13,8 @@
 	color: white;
   height: 65px;
   width: 100%;
+  position: -webkit-sticky;
+  position: sticky;
 }
 
 .right-float {
@@ -36,8 +38,9 @@ ul {
   padding: 0;
   width: 13%;
   background-color: #0088B6;
-  position: absolute;
+  position: fixed;
   height: 100%;
+  overflow: auto;
 
 }
 
@@ -60,6 +63,7 @@ li a:hover:not(.active) {
   color: white;
 }
 
+
 /* LOGIN PAGE
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .loginbody{
@@ -72,13 +76,13 @@ li a:hover:not(.active) {
     left: 60px;
 }
 /*Content styles*/
+
 #content {
   margin-top: 2%;
   margin-left: 17%;
-  margin-right: 5%;
-  margin-bottom: 2%;
+  margin-right: 8%;
 }
-.booking-form input[type=email],.booking-form input[type=text], .booking-form input[type=number] {
+input[type=email], input[type=text],input[type=number] {
   width: 100%;
   padding: 15px;
   margin: 5px 0 22px 0;
@@ -87,11 +91,11 @@ li a:hover:not(.active) {
   background: #f1f1f1;
 }
 
-.booking-form input[type=email]:focus, .booking-form input[type=text]:focus,.booking-form input[type=number]:focus {
+input[type=email]:focus, input[type=text]:focus,input[type=number]:focus {
   background-color: #ddd;
   outline: none;
 }
-.booking-form select[name="numguest"], .booking-form select[name="roomtype"], .booking-form input[type="Date"] {
+select[name="numguest"], select[name="roomtype"], input[type="Date"] {
   width: 35%;
   padding: 15px;
   margin: 5px 0 22px 0;
@@ -100,7 +104,7 @@ li a:hover:not(.active) {
   background: #f1f1f1;
 }
 
-.booking-form select[name="numguest"]:focus,.booking-form  select[name="roomtype"]:focus, .booking-form input[type="Date"]:focus {
+select[name="numguest"]:focus, select[name="roomtype"]:focus, input[type="Date"]:focus {
   background-color: #ddd;
   outline: none;
 }
@@ -200,7 +204,7 @@ li a:hover:not(.active) {
 #Table th {
   padding-top: 12px;
   padding-bottom: 12px;
-  text-align: center;
+  text-align: left;
   background-color: #0088B6;
   color: white;
   overflow: hidden;
@@ -237,11 +241,21 @@ button{
   background-color: #53B7EA;
 }
 
-.Offerbutton a{
-  color:white;
+.Offerbutton {
+  background-color: #53B7EA;
+  border: none;
+  color: white;
+  padding:0.4em 1em;
+  text-align: center;
   text-decoration: none;
-}
+  display: inline-block;
+  font-size: 14px;
+  margin:0 0.3em 0.3em 0;
+  box-shadow:inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
+  font-weight: bold;
 
+
+}
 .Extendbutton {
   background-color: #81B1D5;
 
@@ -257,23 +271,27 @@ button{
   color:white;
   text-decoration: none;
 }
-.Offerbutton:active,.Extendbutton:active, .Checkoutbutton:active,.Viewbutton:active .Logoutbutton:active{
+
+.Offerbutton:active,.Extendbutton:active, .Checkoutbutton:active,.Viewbutton:active{
  top:0.1em;
 }
 @media all and (max-width:30em){
-.Offerbutton,.Extendbutton, .Checkoutbutton, .Viewbutton, .Logoutbutton:active{
+.Offerbutton,.Extendbutton .Checkoutbutton.Viewbutton{
   display:block;
   margin:0.4em auto;
 }
-
-
 /** GUEST PAGE
 -------------------------------------------------*/
 .search-container {
   float: left;
 }
 ​
-
+.search-container input[type=text] {
+  padding: 6px;
+  margin-top: 8px;
+  font-size: 17px;
+  border: none;
+}
 
 .search-container button {
   float: right;
@@ -294,7 +312,14 @@ button{
   .search-container {
     float: none;
   }
-
+  .search-container input[type=text], .search-container button {
+    float: none;
+    display: block;
+    text-align: left;
+    width: 100%;
+    margin: 0;
+    padding: 14px;
+  }
   .search-container input[type=text] {
     border: 1px solid #ccc;  
 }
