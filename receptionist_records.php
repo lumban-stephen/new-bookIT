@@ -28,32 +28,49 @@
         </header>
         <nav>
             <ul>
-                <li><a href="receptionist_dashboard.php">Dashboard</a></li>
-                <li><a href="receptionist_checkin.php">Check In</a></li>
-                <li><a href="receptionist_checkout.php">Check Out</a></li>
-                <li><a href="receptionist_reservation.php">Reservation</a></li>
+                <li><a href="manager_dashboard.php">Dashboard</a></li>
+                <li><a href="manager_revenue.php">Revenue</a></li>
                 <li><a href="#">Records</a></li>
-                <li><a href="receptionist_toDoList.php">To Do List</a></li>
-                <li><a href="receptionist_guests.php">Guests</a></li>
+                <li><a href="manager_guests.php">Guests</a></li>
+                <li><a href="manager_room-mgt.php">Room Management</a></li>
+                <li><a href="manager_staff.php">Staff Management</a></li>
             </ul>
         </nav>
         <div id="content">
-            <!--Code Here only-->
-            <h2>Records</h2>
+            <!--Code here for manager records page code-->
+
+
+           <h2>Records</h2>
             <br>
             <table id="Table">
               <tr>
                 <th>Record Type</th>
+                <th>Room Number</th>
                 <th>Record Description</th>
                 <th>Date</th>
                 <th>Time</th>
               </tr>
-              <tr>
-                <td>1001</td>
-                <td>Aircon- Single bed</td>
-                <td>10-29-2020</td>
-                <td>9:00am</td>
-              </tr>
+
+<?php
+    include 'connection.php';
+    //error_reporting(0);?
+
+$sql = "SELECT t.room_code as room_code, rec.record_type as record_type, rec.record_desc as record_desc, rec.record_date as record_date, rec.record_time as record_time
+    FROM records rec,rooms r,room_type t
+    WHERE rec.room_id=r.room_id AND r.roomtype_id=t.roomtype_id ORDER BY rec.record_date";
+
+    $result = $conn->query($sql); 
+while($row = $result->fetch_assoc()){
+    
+        echo "<tr>
+                <td>".$row['record_type']."</td>
+                <td>".$row['room_code']."</td>
+                <td>".$row['record_desc']."</td>
+                <td>".$row['record_date']."</td>
+                <td>".$row['record_time']."</td>
+              </tr>";}
+  ?>
             </table>        
+
         </div>
     </body>
