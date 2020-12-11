@@ -37,12 +37,7 @@
             </ul>
         </nav>
         <div id="content">
-            <!--Code here for manager revenue page code
-            weekly
-            $year=date("y");
-            
-            $week=date("y");
-            -->
+            <!--Code here for manager revenue page code-->
 
             <?php
             include 'connection.php';
@@ -53,7 +48,7 @@
                 WHERE MONTH(date_in)=$month";
                 $result1 = $conn->query($sql1);
                 while($row1 = $result1->fetch_assoc()){
-                    echo "monthly".$row1['monthly'];   
+                    echo "<div class='dash-box' id='mgt-vacancies'  style='color:white';><p>monthly</p><h1>".$row1['monthly']."</h1></div>";   
                 }
 
         $year=date("Y");
@@ -62,7 +57,7 @@
                 WHERE YEAR(date_in)=$year";
                 $result2 = $conn->query($sql2);
                 while($row2 = $result2->fetch_assoc()){
-                    echo "<br>yearly".$row2['yearly'];   
+                    echo "<div class='dash-box' id='mgt-guests-in'  style='color:white';><p>yearly</p><h1>".$row2['yearly']."</h1></div>";   
                 }
 
         $week=date("W");
@@ -71,13 +66,13 @@
                 WHERE WEEK(date_in)=$week";
                 $result3 = $conn->query($sql3);
                 while($row3 = $result3->fetch_assoc()){
-                    echo "<br>weekly".$row3['weekly'];   
+                    echo "<div class='dash-long-box' id='mgt-earnings'  style='color:white';><p>weekly</p><h1>".$row3['weekly']."</h1></div>";   
                 }
                          
 
             ?>
-        
 
+             
 
         </div>
     </body>
