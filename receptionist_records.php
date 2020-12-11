@@ -28,19 +28,18 @@
         </header>
         <nav>
             <ul>
-                <li><a href="manager_dashboard.php">Dashboard</a></li>
-                <li><a href="manager_revenue.php">Revenue</a></li>
+                <li><a href="receptionist_dashboard.php">Dashboard</a></li>
+                <li><a href="receptionist_checkin.php">Check In</a></li>
+                <li><a href="receptionist_checkout.php">Check Out</a></li>
+                <li><a href="receptionist_reservation.php">Reservation</a></li>
                 <li><a href="#">Records</a></li>
-                <li><a href="manager_guests.php">Guests</a></li>
-                <li><a href="manager_room-mgt.php">Room Management</a></li>
-                <li><a href="manager_staff.php">Staff Management</a></li>
+                <li><a href="receptionist_toDoList.php">To Do List</a></li>
+                <li><a href="receptionist_guests.php">Guests</a></li>
             </ul>
         </nav>
         <div id="content">
-            <!--Code here for manager records page code-->
-
-
-           <h2>Records</h2>
+            <!--Code Here only-->
+            <h2>Records</h2>
             <br>
             <table id="Table">
               <tr>
@@ -50,6 +49,7 @@
                 <th>Date</th>
                 <th>Time</th>
               </tr>
+
 
 <?php
     include 'connection.php';
@@ -71,6 +71,6 @@ while($row = $result->fetch_assoc()){
               </tr>";}
   ?>
             </table>        
-
+      
         </div>
     </body>
