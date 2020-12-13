@@ -30,7 +30,7 @@ CREATE TABLE Users(
     CREATE TABLE Rooms(
         room_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
         room_status ENUM('Available', 'Used by guest','Maintenance'),
-        roomtype_id INT,                                                 
+        roomtype_id INT                                                 
     );
 
     CREATE TABLE Payments(
@@ -117,7 +117,7 @@ CREATE TABLE Users(
             );
 
 ALTER TABLE `Rooms`
-  ADD CONSTRAINT `rooms_roomtype_pk` FOREIGN KEY (`roomtype_id`) REFERENCES `Room_Type` (`roomtype_id`),
+  ADD CONSTRAINT `rooms_roomtype_pk` FOREIGN KEY (`roomtype_id`) REFERENCES `Room_Type` (`roomtype_id`);
 
 
 
