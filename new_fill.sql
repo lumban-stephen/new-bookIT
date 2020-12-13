@@ -6,11 +6,11 @@ VALUES ('2000', 'Single bed, Aircon, 1-2 people', '2'),
 ('9000', 'Three beds, Aircon, 3-5 people', '5');
 
 
-INSERT INTO rooms(room_status, roomtype_id) 
-VALUES ('Available', '1'), ('Available', '1'), ('Available', '1'), ('Available', '1'),
-('Available', '2'), ('Maintenance', '2'), ('Available', '2'), ('Maintenance', '2'),
-('Available', '3'), ('Available', '3'), ('Available', '3'), ('Available', '3'),
-('Available', '4'), ('Maintenance', '4'), ('Available', '4'), ('Available', '4'),('Maintenance', '4'),('Available', '4');
+INSERT INTO rooms(room_id, room_status, roomtype_id) 
+VALUES (101, 'Available', '1'), (102,'Available', '1'), (103,'Available', '1'), (104,'Available', '1'),
+(105,'Available', '2'), (106,'Maintenance', '2'), (201,'Available', '2'), (202,'Maintenance', '2'),
+(203,'Available', '3'), (204,'Available', '3'), (205,'Available', '3'), (206,'Available', '3'),
+(301,'Available', '4'), (302,'Maintenance', '4'), (303,'Available', '4'), (304,'Available', '4'),(305,'Maintenance', '4'),(306,'Available', '4');
 
 
 INSERT INTO customers(fname, lname, MI, address, email, phone)
