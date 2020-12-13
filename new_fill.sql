@@ -1,35 +1,16 @@
 
-INSERT INTO room_type(room_code, room_cost, room_desc,room_cap) 
-VALUES ('101', '2000', 'Single bed, Aircon, 1-2 people', '2'), 
-('102', '2000', 'Single bed, Aircon, 1-2 people', '2'), 
-('103', '2000', 'Single bed, Fan only, 1-2 people', '2'),
-
-('104', '4500', 'Two beds, Aircon, 2-4 people', '4'),
-('105', '4500', 'Two beds, Aircon, 2-4 people', '4'),
-('106', '9000', 'Three beds, Aircon, 3-5 people', '5'),
-('201', '2000', 'Single bed, Aircon, 1-2 people', '2'), 
-('202', '2000', 'Single bed, Aircon, 1-2 people', '2'), 
-('203', '2000', 'Single bed, Fan only, 1-2 people', '2'),
-
-('204', '4500', 'Two beds, Aircon, 2-4 people', '4'),
-('205', '4500', 'Two beds, Aircon, 2-4 people', '4'),
-('206', '9000', 'Three beds, Aircon, 3-5 people', '5'),
-
-('301', '2000', 'Single bed, Aircon, 1-2 people', '2'), 
-('302', '2000', 'Single bed, Aircon, 1-2 people', '2'), 
-('303', '2000', 'Single bed, Fan only, 1-2 people', '2'),
-
-('304', '4500', 'Two beds, Aircon, 2-4 people', '4'),
-('305', '4500', 'Two beds, Aircon, 2-4 people', '4'),
-('306', '9000', 'Three beds, Aircon, 3-5 people', '5')
-;
+INSERT INTO room_type(room_cost, room_desc,room_cap) 
+VALUES ('2000', 'Single bed, Aircon, 1-2 people', '2'), 
+('2000', 'Single bed, Fan only, 1-2 people', '2'),
+('4500', 'Two beds, Aircon, 2-4 people', '4'),
+('9000', 'Three beds, Aircon, 3-5 people', '5');
 
 
 INSERT INTO rooms(room_status, roomtype_id) 
-VALUES ('Available', '1'), ('Available', '2'), ('Available', '3'), ('Available', '4'),
-('Available', '5'), ('Maintenance', '6'), ('Available', '7'), ('Maintenance', '8'),
-('Available', '9'), ('Available', '10'), ('Available', '11'), ('Available', '12'),
-('Available', '13'), ('Maintenance', '14'), ('Available', '15'), ('Available', '16'),('Maintenance', '17'),('Available', '18');
+VALUES ('Available', '1'), ('Available', '1'), ('Available', '1'), ('Available', '1'),
+('Available', '2'), ('Maintenance', '2'), ('Available', '2'), ('Maintenance', '2'),
+('Available', '3'), ('Available', '3'), ('Available', '3'), ('Available', '3'),
+('Available', '4'), ('Maintenance', '4'), ('Available', '4'), ('Available', '4'),('Maintenance', '4'),('Available', '4');
 
 
 INSERT INTO customers(fname, lname, MI, address, email, phone)
