@@ -64,7 +64,7 @@
                 <br><br>
                 <label>Number of Guests</label><br>".$_SESSION['numguest']."
                 <br><br>
-                <label>Room Selected</label><br>".$_SESSION['room_code']."
+                <label>Room Selected</label><br>".$_SESSION['room_id']."
                 <br><br>
                 <label>Phone Number</label>
                 <input type='number' name='phone' class='button'>
@@ -92,14 +92,13 @@
                 $stays=(strtotime($_SESSION['checkout'])-strtotime($_SESSION['checkin']))/60/60/24; //number of stays
 
                 //get room_id
-                $sql = "SELECT r.room_id AS room_id, t.room_cost AS room_cost,t.roomtype_id AS roomtype_id
+                $sql = "SELECT t.room_cost AS room_cost,t.roomtype_id AS roomtype_id
                 FROM rooms r,room_type t
                 WHERE r.roomtype_id = t.roomtype_id AND 
-                t.room_code='{$_SESSION['room_code']}'";
+                r.room_id='{$_SESSION['room_id']}'";
                 $result = $conn->query($sql);
 
                 while($row = $result->fetch_assoc()){
-                        $room_id = $row['room_id'];
                         $room_cost = $row['room_cost'];
                         $roomtype_id = $row['roomtype_id'];
                 }
@@ -116,8 +115,8 @@
             
             
             //create data in guests
-            $prepare2 = $conn->prepare("INSERT INTO guests(date_in,date_out,guests_count,room_id,customer_id,roomtype_id) VALUES (?,?,?,?,?,?)");
-            $prepare2->bind_param("ssiiii",$_SESSION['checkin'],$_SESSION['checkout'],$_SESSION['numguest'],$room_id,$customer_id,$roomtype_id);
+            $prepare2 = $conn->prepare("INSERT INTO guests(date_in,date_out,guests_count,room_id,customer_id) VALUES (?,?,?,?,?)");
+            $prepare2->bind_param("ssiii",$_SESSION['checkin'],$_SESSION['checkout'],$_SESSION['numguest'],$_SESSION['room_id'],$customer_id);
             $prepare2->execute();
 
             //get guest_id ($conn->insert_id : get the last generated id)
@@ -144,8 +143,8 @@
             $prepare5->execute();
 
             //create data in bill
-            $prepare6 = $conn->prepare("INSERT INTO bill(bill_date,subtotal,payment_id,guest_id) VALUES (?,?,?,?)");
-            $prepare6->bind_param("siii",$_SESSION['checkin'],$payment,$payment_id,$guest_id);
+            $prepare6 = $conn->prepare("INSERT INTO bill(bill_date,payment_id,guest_id) VALUES (?,?,?,?)");
+            $prepare6->bind_param("sii",$_SESSION['checkin'],$payment_id,$guest_id);
             $prepare6->execute();
 
             //get bill_id ($conn->insert_id : get the last generated id)
@@ -153,14 +152,14 @@
             $_SESSION['bill_id']=$bill_id;
 
             //create data in bill_items
-            $prepare7 = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_date,roomtype_id) VALUES (?,?,?,?)");
-            $prepare7->bind_param("iisi",$stays,$bill_id,$_SESSION['checkin'],$roomtype_id);
+            $prepare7 = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_date) VALUES (?,?,?)");
+            $prepare7->bind_param("iis",$stays,$bill_id,$_SESSION['checkin']);
             $prepare7->execute();
 
             //create data in records
             $record_type="COMING";
-            $prepare7 = $conn->prepare("INSERT INTO records(record_type,record_date,record_time,guest_id,room_id,payment_id) VALUES (?,?,?,?,?,?)");
-            $prepare7->bind_param("sssiii",$record_type,$_SESSION['checkin'],$time,$guest_id,$room_id,$payment_id);
+            $prepare7 = $conn->prepare("INSERT INTO records(record_type,record_date,record_time,guest_id) VALUES (?,?,?,?,?,?)");
+            $prepare7->bind_param("sssi",$record_type,$_SESSION['checkin'],$time,$guest_id);
             $prepare7->execute();
             
             //sessions to use in checkinform.php
@@ -177,7 +176,7 @@
             unset($_SESSION['checkin']);
             unset($_SESSION['checkout']);
             unset($_SESSION['numguest']);
-            unset($_SESSION['room_code']);
+            unset($_SESSION['room_id']);
             header("location:receptionist_reservation.php");}
 
 
