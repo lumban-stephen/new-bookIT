@@ -14,9 +14,12 @@
     <body>
         <header>
         <div id="header">
-        <img src="assets/bookIT_Logo.png">
-           <div class="right-float">
-                <img>
+        <<div class="right-float">
+                <a>
+                    <form method="post" action="#">
+                        <button class="Logoutbutton" name="logout">Logout</button>
+                    </form>
+                </a>
             </div>
             <div class="right-float">
                 <p>Welcome,</p>

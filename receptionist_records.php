@@ -15,8 +15,12 @@
         <header>
         <div id="header">
         <img src="assets/bookIT_Logo.png">
-            <div class="right-float">
-                <img>
+        <div class="right-float">
+                <a>
+                    <form method="post" action="#">
+                        <button class="Logoutbutton" name="logout">Logout</button>
+                    </form>
+                </a>
             </div>
             <div class="right-float">
                 <p>Welcome,</p>
@@ -51,26 +55,31 @@
               </tr>
 
 
-<?php
-    include 'connection.php';
-    //error_reporting(0);?
+        <?php
+            include 'connection.php';
+            //error_reporting(0);?
 
-$sql = "SELECT t.room_code as room_code, rec.record_type as record_type, rec.record_desc as record_desc, rec.record_date as record_date, rec.record_time as record_time
-    FROM records rec,rooms r,room_type t
-    WHERE rec.room_id=r.room_id AND r.roomtype_id=t.roomtype_id ORDER BY rec.record_date";
+        $sql = "SELECT t.room_code as room_code, rec.record_type as record_type, rec.record_desc as record_desc, rec.record_date as record_date, rec.record_time as record_time
+            FROM records rec,rooms r,room_type t
+            WHERE rec.room_id=r.room_id AND r.roomtype_id=t.roomtype_id ORDER BY rec.record_date";
+            
+        $result = $conn->query($sql);
 
-    $result = $conn->query($sql); 
-while($row = $result->fetch_assoc()){
     
-        echo "<tr>
-                <td>".$row['record_type']."</td>
-                <td>".$row['room_code']."</td>
-                <td>".$row['record_desc']."</td>
-                <td>".$row['record_date']."</td>
-                <td>".$row['record_time']."</td>
-              </tr>";}
-  ?>
-            </table>        
-      
-        </div>
-    </body>
+        if($row = $result != NULL){ 
+            while($row = $result->fetch_assoc()){
+                echo "<tr>
+                        <td>".$row['record_type']."</td>
+                        <td>".$row['room_code']."</td>
+                        <td>".$row['record_desc']."</td>
+                        <td>".$row['record_date']."</td>
+                        <td>".$row['record_time']."</td>
+                      </tr>"; 
+                }
+                echo "</table>";
+        }else{
+            echo "No records made. ";
+            }
+        ?>
+                </div>
+            </body>
