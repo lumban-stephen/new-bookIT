@@ -30,6 +30,12 @@
             </div>
         </div>
         </header>
+        <?php
+            if(isset($_POST['logout'])){
+                session_destroy();
+                header("location:index.php");
+            }
+        ?>
         <nav>
             <ul>
                 <li><a href="#">Dashboard</a></li>
@@ -42,12 +48,16 @@
             </ul>
         </nav>
         <div id="content">
-            <h2>Dashboard</h2>
-                <div class="dash-box" id="mgt-guests-in"></div>
-                <div class="dash-box" id="mgt-vacancies"></div>
-                <div class="dash-box" id="mgt-coming"></div>
-                <div class="dash-box" id="mgt-reservation"></div>
-                <div class="dash-long-box" id="mgt-earnings"></div>
+        <br>
+        <h2>Dashboard</h2>
+        <br><br>
+        <div class="dashwrapper">
+                <div class="dash box1" id="mgt-guests-in">box1</div>
+                <div class="dash box2" id="mgt-vacancies">Box 2</div>
+                <div class="dash box3" id="mgt-coming">Box 3</div>
+                <div class="dash box4" id="mgt-reservation">Box 4</div>
+                <div class="dash longbox5" id="mgt-earnings">Box 5</div>
+            </div>
                 
         </div>
     </body>

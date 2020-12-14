@@ -30,6 +30,12 @@
             </div>
         </div>
         </header>
+        <?php
+            if(isset($_POST['logout'])){
+                session_destroy();
+                header("location:index.php");
+            }
+        ?>
         <nav>
             <ul>
                 <li><a href="manager_dashboard.php">Dashboard</a></li>
@@ -74,19 +80,16 @@
                          <td>". $rows['Room Status']. "</td>
                          <td>". $rows['Room Cost']. "</td>
                          <td>". $rows['Room Description']. "</td>";
-                    if ($rows['Room Status'] == 'Available') {
+                    if ($rows['Room Status'] == 'Maintenance' ||$rows['Room Status'] == 'Unavailable') {
                         echo "<td>
-                                <button class= 'Extendbutton'>Extend<br>Stay</button>
                                 <button class= 'Greenbutton'>Enable<br>Room</button></td>
                              </tr>";
-                    }elseif ($rows['Room Status'] == 'Maintenance' ||$rows['Room Status'] == 'Unavailable') {
+                    }elseif ($rows['Room Status'] == 'Available') {
                         echo "<td>
-                                <button class= 'Extendbutton'>Extend<br>Stay</button>
                                 <button class= 'Checkoutbutton'>Disable<br>Room</button></td>
                              </tr>";
                     }elseif($rows['Room Status'] == 'Used by guest'){
                         echo "<td>
-                                <button class= 'Extendbutton'>Extend<br>Stay</button>
                                 <button class= 'Graybutton'>No Actions<br>Room is in use</button></td>
                              </tr>";                     
                     }

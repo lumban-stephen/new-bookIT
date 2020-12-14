@@ -12,9 +12,10 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <header>
+    <header>
         <div id="header">
-        <<div class="right-float">
+        <img src="assets/bookIT_Logo.png">
+        <div class="right-float">
                 <a>
                     <form method="post" action="#">
                         <button class="Logoutbutton" name="logout">Logout</button>
@@ -29,6 +30,12 @@
             </div>
         </div>
         </header>
+        <?php
+            if(isset($_POST['logout'])){
+                session_destroy();
+                header("location:index.php");
+            }
+        ?>
         <nav>
             <ul>
                 <li><a href="manager_dashboard.php">Dashboard</a></li>

@@ -30,6 +30,12 @@
             </div>
         </div>
         </header>
+        <?php
+            if(isset($_POST['logout'])){
+                session_destroy();
+                header("location:index.php");
+            }
+        ?>
         <nav>
             <ul>
                 <li><a href="manager_dashboard.php">Dashboard</a></li>
