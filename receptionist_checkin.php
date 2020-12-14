@@ -10,6 +10,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>BookIT</title>
         <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="ameneties.css">
     </head>
     <body>
         <header>
@@ -58,37 +59,44 @@
     $_SESSION['checkout'] = $checkout;
     $_SESSION['numguest'] = $numguest;
 
-    $sql1 = "SELECT t.room_code as 'room_code',t.room_desc AS room_desc
+    $sql1 = "SELECT r.room_id as 'room_id',t.room_desc AS room_desc
     FROM room_type t, rooms r
-    WHERE t.roomtype_id NOT IN(
-    SELECT g.roomtype_id FROM guests g where $checkin between g.date_in and g.date_out) AND t.roomtype_id NOT IN(
-    SELECT g.roomtype_id FROM guests g where $checkout between g.date_in and g.date_out) AND t.room_cap>=$numguest AND t.roomtype_id=r.roomtype_id AND r.room_status != 'Maintenance'";
+    WHERE r.room_id NOT IN(
+    SELECT g.room_id FROM guests g where $checkin between g.date_in and g.date_out) AND r.room_id NOT IN(
+    SELECT g.room_id FROM guests g where $checkout between g.date_in and g.date_out) AND t.room_cap>=$numguest AND t.roomtype_id=r.roomtype_id AND r.room_status != 'Maintenance'";
 
     $result1 = $conn->query($sql1); 
 
     if(mysqli_num_rows($result1) > 0){
     while($row = $result1->fetch_assoc()){
                 
-                echo "<form action='' method='POST'>".
-                $row['room_code']."\t".$row['room_desc']."<br>
+                echo "
+                <div class='amty-box' style='background-color:#CCFFCC; '><form action='' method='POST'>".
+                $row['room_id']."<br>".$row['room_desc']."<br>
                 <input type='submit' name='select' value='select'>
-                <input type='hidden' name='room' value='{$row['room_code']}'>
-                </form>";}
+                <input type='hidden' name='room_id' value='{$row['room_id']}'>
+                </form></div>";}
     }else{
         echo 'No available room.';
     }
     }
 
      if(isset($_POST['select'])){  
-        $room_code = $_POST['room'];
-        $_SESSION['room_code'] = $room_code;
+        $room_id = $_POST['room_id'];
+        $_SESSION['room_id'] = $room_id;
         header("location:receptionist_checkinform.php");   
 }
 
         ?>
+
+    <br><br>
+    <hr>
+    <br><br>
+
+
     <form method="post" action="">  
     <label>Number of Guests</label>
-    <select name="numguest" class="button" required>
+    <select name="numguest" required>
     <option value="Select">Select</option>
     <option value="1">1</option>
     <option value="2">2</option>
@@ -99,11 +107,11 @@
     <br><br>
 
     <label>Check-in</label><br>
-    <input type="date" name="checkin" class="button" required>
+    <input type="date" name="checkin" required>
     <br><br>
 
     <label>Check-out</label><br>
-    <input type="date" name="checkout" class="button" required>
+    <input type="date" name="checkout" required>
     <br><br>
     <input type="submit" name="search" value="search" class="submit">
         <br><br>

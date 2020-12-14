@@ -81,11 +81,11 @@
     $_SESSION['checkout'] = $checkout;
     $_SESSION['numguest'] = $numguest;
 
-    $sql = "SELECT t.room_code as 'room_code'
-    FROM room_type t 
-    WHERE t.roomtype_id NOT IN(
-    SELECT g.roomtype_id FROM guests g where $checkin between g.date_in and g.date_out) AND t.roomtype_id NOT IN(
-    SELECT g.roomtype_id FROM guests g where $checkout between g.date_in and g.date_out) AND t.room_cap>=$numguest";
+    $sql = "SELECT r.room_id as 'room_id',t.room_desc AS room_desc
+    FROM room_type t, rooms r
+    WHERE r.room_id NOT IN(
+    SELECT g.room_id FROM guests g where $checkin between g.date_in and g.date_out) AND r.room_id NOT IN(
+    SELECT g.room_id FROM guests g where $checkout between g.date_in and g.date_out) AND t.room_cap>=$numguest AND t.roomtype_id=r.roomtype_id AND r.room_status != 'Maintenance'";
 
     $result = $conn->query($sql); 
 
@@ -93,18 +93,18 @@
     while($row = $result->fetch_assoc()){
                 
                 echo "<form action='' method='POST'>".
-                $row['room_code']."<br>
+                $row['room_id']."<br>".$row['room_desc']."<br>
                 <input type='submit' name='select' value='select'>
-                <input type='hidden' name='room' value='{$row['room_code']}'>
+                <input type='hidden' name='room_id' value='{$row['room_id']}'>
                 </form>";}
     }else{
         echo 'No available room.';
     }}
 
     if(isset($_POST['select'])){  
-        $room_code = $_POST['room'];
+        $room_id = $_POST['room_id'];
         
-        $_SESSION['room_code'] = $room_code;
+        $_SESSION['room_id'] = $room_id;
         
         header("location:receptionist_booking.php");   
 }

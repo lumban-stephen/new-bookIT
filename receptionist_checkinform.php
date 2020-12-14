@@ -102,10 +102,10 @@
         else{
         echo "<form method='post' action='' enctype='multipart/form-data'>  
                 <label>First Name</label>
-                <input type='text' name='fname' class='button' required>
+                <input type='text' name='fname' class='button'>
                 <br><br>
                 <label>Last Name</label>
-                <input type='text' name='lname' class='button' required>
+                <input type='text' name='lname' class='button'>
                 <br><br>
                 <label>Middle Name</label>
                 <input type='text' name='mname' class='button' >
@@ -116,7 +116,7 @@
                 <br><br>
                 <label>Number of Guests</label><br>".$_SESSION['numguest']."
                 <br><br>
-                <label>Room Selected</label><br>".$_SESSION['room_code']."
+                <label>Room Selected</label><br>".$_SESSION['room_id']."
                 <br><br>
                 <label>Phone Number</label><input type='number' name='phone' class='button'>
                 <br><br>
@@ -236,17 +236,15 @@
 
         $stays=(strtotime($_SESSION['checkout'])-strtotime($_SESSION['checkin']))/60/60/24; //number of stays
 
-        //get room_id
-        $sql = "SELECT r.room_id AS room_id, t.room_cost AS room_cost,t.roomtype_id AS roomtype_id
+        //get data in room_type
+        $sql = "SELECT t.room_cost as room_cost
                 FROM rooms r,room_type t
                 WHERE r.roomtype_id = t.roomtype_id AND 
-                t.room_code='{$_SESSION['room_code']}'";
+                r.room_id='{$_SESSION['room_id']}'";
                 $result = $conn->query($sql);
 
                 while($row = $result->fetch_assoc()){
-                        $room_id = $row['room_id'];
                         $room_cost = $row['room_cost'];
-                        $roomtype_id = $row['roomtype_id'];
                 }
 
                 $payment = $stays*$room_cost;  //total cost
@@ -261,8 +259,8 @@
             
             
             //create data in guests
-            $prepare2 = $conn->prepare("INSERT INTO guests(date_in,date_out,guests_count,room_id,customer_id,roomtype_id,ID_type , ID_number, files) VALUES (?,?,?,?,?,?,?,?,?)");
-            $prepare2->bind_param("ssiiiisss",$_SESSION['checkin'],$_SESSION['checkout'],$_SESSION['numguest'],$room_id,$customer_id,$roomtype_id,$id_type,$ID_number, $filename,);
+            $prepare2 = $conn->prepare("INSERT INTO guests(date_in,date_out,guests_count,room_id,customer_id,ID_type , ID_number, files) VALUES (?,?,?,?,?,?,?,?)");
+            $prepare2->bind_param("ssiiisss",$_SESSION['checkin'],$_SESSION['checkout'],$_SESSION['numguest'],$_SESSION['room_id'],$customer_id,$id_type,$ID_number, $filename,);
             $prepare2->execute();
 
             //get guest_id ($conn->insert_id : get the last generated id)
@@ -271,7 +269,7 @@
 
             //create data in schedule
             $prepare3 = $conn->prepare("INSERT INTO schedule(guest_id,customer_id,room_id,roomtype_id) VALUES (?,?,?,?)");
-            $prepare3->bind_param("iiii",$guest_id,$customer_id,$room_id,$roomtype_id);
+            $prepare3->bind_param("iiii",$guest_id,$customer_id,$_SESSION['room_id'],$roomtype_id);
             $prepare3->execute();
 
 
@@ -289,8 +287,8 @@
             $prepare5->execute();
 
             //create data in bill
-            $prepare6 = $conn->prepare("INSERT INTO bill(bill_date,subtotal,payment_id,guest_id) VALUES (?,?,?,?)");
-            $prepare6->bind_param("siii",$_SESSION['checkin'],$payment,$payment_id,$guest_id);
+            $prepare6 = $conn->prepare("INSERT INTO bill(bill_date,payment_id,guest_id) VALUES (?,?,?)");
+            $prepare6->bind_param("sii",$_SESSION['checkin'],$payment_id,$guest_id);
             $prepare6->execute();
 
             //get bill_id ($conn->insert_id : get the last generated id)
@@ -310,28 +308,27 @@
            $prepare8->execute();
 
         //create data in checked-in-guests
-        $prepare9= $conn->prepare("INSERT INTO checked_in_guests(guest_id,room_id,roomtype_id,payment_id) VALUES (?,?,?,?)");
-        $prepare9->bind_param("iiii", $guest_id, $room_id, $roomtype_id, $payment_id);
+        $prepare9= $conn->prepare("INSERT INTO checked_in_guests(guest_id) VALUES (?)");
+        $prepare9->bind_param("i", $guest_id);
         $prepare9->execute();
 
         $room_status="Used by guest";
-    //insert guest_id rooms
-        $prepare10= $conn->prepare("UPDATE rooms SET guest_id =?,room_status=? WHERE room_id=?");
-        $prepare10->bind_param("isi", $guest_id,$room_status, $room_id);
+    //change room_status rooms
+        $prepare10= $conn->prepare("UPDATE rooms SET room_status=? WHERE room_id=?");
+        $prepare10->bind_param("si",$room_status, $_SESSION['room_id']);
         $prepare10->execute();
 
     //insert data in records
         $time=date("h:i:s");
         $record_type="STAYING";
-        $prepare11 = $conn->prepare("INSERT INTO records(record_type,record_date,record_time,guest_id,room_id,payment_id) VALUES (?,?,?,?,?,?)");
-        $prepare11->bind_param("sssiii",$record_type,$_SESSION['checkin'],$time,$guest_id,$room_id,$payment_id);
+        $prepare11 = $conn->prepare("INSERT INTO records(record_type,record_date,record_time,guest_id) VALUES (?,?,?,?)");
+        $prepare11->bind_param("sssi",$record_type,$_SESSION['checkin'],$time,$guest_id);
         $prepare11->execute();
         
             header("location:receptionist_ameneties.php");
 
         //unset($_SESSION['customer_id']);
         //unset($_SESSION['fname']);
-        unset($_SESSION['room_code']);
         //unset($_SESSION['lname']);
         //unset($_SESSION['mname']);
         //unset($_SESSION['phone']);
@@ -342,7 +339,7 @@
         unset($_SESSION['room_code']);
         //unset($_SESSION['guest_id']);
         unset($_SESSION['room_id']);
-        unset($_SESSION['roomtype_id']);
+        //unset($_SESSION['roomtype_id']);
         //unset($_SESSION['payment_id']);
 
             }
