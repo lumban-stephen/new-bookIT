@@ -47,31 +47,88 @@ include 'connection.php';
 
 ?>
 
+
+
         <p>Hygiene</p>
             <div class="amty">
-                
                 <?php
                 $Hygiene="Hygiene";
                 $sql1 = "SELECT * FROM amenities WHERE amenity_type = 'Hygiene'";
 $result1 = $conn->query($sql1);
+$result1_id = array();
+$result1_name = array();
+$result1_price = array();
                 while($row1 = $result1->fetch_assoc()){
+                   $result1_id[] = $row1['amenity_id'];
+                   $result1_name[] = $row1['amenity_name'];
+                   $result1_price[] = $row1['amenity_price'];
+                    }?>
 
-    echo "<div class='amty-box'>
-            <img src='assets/img-dummy.jpg'>
-                <p class='name'>".$row1['amenity_name']."</p>
-                <div class='counter'>
-                    <select name='count'>
-    <option value='Select'>Select</option>
-    <option value='1'>1</option>
-    <option value='2'>2</option>
-    <option value='3'>3</option>
-    <option value='4'>4</option>
-    <option value='5'>5</option>  
-</select> 
+    <div class="amty-box">
+        <img src="assets/img-dummy.jpg">
+            <p class="name"><?php echo $result1_name[0]; ?></p>
+                <div class="counter">
+                    <button id="plus" class="button">+</button>
+                    <p id="demo" value="num"></p>
+                <button id="minus" class="button">-</button>
+                    <input type="hidden" name="amenity_id" value="<?php echo $result1_id[0]; ?>">
+                    <input type="hidden" name="amenity_price" value="<?php echo $result1_price[0]; ?>">
                 </div>
-            </div>"; }
-            ?>
-                
+    </div>
+
+    <div class="amty-box">
+        <img src="assets/img-dummy.jpg">
+            <p class="name"><?php echo $result1_name[1]; ?></p>
+                <div class="counter">
+                    <button id="plus" class="button">+</button>
+                    <p id="demo" value="num"></p>
+                <button id="minus" class="button">-</button>
+                    <input type="hidden" name="amenity_id" value="<?php echo $result1_id[1]; ?>">
+                    <input type="hidden" name="amenity_price" value="<?php echo $result1_price[1]; ?>">
+                </div>
+    </div>
+
+    <div class="amty-box">
+        <img src="assets/img-dummy.jpg">
+            <p class="name"><?php echo $result1_name[2]; ?></p>
+                <div class="counter">
+                    <button id="plus" class="button">+</button>
+                    <p id="demo" value="num"></p>
+                <button id="minus" class="button">-</button>
+                    <input type="hidden" name="amenity_id" value="<?php echo $result1_id[2]; ?>">
+                    <input type="hidden" name="amenity_price" value="<?php echo $result1_price[2]; ?>">
+                </div>
+    </div>
+
+    <div class="amty-box">
+        <img src="assets/img-dummy.jpg">
+            <p class="name"><?php echo $result1_name[3]; ?></p>
+                <div class="counter">
+                    <button id="plus" class="button">+</button>
+                    <p id="demo" value="num"></p>
+                <button id="minus" class="button">-</button>
+                    <input type="hidden" name="amenity_id" value="<?php echo $result1_id[3]; ?>">
+                    <input type="hidden" name="amenity_price" value="<?php echo $result1_price[3]; ?>">
+                </div>
+    </div>           
+          
+
+
+            
+<script type="text/JavaScript">
+document.getElementById("plus").addEventListener("click", displayPlus);
+var i=0;
+function displayPlus() {
+  document.getElementById("demo").innerHTML = i++;
+}
+document.getElementById("minus").addEventListener("click", displayMinus);
+var i=0;
+function displayMinus() {
+  document.getElementById("demo").innerHTML = i--;
+}
+</script>
+
+
             </div>
         <hr>
 
