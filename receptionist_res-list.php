@@ -67,9 +67,9 @@
     $today=date("Y-d-m");
     $status="COMPLETE";
 
-$sql = "SELECT CONCAT(c.fname,' ',c.MI,' ',c.lname) as name,c.fname as fname,c.MI as mname, c.lname as lname, r.room_id as room_id, g.date_in as date_in, g.date_out as date_out, g.guests_count as numguest, c.phone as phone, c.email as email, g.guest_status as guest_status, g.guest_id as guest_id
-    FROM guests g, customers c, rooms r
-    WHERE g.customer_id = c.customer_id and r.room_id = g.room_id
+$sql = "SELECT CONCAT(c.fname,' ',c.MI,' ',c.lname) as name,c.fname as fname,c.MI as mname, c.lname as lname, r.room_id as room_id, g.date_in as date_in, g.date_out as date_out, g.guests_count as numguest, c.phone as phone, c.email as email, g.guest_status as guest_status, s.guest_id as guest_id
+    FROM guests g, customers c, rooms r, schedule s
+    WHERE g.customer_id = c.customer_id and r.room_id = g.room_id and s.guest_id=g.guest_id
     ORDER BY g.date_in";
 
     $result = $conn->query($sql); 
@@ -124,24 +124,16 @@ while($row = $result->fetch_assoc()){
 
    if(isset($_POST['cancel'])){
     $guest_id=$_POST['guest_id'];
-    $sql1 = "SELECT b.bill_id as bill_id FROM bill b, guests g WHERE g.guest_id = b.guest_id";
-
-    $result2 = $conn->query($sql1); 
-        while($row = $result2->fetch_assoc()){
-            $bill_id = $row['bill_id'];
-        }
-
-    $sql5 = "DELETE FROM bill_items WHERE bill_id = $bill_id";
-    $sql2 = "DELETE FROM guests WHERE guest_id = $guest_id";
-    $sql3 = "DELETE FROM bill WHERE guest_id = $guest_id";
+    
     $sql4 = "DELETE FROM schedule WHERE guest_id = $guest_id";
 
-    if($conn->query($sql2)===TRUE){
+
+    if($conn->query($sql4)===TRUE){
         echo "successfully deleted";
     }else{
         echo "failed".$conn->error;
     }   
-        header("location:receptionist_checkinform.php");
+      
 }
 $conn->close();
   ?>
