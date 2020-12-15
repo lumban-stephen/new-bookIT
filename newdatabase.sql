@@ -57,7 +57,7 @@ CREATE TABLE Users(
 
     CREATE TABLE Records(
         record_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        record_type ENUM ('COMING','STAYING'),
+        record_type ENUM ('COMING','STAYING','PAID','CHECKED-OUT','CHECKED-IN'),
         record_desc VARCHAR(100),
         record_date DATE ,
         record_time DATETIME,
