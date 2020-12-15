@@ -63,13 +63,15 @@
 <br><br>
 
 <label>Check-in</label><br>
-        <input type="date" name="checkin" class="button" required>
+        <input type="date" name="checkin" class="button">
         <br><br>
 
         <label>Check-out</label><br>
-        <input type="date" name="checkout" class="button" required>
+        <input type="date" name="checkout" class="button">
         <br><br>
 <input type="submit" name="submit" value="search" class="submit">
+
+        <input type="submit" name="res-list" value="Liservation List" class="submit">
         <br><br>
 </form>
 
@@ -113,7 +115,11 @@
         $_SESSION['room_id'] = $room_id;
         
         header("location:receptionist_booking.php");   
-}
+    }
+
+    if(isset($_POST['res-list'])){  
+        header("location:receptionist_res-list.php");   
+    }
 
         ?>
 
