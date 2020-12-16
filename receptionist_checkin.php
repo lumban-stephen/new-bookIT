@@ -11,13 +11,26 @@
         <title>BookIT</title>
         <link rel="stylesheet" href="style.css">
         <link rel="stylesheet" href="ameneties.css">
+<style type="text/css">
+.grid-container {
+  display: grid;
+  grid-template-columns: 20% 20% 20% 20%;
+  grid-gap: 10px;
+  padding: 10px;
+}
+
+</style>
     </head>
     <body>
         <header>
         <div id="header">
         <img src="assets/bookIT_Logo.png">
-            <div class="right-float">
-                <img>
+        <div class="right-float">
+                <a>
+                    <form method="post" action="#">
+                        <button class="Logoutbutton" name="logout">Logout</button>
+                    </form>
+                </a>
             </div>
             <div class="right-float">
                 <p>Welcome,</p>
@@ -27,7 +40,13 @@
             </div>
         </div>
         </header>
-        <nav>
+        <?php
+            if(isset($_POST['logout'])){
+                session_destroy();
+                header("location:index.php");
+            }
+        ?>
+       <nav>
             <ul>
                 <li><a href="receptionist_dashboard.php">Dashboard</a></li>
                 <li><a href="#">Check In</a></li>
@@ -64,15 +83,17 @@
     $result1 = $conn->query($sql1); 
 
     if(mysqli_num_rows($result1) > 0){
+        echo "<div class='grid-container'>";
     while($row = $result1->fetch_assoc()){
                 
                 echo "
-                <div class='amty-box'><form action='' method='POST'>
-                <button type='submit' name='select'   style='background-color:#28C479; '>".$row['room_id']."<br>".$row['room_desc']."</button>
+                <form action='' method='POST'>
+                <button type='submit' name='select' style='background-color: #28C479; padding: 10px; ' class='button'><h1>ROOM  ".$row['room_id']."</h1>".$row['room_desc']."</button>
                 <input type='hidden' name='room_id' value='{$row['room_id']}'>
                 <input type='hidden' name='room_desc' value='{$row['room_desc']}'>
                 
-                </form></div>";}
+                </form>";}
+                echo "</div>";
     }else{
         echo 'No available room.';
     }
@@ -83,7 +104,7 @@
         $_SESSION['room_id'] = $room_id;
         header("location:receptionist_checkinform.php");   
 }
-
+        
         ?>
 
     <br><br>
