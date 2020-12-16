@@ -16,12 +16,8 @@
         <header>
         <div id="header">
         <img src="assets/bookIT_Logo.png">
-        <div class="right-float">
-                <a>
-                    <form method="post" action="#">
-                        <button class="Logoutbutton" name="logout">Logout</button>
-                    </form>
-                </a>
+            <div class="right-float">
+                <img>
             </div>
             <div class="right-float">
                 <p>Welcome,</p>
@@ -31,12 +27,6 @@
             </div>
         </div>
         </header>
-        <?php
-            if(isset($_POST['logout'])){
-                session_destroy();
-                header("location:index.php");
-            }
-        ?>
         <nav>
             <ul>
                 <li><a href="receptionist_dashboard.php">Dashboard</a></li>
@@ -77,10 +67,11 @@
     while($row = $result1->fetch_assoc()){
                 
                 echo "
-                <div class='amty-box' style='background-color:#CCFFCC; '><form action='' method='POST'>".
-                $row['room_id']."<br>".$row['room_desc']."<br>
-                <input type='submit' name='select' value='select'>
+                <div class='amty-box' style='background-color:#CCFFCC; '><form action='' method='POST'>
+                <button type='submit' name='select'>".$row['room_id']."<br>".$row['room_desc']."</button>
                 <input type='hidden' name='room_id' value='{$row['room_id']}'>
+                <input type='hidden' name='room_desc' value='{$row['room_desc']}'>
+                
                 </form></div>";}
     }else{
         echo 'No available room.';

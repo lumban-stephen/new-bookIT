@@ -54,7 +54,7 @@
              <?php
             include 'connection.php';
             //error_reporting(0);
-
+ob_start();
 //if this page is from reservation and booking
             if(isset($_SESSION['fname'])){
             echo "<form method='post' action='' enctype='multipart/form-data'>  
@@ -365,7 +365,7 @@
         unset($_SESSION['room_code']);
         header("location:receptionist_dashboard.php");}
 
-
+ob_end_flush();
 ?>
 
                 
