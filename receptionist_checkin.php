@@ -67,8 +67,8 @@
     while($row = $result1->fetch_assoc()){
                 
                 echo "
-                <div class='amty-box' style='background-color:#CCFFCC; '><form action='' method='POST'>
-                <button type='submit' name='select'>".$row['room_id']."<br>".$row['room_desc']."</button>
+                <div class='amty-box'><form action='' method='POST'>
+                <button type='submit' name='select'   style='background-color:#28C479; '>".$row['room_id']."<br>".$row['room_desc']."</button>
                 <input type='hidden' name='room_id' value='{$row['room_id']}'>
                 <input type='hidden' name='room_desc' value='{$row['room_desc']}'>
                 
