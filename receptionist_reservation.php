@@ -10,6 +10,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>BookIT</title>
         <link rel="stylesheet" href="style.css">
+        <style type="text/css">
+.grid-container {
+  display: grid;
+  grid-template-columns: 20% 20% 20% 20%;
+  grid-gap: 10px;
+  padding: 10px;
+}
+
+</style>
     </head>
     <body>
         <header>
@@ -98,13 +107,14 @@
     $result = $conn->query($sql); 
 
     if(mysqli_num_rows($result) > 0){
+        echo "<div class='grid-container'>";
     while($row = $result->fetch_assoc()){
                 
-                echo "<form action='' method='POST'>".
-                $row['room_id']."<br>".$row['room_desc']."<br>
-                <input type='submit' name='select' value='select'>
+                echo "<button type='submit' name='select' style='background-color: #28C479; padding: 10px; ' class='button'><h1>ROOM ".
+                $row['room_id']."</h1>".$row['room_desc']."</button>
                 <input type='hidden' name='room_id' value='{$row['room_id']}'>
                 </form>";}
+            echo "</div>";
     }else{
         echo 'No available room.';
     }}
