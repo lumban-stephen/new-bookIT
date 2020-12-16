@@ -131,6 +131,7 @@
 
             //get guest_id ($conn->insert_id : get the last generated id)
             $guest_id = $conn->insert_id;
+            $_SESSION['guest_id']=$guest_id;
 
 
             //create data in schedule

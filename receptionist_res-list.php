@@ -62,12 +62,13 @@
               </tr>
 
 <?php
+ob_start();
     include 'connection.php';
     //error_reporting(0);?
     $today=date("Y-d-m");
     $status="COMPLETE";
 
-$sql = "SELECT CONCAT(c.fname,' ',c.MI,' ',c.lname) as name,c.fname as fname,c.MI as mname, c.lname as lname, r.room_id as room_id, g.date_in as date_in, g.date_out as date_out, g.guests_count as numguest, c.phone as phone, c.email as email, g.guest_status as guest_status, s.guest_id as guest_id
+$sql = "SELECT CONCAT(c.fname,' ',c.MI,' ',c.lname) as name,c.fname as fname,c.MI as mname, c.lname as lname, r.room_id as room_id, g.date_in as date_in, g.date_out as date_out, g.guests_count as numguest, c.phone as phone, c.email as email, g.guest_status as guest_status, s.guest_id as guest_id, c.customer_id as customer_id
     FROM guests g, customers c, rooms r, schedule s
     WHERE g.customer_id = c.customer_id and r.room_id = g.room_id and s.guest_id=g.guest_id
     ORDER BY g.date_in";
@@ -97,6 +98,7 @@ while($row = $result->fetch_assoc()){
                 <input type='hidden' name='phone' value='{$row['phone']}'>
                 <input type='hidden' name='email' value='{$row['email']}'>
                 <input type='hidden' name='guest_id' value='{$row['guest_id']}'>
+                <input type='hidden' name='customer_id' value='{$row['customer_id']}'>
                 
                 
               </tr></form>";}}
@@ -111,15 +113,19 @@ while($row = $result->fetch_assoc()){
         $date_out=$_POST['date_out'];
         $phone=$_POST['phone'];
         $email=$_POST['email'];
+        $numguest=$_POST['numguest'];
+        $customer_id=$_POST['customer_id'];
         $_SESSION['fname']=$fname;
         $_SESSION['lname']=$lname;
         $_SESSION['mname']=$mname;
         $_SESSION['phone']=$phone;
         $_SESSION['room_id']=$room_id;
-        $_SESSION['date_in']=$date_in;
-        $_SESSION['date_out']=$date_out;
+        $_SESSION['checkin']=$date_in;
+        $_SESSION['checkout']=$date_out;
         $_SESSION['phone']=$phone;
         $_SESSION['email']=$email;
+        $_SESSION['numguest']=$numguest;
+        $_SESSION['customer_id']=$customer_id;
 }
 
    if(isset($_POST['cancel'])){
@@ -136,6 +142,7 @@ while($row = $result->fetch_assoc()){
       
 }
 $conn->close();
+ob_end_flush();
   ?>
             </table>   
 

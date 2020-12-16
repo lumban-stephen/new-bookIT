@@ -51,7 +51,7 @@
             <!--Code Here only-->
             <!--receptionist check in form page code in here-->
 
-            <?php
+             <?php
             include 'connection.php';
             //error_reporting(0);
 
@@ -70,7 +70,7 @@
                 <br><br>
                 <label>Number of Guests</label><br>".$_SESSION['numguest']."
                 <br><br>
-                <label>Room Selected</label><br>".$_SESSION['room_code']."
+                <label>Room Selected</label><br>".$_SESSION['room_id']."
                 <br><br>
                 <label>Phone Number</label><br>".$_SESSION['phone']."
                 <br><br>
@@ -158,7 +158,7 @@
 
 
             }
-
+//if this is from booking and reservation list
     if(isset($_POST['amenities1'])){
         $id_type = $_POST['id_type'];
         $ID_number = $_POST['ID_number'];
@@ -182,20 +182,20 @@
         $prepare2->execute();
 
         //create data in checked-in-guests
-        $prepare3= $conn->prepare("INSERT INTO checked_in_guests(guest_id,room_id,roomtype_id,payment_id) VALUES (?,?,?,?)");
-        $prepare3->bind_param("iiii", $_SESSION['guest_id'], $_SESSION['room_id'], $_SESSION['roomtype_id'], $_SESSION['payment_id']);
+        $prepare3= $conn->prepare("INSERT INTO checked_in_guests(guest_id) VALUES (?)");
+        $prepare3->bind_param("i", $_SESSION['guest_id']);
         $prepare3->execute();
 
         //insert guest_id rooms
         $room_status="Used by guest";
-        $prepare4= $conn->prepare("UPDATE rooms SET guest_id =?,room_status=? WHERE room_id=?");
-        $prepare4->bind_param("isi", $guest_id,$room_status, $_SESSION['room_id']);
+        $prepare4= $conn->prepare("UPDATE rooms SET room_status=? WHERE room_id=?");
+        $prepare4->bind_param("si",$room_status, $_SESSION['room_id']);
         $prepare4->execute();
 
     //insert data in records
             $record_type="STAYING";
-            $prepare5 = $conn->prepare("INSERT INTO records(record_type,record_date,record_time,guest_id,room_id,payment_id) VALUES (?,?,?,?,?,?)");
-            $prepare5->bind_param("sssiii",$record_type,$_SESSION['checkin'],$time,$guest_id,$room_id,$payment_id);
+            $prepare5 = $conn->prepare("INSERT INTO records(record_type,record_date,record_time,guest_id) VALUES (?,?,?,?)");
+            $prepare5->bind_param("sssi",$record_type,$_SESSION['checkin'],$time,$guest_id);
             $prepare5->execute();
 
         unset($_SESSION['customer_id']);
