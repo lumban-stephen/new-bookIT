@@ -50,11 +50,11 @@
         <h2>Dashboard</h2>
         <br><br>
         <div class="dashwrapper">
-                <div class="dash box1" id="mgt-guests-in">box1</div>
-                <div class="dash box2" id="mgt-vacancies">Box 2</div>
-                <div class="dash box3" id="mgt-coming">Box 3</div>
-                <div class="dash box4" id="mgt-reservation">Box 4</div>
-                <div class="dash longbox5" id="mgt-earnings">Box 5</div>
+                <div class="dash box1" id="mgt-guests-in">Guests in</div>
+                <div class="dash box2" id="mgt-vacancies">Vacancies</div>
+                <div class="dash box3" id="mgt-coming">Coming</div>
+                <div class="dash box4" id="mgt-reservation">Reservation</div>
+                <div class="dash longbox5" id="mgt-earnings">Earnings</div>
             </div>
         </div>
     </body>

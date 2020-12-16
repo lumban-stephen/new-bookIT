@@ -189,12 +189,18 @@ li a:hover:not(.active) {
   grid-column: 1;
   grid-row:1/3;
 }
+.box1:hover{
+  background-color: #B53791;
+}
 
 .box2{/*mgt-vacancies*/
   background: #C70039;
   border: 1px solid rgba(213, 213, 213, 0.37);
   grid-column: 2;
   grid-row:1/3;
+}
+.box2:hover{
+  background-color: #F90047;
 }
 
 .box3{/*mgt-coming*/
@@ -203,17 +209,25 @@ li a:hover:not(.active) {
   grid-column: 3;
   grid-row: 1/3;
 }
-
+.box3:hover{
+  background-color: #FFDB66;
+}
 .box4{/*mgt-reservation*/
   background: #C5195A;
   border: 1px solid rgba(213, 213, 213, 0.37);
   grid-column: 1;
   grid-row: 3/5;
 }
+.box4:hover{
+  background-color: #FF2477;
+}
 .longbox5{
   background: #E35D40;
   grid-column: 2/4;
   grid-row: 3/5;
+}
+.longbox5:hover{
+  background-color: #FF6645;
 }
 
 /** TABLES: RECORDS AND GUEST;
