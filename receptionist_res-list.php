@@ -10,6 +10,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>BookIT</title>
         <link rel="stylesheet" href="style.css">
+<style type="text/css">
+.grid-container {
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+  grid-gap: 10px;
+  padding: 10px;
+}
+
+</style>
     </head>
     <body>
         <header>
@@ -83,9 +92,11 @@ while($row = $result->fetch_assoc()){
                 <td>".$row['date_in']."</td>
                 <td>".$row['date_out']."</td>
                 <td>
-                <input type='submit' name='checkin' value='checkin' class='submit'>
-                <input type='submit' name='update' value='Update/Reschedule' class='submit'>
-                <input type='submit' name='cancel' value='Cancel Booking' class='submit'>
+                <span class='grid-container'>
+                <button type='submit' name='checkin' style='background-color: #28C479; padding: 10px; ' class='button'>Check in</button>
+                <button type='submit' name='update'  style='background-color: #81B1D5; padding: 10px; ' class='button'>Update/Reschedule</button>
+                <button type='submit' name='cancel' style='background-color: #CF3823; padding: 10px; ' class='button'>Cancel Booking</button>
+                </span>
                 </td>
 
                 <input type='hidden' name='fname' value='{$row['fname']}'>
@@ -138,8 +149,35 @@ while($row = $result->fetch_assoc()){
         echo "successfully deleted";
     }else{
         echo "failed".$conn->error;
-    }   
-      
+    }      
+}
+
+   if(isset($_POST['update'])){
+    header("location:receptionist_update.php");
+        $fname=$_POST['fname'];
+        $lname=$_POST['lname'];
+        $mname=$_POST['mname'];
+        $room_id=$_POST['room_id'];
+        $date_in=$_POST['date_in'];
+        $date_out=$_POST['date_out'];
+        $phone=$_POST['phone'];
+        $email=$_POST['email'];
+        $numguest=$_POST['numguest'];
+        $customer_id=$_POST['customer_id'];
+
+        $_SESSION['fname']=$fname;
+        $_SESSION['lname']=$lname;
+        $_SESSION['mname']=$mname;
+        $_SESSION['phone']=$phone;
+        $_SESSION['room_id']=$room_id;
+        $_SESSION['checkin']=$date_in;
+        $_SESSION['checkout']=$date_out;
+        $_SESSION['phone']=$phone;
+        $_SESSION['email']=$email;
+        $_SESSION['numguest']=$numguest;
+        $_SESSION['customer_id']=$customer_id;
+    
+     
 }
 $conn->close();
 ob_end_flush();
