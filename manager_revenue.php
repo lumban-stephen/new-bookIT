@@ -10,6 +10,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>BookIT</title>
         <link rel="stylesheet" href="style.css">
+    <style type="text/css">
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-gap: 10px;
+  padding: 10px;
+  grid-auto-rows: minmax(200px, auto);
+}
+
+</style>
     </head>
     <body>
     <header>
@@ -52,13 +62,24 @@
             <?php
             include 'connection.php';
             //error_reporting(0);
+            echo "<div class='grid-container'>";
+$week=date("W");
+        $sql3 = "SELECT COUNT(guest_id) as weekly
+                FROM guests
+                WHERE WEEK(date_in)=$week";
+                $result3 = $conn->query($sql3);
+                while($row3 = $result3->fetch_assoc()){
+                    echo "<button type='submit' name='select' style='background-color: #FEC200; padding: 10px;' class='button'><p>weekly</p><h1>".$row3['weekly']."</h1></button>";   
+                }
+
+
             $month=date("m");
         $sql1 = "SELECT COUNT(guest_id) as monthly
                 FROM guests
                 WHERE MONTH(date_in)=$month";
                 $result1 = $conn->query($sql1);
                 while($row1 = $result1->fetch_assoc()){
-                    echo "<div class='dash-box' id='mgt-vacancies'  style='color:white';><p>monthly</p><h1>".$row1['monthly']."</h1></div>";   
+                    echo "<button type='submit' name='select' style='background-color: #E35D40; padding: 10px;' class='button'><p>monthly</p><h1>".$row1['monthly']."</h1></button>";   
                 }
 
         $year=date("Y");
@@ -67,19 +88,12 @@
                 WHERE YEAR(date_in)=$year";
                 $result2 = $conn->query($sql2);
                 while($row2 = $result2->fetch_assoc()){
-                    echo "<div class='dash-box' id='mgt-guests-in'  style='color:white';><p>yearly</p><h1>".$row2['yearly']."</h1></div>";   
+                    echo "<button type='submit' name='select' style='background-color: #C70039; padding: 10px; grid-column: 1 / span 2;' class='button'><p>yearly</p><h1>".$row2['yearly']."</h1></div>";   
                 }
 
-        $week=date("W");
-        $sql3 = "SELECT COUNT(guest_id) as weekly
-                FROM guests
-                WHERE WEEK(date_in)=$week";
-                $result3 = $conn->query($sql3);
-                while($row3 = $result3->fetch_assoc()){
-                    echo "<div class='dash-long-box' id='mgt-earnings'  style='color:white';><p>weekly</p><h1>".$row3['weekly']."</h1></div>";   
-                }
+        
                          
-
+        echo "</div>"
             ?>
 
              

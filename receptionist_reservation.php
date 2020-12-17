@@ -78,9 +78,10 @@
         <label>Check-out</label><br>
         <input type="date" name="checkout" class="button">
         <br><br>
-<input type="submit" name="submit" value="search" class="submit">
 
-        <input type="submit" name="res-list" value="Liservation List" class="submit">
+        <button type="submit" name="submit"style="background-color: #53B7EA; padding: 10px;" class="button">SEARCH</button>
+
+        <button type="submit" name="res-list"style="background-color: #53B7EA; padding: 10px;" class="button">Liservation List</button>
         <br><br>
 </form>
 
@@ -110,7 +111,7 @@
         echo "<div class='grid-container'>";
     while($row = $result->fetch_assoc()){
                 
-                echo "<button type='submit' name='select' style='background-color: #28C479; padding: 10px; ' class='button'><h1>ROOM ".
+                echo "<form  method='post' action=''><button type='submit' name='select' style='background-color: #28C479; padding: 10px; ' class='button'><h1>ROOM ".
                 $row['room_id']."</h1>".$row['room_desc']."</button>
                 <input type='hidden' name='room_id' value='{$row['room_id']}'>
                 </form>";}
@@ -124,7 +125,7 @@
         
         $_SESSION['room_id'] = $room_id;
         
-        header("location:receptionist_booking.php");   
+        header("location:receptionist_checkinform.php");   
     }
 
     if(isset($_POST['res-list'])){  

@@ -131,7 +131,7 @@
     <label>Check-out</label><br>
     <input type="date" name="checkout" required>
     <br><br>
-    <input type="submit" name="search" value="search" class="submit">
+    <button type="submit" name="search"style="background-color: #53B7EA; padding: 10px;" class="button">SEARCH</button>
         <br><br>
     </form>
 
