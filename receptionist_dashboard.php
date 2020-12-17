@@ -52,11 +52,93 @@
         <h2>Dashboard</h2>
         <br><br>
         <div class="dashwrapper">
-                <div class="dash box1" id="mgt-guests-in">box1</div>
-                <div class="dash box2" id="mgt-vacancies">Box 2</div>
-                <div class="dash box3" id="mgt-coming">Box 3</div>
-                <div class="dash box4" id="mgt-reservation">Box 4</div>
-                <div class="dash longbox5" id="mgt-earnings">Box 5</div>
+                <div class="dash box1" id="mgt-guests-in">
+                    <?php
+                         include 'connection.php';
+        
+                         $sql = "SELECT 
+                                    count(*)
+                                 FROM
+                                    Schedule s;";
+                        $display = $conn->query($sql);
+                        if($rows = $display != NULL){ 
+                            while($rows = $display->fetch_assoc()){
+                                echo
+                                    "Number of Guests checked in:  ".$rows['count(*)'].""; 
+                             }
+                            }else{
+                              echo "No guest checked in";
+                            }     
+                    ?></div>
+                <div class="dash box2" id="mgt-vacancies"> 
+                    <?php
+                         include 'connection.php';
+        
+                         $sql = "SELECT 
+                                    count(*)
+                                 FROM
+                                    Schedule s;";
+                        $display = $conn->query($sql);
+                        if($rows = $display != NULL){ 
+                            while($rows = $display->fetch_assoc()){
+                                echo
+                                    "Number of Guests about to check-out:  ".$rows['count(*)'].""; 
+                             }
+                            }else{
+                              echo "No guest who is about to check-out";
+                            }     
+                    ?></div>
+                <div class="dash box3" id="mgt-coming">                    
+                    <?php
+                         include 'connection.php';
+        
+                         $sql = "SELECT 
+                                    count(*)
+                                 FROM
+                                    Schedule s;";
+                        $display = $conn->query($sql);
+                        if($rows = $display != NULL){ 
+                            while($rows = $display->fetch_assoc()){
+                                echo
+                                    "Number of Vacancies:  ".$rows['count(*)'].""; 
+                             }
+                            }else{
+                              echo "No Vacancies";
+                            }     
+                    ?></div>
+                <div class="dash box4" id="mgt-reservation">
+                    <?php
+                         include 'connection.php';
+        
+                         $sql = "SELECT 
+                                    count(*)
+                                 FROM
+                                    Schedule s;";
+                        $display = $conn->query($sql);
+                        if($rows = $display != NULL){ 
+                            while($rows = $display->fetch_assoc()){
+                                echo
+                                    "Number of Vacancies:  ".$rows['count(*)'].""; 
+                             }
+                            }else{
+                              echo "No reservations";
+                            }     
+                    ?></div>
+                <div class="dash longbox5" id="mgt-earnings">
+                    <div class="datetime">
+                        <div class="date">
+                            <span id="dayname">Day</span>
+                            <span id="month">Month</span>
+                            <span id="daynum">00</span>
+                            <span id="year">Year</span>
+                        </div>
+                        <div class="time">
+                            <span id="hour">Day</span>
+                            <span id="minutes">Month</span>
+                            <span id="seconds">00</span>
+                            <span id="period">Year</span>
+                        </div> 
+                </div>
             </div>
                 
         </div>

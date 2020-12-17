@@ -129,7 +129,7 @@ ob_start();
                 <label class='Labelform'>Address</label><input type='text'class='booking' id='address' name='address' class='button' >
                 <br><br>
                 <input type='submit' class='Greenbutton' name='amenities2' value='Proceed to Amenities' >
-                <input type='submit'class='Checkoutbutton' name='cancel' value='Cancel Check-in' >
+                <input type='submit' class='Checkoutbutton' name='cancel' value='Cancel Check-in' >
                 <br><br>
             </form>";                
 
