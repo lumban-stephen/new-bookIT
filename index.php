@@ -21,9 +21,13 @@
               <input type = "password" name = "password" placeholder = "Password" required>
               <button type = "submit" class="submitlogin" name = "login">Login</button>
         </form> -->
+    <div class="login_container">
+    <div class="login_flex">
     <div class="content-image">
         <img src="assets/bookIT_Logo.png">
     </div>
+    </div>
+    <div>
             <div id="login-form">
                 <h1>Log-in</h1>
                 <form action="" method="post">
@@ -55,7 +59,10 @@
                     
                     }}
                 
+              
                 $conn->close();
           ?>
+        </div>
+    </div>
     <div class="box-foot"></div>
     </body>

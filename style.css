@@ -77,6 +77,14 @@ li a:hover:not(.active) {
 .loginbody{
   background: #4d90a1;
 }
+.login_container{
+  display: inline-flex;
+  flex-direction: row;
+}
+.login_flex{
+  margin: 10px;
+  padding: 450px;
+}
 .content-image  img{
   height: 250px;
   position: absolute;
@@ -124,36 +132,63 @@ li a:hover:not(.active) {
   position: fixed;
     bottom: 0;  
 }
-
-
-/**
-.booking-form input[type=email],.booking-form input[type=text],.booking-form input[type=number]{
-  width: 100%;
-  padding: 15px;
-  margin: 5px 0 22px 0;
+/** FORMS;
+-------------------------------------------------*/
+.span{
+  font-size: 0;
+}
+.Labelform {
+  height: 40px;
+  padding: 12px 20px;
+  margin: 8px 0px 8px 0px;
   display: inline-block;
-  border: none;
+  color: white;
+  background-color: #0088B6;
+  padding: 10px 15px;
+}
+.booking {
+  height: 40px;
+  padding: 12px 20px;
+  margin: 8px 10px 8px 0px;
+  display: inline-block;
+  background: #D3DEE8;
+  border: 2px solid #D3DEE8;
+}
+.bookingsession {
+  width: 38.5%;
+  height: 40px;
+  padding: 12px 20px;
+  margin: 8px 10px 8px 0px;
+  display: inline-block;
+  border: 2px solid #D3DEE8;
+}
+.bookingsession1 {
+  width: 33.3%;
+  height: 40px;
+  padding: 12px 20px;
+  margin: 8px 10px 8px 0px;
+  display: inline-block;
+  border: 2px solid #D3DEE8;
+}
+input.booking[type="text"] {
+  width: 20.5%;
   background: #f1f1f1;
 }
-
-.booking-form input[type=email]:focus, .booking-form input[type=text]:focus,.booking-form input[type=number]:focus {
-  background-color: #ddd;
-  outline: none;
-}
-.booking-form select[name="numguest"], .booking-form select[name="roomtype"], .booking-form input[type="Date"] {
-  width: 35%;
-  padding: 15px;
-  margin: 5px 0 22px 0;
-  display: inline-block;
-  border: none;
+input.booking[type="number"] {
+  width: 84%;
   background: #f1f1f1;
 }
-
-.booking-form select[name="numguest"]:focus,.booking-form select[name="roomtype"]:focus, .booking-form input[type="Date"]:focus {
-  background-color: #ddd;
-  outline: none;
+input.booking[type="email"] {
+  width: 90.5%;
+  background: #f1f1f1;
 }
-**/
+input.booking[type="file"],select {
+  width: 22.3%;
+  background: #f1f1f1;
+}
+#address.booking {
+  width: 89%;
+}
 /** DASHBOARD;
 -------------------------------------------------*/
 .dash-box p {
@@ -262,7 +297,7 @@ li a:hover:not(.active) {
 
 /** BUTTONS: RECORDS AND GUEST;
 -------------------------------------------------*/
-button{
+button, input[type=submit]{
   border: none;
   color: white;
   padding:0.4em 1em;
@@ -273,6 +308,9 @@ button{
   margin:0 0.3em 0.3em 0;
   box-shadow:inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
   font-weight: bold;
+  white-space: normal;
+  -webkit-appearance: none;
+  width: 100px;
 }
 .Greenbutton {
   background-color: #00A757;

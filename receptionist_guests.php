@@ -93,7 +93,7 @@
                              <td>". $rows['Room Number']. "</td>
                              <td><button  class='Offerbutton'><a href='receptionist_ameneties.php'>Offer<br>Amenities</a></button>
                                  <button class='Extendbutton'>Extend<br>Stay</button>
-                                 <button class='Checkoutbutton'>Early<br>Checkout</button></td>
+                                 <input type='submit' class='Checkoutbutton' value='Early Checkout'></button></td>
                              <td><button class= 'Viewbutton'><a href= 'receptionist_guestview.php?id=".$rows['SID']."'>View</a></button></td></tr>"; 
                       }
                     echo "</table>";
