@@ -89,8 +89,8 @@ ob_start();
                 <br><br>
                 <label class='Labelform'>Address</label><input type='text' name='address' class='booking' >
                 <br><br>
-                <input type='submit' name='amenities1' value='Proceed to Amenities' class='submit'>
-                <input type='submit' name='cancel' value='Cancel Check-in' class='submit'>
+                <input type='submit' name='amenities1' value='Proceed to Amenities' class='Greenbutton'>
+                <input type='submit' name='cancel' value='Cancel Check-in' class='Checkoutbutton'>
                 <br><br>
             </form>";}
 
@@ -129,7 +129,7 @@ ob_start();
                 <label class='Labelform'>Address</label><input type='text'class='booking' id='address' name='address' class='button' >
                 <br><br>
                 <input type='submit' class='Greenbutton' name='amenities2' value='Proceed to Amenities' >
-                <input type='submit' class='Checkoutbutton' name='cancel' value='Cancel Check-in' >
+                <input type='submit'class='Checkoutbutton' name='cancel' value='Cancel Check-in' >
                 <br><br>
             </form>";                
 
