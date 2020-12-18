@@ -19,6 +19,18 @@
   padding: 10px;
 }
 
+button, input[type=submit]{
+  border: none;
+  padding:initial;
+  text-decoration: initial;
+  display: initial;
+  font-size: initial;
+  margin:initial;
+  font-weight: initial;
+  white-space: initial;
+  -webkit-appearance: initial;
+  width: initial;
+}
 </style>
     </head>
     <body>
@@ -75,9 +87,9 @@
     $_SESSION['numguest'] = $numguest;
 
     $sql1 = "SELECT r.room_id as 'room_id',t.room_desc AS room_desc
-    FROM room_type t, rooms r
+    FROM room_type t, rooms r, schedule s
     WHERE r.room_id NOT IN(
-    SELECT g.room_id FROM guests g where $checkin between g.date_in and g.date_out) AND r.room_id NOT IN(
+    SELECT s.room_id=r.room_id AND g.room_id FROM guests g where $checkin between g.date_in and g.date_out) AND r.room_id NOT IN(
     SELECT g.room_id FROM guests g where $checkout between g.date_in and g.date_out) AND t.room_cap>=$numguest AND t.roomtype_id=r.roomtype_id AND r.room_status != 'Maintenance'";
 
     $result1 = $conn->query($sql1); 
