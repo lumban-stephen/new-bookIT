@@ -18,6 +18,18 @@
   padding: 10px;
 }
 
+button, input[type=submit]{
+  border: none;
+  padding:initial;
+  text-decoration: initial;
+  display: initial;
+  font-size: initial;
+  margin:initial;
+  font-weight: initial;
+  white-space: initial;
+  -webkit-appearance: initial;
+  width: initial;
+}
 </style>
     </head>
     <body>
