@@ -89,8 +89,8 @@ ob_start();
                 <br><br>
                 <label class='Labelform'>Address</label><input type='text' name='address' class='booking' >
                 <br><br>
-                <input type='submit' name='amenities1' value='Proceed to Amenities' class='submit'>
-                <input type='submit' name='cancel' value='Cancel Check-in' class='submit'>
+                <input type='submit' name='amenities1' value='Proceed to Amenities' class='Greenbutton'>
+                <input type='submit' name='cancel' value='Cancel Check-in' class='Checkoutbutton'>
                 <br><br>
             </form>";}
 

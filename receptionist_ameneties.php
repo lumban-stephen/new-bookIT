@@ -86,17 +86,33 @@ $result1_price = array();
                 </div>
     </div>
 
+
+
     <div class="amty-box">
         <img src="assets/img-dummy.jpg">
             <p class="name"><?php echo $result1_name[1]; ?></p>
                 <div class="counter">
-                    <button id="plus" class="button">+</button>
-                    <p id="demo" value="num"></p>
-                <button id="minus" class="button">-</button>
+                    <form action="<?php echo $_SERVER['PHP_SELF'];  ?>" method="post">
+                    <input type="submit" name="plus" value="+">
+                    <?php
+                        $_SESSION['num']=((isset($_SESSION['num']))?$_SESSION['num']:0);
+                        if(isset($_POST['minus'])){
+                            $_SESSION['num']--;
+                        }
+                        if(isset($_POST['plus'])){
+                            $_SESSION['num']++;
+                        }
+                        echo $_SESSION['num'];
+
+      ?>            
+                    <input type="submit" name="minus" value="-">
+                
                     <input type="hidden" name="amenity_id" value="<?php echo $result1_id[1]; ?>">
                     <input type="hidden" name="amenity_price" value="<?php echo $result1_price[1]; ?>">
+                </form>
                 </div>
     </div>
+
 
     <div class="amty-box">
         <img src="assets/img-dummy.jpg">

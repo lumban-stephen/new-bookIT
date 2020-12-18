@@ -10,6 +10,32 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>BookIT</title>
         <link rel="stylesheet" href="style.css">
+<style type="text/css">
+.grid-container {
+  display: grid;
+  grid-template-columns: 20% 20% 20% 20%;
+  grid-gap: 10px;
+  padding: 10px;
+}
+.grid-form {
+  display: grid;
+  grid-template-columns: 20% 20% 20%;
+  grid-gap: 10px;
+  padding: 10px;
+}
+button, input[type=submit]{
+  border: none;
+  padding:initial;
+  text-decoration: initial;
+  display: initial;
+  font-size: initial;
+  margin:initial;
+  font-weight: initial;
+  white-space: initial;
+  -webkit-appearance: initial;
+  width: initial;
+}
+</style>
     </head>
     <body>
         <header>
@@ -69,20 +95,56 @@ ob_start();
                 <label>Middle Name</label><br>".$_SESSION['mname']."<input type='text' name='mname' class='button'>
                 <button type='submit' name='upmname'  style='background-color: #81B1D5; padding: 5px; ' class='button'>Update</button>
                 <br><br>
-                <label>Check-in</label><br>".$_SESSION['checkin']."<input type='date' name='upcheckin'>
-                <br><br>
-                <label>Check-out</label><br>".$_SESSION['checkout']."<input type='date' name='upcheckout'>
-                <br><br>
-                <label>Number of Guests</label><br>".$_SESSION['numguest']."<select name='numguest'>
+
+<div class='grid-form'>
+                <span><label>Check-in</label><br>".$_SESSION['checkin']."<input type='date' name='checkin'></span>
+                
+                <span><label>Check-out</label><br>".$_SESSION['checkout']."<input type='date' name='checkout'></span>
+                
+                <span><label>Number of Guests</label><br>".$_SESSION['numguest']."<br><select name='numguest'>
     <option value='Select'>Select</option>
     <option value='1'>1</option>
     <option value='2'>2</option>
     <option value='3'>3</option>
     <option value='4'>4</option>
     <option value='5'>5</option>  
-    </select> 
-    <button type='submit' name='upnumguest'  style='background-color: #81B1D5; padding: 5px; ' class='button'>Update</button>
-                <br><br>
+    </select></span> </div>
+    <button type='submit' name='search_room'  style='background-color: #003399; padding: 5px; ' class='button'>Search Room</button>";
+
+if(isset($_POST['search_room'])){
+    $checkin=$_POST['checkin'];
+    $checkout=$_POST['checkout'];
+    $numguest=$_POST['numguest'];
+
+    $_SESSION['checkin'] = $checkin;
+    $_SESSION['checkout'] = $checkout;
+    $_SESSION['numguest'] = $numguest;
+
+$sql1 = "SELECT r.room_id as 'room_id',t.room_desc AS room_desc
+    FROM room_type t, rooms r
+    WHERE r.room_id NOT IN(
+    SELECT g.room_id FROM guests g where $checkin between g.date_in and g.date_out) AND r.room_id NOT IN(
+    SELECT g.room_id FROM guests g where $checkout between g.date_in and g.date_out) AND t.room_cap>=$numguest AND t.roomtype_id=r.roomtype_id AND r.room_status != 'Maintenance'";
+
+    $result1 = $conn->query($sql1); 
+
+    if(mysqli_num_rows($result1) > 0){
+        echo "<div class='grid-container'>";
+    while($row = $result1->fetch_assoc()){
+                
+                echo "
+                <form action='' method='POST'>
+                <button type='submit' name='select' style='background-color: #28C479; padding: 10px; ' class='button'><h1>ROOM  ".$row['room_id']."</h1>".$row['room_desc']."</button>
+                <input type='hidden' name='room_id' value='{$row['room_id']}'>
+                <input type='hidden' name='room_desc' value='{$row['room_desc']}'>
+                
+                </form>";}
+                echo "</div>";
+
+
+    //header("location:receptionist_update.php");
+}}
+            echo "<br><br>
                 <label>Room Selected</label><br>".$_SESSION['room_id']."
                 <br><br>
                 <label>Phone Number</label><br>".$_SESSION['phone']."<input type='number' name='phone' class='button'>
@@ -96,7 +158,7 @@ ob_start();
                 <button type='submit' name='upaddress'  style='background-color: #81B1D5; padding: 5px; ' class='button'>Update</button>
                 <br><br>
              
-                <input type='submit' name='update' value='UPDATE' class='submit'>
+                <button type='submit' name='upaddress'  style='background-color: #81B1D5; padding: 5px; ' class='button'>BACK TO LIST</button>
                 <br><br>
             </form>";
 
@@ -156,69 +218,30 @@ if(isset($_POST['upaddress'])){
     header("location:receptionist_update.php");
 }
 
-    if(isset($_POST['update'])){
-     
-        //insert address to cuctomers table
-        $prepare1= $conn->prepare("UPDATE customers SET address =? WHERE customer_id=?");
-        $prepare1->bind_param("si", $address, $_SESSION['customer_id']);
-        $prepare1->execute();
+if(isset($_POST['select'])){
+    $room_id=$_POST['room_id'];
+    $prepare= $conn->prepare("UPDATE guests SET date_in =?, date_out=?, guests_count=?,room_id=? WHERE customer_id=?");
+        $prepare->bind_param("ssiii", $_SESSION['checkin'],  $_SESSION['checkout'], $_SESSION['numguest'],$room_id, $_SESSION['customer_id']);
+        $prepare->execute();
+    $_SESSION['room_id']=$room_id;
+    header("location:receptionist_update.php");
+}
 
-        //insert ID details to guests table
-        $prepare2= $conn->prepare("UPDATE guests SET ID_type =?, ID_number=?, files=? WHERE customer_id=?");
-        $prepare2->bind_param("sssi", $id_type,$ID_number, $filename, $_SESSION['customer_id']);
-        $prepare2->execute();
 
-        //create data in checked-in-guests
-        $prepare3= $conn->prepare("INSERT INTO checked_in_guests(guest_id) VALUES (?)");
-        $prepare3->bind_param("i", $_SESSION['guest_id']);
-        $prepare3->execute();
 
-        //insert guest_id rooms
-        $room_status="Used by guest";
-        $prepare4= $conn->prepare("UPDATE rooms SET room_status=? WHERE room_id=?");
-        $prepare4->bind_param("si",$room_status, $_SESSION['room_id']);
-        $prepare4->execute();
-
-    //insert data in records
-            $record_type="STAYING";
-            $prepare5 = $conn->prepare("INSERT INTO records(record_type,record_date,record_time,guest_id) VALUES (?,?,?,?)");
-            $prepare5->bind_param("sssi",$record_type,$_SESSION['checkin'],$time,$guest_id);
-            $prepare5->execute();
+    if(isset($_POST['back'])){
 
         unset($_SESSION['customer_id']);
-        //unset($_SESSION['fname']);
-        unset($_SESSION['room_code']);
-        //unset($_SESSION['lname']);
-        //unset($_SESSION['mname']);
+        unset($_SESSION['room_id']);
         unset($_SESSION['phone']);
         unset($_SESSION['email']);
         unset($_SESSION['checkin']);
         unset($_SESSION['checkout']);
         unset($_SESSION['numguest']);
-        unset($_SESSION['room_code']);
-        //unset($_SESSION['guest_id']);
         unset($_SESSION['room_id']);
-        unset($_SESSION['roomtype_id']);
-        //unset($_SESSION['payment_id']);
-
-         header("location:receptionist_ameneties.php");
+         header("location:receptionist_res-list.php");
     }
 
-
-//cancel check in
-    if(isset($_POST['cancel'])){
-        unset($_SESSION['customer_id']);
-        unset($_SESSION['fname']);
-        unset($_SESSION['room_code']);
-        unset($_SESSION['lname']);
-        unset($_SESSION['mname']);
-        unset($_SESSION['phone']);
-        unset($_SESSION['email']);
-        unset($_SESSION['checkin']);
-        unset($_SESSION['checkout']);
-        unset($_SESSION['numguest']);
-        unset($_SESSION['room_code']);
-        header("location:receptionist_dashboard.php");}
 
 ob_end_flush();
 ?>
