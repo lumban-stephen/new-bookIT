@@ -55,8 +55,8 @@
             include 'connection.php';
             //error_reporting(0);
 ob_start();
-//if this page is from reservation and booking
-            if(isset($_SESSION['fname'])){
+//if this page is from reservation list
+            if(isset($_SESSION['list'])){
             echo "<form method='post' action='' enctype='multipart/form-data'>  
                 <label class='Labelform'>First Name</label><div class='booking'>".$_SESSION['fname']."</div>
                 <label class='Labelform'>Last Name</label><div class='booking'>".$_SESSION['lname']."</div>
@@ -92,10 +92,12 @@ ob_start();
                 <input type='submit' name='amenities1' value='Proceed to Amenities' class='Greenbutton'>
                 <input type='submit' name='cancel' value='Cancel Check-in' class='Checkoutbutton'>
                 <br><br>
-            </form>";}
+            </form>";
+            unset($_SESSION['list']);
+        }
 
 //if this is from check in
-        else{
+        else if(isset($_SESSION['checkin'])){
         echo "<form method='post' action='' enctype='multipart/form-data'>  
                 <label class='Labelform'>First Name</label><input type='text' class='booking' name='fname'>
                 <label class='Labelform'>Last Name</label><input type='text' class='booking' name='lname'>
@@ -128,11 +130,11 @@ ob_start();
                 <br><br>
                 <label class='Labelform'>Address</label><input type='text'class='booking' id='address' name='address' class='button' >
                 <br><br>
-                <input type='submit' class='Greenbutton' name='amenities2' value='Proceed to Amenities' >
-                <input type='submit'class='Checkoutbutton' name='cancel' value='Cancel Check-in' >
+                <input type='submit'  name='amenities2' value='Proceed to Amenities' class='Greenbutton'>
+                <input type='submit' name='cancel' value='Cancel Check-in' class='Checkoutbutton'>
                 <br><br>
             </form>";                
-
+        unset($_SESSION['checkin']);
 
             }
 //if this is from booking and reservation list
