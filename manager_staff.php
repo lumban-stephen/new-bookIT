@@ -46,6 +46,73 @@
             </ul>
         </nav>
         <div id="content">
-            <!--Code here for manager_staff-->
+            <table>
+                
+                    <tr>
+                        <td>Staff Name<td>
+                        <td>Email<td>
+                        <td>Salary<td>
+                        <td>Work<td>
+                        <td>Actions<td>
+                    </tr>
+                
+                    <?php
+                    
+                        include 'connection.php';
+                          
+                            $sql = "SELECT user_id AS 'UID', 
+                            CONCAT(fname, ' ', MI, ' ', lname) AS 'Staff Name', 
+                            email AS 'Email', salary AS 'Salary', 
+                            user_type AS 'Job' FROM users;"; 
+                  
+                            $display = $conn->query($sql);
+                  
+                      
+                            if($rows = $display != NULL){
+                                while($rows = $display->fetch_assoc()){
+                                    echo
+                                        "<tr><td>". $rows['Staff Name']. "</td>
+                                        <td>". $rows['Email']. "</td><td>". $rows['Salary']. "</td><td>". $rows['Job']. 
+                                        "</td>
+                                        <td><button class='Offerbutton'><a href='staff-server.php'>Edit Information</a></button>
+                                        <button class='Checkoutbutton'><a>Terminate</a></button></td></tr>"; 
+                                        }
+                                    echo "</table>";
+                            }else{
+                                echo "No staff here. ";
+                            }
+                            $conn->close();        
+                          
+                    ?>
+            </table>
+            <br>
+            <hr>
+            <br>                
+            <form method="post" action="staff-server.php" >
+                <div>
+                    <label>First Name</label>
+                    <input type="text" name="name" value="">
+                    <label>Middle Initial</label>
+                    <input type="text" name="name" value="">
+                    <label>Last Name</label>
+                    <input type="text" name="address" value="">
+                </div>
+                <div>
+                    <label>Email</label>
+                    <input type="email" name="email" value="">
+                    <label>Password</label>
+                    <input type="password" name="password" value="">
+                </div>
+                <div>
+                    <label>Job</label>
+                    <select name="jobs" id="jobs">
+                        <option value="receptionist">Receptionist</option>
+                        <option value="manager">Manager</option>
+                    </select>
+                    <label>Salary Per Day</label>
+                    <input type="text" name="address" value="">
+                </div>
+                <button class="btn" type="submit" name="save" >Save</button>
+	        </form>
         </div>
     </body>

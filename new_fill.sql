@@ -148,3 +148,5 @@ INSERT INTO `users` (`fname`,`lname`,`MI`, `email`, `password`, `user_type`) VAL
 INSERT INTO `task` (`task_name`,`task_desc`,task_status) VALUES
 ('clean room','a customer spilled juice on the bed.','INCOMPLETE'),('Order equipmemts','check the storage, and order them.','INCOMPLETE')
 ;
+
+ALTER TABLE users ADD COLUMN salary FLOAT(10,2);
