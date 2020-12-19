@@ -46,6 +46,31 @@
             </ul>
         </nav>
         <div id="content">
-            <!--Code here for manager_staff-->
+            <table>
+                <thead>
+                    <tr>
+                        <td>Staff Name<td>
+                        <td>Email<td>
+                        <td>Salary<td>
+                        <td>Usertype<td>
+                        <td colspan="2">Actions<td>
+                    </tr>
+                </thead>
+                
+            </table>
+
+            <form method="post" action="staff-server.php" >
+                <div class="input-group">
+                    <label>Name</label>
+                    <input type="text" name="name" value="">
+                </div>
+                <div class="input-group">
+                    <label>Address</label>
+                    <input type="text" name="address" value="">
+                </div>
+                <div class="input-group">
+                    <button class="btn" type="submit" name="save" >Save</button>
+                </div>
+	        </form>
         </div>
     </body>
