@@ -47,14 +47,14 @@
             </ul>
         </nav>
         <div id="content">
-            <table>
+            <table id="Table">
                 
                     <tr>
-                        <td>Staff Name<td>
-                        <td>Email<td>
-                        <td>Salary<td>
-                        <td>Work<td>
-                        <td>Actions<td>
+                        <th>Staff Name</th>
+                        <th>Email</th>
+                        <th>Salary</th>
+                        <th>Work</th>
+                        <th>Actions</th>
                     </tr>
                 
                     <?php                                                     
@@ -70,10 +70,12 @@
                                 while($rows = $display->fetch_assoc()){
                                     echo
                                         "<tr><td>". $rows['Staff Name']. "</td>
-                                        <td>". $rows['Email']. "</td><td>". $rows['Salary']. "</td><td>". $rows['Job']. 
-                                        "</td>
-                                        <td><button class='Offerbutton'><a href='manager_staff.php?edit=".$rows['UID']."'>Edit Information</a></button>
-                                        <button class='Checkoutbutton'><a href='staff-server.php?delete=".$rows['UID']."'>Terminate</a></button></td></tr>"; 
+                                             <td>". $rows['Email']. "</td>
+                                             <td>". $rows['Salary']. "</td>
+                                             <td>". $rows['Job']. "</td>
+                                             <td><button class='Offerbutton'><a href='manager_staff.php?edit=".$rows['UID']."'>Edit Information</a></button>
+                                                 <button class='Checkoutbutton'><a href='staff-server.php?delete=".$rows['UID']."'>Terminate</a></button></td>
+                                        </tr>"; 
                                         }
                                     echo "</table>";
                             }else{
@@ -88,29 +90,22 @@
             <br>                
             <form method="post" action="staff-server.php" >
                 <div>
-                    <label>First Name</label>
-                    <input type="text" name="fname" value="">
-                    <label>Middle Initial</label>
-                    <input type="text" name="mi" value="">
-                    <label>Last Name</label>
-                    <input type="text" name="lname" value="">
+                    <label class='Labelform'>First Name</label><input type="text" class='mngt' name="fname" value="">
+                    <label class='Labelform'>Middle Initial</label><input type="text" class='mngt' name="mi" value="">
+                    <label class='Labelform'>Last Name</label><input type="text" class='mngt' name="lname" value="">
                 </div>
                 <div>
-                    <label>Email</label>
-                    <input type="email" name="email" value="">
-                    <label>Password</label>
-                    <input type="password" name="password" value="">
+                    <label class='Labelform'>Email</label><input type="email" class='mngt' name="email" value="">
+                    <label class='Labelform'>Password</label><input type="password" class='mngt' name="password" value="">
                 </div>
                 <div>
-                    <label>Job</label>
-                    <select name="jobs" id="jobs">
+                    <label class='Labelform'>Job</label><select name="jobs" class='mngt' id="jobs">
                         <option value="Receptionist">Receptionist</option>
                         <option value="Admin">Manager</option>
                     </select>
-                    <label>Salary Per Day</label>
-                    <input type="text" name="salary" value="">
+                    <label class='Labelform'>Salary Per Day</label><input type="text" class='mngt' name="salary" value="">
                 </div>
-                <button type="submit" name="save" >Save</button>
+                <button type="submit" class="Greenbutton" name="save" >Save</button>
 	        </form>
         </div>
     </body>
