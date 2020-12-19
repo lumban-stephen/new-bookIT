@@ -21,7 +21,7 @@
 
 button, input[type=submit]{
   border: none;
-  padding:initial;
+  padding:10px;
   text-decoration: initial;
   display: initial;
   font-size: initial;
@@ -31,6 +31,10 @@ button, input[type=submit]{
   -webkit-appearance: initial;
   width: initial;
 }
+.select:hover{
+  background-color: #00DE73;
+}
+
 </style>
     </head>
     <body>
@@ -100,7 +104,7 @@ button, input[type=submit]{
                 
                 echo "
                 <form action='' method='POST'>
-                <button type='submit' name='select' style='background-color: #28C479; padding: 10px; ' class='button'><h1>ROOM  ".$row['room_id']."</h1>".$row['room_desc']."</button>
+                <button type='submit' name='select' class='Greenbutton'><h3>ROOM  ".$row['room_id']."</h3>".$row['room_desc']."</button>
                 <input type='hidden' name='room_id' value='{$row['room_id']}'>
                 <input type='hidden' name='room_desc' value='{$row['room_desc']}'>
                 
@@ -114,6 +118,7 @@ button, input[type=submit]{
      if(isset($_POST['select'])){  
         $room_id = $_POST['room_id'];
         $_SESSION['room_id'] = $room_id;
+        $_SESSION['checkin']=1; //examine in checkin_form if it is from checkin.
         header("location:receptionist_checkinform.php");   
 }
         
@@ -143,7 +148,7 @@ button, input[type=submit]{
     <label>Check-out</label><br>
     <input type="date" name="checkout" required>
     <br><br>
-    <button type="submit" name="search"style="background-color: #53B7EA; padding: 10px;" class="button">SEARCH</button>
+    <button type="submit" name="search" class="Offerbutton">SEARCH</button>
         <br><br>
     </form>
 
