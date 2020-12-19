@@ -176,7 +176,7 @@ li a:hover:not(.active) {
   background: #F1F1F1;
 }
 input.booking[type="text"],input.mngt[type="text"] {
-  width: 22.53%;
+  width: 22%;
   background: #f1f1f1;
 }
 input.booking[type="number"],input.mngt[type="number"] {
@@ -192,7 +192,7 @@ input.booking[type="file"],input.mngt[type="file"],select {
   background: #f1f1f1;
 }
 input.mngt[type="email"],input.mngt[type="password"] {
-  width: 41.5%;
+  width: 40.8%;
   background: #f1f1f1;
 }
 #address.booking {
