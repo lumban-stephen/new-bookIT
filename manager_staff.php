@@ -47,18 +47,47 @@
         </nav>
         <div id="content">
             <table>
-                <thead>
+                
                     <tr>
                         <td>Staff Name<td>
                         <td>Email<td>
                         <td>Salary<td>
-                        <td>Usertype<td>
-                        <td colspan="2">Actions<td>
+                        <td>Work<td>
+                        <td>Actions<td>
                     </tr>
-                </thead>
                 
+                    <?php
+                    
+                        include 'connection.php';
+                          
+                            $sql = "SELECT user_id AS 'UID', 
+                            CONCAT(fname, ' ', MI, ' ', lname) AS 'Staff Name', 
+                            email AS 'Email', salary AS 'Salary', 
+                            user_type AS 'Job' FROM users;"; 
+                  
+                            $display = $conn->query($sql);
+                  
+                      
+                            if($rows = $display != NULL){
+                                while($rows = $display->fetch_assoc()){
+                                    echo
+                                        "<tr><td>". $rows['Staff Name']. "</td>
+                                        <td>". $rows['Email']. "</td><td>". $rows['Salary']. "</td><td>". $rows['Job']. 
+                                        "</td>
+                                        <td><button class='Offerbutton'><a href='staff-server.php'>Edit Information</a></button>
+                                        <button class='Checkoutbutton'><a>Terminate</a></button></td></tr>"; 
+                                        }
+                                    echo "</table>";
+                            }else{
+                                echo "No staff here. ";
+                            }
+                            $conn->close();        
+                          
+                    ?>
             </table>
-
+            <br>
+            <hr>
+            <br>                
             <form method="post" action="staff-server.php" >
                 <div class="input-group">
                     <label>Name</label>
