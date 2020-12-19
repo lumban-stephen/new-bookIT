@@ -10,6 +10,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>BookIT</title>
         <link rel="stylesheet" href="style.css">
+
     </head>
     <body>
         <header>
@@ -57,10 +58,10 @@
 
             echo "<form method='post' action=''>  
                 <label>First Name</label>
-                <input type='text' name='fname' class='button' required>
+                <input type='text' name='fname' class='button'>
                 <br><br>
                 <label>Last Name</label>
-                <input type='text' name='lname' class='button' required>
+                <input type='text' name='lname' class='button'>
                 <br><br>
                 <label>Middle Name</label>
                 <input type='text' name='mname' class='button' >
@@ -82,7 +83,8 @@
                 <label>E-mail</label>
                 <input type='email' name='email' class='button'>
                 <br><br>
-                <input type='submit' name='book' value='Book Reservation' class='submit'>
+                <button type='submit' name='book' class='Greenbutton'>Book Reservation</button>
+                <input type='submit' name='cancel' value='Cancel Check-in' class='Checkoutbutton'>
                 <br><br>
             </form>";
 
@@ -93,11 +95,6 @@
                 $phone=$_POST['phone'];
                 $email=$_POST['email'];
                 $time=$_POST['time'];
-                $_SESSION['fname']=$fname;
-                $_SESSION['lname']=$lname;
-                $_SESSION['mname']=$mname;
-                $_SESSION['phone']=$phone;
-                $_SESSION['email']=$email;
 
                 $stays=(strtotime($_SESSION['checkout'])-strtotime($_SESSION['checkin']))/60/60/24; //number of stays
 
@@ -160,8 +157,7 @@
 
             //get bill_id ($conn->insert_id : get the last generated id)
             $bill_id= $conn->insert_id;
-            $_SESSION['bill_id']=$bill_id;
-
+            
             //create data in bill_items
             $prepare7 = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_date) VALUES (?,?,?)");
             $prepare7->bind_param("iis",$stays,$bill_id,$_SESSION['checkin']);
@@ -173,22 +169,19 @@
             $prepare7->bind_param("sssi",$record_type,$_SESSION['checkin'],$time,$guest_id);
             $prepare7->execute();
             
-            //sessions to use in checkinform.php
-            $_SESSION['guest_id'] = $guest_id;
-            $_SESSION['customer_id']=$customer_id;
-            $_SESSION['room_id']=$room_id;
-            $_SESSION['roomtype_id']=$roomtype_id;
-            $_SESSION['payment_id']=$payment_id;
+           
 
             }
 
-            //if cancel booking
-            if(isset($_POST['cancel'])){
             unset($_SESSION['checkin']);
             unset($_SESSION['checkout']);
             unset($_SESSION['numguest']);
             unset($_SESSION['room_id']);
-            header("location:receptionist_reservation.php");}
+
+            //if cancel booking
+            if(isset($_POST['cancel'])){
+            
+            header("location:receptionist_dashboard.php");}
 
 
             ?>
