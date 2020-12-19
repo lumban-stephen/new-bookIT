@@ -89,17 +89,30 @@
             <hr>
             <br>                
             <form method="post" action="staff-server.php" >
-                <div class="input-group">
-                    <label>Name</label>
+                <div>
+                    <label>First Name</label>
                     <input type="text" name="name" value="">
-                </div>
-                <div class="input-group">
-                    <label>Address</label>
+                    <label>Middle Initial</label>
+                    <input type="text" name="name" value="">
+                    <label>Last Name</label>
                     <input type="text" name="address" value="">
                 </div>
-                <div class="input-group">
-                    <button class="btn" type="submit" name="save" >Save</button>
+                <div>
+                    <label>Email</label>
+                    <input type="email" name="email" value="">
+                    <label>Password</label>
+                    <input type="password" name="password" value="">
                 </div>
+                <div>
+                    <label>Job</label>
+                    <select name="jobs" id="jobs">
+                        <option value="receptionist">Receptionist</option>
+                        <option value="manager">Manager</option>
+                    </select>
+                    <label>Salary Per Day</label>
+                    <input type="text" name="address" value="">
+                </div>
+                <button class="btn" type="submit" name="save" >Save</button>
 	        </form>
         </div>
     </body>
