@@ -1,4 +1,5 @@
 <?php
+    include 'connection.php';
    session_start();
 ?>
 
@@ -56,10 +57,7 @@
                         <td>Actions<td>
                     </tr>
                 
-                    <?php
-                    
-                        include 'connection.php';
-                          
+                    <?php                                                     
                             $sql = "SELECT user_id AS 'UID', 
                             CONCAT(fname, ' ', MI, ' ', lname) AS 'Staff Name', 
                             email AS 'Email', salary AS 'Salary', 
@@ -91,11 +89,11 @@
             <form method="post" action="staff-server.php" >
                 <div>
                     <label>First Name</label>
-                    <input type="text" name="name" value="">
+                    <input type="text" name="fname" value="">
                     <label>Middle Initial</label>
-                    <input type="text" name="name" value="">
+                    <input type="text" name="mi" value="">
                     <label>Last Name</label>
-                    <input type="text" name="address" value="">
+                    <input type="text" name="lname" value="">
                 </div>
                 <div>
                     <label>Email</label>
@@ -106,13 +104,13 @@
                 <div>
                     <label>Job</label>
                     <select name="jobs" id="jobs">
-                        <option value="receptionist">Receptionist</option>
-                        <option value="manager">Manager</option>
+                        <option value="Receptionist">Receptionist</option>
+                        <option value="Admin">Manager</option>
                     </select>
                     <label>Salary Per Day</label>
-                    <input type="text" name="address" value="">
+                    <input type="text" name="salary" value="">
                 </div>
-                <button class="btn" type="submit" name="save" >Save</button>
+                <button type="submit" name="save" >Save</button>
 	        </form>
         </div>
     </body>
