@@ -20,7 +20,7 @@
 
 button, input[type=submit]{
   border: none;
-  padding:initial;
+  padding:10px;
   text-decoration: initial;
   display: initial;
   font-size: initial;
@@ -105,9 +105,9 @@ while($row = $result->fetch_assoc()){
                 <td>".$row['date_out']."</td>
                 <td>
                 <span class='grid-container'>
-                <button type='submit' name='checkin' style='background-color: #28C479; padding: 10px; ' class='button'>Check in</button>
-                <button type='submit' name='update'  style='background-color: #81B1D5; padding: 10px; ' class='button'>Update/Reschedule</button>
-                <button type='submit' name='cancel' style='background-color: #CF3823; padding: 10px; ' class='button'>Cancel Booking</button>
+                <button type='submit' name='checkin' ' class='Greenbutton'>Check in</button>
+                <button type='submit' name='update'  class='Graybutton'>Update/Reschedule</button>
+                <button type='submit' name='cancel' class='Checkoutbutton'>Cancel Booking</button>
                 </span>
                 </td>
 
@@ -149,6 +149,7 @@ while($row = $result->fetch_assoc()){
         $_SESSION['email']=$email;
         $_SESSION['numguest']=$numguest;
         $_SESSION['customer_id']=$customer_id;
+        $_SESSION['list']=2; ////examine in checkin_form if it is from list.
 }
 
    if(isset($_POST['cancel'])){
@@ -156,9 +157,31 @@ while($row = $result->fetch_assoc()){
     
     $sql4 = "DELETE FROM schedule WHERE guest_id = $guest_id";
 
+//delete check_in and out dates. 
+
+    $null="1000-01-01";
+    $cancelled="CANCELLED";
+    $prepare1 = $conn->prepare("UPDATE guests SET date_in =?, date_out=?,guest_status=? WHERE guest_id=?");
+    $prepare1->bind_param("sssi", $null,$null,$cancelled, $guest_id);
+    $prepare1->execute();
+
+//get payment_id
+    $sql5="SELECT payment_id FROM guests WHERE guest_id=$guest_id";
+    $result5 = $conn->query($sql5);
+    while($row = $result5->fetch_assoc()){
+        $payment_id=$row['payment_id'];
+    } 
+
+//delete amount in payments
+    $a=0;
+    $prepare2 = $conn->prepare("UPDATE payments SET payment_amount =? WHERE payment_id=?");
+    $prepare2->bind_param("ii", $a, $payment_id);
+    $prepare2->execute();
+
 
     if($conn->query($sql4)===TRUE){
         echo "successfully deleted";
+        header("location:receptionist_res-list.php");
     }else{
         echo "failed".$conn->error;
     }      

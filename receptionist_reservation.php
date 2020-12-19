@@ -79,9 +79,9 @@
         <input type="date" name="checkout" class="button">
         <br><br>
 
-        <button type="submit" name="submit"style="background-color: #53B7EA; padding: 10px;" class="button">SEARCH</button>
+        <button type="submit" name="submit" class="Offerbutton">SEARCH</button>
 
-        <button type="submit" name="res-list"style="background-color: #53B7EA; padding: 10px;" class="button">Liservation List</button>
+        <button type="submit" name="res-list" class="Viewbutton">Liservation List</button>
         <br><br>
 </form>
 
