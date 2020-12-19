@@ -62,13 +62,17 @@
     $result = $conn->query($sql);
 
     if(mysqli_num_rows($result) > 0){
+    echo "<table id='Table'>
+            <th>Task Name</th>
+            <th>Task Description</th>
+            <th>Action</th><div style='overflow-y:auto;'>";
     while($row = $result->fetch_assoc()){
-                
-        echo $row['task_name']."<br>".$row['task_desc']."<br>";
+        echo "<tr><td><p>".$row['task_name']."</p></td><td><h3>".$row['task_desc']."</td>";
         echo "<form method='post' action=''>
-        <input type='hidden' name='task_id' value='{$row['task_id']}'>
-        <input type='submit' name='done' value='DONE' class='submit'>
-        </form>";}
+        <input type='hidden' name='task_id' value='{$row['task_id']}'><td>
+        <input type='submit' name='done' value='DONE' class='Checkoutbutton'>
+        </h3></form></td></tr>";}
+    echo "</div>";    
     }else{
         echo 'No Task';
     }
@@ -88,7 +92,7 @@
         <br>
         <input type="text" name="task_desc" placeholder="task description" required>
         <br>
-        <input type="submit" name="add" value="add" class="submit">
+        <input type="submit" name="add" value="add" class="Greenbutton">
     </form>
 
 <?php
