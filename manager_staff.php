@@ -89,15 +89,15 @@
             <form method="post" action="staff-server.php" >
                 <div>
                     <label>First Name</label>
-                    <input type="text" name="fname" value="">
+                    <input type="text" name="fname" value="<?php echo $fname;?>">
                     <label>Middle Initial</label>
-                    <input type="text" name="mi" value="">
+                    <input type="text" name="mi" value="<?php echo $mi;?>">
                     <label>Last Name</label>
-                    <input type="text" name="lname" value="">
+                    <input type="text" name="lname" value="<?php echo $lname;?>">
                 </div>
                 <div>
                     <label>Email</label>
-                    <input type="email" name="email" value="">
+                    <input type="email" name="email" value="<?php echo $email;?>">
                     <label>Password</label>
                     <input type="password" name="password" value="">
                 </div>
@@ -108,9 +108,15 @@
                         <option value="Admin">Manager</option>
                     </select>
                     <label>Salary Per Day</label>
-                    <input type="text" name="salary" value="">
+                    <input type="text" name="salary" value="<?php echo $salary;?>">
                 </div>
+                <?php 
+                    if($update == true):
+                ?>
+                <button type="submit" name="update" >Update</button>
+                <?php else: ?>
                 <button type="submit" name="save" >Save</button>
+                <?php endif; ?>
 	        </form>
         </div>
     </body>
