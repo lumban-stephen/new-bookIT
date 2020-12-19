@@ -8,16 +8,11 @@
     width: 160px;
 }
 
-.minus {
+.buttun1 {
     height: 5px;
     width: 5px;
-    
-    border-radius: 50%;
-}
-.plus {
-    height: 5px;
-    width: 5px;
-    
+    background-color: blue;
+    color: white;
     border-radius: 50%;
 }
 
@@ -39,4 +34,11 @@
     background: #81B1D5;
     border: 1px solid rgba(213, 213, 213, 0.37);
     box-sizing: border-box;
+}
+input.button {
+    height: 5px;
+    width: 5px;
+    background-color: blue;
+    color: white;
+    border-radius: 50%;
 }

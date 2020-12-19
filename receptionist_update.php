@@ -80,9 +80,76 @@ button, input[type=submit]{
              <?php
             include 'connection.php';
             //error_reporting(0);
-ob_start();
-//if this page is from reservation and booking
-            
+
+
+            //to extend
+            if(isset($_SESSION['extend'])){
+                $sql0 = "SELECT room_id, date_in, date_out, payment_id, guests_count,customer_id
+                    FROM guests
+                    WHERE guest_id='{$_SESSION['guest_id']}'";
+
+                    $result0 = $conn->query($sql0);
+            while($row = $result0->fetch_assoc()){
+                $room_id=$row['room_id'];
+                $date_in=$row['date_in'];
+                $date_out=$row['date_out'];
+                $payment_id=$row['payment_id'];
+                $guests_count=$row['guests_count'];
+                $customer_id=$row['customer_id'];
+            }
+
+                echo "<form method='post' action=''>
+                <div class='grid-form'>
+                <label>Current Room</label><br>".$room_id."</span>
+                <span><label>Check-in</label><br>".$date_in."</span>
+                
+                <span><label>Check-out</label><br>".$date_out."<input type='date' name='extend'></span>
+                </div>
+                <button type='submit' name='search_room'  style='background-color: #003399; padding: 5px; ' class='button'>Search Room</button>";
+
+if(isset($_POST['search_room'])){
+    $extend=$_POST['extend'];
+
+$sql1 = "SELECT r.room_id as 'room_id',t.room_desc AS room_desc
+    FROM room_type t, rooms r
+    WHERE r.room_id NOT IN(
+    SELECT g.room_id FROM guests g where $date_out between g.date_in and g.date_out) AND r.room_id NOT IN(
+    SELECT g.room_id FROM guests g where $extend between g.date_in and g.date_out) AND t.room_cap>=$guests_count AND t.roomtype_id=r.roomtype_id AND r.room_status != 'Maintenance'";
+
+    $result1 = $conn->query($sql1); 
+
+    if(mysqli_num_rows($result1) > 0){
+        echo "<div class='grid-container'>";
+    while($row = $result1->fetch_assoc()){
+                
+                echo "
+                <form action='' method='POST'>
+                <button type='submit' name='select1' style='background-color: #28C479; padding: 10px; ' class='button'><h1>ROOM  ".$row['room_id']."</h1>".$row['room_desc']."</button>
+                <input type='hidden' name='room_id' value='{$row['room_id']}'>
+                <input type='hidden' name='room_desc' value='{$row['room_desc']}'>
+                
+                </form>";}
+                echo "</div>";
+
+
+    //header("location:receptionist_update.php");
+}}
+
+if(isset($_POST['select1'])){
+    $room_id=$_POST['room_id'];
+    $prepare01= $conn->prepare("UPDATE guests SET date_in =?, date_out=?, guests_count=?,room_id=? WHERE customer_id=?");
+        $prepare01->bind_param("ssiii", $_SESSION['checkin'],  $_SESSION['checkout'], $guests_count,$room_id, $_SESSION['customer_id']);
+        $prepare01->execute();
+
+    $stays=(strtotime($extend)-strtotime($date_out))/60/60/24; //number of stays
+
+
+    $_SESSION['room_id']=$room_id;
+    header("location:receptionist_update.php");
+}
+
+
+            }else{
             echo "<form method='post' action='' enctype='multipart/form-data'>  
                 <label>First Name</label><br>".$_SESSION['fname']."
                 <input type='text' name='fname' class='button'>
@@ -96,7 +163,7 @@ ob_start();
                 <button type='submit' name='upmname'  style='background-color: #81B1D5; padding: 5px; ' class='button'>Update</button>
                 <br><br>
 
-<div class='grid-form'>
+    <div class='grid-form'>
                 <span><label>Check-in</label><br>".$_SESSION['checkin']."<input type='date' name='checkin'></span>
                 
                 <span><label>Check-out</label><br>".$_SESSION['checkout']."<input type='date' name='checkout'></span>
@@ -227,7 +294,7 @@ if(isset($_POST['select'])){
     header("location:receptionist_update.php");
 }
 
-
+}
 
     if(isset($_POST['back'])){
 

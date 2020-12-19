@@ -11,7 +11,40 @@
         <title>BookIT</title>
         <link rel="stylesheet" href="style.css">
         <link rel="stylesheet" href="ameneties.css">
+<style type="text/css">
+.grid-container {
+  display: grid;
+  grid-template-columns: 20% 20% 20% 20%;
+  grid-gap: 10px;
+  padding: 10px;
+}
+
+button, input[type=submit]{
+  border: none;
+  padding:10px;
+  text-decoration: initial;
+  display: initial;
+  font-size: initial;
+  margin:initial;
+  font-weight: initial;
+  white-space: initial;
+  -webkit-appearance: initial;
+  width: initial;
+  text-align: center;
+}
+input.button {
+    height: 5px;
+    width: 5px;
+    background-color: #0099cc;
+    color: white;
+    border-radius: 50%;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+</style>
     </head>
+
     <body>
         <header>
         <div id="header">
@@ -93,19 +126,24 @@ $result1_price = array();
             <p class="name"><?php echo $result1_name[1]; ?></p>
                 <div class="counter">
                     <form action="<?php echo $_SERVER['PHP_SELF'];  ?>" method="post">
-                    <input type="submit" name="plus" value="+">
+                    <p>
+                    <input type="submit" name="minus" value="-" class="button"></p>
+                    
                     <?php
                         $_SESSION['num']=((isset($_SESSION['num']))?$_SESSION['num']:0);
                         if(isset($_POST['minus'])){
+                            if($_SESSION['num']<=0){
+                            $_SESSION['num']=0;
+                        }else{
                             $_SESSION['num']--;
+                        }
                         }
                         if(isset($_POST['plus'])){
                             $_SESSION['num']++;
                         }
                         echo $_SESSION['num'];
-
-      ?>            
-                    <input type="submit" name="minus" value="-">
+                    ?>            
+                    
                 
                     <input type="hidden" name="amenity_id" value="<?php echo $result1_id[1]; ?>">
                     <input type="hidden" name="amenity_price" value="<?php echo $result1_price[1]; ?>">

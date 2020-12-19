@@ -68,10 +68,11 @@
 
             <?php
         include 'connection.php';
+        ob_start();
         
             $sql = "SELECT s.sched_id AS 'SID',
                     CONCAT(c.fname, ' ', c.MI, ' ', c.lname) AS 'Guest Name',
-                    r.room_id as 'Room Number'
+                    r.room_id as 'Room Number', g.guest_id AS 'guest_id'
             FROM
                     Schedule s, Guests g, Customers c,
                     Rooms r
@@ -89,17 +90,29 @@
             if($rows = $display != NULL){ //I didn't put fetch assoc because the first value won't show if the fetch_assoc() is called twice.
                 while($rows = $display->fetch_assoc()){
                     echo
-                        "<tr><td>". $rows['Guest Name']. "</td>
+                        "<form action='' method='POST'>
+                        <tr><td>". $rows['Guest Name']. "</td>
                              <td>". $rows['Room Number']. "</td>
                              <td><button  class='Offerbutton'><a href='receptionist_ameneties.php'>Offer<br>Amenities</a></button>
-                                 <button class='Extendbutton'>Extend<br>Stay</button>
+                                 <button class='Extendbutton' name='extend'>Extend<br>Stay</button>
                                  <input type='submit' class='Checkoutbutton' value='Early Checkout'></button></td>
-                             <td><button class= 'Viewbutton'><a href= 'receptionist_guestview.php?id=".$rows['SID']."'>View</a></button></td></tr>"; 
+                             <td><button class= 'Viewbutton'><a href= 'receptionist_guestview.php?id=".$rows['SID']."'>View</a></button></td></tr>
+                             <input type='hidden' name='guest_id' value='{$rows['guest_id']}'></form>"; 
                       }
                     echo "</table>";
                 }else{
                   echo "No guest checked-in. ";
                 }
+
+         if(isset($_POST['extend'])){
+            $guest_id=$_POST['guest_id'];
+            $_SESSION['guest_id']=$guest_id;
+            $_SESSION['extend']="extend";
+            header("location:receptionist_update.php");
+            } 
+
+
+            ob_end_flush();
                $conn->close();        
         ?>
         </div>
