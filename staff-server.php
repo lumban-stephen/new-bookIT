@@ -11,15 +11,14 @@
         $salary = $_POST['salary'];
 
         $insert = "INSERT INTO users(fname, lname, MI, email, password, user_type, salary) 
-                VALUES('$fname','$lname', '$mi', '$password', '$jobs', '$salary')"; 
+                VALUES('$fname','$lname', '$mi', '$email', '$password', '$jobs', '$salary')"; 
                   
-        $conn = $conn->query($insert);
-
-        $prepare = $conn->prepare("INSERT INTO users(fname, lname, MI, email, password, user_type, salary) 
-        VALUES(?,?,?,?,?,?,?)");
-        $prepare->bind_param("ssssssf",$fname,$lname,$mi,$email,$password,$jobs,$salary);
-        $prepare->execute();
+        $conn->query($insert) or die($conn->error);
 
         header('location: manager_staff.php');
+    }
+
+    if(isset($_GET['delete'])){
+
     }
 ?>

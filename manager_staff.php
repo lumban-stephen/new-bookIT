@@ -72,8 +72,8 @@
                                         "<tr><td>". $rows['Staff Name']. "</td>
                                         <td>". $rows['Email']. "</td><td>". $rows['Salary']. "</td><td>". $rows['Job']. 
                                         "</td>
-                                        <td><button class='Offerbutton'><a href='staff-server.php'>Edit Information</a></button>
-                                        <button class='Checkoutbutton'><a>Terminate</a></button></td></tr>"; 
+                                        <td><button class='Offerbutton'><a href='manager_staff.php?edit=".$rows['UID']."'>Edit Information</a></button>
+                                        <button class='Checkoutbutton'><a href='staff-server.php?delete=".$rows['UID']."'>Terminate</a></button></td></tr>"; 
                                         }
                                     echo "</table>";
                             }else{
