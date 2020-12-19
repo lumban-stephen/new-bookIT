@@ -90,12 +90,12 @@
             <br>                
             <form method="post" action="staff-server.php" >
                 <div>
-                    <label class='Labelform'>First Name</label><input type="text" class='mngt' name="fname" value="">
-                    <label class='Labelform'>Middle Initial</label><input type="text" class='mngt' name="mi" value="">
-                    <label class='Labelform'>Last Name</label><input type="text" class='mngt' name="lname" value="">
+                    <label class='Labelform'>First Name</label><input type="text" class='mngt' name="fname" value="<?php echo $fname;?>">
+                    <label class='Labelform'>Middle Initial</label><input type="text" class='mngt' name="mi"value="<?php echo $mi;?>">
+                    <label class='Labelform'>Last Name</label><input type="text" class='mngt' name="lname" value="<?php echo $lname;?>">
                 </div>
                 <div>
-                    <label class='Labelform'>Email</label><input type="email" class='mngt' name="email" value="">
+                    <label class='Labelform'>Email</label><input type="email" class='mngt' name="email" value="<?php echo $email;?>">
                     <label class='Labelform'>Password</label><input type="password" class='mngt' name="password" value="">
                 </div>
                 <div>
@@ -103,9 +103,15 @@
                         <option value="Receptionist">Receptionist</option>
                         <option value="Admin">Manager</option>
                     </select>
-                    <label class='Labelform'>Salary Per Day</label><input type="text" class='mngt' name="salary" value="">
+                <label class='Labelform'>Salary Per Day</label><input type="text" class='mngt' name="salary" value="<?php echo $salary;?>">
                 </div>
+                <?php 
+                    if($update == true):
+                ?>
+                <button type="submit" class="Greenbutton" name="update" >Update</button>
+                <?php else: ?>
                 <button type="submit" class="Greenbutton" name="save" >Save</button>
+                <?php endif; ?>
 	        </form>
         </div>
     </body>
