@@ -39,7 +39,8 @@ CREATE TABLE Users(
         payment_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
         payment_amount FLOAT(10,2),
         payment_date DATE ,                                   
-        payment_type ENUM('Cash', 'Credit Card')
+        payment_type ENUM('Cash', 'Credit Card'),
+        bill_id INT
     );
 
     CREATE TABLE Guests(
@@ -62,7 +63,9 @@ CREATE TABLE Users(
         record_desc VARCHAR(100),
         record_time TIME,
         record_date DATE , 
-        guest_id INT
+        guest_id INT,
+        room_id INT,
+        payment_id INT
     );
 
     CREATE TABLE schedule(
@@ -79,7 +82,6 @@ CREATE TABLE Users(
 
     CREATE TABLE bill(
         bill_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        bill_date DATE,
         guest_id INT
     );
 
@@ -87,7 +89,6 @@ CREATE TABLE Users(
         billitem_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
         quantity INT,
         bill_id INT,
-        bill_date DATE,  
         amenity_id INT
     );
 
@@ -117,7 +118,9 @@ ALTER TABLE `Guests`
 
 
 ALTER TABLE `Records`
-  ADD CONSTRAINT `records_guests_pk` FOREIGN KEY (`guest_id`) REFERENCES `Guests` (`guest_id`);
+  ADD CONSTRAINT `records_guests_pk` FOREIGN KEY (`guest_id`) REFERENCES `Guests` (`guest_id`),
+  ADD CONSTRAINT `records_room_pk` FOREIGN KEY (`room_id`) REFERENCES `rooms` (`room_id`),
+  ADD CONSTRAINT `records_payment_pk` FOREIGN KEY (`payment_id`) REFERENCES `payments` (`payment_id`);
 
 ALTER TABLE `schedule`
   ADD CONSTRAINT `schedule_guests_pk` FOREIGN KEY (`guest_id`) REFERENCES `Guests` (`guest_id`),
@@ -134,3 +137,7 @@ ALTER TABLE `bill`
 ALTER TABLE `bill_items`
 ADD CONSTRAINT `billitems_bill_pk` FOREIGN KEY (`bill_id`) REFERENCES `bill` (`bill_id`),
   ADD CONSTRAINT `billitems_amenities_pk` FOREIGN KEY (`amenity_id`) REFERENCES `amenities` (`amenity_id`);
+
+
+ALTER TABLE `payments`
+  ADD CONSTRAINT `pay_bill_fk` FOREIGN KEY (`bill_id`) REFERENCES `bill` (`bill_id`);

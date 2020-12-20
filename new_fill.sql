@@ -23,15 +23,15 @@ VALUES ('Ana', 'Manalastas', 'Z', 'Philippines', 'dummyemail@gmail.com', '123456
 ('Yami', 'Sukihiro', 'Z', 'Japan', '', '');
 
 
-INSERT INTO payments(payment_id, payment_amount, payment_date, payment_type)
-VALUES (1,5000,'2020-10-12','Cash'),
-(2,5000,'2020-10-12','Cash'),
-(3,6000,'2020-11-12','Credit Card'),
-(4,5000,'2020-11-14','Cash'),
-(5,5000,'2020-11-15','Credit Card'),
-(6,5000,'2020-12-16','Cash'),
-(7,5000,'2020-12-26','Cash'),
-(8,5000,'2020-12-28','Credit Card');
+INSERT INTO payments(payment_id, payment_amount, payment_date, payment_type, bill_id)
+VALUES (1,5000,'2020-10-12','Cash', '1'),
+(2,5000,'2020-10-12','Cash', '2'),
+(3,6000,'2020-11-12','Credit Card', '3'),
+(4,5000,'2020-11-14','Cash', '4'),
+(5,5000,'2020-11-15','Credit Card', '5'),
+(6,5000,'2020-12-16','Cash', '6'),
+(7,5000,'2020-12-26','Cash', '7'),
+(8,5000,'2020-12-28','Credit Card', '8');
 
 
 
@@ -138,15 +138,15 @@ VALUES	('Dove Shampoo', 8, 100,'Hygiene'),
 
 
 
-INSERT INTO Bill (guest_id, bill_date)
-VALUES 	(1,'2020-10-11'),
-	(2,'2020-10-11'),
-	(3,'2020-11-11'),
-	(4,'2020-11-13'),
-	(5,'2020-11-14'),
-	(6,'2020-12-15'),
-	(7,'2020-12-24'),
-	(8,'2020-12-26');
+INSERT INTO Bill (guest_id)
+VALUES 	(1),
+	(2),
+	(3),
+	(4),
+	(5),
+	(6),
+	(7),
+	(8);
 
 
 
