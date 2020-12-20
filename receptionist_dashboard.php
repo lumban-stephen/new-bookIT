@@ -24,6 +24,7 @@
     display: none; 
     margin-bottom: 0;
     overflow-x: hidden;
+    padding: 20px;
 }
 .modal-content {
     width: 400px;
