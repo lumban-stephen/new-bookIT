@@ -19,21 +19,6 @@
   padding: 10px;
 }
 
-button, input[type=submit]{
-  border: none;
-  padding:10px;
-  text-decoration: initial;
-  display: initial;
-  font-size: initial;
-  margin:initial;
-  font-weight: initial;
-  white-space: initial;
-  -webkit-appearance: initial;
-  width: initial;
-}
-.select:hover{
-  background-color: #00DE73;
-}
 
 </style>
     </head>
@@ -104,9 +89,9 @@ button, input[type=submit]{
                 
                 echo "
                 <form action='' method='POST'>
-                <button type='submit' name='select' class='Greenbutton'><h3>ROOM  ".$row['room_id']."</h3>".$row['room_desc']."</button>
+                <button type='submit' name='select' style='background-color: #28C479; padding: 10px; ' class='button' class='Greenbutton'><h3>ROOM  ".$row['room_id']."</h3>".$row['room_desc']."
                 <input type='hidden' name='room_id' value='{$row['room_id']}'>
-                <input type='hidden' name='room_desc' value='{$row['room_desc']}'>
+                <input type='hidden' name='room_desc' value='{$row['room_desc']}'></button>
                 
                 </form>";}
                 echo "</div>";
