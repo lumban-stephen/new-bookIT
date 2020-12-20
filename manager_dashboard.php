@@ -50,10 +50,58 @@
         <h2>Dashboard</h2>
         <br><br>
         <div class="dashwrapper">
-                <div class="dash box1" id="mgt-guests-in">Guests in</div>
-                <div class="dash box2" id="mgt-vacancies">Vacancies</div>
-                <div class="dash box3" id="mgt-coming">Coming</div>
-                <div class="dash box4" id="mgt-reservation">Reservation</div>
+                <div class="dash box1" id="mgt-guests-in">
+                    <?php
+                        include 'connection.php';
+        
+                        $sql = "SELECT COUNT(*) AS 'Guests'
+                                 FROM checked_in_guests;";
+                        $display = $conn->query($sql);
+                        if($rows = $display != NULL){ 
+                            while($rows = $display->fetch_assoc()){
+                                echo
+                                    "Number of Guests checked in:  ".$rows['Guests'].""; 
+                             }
+                            }else{
+                              echo "No guest checked in";
+                            }     
+                    ?></div>
+                <div class="dash box2" id="mgt-vacancies"><?php
+                         include 'connection.php';
+        
+                         $sql = "SELECT COUNT(*) AS 'Vacancies' 
+                                 FROM `rooms`
+                                 WHERE room_status='Available';";
+                        $display = $conn->query($sql);
+                        if($rows = $display != NULL){ 
+                            while($rows = $display->fetch_assoc()){
+                                echo
+                                    "Number of Vacancies:  ".$rows['Vacancies'].""; 
+                             }
+                            }else{
+                              echo "No available rooms";
+                            }     
+                    ?></div>
+
+                <div class="dash box3" id="mgt-coming">
+                    </div>
+                <div class="dash box4" id="mgt-reservation"><?php
+                         include 'connection.php';
+        
+                         $sql = "SELECT 
+                                    count(*)
+                                 FROM
+                                    Schedule s;";
+                        $display = $conn->query($sql);
+                        if($rows = $display != NULL){ 
+                            while($rows = $display->fetch_assoc()){
+                                echo
+                                    "Number of Reservations:  ".$rows['count(*)'].""; 
+                             }
+                            }else{
+                              echo "No reservations";
+                            }     
+                    ?></div>
                 <div class="dash longbox5" id="mgt-earnings">Earnings</div>
             </div>
         </div>

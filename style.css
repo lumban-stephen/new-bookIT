@@ -269,28 +269,18 @@ input.mngt[type="email"],input.mngt[type="password"] {
   background: #E35D40;
   grid-column: 2/4;
   grid-row: 3/5;
+  color: #fff;
+  font-family: "Segoe UI", sans-serif;
+  padding: 15px 10px;
+  transition: 0.5s;
 }
 .longbox5:hover{
   background-color: #FF6645;
 }
 /** DIGITAL CLOCK
 -------------------------------------------------*/
-.datetime{
-  color: #fff;
-  background: #10101E;
-  font-family: "Segoe UI", sans-serif;
-  width: 340px;
-  padding: 15px 10px;
-  border: 3px solid #2E94E3;
-  border-radius: 5px;
-  -webkit-box-reflect: below 1px linear-gradient(transparent, rgba(255,255,255,0.1));
-  transition: 0.5s;
-  transition-property: background, box-shadow;
-}
-.datetime:hover{
-  background: #2E94E3;
-  box-shadow: 0 0 30PX #2E94E3;
-}
+
+
 .date{
   font-size: 30px;
   font-weight:600;
@@ -311,6 +301,7 @@ input.mngt[type="email"],input.mngt[type="password"] {
 }
 .time span:last-child{
   background: #2E94E3;
+  text-align: center;
   font-size: 30px;
   font-weight: 600;
   text-transform: uppercase;
