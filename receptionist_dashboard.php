@@ -23,6 +23,7 @@
     align-items: center;
     display: none; 
     margin-bottom: 0;
+    overflow-x: hidden;
 }
 .modal-content {
     width: 400px;
@@ -103,9 +104,14 @@
                    <div class="bg-modal">
                         <div class="modal-content">
                             <div class="close">+</div>
-                            <div class="header">s
+                            <div class="header">
                                 <h1>Modal</h1>
                                 </div>
+                                <table id="Table">
+                                    <tr>
+                                        <th>Guest Name</th>
+                                        <th>Room Number</th>
+                                    </tr>
                                 <?php
                                 include 'connection.php';
                 
@@ -120,6 +126,17 @@
                                                 AND ch.room_id = r.room_id
                                         ORDER BY
                                                 g.date_in;";
+                                        $display = $conn->query($sql);
+                                        if($rows = $display != NULL){ 
+                                            while($rows = $display->fetch_assoc()){
+                                                echo
+                                                   "<tr><td>" .$rows['Guest Name']."</td>
+                                                   <td>" .$rows['Room Number']."</td></tr>";
+                                             }
+                                            }else{
+                                              echo "No guest checked in";
+                                            } 
+                                            echo "</table>" ;  
                                 ?>
                         </div>
                     </div> 
@@ -200,7 +217,7 @@
             });
 
             document.querySelector('.close').addEventListener('click', function(){
-            document.querySelector('.bg-modal-resched').style.display = 'none';
+            document.querySelector('.bg-modal').style.display = 'none';
         });
         </script>
     </body>

@@ -66,7 +66,8 @@
                               echo "No guest checked in";
                             }     
                     ?></div>
-                <div class="dash box2" id="mgt-vacancies"><?php
+                <div class="dash box2" id="mgt-vacancies">
+                    <?php
                          include 'connection.php';
         
                          $sql = "SELECT COUNT(*) AS 'Vacancies' 
@@ -84,7 +85,23 @@
                     ?></div>
 
                 <div class="dash box3" id="mgt-coming">
-                    </div>
+                    <?php
+                         include 'connection.php';
+        
+                         $sql = "SELECT COUNT(*) AS 'Coming'
+                                FROM schedule, guests g
+                                WHERE schedule.sched_id= g.guest_id 
+                                    AND g.date_in >= NOW() - INTERVAL 1 DAY;";
+                        $display = $conn->query($sql);
+                        if($rows = $display != NULL){ 
+                            while($rows = $display->fetch_assoc()){
+                                echo
+                                    "Number of Guests coming in:  ".$rows['Coming'].""; 
+                             }
+                            }else{
+                              echo "No Guest is coming in";
+                            }     
+                    ?></div>
                 <div class="dash box4" id="mgt-reservation"><?php
                          include 'connection.php';
         

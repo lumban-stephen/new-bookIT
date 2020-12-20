@@ -22,20 +22,22 @@
               <button type = "submit" class="submitlogin" name = "login">Login</button>
         </form> -->
     <div class="login_container">
-    <div class="login_flex">
-    <div class="content-image">
-        <img src="assets/bookIT_Logo.png">
-    </div>
-    </div>
-    <div>
-            <div id="login-form">
-                <h1>Log-in</h1>
-                <form action="" method="post">
-                    <input type="email" class="field" name="email" placeholder="Enter email" required>
-                    <input type="password" class="field" name="password" placeholder="Enter password" required><br><br>
-                    <button class="Greenbutton"name="login">Log in</button>
-                </form>
+        <div class="login_flex">
+            <div class="content-image">
+                <img src="assets/bookIT_Logo.png">
             </div>
+         </div>
+        <div class="login_flex1">
+                <div id="login-form">
+                    <h1>Log-in</h1>
+                    <form action="" method="post">
+                        <input type="email" class="field" name="email" placeholder="Enter email" required>
+                        <input type="password" class="field" name="password" placeholder="Enter password" required><br><br>
+                        <button class="Greenbutton"name="login">Log in</button>
+                    </form>
+            </div>
+            </div>
+    </div>
             <?php
                     if(isset($_POST['login'])){
                     $user=$_POST['email'];
@@ -62,7 +64,7 @@
               
                 $conn->close();
           ?>
-        </div>
-    </div>
+        
+   
     <div class="box-foot"></div>
     </body>
