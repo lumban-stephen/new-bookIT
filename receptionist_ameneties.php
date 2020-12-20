@@ -19,29 +19,6 @@
   padding: 10px;
 }
 
-button, input[type=submit]{
-  border: none;
-  padding:10px;
-  text-decoration: initial;
-  display: initial;
-  font-size: initial;
-  margin:initial;
-  font-weight: initial;
-  white-space: initial;
-  -webkit-appearance: initial;
-  width: initial;
-  text-align: center;
-}
-input.button {
-    height: 5px;
-    width: 5px;
-    background-color: #0099cc;
-    color: white;
-    border-radius: 50%;
-    font-size: 10px;
-    font-weight: bold;
-}
-
 </style>
     </head>
 
@@ -97,10 +74,10 @@ include 'connection.php';
                 <?php
                 $Hygiene="Hygiene";
                 $sql1 = "SELECT * FROM amenities WHERE amenity_type = 'Hygiene'";
-$result1 = $conn->query($sql1);
-$result1_id = array();
-$result1_name = array();
-$result1_price = array();
+                $result1 = $conn->query($sql1);
+                $result1_id = array();
+                $result1_name = array();
+                $result1_price = array();
                 while($row1 = $result1->fetch_assoc()){
                    $result1_id[] = $row1['amenity_id'];
                    $result1_name[] = $row1['amenity_name'];
@@ -126,8 +103,8 @@ $result1_price = array();
             <p class="name"><?php echo $result1_name[1]; ?></p>
                 <div class="counter">
                     <form action="<?php echo $_SERVER['PHP_SELF'];  ?>" method="post">
-                    <p>
-                    <input type="submit" name="minus" value="-" class="button"></p>
+                    
+                    <input type="submit" name="minus" value="-">
                     
                     <?php
                         $_SESSION['num']=((isset($_SESSION['num']))?$_SESSION['num']:0);
@@ -143,7 +120,7 @@ $result1_price = array();
                         }
                         echo $_SESSION['num'];
                     ?>            
-                    
+                    <input type="submit" name="plus" value="+">
                 
                     <input type="hidden" name="amenity_id" value="<?php echo $result1_id[1]; ?>">
                     <input type="hidden" name="amenity_price" value="<?php echo $result1_price[1]; ?>">
@@ -177,20 +154,6 @@ $result1_price = array();
     </div>           
           
 
-
-            
-<script type="text/JavaScript">
-document.getElementById("plus").addEventListener("click", displayPlus);
-var i=0;
-function displayPlus() {
-  document.getElementById("demo").innerHTML = i++;
-}
-document.getElementById("minus").addEventListener("click", displayMinus);
-var i=0;
-function displayMinus() {
-  document.getElementById("demo").innerHTML = i--;
-}
-</script>
 
 
             </div>
