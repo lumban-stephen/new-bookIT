@@ -34,11 +34,9 @@
                 </a>
             </div>
             <div class="right-float">
-                <p>Welcome,</p>
+                <p>Welcome Receptionist  </p>
             </div>
-            <div class="right-float">
-                <a><img></img></a>
-            </div>
+            
         </div>
         </header>
         <?php

@@ -49,10 +49,7 @@ button, input[type=submit]{
                 </a>
             </div>
             <div class="right-float">
-                <p>Welcome,</p>
-            </div>
-            <div class="right-float">
-                <a><img></img></a>
+                <p>Welcome Receptionist  </p>
             </div>
         </div>
         </header>
