@@ -1,3 +1,5 @@
+CREATE DATABASE bookit_db;
+
 CREATE TABLE Users(
         user_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
         fname VARCHAR(100),
