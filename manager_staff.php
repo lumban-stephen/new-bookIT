@@ -1,6 +1,30 @@
 <?php
     include 'connection.php';
-    session_start();
+    include 'staff-server.php';
+?>
+<?php 
+
+    $sql = "SELECT user_id AS 'UID', 
+    CONCAT(fname, ' ', MI, ' ', lname) AS 'Staff Name', 
+    email AS 'Email', salary AS 'Salary', 
+    user_type AS 'Job' FROM users;"; 
+
+	if (isset($_GET['edit'])) {
+		$id = $_GET['edit'];
+		$update = true;
+		$record = mysqli_query($conn, $sql);
+
+		if (count($record) != 1 ) {
+			$arr = mysqli_fetch_array($record);
+			$fname = $arr['fname'];
+            $mi = $arr['mi'];
+            $lname = $arr['lname'];
+            $email = $arr['email'];
+            $password = $arr['password'];
+            $jobs = $arr['jobs'];
+            $salary = $arr['salary'];
+		}
+	}
 ?>
 
 <!DOCTYPE html>
@@ -13,6 +37,14 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
+        <?php if (isset($_SESSION['message'])): ?>
+            <div class="msg">
+                <?php 
+                    echo $_SESSION['message']; 
+                    unset($_SESSION['message']);
+                ?>
+            </div>
+        <?php endif ?>
         <header>
         <div id="header">
         <img src="assets/bookIT_Logo.png">
@@ -40,7 +72,7 @@
                 <li><a href="manager_records.php">Records</a></li>
                 <li><a href="manager_guests.php">Guests</a></li>
                 <li><a href="manager_room-mgt.php">Room Management</a></li>
-                <li><a href="#">Staff Management</a></li>
+                <li><a href="manager_staff.php">Staff Management</a></li>
             </ul>
         </nav>
         <div id="content">
@@ -52,16 +84,11 @@
                     <th>Work</th>
                     <th>Actions</th>
                 </tr>
-                    <?php                                                     
-                            $sql = "SELECT user_id AS 'UID', 
-                            CONCAT(fname, ' ', MI, ' ', lname) AS 'Staff Name', 
-                            email AS 'Email', salary AS 'Salary', 
-                            user_type AS 'Job' FROM users;"; 
-                  
+                    <?php                                                                      
                             $display = $conn->query($sql);
                   
-                            if($rows = $display != NULL){
-                                while($rows = $display->fetch_assoc()){
+                            
+                            while($rows = mysqli_fetch_array($display)){
                                     echo
                                         "<tr><td>". $rows['Staff Name']. "</td>
                                              <td>". $rows['Email']. "</td>
@@ -71,11 +98,6 @@
                                              <button class='Checkoutbutton'><a href='staff-server.php?delete=".$rows['UID']."'>Terminate</a></button></td></tr>"; 
                                         }
                                     echo "</table>";
-                            }else{
-                                echo "No staff here. ";
-                            }
-                            $conn->close();        
-                          
                     ?>
             </table>
             <br>
@@ -83,13 +105,13 @@
             <br>                
             <form method="post" action="staff-server.php" >
                 <div>
-                    <label class='Labelform'>First Name</label><input type="text" class='mngt' name="fname" value="<?php echo $fname;?>">
-                    <label class='Labelform'>Middle Initial</label><input type="text" class='mngt' name="mi"value="<?php echo $mi;?>">
-                    <label class='Labelform'>Last Name</label><input type="text" class='mngt' name="lname" value="<?php echo $lname;?>">
+                    <label class='Labelform'>First Name</label><input type="text" name="fname" value="<?php echo $fname;?>">
+                    <label class='Labelform'>Middle Initial</label><input type="text" name="mi"value="<?php echo $mi;?>">
+                    <label class='Labelform'>Last Name</label><input type="text" name="lname" value="<?php echo $lname;?>">
                 </div>
                 <div>
-                    <label class='Labelform'>Email</label><input type="email" class='mngt' name="email" value="<?php echo $email;?>">
-                    <label class='Labelform'>Password</label><input type="password" class='mngt' name="password" value="">
+                    <label class='Labelform'>Email</label><input type="email" name="email" value="<?php echo $email;?>">
+                    <label class='Labelform'>Password</label><input type="password" name="password" value="">
                 </div>
                 <div>
                     <label class='Labelform'>Job</label><select name="jobs" class='mngt' id="jobs">
@@ -98,13 +120,11 @@
                     </select>
                 <label class='Labelform'>Salary Per Day</label><input type="text" class='mngt' name="salary" value="<?php echo $salary;?>">
                 </div>
-                <?php 
-                    if($update == true):
-                ?>
-                <button type="submit" class="Greenbutton" name="update" >Update</button>
-                <?php else: ?>
-                <button type="submit" class="Greenbutton" name="save" >Save</button>
-                <?php endif; ?>
+                    <?php if ($update == true): ?>
+                        <button class="Greenbutton" type="submit" name="update">Update</button>
+                    <?php else: ?>
+                        <button class="Greenbutton" type="submit" name="save" >Save</button>
+                    <?php endif ?>
 	        </form>
         </div>
     </body>
