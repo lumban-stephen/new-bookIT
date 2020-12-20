@@ -1,9 +1,9 @@
 
-INSERT INTO room_type(room_cost, room_desc,room_cap) 
-VALUES ('2000', 'Single bed, Aircon, 1-2 people', '2'), 
-('2000', 'Single bed, Fan only, 1-2 people', '2'),
-('4500', 'Two beds, Aircon, 2-4 people', '4'),
-('9000', 'Three beds, Aircon, 3-5 people', '5');
+INSERT INTO room_type(roomtype_id, room_cost, room_desc,room_cap) 
+VALUES (1,'2000', 'Single bed, Aircon, 1-2 people', '2'), 
+(2,'2000', 'Single bed, Fan only, 1-2 people', '2'),
+(3,'4500', 'Two beds, Aircon, 2-4 people', '4'),
+(4,'9000', 'Three beds, Aircon, 3-5 people', '5');
 
 
 INSERT INTO rooms(room_id, room_status, roomtype_id) 
@@ -23,27 +23,80 @@ VALUES ('Ana', 'Manalastas', 'Z', 'Philippines', 'dummyemail@gmail.com', '123456
 ('Yami', 'Sukihiro', 'Z', 'Japan', '', '');
 
 
-INSERT INTO payments(payment_amount, payment_date, payment_type)
-VALUES ('5000', '2008-10-11', 'Cash'), ('5000', '2008-09-12', 'Cash'),
-('5000', '2009-11-12', 'Cash'),
-('5000', '2008-11-14', 'Cash'),
-('5000', '2008-11-15', 'Credit Card'),
-('5000', '2008-11-16', 'Credit Card'),
-('5000', '2008-11-17', 'Credit Card'),
-('5000', '2008-11-18', 'Cash');
+INSERT INTO payments(payment_id, payment_amount, payment_date, payment_type)
+VALUES (1,5000,'2020-10-12','Cash'),
+(2,5000,'2020-10-12','Cash'),
+(3,6000,'2020-11-12','Credit Card'),
+(4,5000,'2020-11-14','Cash'),
+(5,5000,'2020-11-15','Credit Card'),
+(6,5000,'2020-12-16','Cash'),
+(7,5000,'2020-12-26','Cash'),
+(8,5000,'2020-12-28','Credit Card');
 
 
 
-INSERT INTO guests(date_in, date_out, guests_count, customer_id, payment_id)
-VALUES ('2008-10-11', '2008-10-12', '1', '1','1'), 
-('2008-09-11', '2008-09-12', '1', '2', '2'),
-('2009-11-11', '2009-11-12', '3', '3', '3'),
-('2008-11-13', '2008-11-14', '2', '4', '4'),
-('2008-11-14', '2008-11-15', '6', '5', '5'),
-('2008-11-15', '2008-11-16', '4', '6', '6'),
-('2008-11-16', '2008-11-17', '5', '7', '7'),
-('2008-11-17', '2008-11-18', '1', '8', '8');
+INSERT INTO guests(date_in, date_out, guests_count, customer_id, payment_id,room_id)
+VALUES ('2020-10-11', '2020-10-12', '1', '1','1',101), 
+('2020-10-11', '2020-10-12', '1', '2', '2',102),
+('2020-11-11', '2020-11-12', '3', '3', '3',103),
+('2020-11-13', '2020-11-14', '2', '4', '4',202),
+('2020-11-14', '2020-11-15', '6', '5', '5',301),
+('2020-12-15', '2020-12-16', '4', '6', '6',202),
+('2020-12-24', '2020-12-26', '5', '7', '7',303),
+('2020-12-26', '2020-12-28', '1', '8', '8',206);
 
+INSERT INTO `records` (record_type,record_desc,record_date,record_time,guest_id) VALUES
+('COMING','coming','2020-10-11','	
+14:00:00',1),
+('STAYING','staying','2020-10-11','	
+15:00:00',1),
+('CHECKED OUT','','2020-10-12','	
+09:00:00',1),
+('COMING','coming','2020-10-11','	
+14:00:00',2),
+('STAYING','staying','2020-10-11','	
+16:00:00',2),
+('CHECKED OUT','','2020-10-12','	
+10:00:00',2),
+('COMING','coming','2020-11-11','	
+14:00:00',3),
+('STAYING','staying','2020-11-11','	
+15:00:00',3),
+('CHECKED OUT','','2020-11-12','	
+08:00:00',3),
+('COMING','coming','2020-11-13','	
+14:00:00',4),
+('STAYING','staying','2020-11-13','	
+16:00:00',4),
+('CHECKED OUT','','2020-11-14','	
+16:00:00',4),
+('COMING','coming','2020-11-14','	
+14:00:00',5),
+('STAYING','staying','2020-11-14','	
+16:00:00',5),
+('CHECKED OUT','','2020-11-15','	
+16:00:00',5),
+('COMING','coming','2020-12-15','	
+14:00:00',6),
+('STAYING','staying','2020-12-15','	
+13:00:00',6),
+('CHECKED OUT','','2020-12-16','	
+10:00:00',6),
+('COMING','coming','2020-12-24','	
+14:00:00',7),
+('COMING','coming','2020-12-26','	
+14:00:00',8)
+;
+
+INSERT INTO `schedule` (`sched_id`, `guest_id`, `room_id`) VALUES
+(1, 1, 101),
+(2, 2, 102),
+(3, 3, 103),
+(4, 4, 202),
+(5, 5, 301),
+(6, 6, 202),
+(7, 7, 303),
+(8, 8, 206);
 
 
 INSERT INTO amenities (amenity_name, amenity_price, stock,amenity_type)
@@ -85,13 +138,15 @@ VALUES	('Dove Shampoo', 8, 100,'Hygiene'),
 
 
 
-INSERT INTO Bill (guest_id, bill_date,payment_id)
-VALUES 	(1,'2008-11-12',1),
-	(2,'2008-11-13',2),
-	(3,'2008-11-14',3),
-	(4,'2008-11-15',4),
-	(5,'2008-11-16',5),
-	(6,'2008-11-17',6);
+INSERT INTO Bill (guest_id, bill_date)
+VALUES 	(1,'2020-10-11'),
+	(2,'2020-10-11'),
+	(3,'2020-11-11'),
+	(4,'2020-11-13'),
+	(5,'2020-11-14'),
+	(6,'2020-12-15'),
+	(7,'2020-12-24'),
+	(8,'2020-12-26');
 
 
 
@@ -122,21 +177,6 @@ VALUES 	(1, 5, 1),
 	(6, 29, 2);
 
 
-INSERT INTO `schedule` (`sched_id`, `guest_id`, `customer_id`, `room_id`, `roomtype_id`) VALUES
-(1, 1, 1, 1, 1),
-(3, 3, 3, 3, 1),
-(4, 4, 4, 2, 1),
-(5, 5, 5, 6, 2),
-(6, 6, 6, 4, 1),
-(7, 7, 7, 5, 2);
-
-
-INSERT INTO `checked_in_guests` (`checked_in_id`, `guest_id`, `room_id`, `roomtype_id`, `payment_id`, `paid_amount`) VALUES
-(1, 1, 1, 1, 1, 2000),
-(2, 2,  1, 1, 2, 2000),
-(3, 3,  3, 1, 3, 0),
-(4, 4, 2, 1, 4, 0);
-
 
 INSERT INTO `users` (`fname`,`lname`,`MI`, `email`, `password`, `user_type`) VALUES
 ('Ash', 'Ketchum', 'P', 'admin@email.com', 'admin', 'Admin'),
@@ -148,5 +188,3 @@ INSERT INTO `users` (`fname`,`lname`,`MI`, `email`, `password`, `user_type`) VAL
 INSERT INTO `task` (`task_name`,`task_desc`,task_status) VALUES
 ('clean room','a customer spilled juice on the bed.','INCOMPLETE'),('Order equipmemts','check the storage, and order them.','INCOMPLETE')
 ;
-
-ALTER TABLE users ADD COLUMN salary FLOAT(10,2);
