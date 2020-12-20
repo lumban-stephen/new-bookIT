@@ -23,11 +23,9 @@
                 </a>
             </div>
             <div class="right-float">
-                <p>Welcome,</p>
+                <p>Welcome Manager  </p>
             </div>
-            <div class="right-float">
-                
-        </div>
+            
         </header>
         <?php
             if(isset($_POST['logout'])){
