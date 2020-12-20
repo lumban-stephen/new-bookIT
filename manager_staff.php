@@ -1,6 +1,6 @@
 <?php
     include 'connection.php';
-   session_start();
+    session_start();
 ?>
 
 <!DOCTYPE html>
@@ -45,15 +45,13 @@
         </nav>
         <div id="content">
             <table id="Table">
-                
-                    <tr>
-                        <th>Staff Name</th>
-                        <th>Email</th>
-                        <th>Salary</th>
-                        <th>Work</th>
-                        <th>Actions</th>
-                    </tr>
-                
+                <tr>
+                    <th>Staff Name</th>
+                    <th>Email</th>
+                    <th>Salary</th>
+                    <th>Work</th>
+                    <th>Actions</th>
+                </tr>
                     <?php                                                     
                             $sql = "SELECT user_id AS 'UID', 
                             CONCAT(fname, ' ', MI, ' ', lname) AS 'Staff Name', 
@@ -62,7 +60,6 @@
                   
                             $display = $conn->query($sql);
                   
-                      
                             if($rows = $display != NULL){
                                 while($rows = $display->fetch_assoc()){
                                     echo
@@ -71,8 +68,7 @@
                                              <td>". $rows['Salary']. "</td>
                                              <td>". $rows['Job']. "</td>
                                              <td><button class='Offerbutton'><a href='manager_staff.php?edit=".$rows['UID']."'>Edit Information</a></button>
-                                                 <button class='Checkoutbutton'><a href='staff-server.php?delete=".$rows['UID']."'>Terminate</a></button></td>
-                                        </tr>"; 
+                                             <button class='Checkoutbutton'><a href='staff-server.php?delete=".$rows['UID']."'>Terminate</a></button></td></tr>"; 
                                         }
                                     echo "</table>";
                             }else{
