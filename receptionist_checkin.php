@@ -34,7 +34,10 @@
                 </a>
             </div>
             <div class="right-float">
-                <p>Welcome Receptionist  </p>
+                <p>Welcome,</p>
+            </div>
+            <div class="right-float">
+                <a><img></img></a>
             </div>
         </div>
         </header>
@@ -100,7 +103,7 @@
      if(isset($_POST['select'])){  
         $room_id = $_POST['room_id'];
         $_SESSION['room_id'] = $room_id;
-        $_SESSION['checkin']=1; //examine in checkin_form if it is from checkin.
+        $_SESSION['from_checkin']=1; //examine in checkin_form if it is from checkin.
         header("location:receptionist_checkinform.php");   
 }
         
