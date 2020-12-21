@@ -69,6 +69,7 @@
              <?php
             include 'connection.php';
             //error_reporting(0);
+            ob_start();
 
 
             //to extend
@@ -124,6 +125,7 @@ $sql1 = "SELECT r.room_id as 'room_id',t.room_desc AS room_desc
     //header("location:receptionist_update.php");
 }}
 
+//update room
 if(isset($_POST['select1'])){
     $room_id=$_POST['room_id'];
     $prepare01= $conn->prepare("UPDATE guests SET date_in =?, date_out=?, guests_count=?,room_id=? WHERE customer_id=?");
@@ -132,6 +134,22 @@ if(isset($_POST['select1'])){
 
     $stays=(strtotime($extend)-strtotime($date_out))/60/60/24; //number of stays
 
+//get room_cost
+$sql2 = "SELECT t.room_cost as 'room_cost', g.payment_id as 'payment_id'
+    FROM room_type t, rooms r, guests g
+    WHERE t.roomtype_id=r.roomtype_id AND r.room_id=$room_id AND g.room_id=r.room_id";
+    $result2 = $conn->query($sql2); 
+
+    while($row = $result1->fetch_assoc()){$room_cost=$row['room_cost'];
+        $payment_id=$row['payment_id'];}
+
+    $payment = $stays*$room_cost;
+
+//update payment
+$prepare02= $conn->prepare("UPDATE payments SET payment_amount =? 
+    WHERE payment_id=?");
+        $prepare02->bind_param("ii", $payment, $payment_id);
+        $prepare2->execute();
 
     $_SESSION['room_id']=$room_id;
     header("location:receptionist_update.php");
@@ -195,8 +213,6 @@ $sql1 = "SELECT r.room_id as 'room_id',t.room_desc AS room_desc
                 </form>";}
                 echo "</div>";
 
-
-    //header("location:receptionist_update.php");
 }}
             echo "<br><br>
                 <label>Room Selected</label><br>".$_SESSION['room_id']."
@@ -207,8 +223,8 @@ $sql1 = "SELECT r.room_id as 'room_id',t.room_desc AS room_desc
                 <label>E-mail</label><br>".$_SESSION['email']."<input type='email' name='email' class='button'>
                 <button type='submit' name='upemail'  style='background-color: #81B1D5; padding: 5px; ' class='button'>Update</button>
                 <br><br>
-             
-                <button type='submit' name='upaddress'  style='background-color: #81B1D5; padding: 5px; ' class='button'>BACK TO LIST</button>
+                
+                <a href='receptionist_res-list.php' class='Greenbutton' style='color: white;'>Back to Liservation List</a>
                 <br><br>
             </form>";
 
@@ -261,39 +277,41 @@ if(isset($_POST['upemail'])){
     header("location:receptionist_update.php");
 }
 
-if(isset($_POST['upaddress'])){
-    $address=$_POST['address'];
-    $prepare= $conn->prepare("UPDATE customers SET address =? WHERE customer_id=?");
-        $prepare->bind_param("si", $address, $_SESSION['customer_id']);
-        $prepare->execute();
-    $_SESSION['address']=$address;
-    header("location:receptionist_update.php");
-}
-
 if(isset($_POST['select'])){
     $room_id=$_POST['room_id'];
-    $prepare= $conn->prepare("UPDATE guests SET date_in =?, date_out=?, guests_count=?,room_id=? WHERE customer_id=?");
-        $prepare->bind_param("ssiii", $_SESSION['checkin'],  $_SESSION['checkout'], $_SESSION['numguest'],$room_id, $_SESSION['customer_id']);
-        $prepare->execute();
+        
+    $prepare01= $conn->prepare("UPDATE guests SET date_in =?, date_out=?, guests_count=?,room_id=? WHERE customer_id=?");
+        $prepare01->bind_param("ssiii", $_SESSION['checkin'],  $_SESSION['checkout'], $guests_count,$room_id, $_SESSION['customer_id']);
+        $prepare01->execute();
+
+    $stays=(strtotime($_SESSION['checkout'])-strtotime($_SESSION['checkin']))/60/60/24; //number of stays
+
+//get room_cost
+$sql2 = "SELECT t.room_cost as 'room_cost', g.payment_id as 'payment_id'
+    FROM room_type t, rooms r, guests g
+    WHERE t.roomtype_id=r.roomtype_id AND r.room_id=$room_id AND g.room_id=r.room_id";
+    $result2 = $conn->query($sql2); 
+
+    while($row = $result2->fetch_assoc()){
+        $room_cost=$row['room_cost'];
+        $payment_id=$row['payment_id'];}
+
+    $payment = $stays*$room_cost;
+
+//update payment
+$prepare02= $conn->prepare("UPDATE payments SET payment_amount =? 
+    WHERE payment_id=?");
+        $prepare02->bind_param("ii", $payment, $payment_id);
+        $prepare02->execute();
     $_SESSION['room_id']=$room_id;
     header("location:receptionist_update.php");
-}
 
 }
 
     if(isset($_POST['back'])){
-
-        unset($_SESSION['customer_id']);
-        unset($_SESSION['room_id']);
-        unset($_SESSION['phone']);
-        unset($_SESSION['email']);
-        unset($_SESSION['checkin']);
-        unset($_SESSION['checkout']);
-        unset($_SESSION['numguest']);
-        unset($_SESSION['room_id']);
-         header("location:receptionist_res-list.php");
+        header("location:receptionist_res-list.php");
     }
-
+}
 
 ob_end_flush();
 ?>

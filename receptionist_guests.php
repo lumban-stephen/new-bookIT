@@ -77,7 +77,7 @@
                     Schedule s, Guests g, Customers c,
                     Rooms r
             WHERE
-                    s.guest_id = g.guest_id AND s.customer_id = c.customer_id
+                    s.guest_id = g.guest_id AND g.customer_id = c.customer_id
                     AND s.room_id = r.room_id
             GROUP BY
                     g.guest_id /*I grouped it by guest id because it would be group by roomtype_id if isnt guest_id*/ 
