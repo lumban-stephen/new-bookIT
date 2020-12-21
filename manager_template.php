@@ -37,6 +37,7 @@
                 <li><a href="manager_staff.php">Staff Management</a></li>
             </ul>
         </nav>
+        
         <div id="content">
             <!--for coders. code here-->
         </div>
