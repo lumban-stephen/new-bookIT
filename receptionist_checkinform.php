@@ -97,7 +97,7 @@ ob_start();
         }
 
 //if this is from check in
-        else if(isset($_SESSION['checkin'])){
+        else if(isset($_SESSION['from_checkin'])){
         echo "<form method='post' action='' enctype='multipart/form-data'>  
                 <label class='Labelform'>First Name</label><input type='text' class='booking' name='fname'>
                 <label class='Labelform'>Last Name</label><input type='text' class='booking' name='lname'>
@@ -134,10 +134,10 @@ ob_start();
                 <input type='submit' name='cancel' value='Cancel Check-in' class='Checkoutbutton'>
                 <br><br>
             </form>";                
-        unset($_SESSION['checkin']);
+        unset($_SESSION['from_checkin']);
 
             }
-//if this is from booking and reservation list
+//if this is from reservation list
     if(isset($_POST['amenities1'])){
         $id_type = $_POST['id_type'];
         $ID_number = $_POST['ID_number'];
@@ -250,11 +250,12 @@ ob_start();
 
             //get guest_id ($conn->insert_id : get the last generated id)
             $guest_id = $conn->insert_id;
+            $_SESSION['guest_id']=$guest_id;
 
 
             //create data in schedule
-            $prepare3 = $conn->prepare("INSERT INTO schedule(guest_id,customer_id,room_id,roomtype_id) VALUES (?,?,?,?)");
-            $prepare3->bind_param("iiii",$guest_id,$customer_id,$_SESSION['room_id'],$roomtype_id);
+            $prepare3 = $conn->prepare("INSERT INTO schedule(guest_id,room_id) VALUES (?,?)");
+            $prepare3->bind_param("ii",$guest_id,$_SESSION['room_id']);
             $prepare3->execute();
 
 
@@ -272,8 +273,8 @@ ob_start();
             $prepare5->execute();
 
             //create data in bill
-            $prepare6 = $conn->prepare("INSERT INTO bill(bill_date,payment_id,guest_id) VALUES (?,?,?)");
-            $prepare6->bind_param("sii",$_SESSION['checkin'],$payment_id,$guest_id);
+            $prepare6 = $conn->prepare("INSERT INTO bill(bill_date,guest_id) VALUES (?,?)");
+            $prepare6->bind_param("si",$_SESSION['checkin'],$guest_id);
             $prepare6->execute();
 
             //get bill_id ($conn->insert_id : get the last generated id)
@@ -282,14 +283,14 @@ ob_start();
 
 
             //create data in bill_items
-            $prepare7 = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_date,roomtype_id) VALUES (?,?,?,?)");
-            $prepare7->bind_param("iisi",$stays,$bill_id,$_SESSION['checkin'],$roomtype_id);
+            $prepare7 = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_date) VALUES (?,?,?)");
+            $prepare7->bind_param("iis",$stays,$bill_id,$_SESSION['checkin']);
             $prepare7->execute();
 
 
             //create data in checked-in-guests
-            $prepare8= $conn->prepare("INSERT INTO checked_in_guests(guest_id,room_id,roomtype_id,payment_id) VALUES (?,?,?,?)");
-            $prepare8->bind_param("iiii", $_SESSION['guest_id'], $_SESSION['room_id'], $_SESSION['roomtype_id'], $_SESSION['payment_id']);
+            $prepare8= $conn->prepare("INSERT INTO checked_in_guests(guest_id) VALUES (?)");
+            $prepare8->bind_param("i", $_SESSION['guest_id']);
            $prepare8->execute();
 
         //create data in checked-in-guests

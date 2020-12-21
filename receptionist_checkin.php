@@ -103,7 +103,7 @@
      if(isset($_POST['select'])){  
         $room_id = $_POST['room_id'];
         $_SESSION['room_id'] = $room_id;
-        $_SESSION['checkin']=1; //examine in checkin_form if it is from checkin.
+        $_SESSION['from_checkin']=1; //examine in checkin_form if it is from checkin.
         header("location:receptionist_checkinform.php");   
 }
         
