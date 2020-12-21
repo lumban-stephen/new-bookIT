@@ -10,7 +10,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>BookIT</title>
         <link rel="stylesheet" href="style.css">
-        <style type="text/css">
+<style type="text/css">
 .grid-container {
   display: grid;
   grid-template-columns: 20% 20% 20% 20%;
@@ -72,16 +72,16 @@
 <br><br>
 
 <label>Check-in</label><br>
-        <input type="date" name="checkin" class="button">
+        <input type="date" name="checkin" class="button" required>
         <br><br>
 
         <label>Check-out</label><br>
-        <input type="date" name="checkout" class="button">
+        <input type="date" name="checkout" class="button" required>
         <br><br>
 
         <button type="submit" name="submit" class="Offerbutton">SEARCH</button>
 
-        <button type="submit" name="res-list" class="Viewbutton">Liservation List</button>
+        <a href="receptionist_res-list.php" class="Viewbutton" style="color: white;">Liservation List</a>
         <br><br>
 </form>
 
@@ -111,7 +111,7 @@
         echo "<div class='grid-container'>";
     while($row = $result->fetch_assoc()){
                 
-                echo "<form  method='post' action=''><button type='submit' name='select' style='background-color: #28C479; padding: 10px; ' class='button'><h1>ROOM ".
+                echo "<form  method='post' action=''><button type='submit' name='select' style='background-color: #28C479; padding: 10px; '><h1>ROOM ".
                 $row['room_id']."</h1>".$row['room_desc']."</button>
                 <input type='hidden' name='room_id' value='{$row['room_id']}'>
                 </form>";}
@@ -124,12 +124,8 @@
         $room_id = $_POST['room_id'];
         
         $_SESSION['room_id'] = $room_id;
-        
+        $_SESSION['from_checkin']=1;
         header("location:receptionist_checkinform.php");   
-    }
-
-    if(isset($_POST['res-list'])){  
-        header("location:receptionist_res-list.php");   
     }
 
         ?>

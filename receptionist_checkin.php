@@ -88,10 +88,9 @@
     while($row = $result1->fetch_assoc()){
                 
                 echo "
-                <form action='' method='POST'>
-                <button type='submit' name='select' style='background-color: #28C479; padding: 10px; ' class='button' class='Greenbutton'><h3>ROOM  ".$row['room_id']."</h3>".$row['room_desc']."
+                <form  method='post' action=''><button type='submit' name='select' style='background-color: #28C479; padding: 10px; '><h1>ROOM  ".$row['room_id']."</h1>".$row['room_desc']."</button>
                 <input type='hidden' name='room_id' value='{$row['room_id']}'>
-                <input type='hidden' name='room_desc' value='{$row['room_desc']}'></button>
+                <input type='hidden' name='room_desc' value='{$row['room_desc']}'>
                 
                 </form>";}
                 echo "</div>";

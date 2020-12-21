@@ -23,18 +23,7 @@
   grid-gap: 10px;
   padding: 10px;
 }
-button, input[type=submit]{
-  border: none;
-  padding:initial;
-  text-decoration: initial;
-  display: initial;
-  font-size: initial;
-  margin:initial;
-  font-weight: initial;
-  white-space: initial;
-  -webkit-appearance: initial;
-  width: initial;
-}
+
 </style>
     </head>
     <body>
@@ -148,19 +137,17 @@ if(isset($_POST['select1'])){
     header("location:receptionist_update.php");
 }
 
-
+//edit info
             }else{
             echo "<form method='post' action='' enctype='multipart/form-data'>  
                 <label>First Name</label><br>".$_SESSION['fname']."
                 <input type='text' name='fname' class='button'>
-                <button type='submit' name='upfname'  style='background-color: #81B1D5; padding: 5px; ' class='button'>Update</button>
                 <br><br>
 
                 <label>Last Name</label><br>".$_SESSION['lname']."<input type='text' name='lname' class='button'>
-                <button type='submit' name='uplname'  style='background-color: #81B1D5; padding: 5px; ' class='button'>Update</button>
                 <br><br>
-                <label>Middle Name</label><br>".$_SESSION['mname']."<input type='text' name='mname' class='button'>
-                <button type='submit' name='upmname'  style='background-color: #81B1D5; padding: 5px; ' class='button'>Update</button>
+                <label>Middle Name</label><br>".$_SESSION['mname']."<input type='text' name='mname'>
+                <button type='submit' name='upname'  style='background-color: #81B1D5; padding: 5px; ' class='button'>Update</button>
                 <br><br>
 
     <div class='grid-form'>
@@ -220,25 +207,22 @@ $sql1 = "SELECT r.room_id as 'room_id',t.room_desc AS room_desc
                 <label>E-mail</label><br>".$_SESSION['email']."<input type='email' name='email' class='button'>
                 <button type='submit' name='upemail'  style='background-color: #81B1D5; padding: 5px; ' class='button'>Update</button>
                 <br><br>
-
-                <label>Address</label><br>".$_SESSION['address']."<input type='address' name='address' class='button'>
-                <button type='submit' name='upaddress'  style='background-color: #81B1D5; padding: 5px; ' class='button'>Update</button>
-                <br><br>
              
                 <button type='submit' name='upaddress'  style='background-color: #81B1D5; padding: 5px; ' class='button'>BACK TO LIST</button>
                 <br><br>
             </form>";
 
-if(isset($_POST['upfname'])){
+//update name
+if(isset($_POST['upname'])){
+    if(isset($_POST['fname'])){
     $fname=$_POST['fname'];
     $prepare= $conn->prepare("UPDATE customers SET fname =? WHERE customer_id=?");
         $prepare->bind_param("si", $fname, $_SESSION['customer_id']);
         $prepare->execute();
     $_SESSION['fname']=$fname;
-    header("location:receptionist_update.php");
 }
 
-if(isset($_POST['uplname'])){
+if(isset($_POST['lname'])){
     $lname=$_POST['lname'];
     $prepare= $conn->prepare("UPDATE customers SET lname =? WHERE customer_id=?");
         $prepare->bind_param("si", $lname, $_SESSION['customer_id']);
@@ -247,13 +231,14 @@ if(isset($_POST['uplname'])){
     header("location:receptionist_update.php");
 }
 
-if(isset($_POST['upmname'])){
+if(isset($_POST['mname'])){
     $mname=$_POST['mname'];
     $prepare= $conn->prepare("UPDATE customers SET MI =? WHERE customer_id=?");
         $prepare->bind_param("si", $mname, $_SESSION['customer_id']);
         $prepare->execute();
     $_SESSION['mname']=$mname;
     header("location:receptionist_update.php");
+}
 }
 
 if(isset($_POST['upphone'])){
