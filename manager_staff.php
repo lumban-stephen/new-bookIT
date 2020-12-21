@@ -122,6 +122,7 @@
                 </div>
                     <?php if ($update == true): ?>
                         <button class="Greenbutton" type="submit" name="update">Update</button>
+                        <button class="Checkoutbutton" name="cancel">Cancel</button>
                     <?php else: ?>
                         <button class="Greenbutton" type="submit" name="save" >Save</button>
                     <?php endif ?>

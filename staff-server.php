@@ -63,4 +63,8 @@
 
         header('location: manager_staff.php');
     }  
+
+    if(isset($_POST['cancel'])){
+        header('location: manager_staff.php');
+    }  
 ?>
