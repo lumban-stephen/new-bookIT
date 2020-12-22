@@ -24,10 +24,7 @@
                 </a>
             </div>
             <div class="right-float">
-                <p>Welcome,</p>
-            </div>
-            <div class="right-float">
-                <a><img></img></a>
+                <p>Welcome Manager,</p>
             </div>
         </div>
         </header>
@@ -95,8 +92,8 @@
                     <label class='Labelform'>Last Name</label><input type="text" class='mngt' name="lname" value="<?php echo $lname;?>">
                 </div>
                 <div>
-                    <label class='Labelform'>Email</label><input type="email" class='mngt' name="email" value="<?php echo $email;?>">
-                    <label class='Labelform'>Password</label><input type="password" class='mngt' name="password" value="">
+                    <label class='Labelform'>Email</label><input type="email" class='mngt' name="email" value="<?php echo $email;?>"required>
+                    <label class='Labelform'>Password</label><input type="password" class='mngt' name="password" value=""required>
                 </div>
                 <div>
                     <label class='Labelform'>Job</label><select name="jobs" class='mngt' id="jobs">
