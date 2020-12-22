@@ -38,22 +38,23 @@
   margin-right: 6.8%;
   margin-bottom: 2%;
   padding: 0;
+  overflow-x: hidden;
 }
 
 /* NAVBAR STYLES
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 ul {
   list-style-type: none;
-  margin: 0;
-  padding: 0;
   width: 13%;
   background-color: #0088B6;
-  position: absolute;
+  position: fixed;
   height: 100%;
+  overflow-x: hidden;
 
 }
 
 li a {
+  padding-top:4px;
   display: block;
   color: #fff;
   padding: 22px 35px;
@@ -61,7 +62,6 @@ li a {
   font-weight: bold;
   border-bottom: 1px solid rgba(240, 233, 233, .5);
 }
-
 li a.active {
   background-color: #0099cc;
   color: white;
@@ -88,10 +88,11 @@ li a:hover:not(.active) {
   display: flex;
   flex-direction: row;
   margin-top: 200px;
-  margin-left: 200px;
+  margin-left: 10px;
 }
 .login_flex{
-  flex:1;
+  margin-left: 150px;
+  flex:1.5;
 
 }
 .login_flex1{
@@ -277,10 +278,48 @@ input.mngt[type="email"],input.mngt[type="password"] {
 .longbox5:hover{
   background-color: #FF6645;
 }
+/** MODAL  OF DASHBAORD
+-------------------------------------------------*/
+.bg-modal1,.bg-modal2,.bg-modal3,.bg-modal4,.bg-modal5{
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: none; 
+  margin-bottom: 0;
+  overflow-x: hidden;
+  z-index:10;
+}
+.modal-content1,.modal-content2,.modal-content3,.modal-content4,.modal-content5 {
+  width: 400px;
+  height: 400px;
+  background-color: white;
+  border-radius: 4px;
+  text-align: center;
+  position: relative;
+  font-size: 90%;
+}
+.header_modal1,.header_modal2,.header_modal3,.header_modal4,.header_modal5{
+  overflow: hidden;
+  background-color: #11C3FF;
+  padding: 20px;
+}
+.close1, .close2, .close3, .close4, .close5{
+  position: absolute;
+  top: 0;
+  right: 14px;
+  font-size: 42px;
+  transform: rotate(45deg);
+  cursor: pointer;
+}
+
 /** DIGITAL CLOCK
 -------------------------------------------------*/
-
-
 .date{
   font-size: 30px;
   font-weight:600;
@@ -300,14 +339,18 @@ input.mngt[type="email"],input.mngt[type="password"] {
   letter-spacing: 3px;
 }
 .time span:last-child{
-  background: #2E94E3;
+  background: #BC2809;
   text-align: center;
   font-size: 30px;
   font-weight: 600;
   text-transform: uppercase;
-  margin-top: 10px;
-  padding: 0 5px;
+  margin: 10px 0px;
+  padding: 0px 5px;
+  padding-top: 8px;
   border-radius: 3px;
+}
+.datetime{
+  padding: 30px 10px;
 }
 
 /** TABLES: RECORDS AND GUEST;
