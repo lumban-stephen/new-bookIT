@@ -82,13 +82,14 @@
                                 Payables: ".$row["total_amount"]."<br>
                                 Room Cost: ".$row["room_cost"]."<br>   
                                 Payment ID: ".$row["payment_id"]."<br>                                   
-                                Payment Amount: ".$row["payment_amount"]."<br><br>
+                                Payment Amount: ".$row["payment_amount"]."<br>
                                 
                                 <input type='submit' name='remove' value='Check Out'>
                                 <input type='hidden' name='paid' value='{$row["total_amount"]}'>
                                 <input type='hidden' name='guestID' value='{$row['guest_id']}'>
                                 <input type='hidden' name='roomID' value='{$row['room_id']}'>
                                 <input type='hidden' name='paymentID' value='{$row['payment_id']}'>
+                                <br><br>
                             </p>
                         </form>
                         ";

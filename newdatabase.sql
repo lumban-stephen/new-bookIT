@@ -37,7 +37,8 @@ CREATE TABLE Users(
         payment_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
         payment_amount FLOAT(10,2),
         payment_date DATE ,                                   
-        payment_type ENUM('Cash', 'Credit Card')
+        payment_type ENUM('Cash', 'Credit Card'),
+        bill_id INT
     );
 
     CREATE TABLE Guests(
@@ -132,6 +133,10 @@ ALTER TABLE `checked_in_guests`
 
 ALTER TABLE `bill`
   ADD CONSTRAINT `bill_guests_pk` FOREIGN KEY (`guest_id`) REFERENCES `Guests` (`guest_id`);
+
+
+ALTER TABLE `payments`
+  ADD CONSTRAINT `pay_bill_fk` FOREIGN KEY (`bill_id`) REFERENCES `bill` (`bill_id`);
 
 
 ALTER TABLE `bill_items`
