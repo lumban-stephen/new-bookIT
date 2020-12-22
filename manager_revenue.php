@@ -33,10 +33,7 @@
                 </a>
             </div>
             <div class="right-float">
-                <p>Welcome,</p>
-            </div>
-            <div class="right-float">
-                <a><img></img></a>
+                <p>Welcome Manager,</p>
             </div>
         </div>
         </header>
