@@ -48,12 +48,35 @@
         <div id="content">
             <!--Code Here only-->
             <div class="search-container">
-                <form action="/action_page.php">
+                <form method="POST">
                   <label>Search Guest Name: </label>
-                  <input type="text" placeholder="Search.." name="search">
+                  <input type="text" placeholder="Search.." name="keyword">
                   <input type="submit" name="submit">
                 </form>
             </div>
+            <?php
+            if (isset($_POST['keyword'])) {
+            // Filter
+            $keyword = trim ($_POST['keyword']);
+
+            // Select statement
+            $submit = "SELECT * FROM schedule WHERE guest_id LIKE '%$keyword%'";
+            // Display
+            $result = $conn->query($submit) or die('query did not work');
+            while($result_arr = $result->fetch_assoc($result))
+            { 
+            echo $result_arr['guest_id']; 
+            echo " ";
+            echo "<br>"; 
+            echo "<br>"; 
+            }
+            $anymatches=mysql_num_rows($result); 
+            if ($anymatches == 0) 
+            { 
+            echo "Nothing was found that matched your query.<br><br>"; 
+            }
+            }
+            ?>
             
             <br>
             <table id="Table">
@@ -100,11 +123,7 @@
                              <input type='hidden' name='fname' value='{$rows['fname']}'>
                              <input type='hidden' name='lname' value='{$rows['lname']}'>
                              <input type='hidden' name='mname' value='{$rows['mname']}'>
-                             
-
-
-
-
+                            
                              </form>"; 
                       }
                     echo "</table>";

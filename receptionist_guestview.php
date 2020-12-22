@@ -41,11 +41,12 @@
                 <li><a href="receptionist_reservation.php">Reservation</a></li>
                 <li><a href="receptionist_records.php">Records</a></li>
                 <li><a href="receptionist_toDoList.php">To Do List</a></li>
-                <li><a href="#">Guests</a></li>
+                <li><a href="receptionist_guests.php">Guests</a></li>
             </ul>
         </nav>
 
         <div id="content">
+        <a href="receptionist_guests.php">Back to List</a>
 <?php
         include 'connection.php';
 
