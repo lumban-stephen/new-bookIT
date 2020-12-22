@@ -1,6 +1,7 @@
 <?php
    session_start();
    ob_start();
+   include 'connection.php';
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +16,7 @@
 <style type="text/css">
 .grid-container {
   display: grid;
-  grid-template-columns: 20% 20% 20% 20%;
+  grid-template-columns: auto auto auto auto;
   grid-gap: 10px;
   padding: 10px;
 }
@@ -56,7 +57,68 @@
             </ul>
         </nav>
         <div id="content">
-            <!--Code Here only-->
+        <form method="post" action="">
+            <button type="submit" class="Greenbutton" name="add_new" >ADD NEW ITEM</button>
+        </form>
+
+
+<?php
+//edit
+    if(isset($_SESSION['edit'])){  
+    echo "<div>
+        <form method='post' action='' >
+        <label class='Labelform'>Name</label><input type='text' class='mngt' name='name' value='{$_SESSION['name']}'>
+        <label class='Labelform'>PRICE</label><input type='number' class='mngt' name='price'value='{$_SESSION['price']}'>
+        <label class='Labelform'>TYPE</label>
+        <select name='type' class='mngt' value='{$_SESSION['type']}'>
+        <option value='Select'>Select</option>
+        <option value='Hygiene'>Hygiene</option>
+        <option value='Foods'>Foods</option>
+        <option value='Drinks'>Drinks</option>
+        <option value='Extras'>Extras</option>
+        </select>
+        <button type='submit' class='Greenbutton' name='new_edit' >SAVE</button>
+        
+        </form> 
+    </div>";}else if(isset($_POST['add_new'])){
+
+//add new items
+        echo "<div>
+        <form method='post' action='' >
+        <label class='Labelform'>Name</label><input type='text' class='mngt' name='name' >
+        <label class='Labelform'>PRICE</label><input type='number' class='mngt' name='price'>
+        <label class='Labelform'>TYPE</label>
+        <select name='type' class='mngt'>
+        <option value='Select'>Select</option>
+        <option value='Hygiene'>Hygiene</option>
+        <option value='Foods'>Foods</option>
+        <option value='Drinks'>Drinks</option>
+        <option value='Extras'>Extras</option>
+        </select>
+        <label class='Labelform'>STOCK</label>
+        <input type='number' class='' name='stock'>
+        <button type='submit' class='Greenbutton' name='add' >SAVE</button>
+        
+        </form> 
+    </div>";
+    }
+    if(isset($_POST['new_edit'])){
+        unset($_SESSION['edit']);
+        $name = $_POST['name'];
+        $price = $_POST['price'];
+        $type = $_POST['type'];
+
+        $prepare= $conn->prepare("UPDATE amenities SET amenity_name =?,amenity_price=?,amenity_type=?
+            WHERE amenity_id=?");
+        $prepare->bind_param("sisi", $name,$price,$type,$_SESSION['id']);
+        $prepare->execute();
+
+    }
+
+?>
+ 
+
+
         
         <table id="Table">
             <tr>
@@ -68,7 +130,7 @@
                 <th>ACTION</th>
             </tr>
 <?php
-include 'connection.php';
+
     $sql = "SELECT * FROM amenities;"; 
                   
     $display = $conn->query($sql);
@@ -84,14 +146,15 @@ include 'connection.php';
             <td>". $rows['stock']. "</td>
             <td>
             <input type='number' name='number'>
-            <button type='submit' name='add'class='Greenbutton'>Add</button>
+            <button type='submit' name='add' class='Greenbutton'>Add</button>
             <input type='hidden' name='amenity_id' value='{$rows['amenity_id']}'>
             <input type='hidden' name='stock' value='{$rows['stock']}'>
             </td>
 
 
             <td>
-            <button type='submit' name='edit'class='Offerbutton'>Edit Information</button>
+            <button type='submit' name='edit'class='Offerbutton' value='{$rows['amenity_id']}'>Edit Information</button>
+
             <button type='submit' name='delete'class='Checkoutbutton'>DELETE</button>
 
             
@@ -103,15 +166,18 @@ include 'connection.php';
                                 echo "No data here. ";
                             }
 
-    if(isset($_POST['add'])){
-        $number=$_POST['number'];
+
+
+
+    if(isset($_POST['save'])){
+        $price=$_POST['price'];
         $amenity_id=$_POST['amenity_id'];
         $stock=$_POST['stock'];
         $stock=$stock+$number;
 
-        $prepare= $conn->prepare("UPDATE amenities SET stock =?
+        $prepare= $conn->prepare("UPDATE amenities SET stock =?,amenity_price=?
             WHERE amenity_id=?");
-        $prepare->bind_param("ii", $stock,$amenity_id);
+        $prepare->bind_param("iii", $stock,$price,$amenity_id);
         $prepare->execute();
     }
 
@@ -121,10 +187,39 @@ include 'connection.php';
         $sql2 = "DELETE FROM amenities WHERE amenity_id = $amenity_id";
     }
 
+    if(isset($_POST['edit'])){
+        $id = $_POST['edit'];
+        $deleteQuery = "SELECT * FROM amenities WHERE amenity_id=$id";
+
+        $result = $conn->query($deleteQuery) or die($conn->error);
+        if(count($result)!=NULL){
+            $row = $result->fetch_array();
+            $price = $row['amenity_price'];
+            $stock = $row['stock'];
+            $type = $row['amenity_type'];
+            $name=$row['amenity_name'];
+        }
+        $_SESSION['edit']="edit";
+        $_SESSION['price']=$price;
+        $_SESSION['type']=$type;
+        $_SESSION['name']=$name;
+        $_SESSION['id']=$id;
+    }
 
 
-                            $conn->close();        
-                          
+
+    if(isset($_POST['add'])){
+        $name = $_POST['name'];
+        $price = $_POST['price'];
+        $type = $_POST['type'];
+        $stock = $_POST['stock'];
+
+    $insert = "INSERT INTO amenities(amenity_name, amenity_price, amenity_type, stock) 
+        VALUES('$name','$price', '$type', '$stock')"; 
+   
+
+          
+    $conn->query($insert) or die($conn->error);}       
                     ?>
             </table>
 
