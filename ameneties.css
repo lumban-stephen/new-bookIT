@@ -37,8 +37,10 @@
 }
 
 .button{
-    background-color: blue;
+    background-color: #66CCFF;
     color:white;
+    border:none;
+    display: inline-block;
     border-radius: 50%
     height:20px;
     width: 20px;
