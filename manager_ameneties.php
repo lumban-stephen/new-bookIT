@@ -29,13 +29,13 @@
         <img src="assets/bookIT_Logo.png">
         <div class="right-float">
                 <a>
-                <form method="post" action="#">
+                    <form method="post" action="#">
                         <button class="Logoutbutton" name="logout">Logout</button>
                     </form>
                 </a>
             </div>
             <div class="right-float">
-                <p>Welcome Receptionist  </p>
+                <p>Welcome Manager</p>
             </div>
         </div>
         </header>
@@ -47,13 +47,12 @@
         ?>
         <nav>
             <ul>
-                <li><a href="receptionist_dashboard.php">Dashboard</a></li>
-                <li><a href="receptionist_checkin.php">Check In</a></li>
-                <li><a href="receptionist_checkout.php">Check Out</a></li>
-                <li><a href="receptionist_reservation.php">Reservation</a></li>
-                <li><a href="receptionist_records.php">Records</a></li>
-                <li><a href="receptionist_toDoList.php">To Do List</a></li>
-                <li><a href="receptionist_guests.php">Guests</a></li>
+                <li><a href="manager_dashboard.php">Dashboard</a></li>
+                <li><a href="manager_revenue.php">Revenue</a></li>
+                <li><a href="manager_records.php">Records</a></li>
+                <li><a href="manager_guests.php">Guests</a></li>
+                <li><a href="manager_room-mgt.php">Room Management</a></li>
+                <li><a href="manager_staff.php">Staff Management</a></li>
             </ul>
         </nav>
         <div id="content">
@@ -65,7 +64,7 @@ include 'connection.php';
 
 ?>
 
-
+<a href="manager_restock">RESTOCK AMENITIES</a>>
 
         <p>Hygiene</p>
             <div class="amty">
@@ -886,14 +885,13 @@ include 'connection.php';
         $prepare->execute();
         unset($_SERVER['PHP_SELF']);
         session_destroy();
-        header("location:receptionist_dashboard.php");
-        
+        header("location:manager_dashboard.php");
     }
 
     if(isset($_POST['checkin'])){
         unset($_SERVER['PHP_SELF']);
         session_destroy();
-        header("location:receptionist_dashboard.php");
+        header("location:manager_dashboard.php");
     }
 
 
