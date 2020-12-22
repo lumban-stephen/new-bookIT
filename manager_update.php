@@ -50,13 +50,12 @@
         ?>
         <nav>
             <ul>
-                <li><a href="receptionist_dashboard.php">Dashboard</a></li>
-                <li><a href="receptionist_checkin.php">Check In</a></li>
-                <li><a href="receptionist_checkout.php">Check Out</a></li>
-                <li><a href="receptionist_reservation.php">Reservation</a></li>
-                <li><a href="receptionist_records.php">Records</a></li>
-                <li><a href="receptionist_toDoList.php">To Do List</a></li>
-                <li><a href="receptionist_guests.php">Guests</a></li>
+                <li><a href="manager_dashboard.php">Dashboard</a></li>
+                <li><a href="manager_revenue.php">Revenue</a></li>
+                <li><a href="manager_records.php">Records</a></li>
+                <li><a href="manager_guests.php">Guests</a></li>
+                <li><a href="manager_room-mgt.php">Room Management</a></li>
+                <li><a href="manager_staff.php">Staff Management</a></li>
             </ul>
         </nav>
         <div id="content">
@@ -316,7 +315,6 @@ $prepare02= $conn->prepare("UPDATE payments SET payment_amount =?
     }
 }
 
-unset($_SESSION['extended_date']);
 ob_end_flush();
 ?>
 
