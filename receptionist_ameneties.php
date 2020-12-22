@@ -84,12 +84,12 @@ include 'connection.php';
                     }?>
 
     <div class="amty-box">
-        <img src="assets/img-dummy.jpg">
+        <img src="assets/dove-shampoo.jpg">
             <p class="name"><?php echo $result1_name[0]."<br>Price:".$result1_price[0]; ?></p>
                 <div class="counter">
                     <form action="<?php echo $_SERVER['PHP_SELF'];  ?>" method="post">
                     
-                    <input type="submit" name="h_minus0" value="-">
+                    <input type="submit" name="h_minus0" value="-" class="button">
                     
                     <?php
                         $_SESSION['h_num0']=((isset($_SESSION['h_num0']))?$_SESSION['h_num0']:0);
@@ -122,7 +122,7 @@ include 'connection.php';
 
 
     <div class="amty-box">
-        <img src="assets/img-dummy.jpg">
+        <img src="assets/dove-conditioner.jpg">
             <p class="name"><?php echo $result1_name[1]."<br>Price:".$result1_price[1]; ?></p>
                 <div class="counter">
                     
@@ -159,7 +159,7 @@ include 'connection.php';
 
 
     <div class="amty-box">
-        <img src="assets/img-dummy.jpg">
+        <img src="assets/sunsilk-shampoo.png">
             <p class="name"><?php echo $result1_name[2]."<br>Price:".$result1_price[2]; ?></p>
                 <div class="counter">
                     
