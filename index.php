@@ -27,7 +27,7 @@
         <img src="assets/bookIT_Logo.png">
     </div>
     </div>
-    <div>
+    <div class="login_flex1">
             <div id="login-form">
                 <h1>Log-in</h1>
                 <form action="" method="post">

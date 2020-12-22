@@ -60,12 +60,22 @@
             $keyword = trim ($_POST['keyword']);
 
             // Select statement
-            $submit = "SELECT * FROM schedule WHERE guest_id LIKE '%$keyword%'";
+            $submit = "SELECT ch.checked_in_id AS 'ID',
+                        CONCAT(c.fname, ' ', c.MI, ' ', c.lname) AS 'Guest Name',
+                        r.room_id as 'Room Number', g.guest_id AS 'guest_id' 
+                    FROM
+                        Checked_in_guests ch, Guests g, Customers c,
+                        Rooms r
+                    WHERE
+                        ch.guest_id = g.guest_id AND g.customer_id = c.customer_id
+                        AND ch.room_id = r.room_id AND g.guest_id LIKE '%$keyword%'
+                    ORDER BY
+                        g.date_in;";
             // Display
             $result = $conn->query($submit) or die('query did not work');
             while($result_arr = $result->fetch_assoc($result))
             { 
-            echo $result_arr['guest_id']; 
+            echo $result_arr['Guest Name']; 
             echo " ";
             echo "<br>"; 
             echo "<br>"; 
