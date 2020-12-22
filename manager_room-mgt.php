@@ -60,7 +60,8 @@
             
             $sql = "SELECT r.room_id AS 'Room Number',
                         r.room_status AS 'Room Status',
-                        t.room_cost AS 'Room Cost', t.room_desc AS 'Room Description'
+                        t.room_cost AS 'Room Cost', 
+                        t.room_desc AS 'Room Description'
                     FROM
                         Rooms r, room_type t
                     WHERE
@@ -79,24 +80,64 @@
                          <td>". $rows['Room Cost']. "</td>
                          <td>". $rows['Room Description']. "</td>";
                     if ($rows['Room Status'] == 'Maintenance' || $rows['Room Status'] == 'Unavailable') {
-                        echo "<td>
-                                <button class= 'Greenbutton' name='enable'><a href='manager_room-mgt.php?enable=".$rows['Room Number'].">Enable<br>Room</a></button></td>
+                        echo "  <td>
+                                    <form action='' method='POST'>
+                                        <input type='submit' class='Greenbutton'  name='enable' value='Enable Room'>
+                                        <input type='hidden' name='roomID' value='{$rows['Room Number']}'>
+                                    </form>
+                                </td>
                              </tr>";
                     }elseif ($rows['Room Status'] == 'Available') {
-                        echo "<td>
-                                <button class= 'Checkoutbutton' name='disable'>Disable<br>Room</button></td>
+                        echo "  <td>
+                                    <form action='' method='POST'>
+                                        <input type='submit' class='Checkoutbutton'  name='disable' value='Disable Room'>
+                                        <input type='hidden' name='roomID' value='{$rows['Room Number']}'>
+                                    </form>
+                                </td>
                              </tr>";
                     }elseif($rows['Room Status'] == 'Used by guest'){
                         echo "<td>
-                                <button class= 'Graybutton'>No Actions<br>Room is in use</button></td>
+                                    <form action='' method='POST'>
+                                        <input type='submit' class='Graybutton'  name='nothing' value='No Actions Room is in use'>
+                                        <input type='hidden' name='roomID' value='{$rows['Room Number']}'>
+                                    </form>
+                                </td>
                              </tr>";                     
                     }
                 }
                 echo "</table>";
             }else{
                   echo "No rooms added";
-                }
+            }
             
+            if(isset($_POST['enable'])){
+                $roomID = $_POST['roomID'];
+                $updateStatus = "UPDATE rooms SET room_status = 'Available' WHERE room_id = $roomID";
+
+                if ($conn->query($updateStatus) === TRUE) {
+                    echo "<script language='javascript'>
+                                window.location.href='manager_room-mgt.php';
+                                alert('Room Status Update is successful');
+                        </script>";
+                } else {
+                    echo "Error: " .$updateStatus. "<br>" .$conn->error;
+                }
+            }
+
+            if(isset($_POST['disable'])){
+                $roomID = $_POST['roomID'];
+                $updateStatus = "UPDATE rooms SET room_status = 'Maintenance' WHERE room_id = $roomID";
+
+                if ($conn->query($updateStatus) === TRUE) {
+                    echo "<script language='javascript'>
+                                window.location.href='manager_room-mgt.php';
+                                alert('Room Status Update is successful');
+                        </script>";
+                } else {
+                    echo "Error: " .$updateStatus. "<br>" .$conn->error;
+                }
+            }
+
             $conn->close();        
             ?>
             </form>
