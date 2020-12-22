@@ -44,6 +44,7 @@
         ?>
         <nav>
             <ul>
+                <li id="logoli"><img src="assets/bookIT_Logo.png"></li>
                 <li><a href="receptionist_dashboard.php">Dashboard</a></li>
                 <li><a href="receptionist_checkin.php">Check In</a></li>
                 <li><a href="receptionist_checkout.php">Check Out</a></li>

@@ -11,16 +11,16 @@
         <title>BookIT</title>
         <link rel="stylesheet" href="style.css">
         <link rel="stylesheet" href="ameneties.css">
-<style type="text/css">
-.grid-container {
-  display: grid;
-  grid-template-columns: 20% 20% 20% 20%;
-  grid-gap: 10px;
-  padding: 10px;
-}
+        <style type="text/css">
+        .grid-container {
+        display: grid;
+        grid-template-columns: 20% 20% 20% 20%;
+        grid-gap: 10px;
+        padding: 10px;
+        }
 
 
-</style>
+        </style>
     </head>
     <body>
         <header>
@@ -46,6 +46,7 @@
         ?>
        <nav>
             <ul>
+                <li id="logoli"><img src="assets/bookIT_Logo.png"></li>
                 <li><a href="receptionist_dashboard.php">Dashboard</a></li>
                 <li><a href="#">Check In</a></li>
                 <li><a href="receptionist_checkout.php">Check Out</a></li>
@@ -59,7 +60,7 @@
             <!--Code Here only-->
             <!--Check in page code in here-->
 
-    <?php
+            <?php
     include 'connection.php';
     //error_reporting(0);
     if(isset($_POST['search'])){

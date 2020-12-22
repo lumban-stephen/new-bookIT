@@ -12,7 +12,7 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <header>
+    <header>
         <div id="header">
         <img src="assets/bookIT_Logo.png">
         <div class="right-float">
@@ -35,7 +35,8 @@
         ?>
         <nav>
             <ul>
-                <li><a href="receptionist_dashboard.php">Dashboard</a></li>
+                <li id="logoli"><img src="assets/bookIT_Logo.png"></li>
+                <li><a href="#">Dashboard</a></li>
                 <li><a href="receptionist_checkin.php">Check In</a></li>
                 <li><a href="receptionist_checkout.php">Check Out</a></li>
                 <li><a href="receptionist_reservation.php">Reservation</a></li>

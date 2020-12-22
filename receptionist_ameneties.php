@@ -29,7 +29,7 @@
         <img src="assets/bookIT_Logo.png">
         <div class="right-float">
                 <a>
-                <form method="post" action="#">
+                    <form method="post" action="#">
                         <button class="Logoutbutton" name="logout">Logout</button>
                     </form>
                 </a>
@@ -47,6 +47,7 @@
         ?>
         <nav>
             <ul>
+                <li id="logoli"><img src="assets/bookIT_Logo.png"></li>
                 <li><a href="receptionist_dashboard.php">Dashboard</a></li>
                 <li><a href="receptionist_checkin.php">Check In</a></li>
                 <li><a href="receptionist_checkout.php">Check Out</a></li>

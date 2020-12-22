@@ -45,6 +45,7 @@
         ?>
         <nav>
             <ul>
+                <li id="logoli"><img src="assets/bookIT_Logo.png"></li>
                 <li><a href="manager_dashboard.php">Dashboard</a></li>
                 <li><a href="#">Revenue</a></li>
                 <li><a href="manager_records.php">Records</a></li>
