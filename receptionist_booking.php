@@ -129,8 +129,8 @@
 
 
             //create data in schedule
-            $prepare3 = $conn->prepare("INSERT INTO schedule(guest_id,customer_id,room_id,roomtype_id) VALUES (?,?,?,?)");
-            $prepare3->bind_param("iiii",$guest_id,$customer_id,$room_id,$roomtype_id);
+            $prepare3 = $conn->prepare("INSERT INTO schedule(guest_id,room_id) VALUES (?,?)");
+            $prepare3->bind_param("ii",$guest_id,$room_id);
             $prepare3->execute();
 
 
@@ -148,8 +148,8 @@
             $prepare5->execute();
 
             //create data in bill
-            $prepare6 = $conn->prepare("INSERT INTO bill(bill_date,payment_id,guest_id) VALUES (?,?,?,?)");
-            $prepare6->bind_param("sii",$_SESSION['checkin'],$payment_id,$guest_id);
+            $prepare6 = $conn->prepare("INSERT INTO bill(bill_date,guest_id) VALUES (?,?)");
+            $prepare6->bind_param("si",$_SESSION['checkin'],$guest_id);
             $prepare6->execute();
 
             //get bill_id ($conn->insert_id : get the last generated id)
@@ -162,7 +162,7 @@
 
             //create data in records
             $record_type="COMING";
-            $prepare7 = $conn->prepare("INSERT INTO records(record_type,record_date,record_time,guest_id) VALUES (?,?,?,?,?,?)");
+            $prepare7 = $conn->prepare("INSERT INTO records(record_type,record_date,record_time,guest_id) VALUES (?,?,?,?)");
             $prepare7->bind_param("sssi",$record_type,$_SESSION['checkin'],$time,$guest_id);
             $prepare7->execute();
             
@@ -170,10 +170,7 @@
 
             }
 
-            unset($_SESSION['checkin']);
-            unset($_SESSION['checkout']);
-            unset($_SESSION['numguest']);
-            unset($_SESSION['room_id']);
+            
 
             //if cancel booking
             if(isset($_POST['cancel'])){
