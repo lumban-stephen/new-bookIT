@@ -1,5 +1,6 @@
 <?php
    session_start();
+   error_reporting(0);
 ?>
 
 <!DOCTYPE html>
@@ -69,6 +70,7 @@
             ob_start();
             //to extend
             if(isset($_SESSION['extend'])){
+                unset($_SESSION['extend']);
                 $sql0 = "SELECT g.room_id as room_id, g.date_in as date_in, g.date_out as date_out, g.payment_id as payment_id, g.guests_count as guests_count,g.customer_id as customer_id,p.payment_amount as 'payment_amount'
                     FROM guests g, payments p
                     WHERE g.guest_id='{$_SESSION['guest_id']}' AND g.payment_id=p.payment_id";
@@ -92,7 +94,8 @@
                 <span><label>Check-out</label><br>".$date_out."<input type='date' name='extend'>
                 <span><label>Selected Date</label><br>".$_SESSION['extended_date']."</span>
                 </div>
-                <button type='submit' name='search_room'  style='background-color: #003399; padding: 5px; ' class='button'>Search Room</button>";
+                <button type='submit' name='search_room' class='Graybutton'>Search Room</button>
+                <a href='manager_guests.php'>Back to Guests</a></form>";
 
 if(isset($_POST['search_room'])){
     $extend=$_POST['extend'];
@@ -117,7 +120,7 @@ $sql1 = "SELECT r.room_id as 'room_id',t.room_desc AS room_desc
                 <input type='hidden' name='room_desc' value='{$row['room_desc']}'>
                 <input type='hidden' name='date_out' value='{$date_out}'>
                 <input type='hidden' name='payment_amount' value='{$payment_amount}'>
-                <input type='hidden' name='extend' value='{$extend}'>                
+                <input type='hidden' name='extend' value='{$extend}'>               
                 </form>";}
                 echo "</div>";
 
@@ -184,7 +187,8 @@ $prepare02= $conn->prepare("UPDATE payments SET payment_amount =?
     <option value='4'>4</option>
     <option value='5'>5</option>  
     </select></span> </div>
-    <button type='submit' name='search_room'  style='background-color: #003399; padding: 5px; ' class='button'>Search Room</button>";
+    <button type='submit' name='search_room'  class='Greenbutton'>Search Room</button>
+    ";
 
 if(isset($_POST['search_room'])){
     $checkin=$_POST['checkin'];
@@ -227,7 +231,7 @@ $sql1 = "SELECT r.room_id as 'room_id',t.room_desc AS room_desc
                 <button type='submit' name='upemail'  style='background-color: #81B1D5; padding: 5px; ' class='button'>Update</button>
                 <br><br>
                 
-                <a href='receptionist_res-list.php' class='Greenbutton' style='color: white;'>Back to Liservation List</a>
+                <a href='manager_guests.php'>Back to Guests</a>
                 <br><br>
             </form>";
 
@@ -256,7 +260,7 @@ if(isset($_POST['mname'])){
         $prepare->bind_param("si", $mname, $_SESSION['customer_id']);
         $prepare->execute();
     $_SESSION['mname']=$mname;
-    header("location:receptionist_update.php");
+    header("location:manager_update.php");
 }
 }
 
@@ -266,7 +270,7 @@ if(isset($_POST['upphone'])){
         $prepare->bind_param("ii", $phone, $_SESSION['customer_id']);
         $prepare->execute();
     $_SESSION['phone']=$phone;
-    header("location:receptionist_update.php");
+    header("location:manager_update.php");
 }
 
 
@@ -277,7 +281,7 @@ if(isset($_POST['upemail'])){
         $prepare->bind_param("si", $email, $_SESSION['customer_id']);
         $prepare->execute();
     $_SESSION['email']=$email;
-    header("location:receptionist_update.php");
+    header("location:manager_update.php");
 }
 
 if(isset($_POST['select'])){
@@ -307,13 +311,14 @@ $prepare02= $conn->prepare("UPDATE payments SET payment_amount =?
         $prepare02->bind_param("ii", $payment, $payment_id);
         $prepare02->execute();
     $_SESSION['room_id']=$room_id;
-    header("location:receptionist_update.php");
+    header("location:manager_update.php");
 
 }
 
-    if(isset($_POST['back'])){
-        header("location:receptionist_res-list.php");
-    }
+    
+}
+if (isset($_POST['back'])) {
+    header("manager_guests.php");
 }
 unset($_SESSION['extended_date']);
 ob_end_flush();
