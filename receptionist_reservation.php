@@ -57,16 +57,16 @@
             <!--Code Here only-->
             <!--Reservation page code in here-->
             <form method="post" action="">  
-<label>Number of Guests</label>
-<select name="numguest" class="button" required>
-    <option value="Select">Select</option>
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value="3">3</option>
-    <option value="4">4</option>
-    <option value="5">5</option>  
-</select> 
-<br><br>
+            <label>Number of Guests</label>
+            <select name="numguest" class="button" required>
+                <option value="Select">Select</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>  
+            </select> 
+            <br><br>
 
 <label>Check-in</label><br>
         <input type="date" name="checkin" class="button" required>

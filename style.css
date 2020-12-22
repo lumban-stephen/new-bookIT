@@ -280,7 +280,7 @@ input.mngt[type="email"],input.mngt[type="password"] {
 }
 /** MODAL  OF DASHBAORD
 -------------------------------------------------*/
-.bg-modal1,.bg-modal2,.bg-modal3,.bg-modal4,.bg-modal5{
+.bg-modal1,.bg-modal2,.bg-modal3,.bg-modal4{
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
@@ -294,8 +294,9 @@ input.mngt[type="email"],input.mngt[type="password"] {
   margin-bottom: 0;
   overflow-x: hidden;
   z-index:10;
+  padding: 50em;
 }
-.modal-content1,.modal-content2,.modal-content3,.modal-content4,.modal-content5 {
+.modal-content1,.modal-content2,.modal-content3,.modal-content4{
   width: 400px;
   height: 400px;
   background-color: white;
@@ -304,12 +305,12 @@ input.mngt[type="email"],input.mngt[type="password"] {
   position: relative;
   font-size: 90%;
 }
-.header_modal1,.header_modal2,.header_modal3,.header_modal4,.header_modal5{
+.header_modal1,.header_modal2,.header_modal3,.header_modal4{
   overflow: hidden;
   background-color: #11C3FF;
   padding: 20px;
 }
-.close1, .close2, .close3, .close4, .close5{
+.close1, .close2, .close3, .close4{
   position: absolute;
   top: 0;
   right: 14px;
