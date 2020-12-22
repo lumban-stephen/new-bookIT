@@ -264,7 +264,7 @@ include 'connection.php';
                     }?>
 
     <div class="amty-box">
-        <img src="assets/img-dummy.jpg">
+        <img src="assets/nova.png">
             <p class="name"><?php echo $result2_name[0]."<br>Price:".$result2_price[0]; ?></p>
                 <div class="counter">
                     

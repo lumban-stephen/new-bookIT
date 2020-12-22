@@ -64,15 +64,15 @@
             //error_reporting(0);?
 
             $sql = "SELECT  r.room_id as room_id, 
-                    rec.record_type as record_type, 
-                    rec.record_desc as record_desc, 
-                    rec.record_paid as paid_amount, 
-                    rec.record_date as record_date, 
-                    rec.record_time as record_time
-            FROM    records rec,rooms r,guests g
+                        rec.record_type as record_type, 
+                        rec.record_desc as record_desc, 
+                        rec.record_date as record_date, 
+                        rec.record_time as record_time,
+                        c.paid_amount
+            FROM    records rec,rooms r,guests g,checked_in_guests c
             WHERE   g.room_id=r.room_id AND 
-                    g.guest_id=rec.guest_id 
-            ORDER BY rec.record_date";
+                        g.guest_id=rec.guest_id AND c.guest_id=g.guest_id
+                ORDER BY rec.record_date";
 
         $result = $conn->query($sql);
 
