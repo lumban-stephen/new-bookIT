@@ -1,5 +1,6 @@
 <?php
    session_start();
+   ob_start();
 ?>
 
 <!DOCTYPE html>
@@ -485,7 +486,7 @@ include 'connection.php';
                             $_SESSION['d_num1']++;
                         }
                         echo $_SESSION['d_num1'];
-                        $_SESSION['d_price1']=$result3_price[0]*$_SESSION['d_num1'];
+                        $_SESSION['d_price1']=$result3_price[1]*$_SESSION['d_num1'];
                         
                     ?>            
                     <input type="submit" name="d_plus1" value="+">
@@ -672,6 +673,7 @@ include 'connection.php';
                 <p>Guest Details</p>
                 <div class="amty-desc">
                     <?php
+
                     $_SESSION['total_amenity']=$_SESSION['h_price0']+$_SESSION['h_price1']+$_SESSION['h_price1']+$_SESSION['h_price3']+
                     $_SESSION['f_price0']+$_SESSION['f_price1']+$_SESSION['f_price2']+$_SESSION['f_price3']+
                     $_SESSION['d_price0']+$_SESSION['d_price1']+$_SESSION['d_price2']+$_SESSION['d_price3']+
@@ -884,8 +886,10 @@ include 'connection.php';
         $prepare->execute();
         unset($_SERVER['PHP_SELF']);
         session_destroy();
+        header("location:receptionist_dashboard.php");
+        
     }
-
+ob_end_flush();
       ?>
 
                 </div>
