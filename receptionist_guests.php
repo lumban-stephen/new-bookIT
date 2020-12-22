@@ -51,9 +51,10 @@
                 <form action="/action_page.php">
                   <label>Search Guest Name: </label>
                   <input type="text" placeholder="Search.." name="search">
+                  <input type="submit" name="submit">
                 </form>
             </div>
-
+            
             <br>
             <table id="Table">
               <tr>
