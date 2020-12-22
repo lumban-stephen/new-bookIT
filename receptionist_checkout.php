@@ -88,6 +88,7 @@
                                 Payment Amount: ".$row["payment_amount"]."<br><br>
                                 
                                 <input type='submit' name='remove' value='Check Out'>
+                                <input type='hidden' name='paid' value='{$row["total_amount"]}'>
                                 <input type='hidden' name='guestID' value='{$row['guest_id']}'>
                                 <input type='hidden' name='roomID' value='{$row['room_id']}'>
                                 <input type='hidden' name='paymentID' value='{$row['payment_id']}'>
@@ -100,15 +101,17 @@
                 }
 
                 if(isset($_POST['remove'])){
+                    $paid = $_POST['paid']; 
                     $gID = $_POST['guestID'];
                     $rID = $_POST['roomID'];
                     $pID = $_POST['paymentID'];
                     $updateGuest = "UPDATE guests SET guest_status = 'Complete' WHERE guest_id = $gID";
                     $updateRoom = "UPDATE rooms SET room_status = 'Available' WHERE guest_id = $gID";
-                    $newRecord = "INSERT INTO records (record_type, record_date, record_time, guest_id, room_id, payment_id)
+                    $newRecord = "INSERT INTO records (record_type, record_date, record_time, record_paid, guest_id, room_id, payment_id)
                                 VALUES ('STAYING', 
                                         SELECT CAST( GETDATE() AS Date ), 
                                         SELECT CONVERT(TIME,GETDATE()), TRY_CONVERT(TIME, GETDATE()), CAST(GETDATE() AS TIME),
+                                        $paid,
                                         $gID,
                                         $rID, 
                                         $pID)";
