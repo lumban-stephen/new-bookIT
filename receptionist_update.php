@@ -69,6 +69,7 @@
             ob_start();
             //to extend
             if(isset($_SESSION['extend'])){
+                unset($_SESSION['extend']);
                 $sql0 = "SELECT g.room_id as room_id, g.date_in as date_in, g.date_out as date_out, g.payment_id as payment_id, g.guests_count as guests_count,g.customer_id as customer_id,p.payment_amount as 'payment_amount'
                     FROM guests g, payments p
                     WHERE g.guest_id='{$_SESSION['guest_id']}' AND g.payment_id=p.payment_id";
@@ -92,7 +93,8 @@
                 <span><label>Check-out</label><br>".$date_out."<input type='date' name='extend'>
                 <span><label>Selected Date</label><br>".$_SESSION['extended_date']."</span>
                 </div>
-                <button type='submit' name='search_room'  style='background-color: #003399; padding: 5px; ' class='button'>Search Room</button>";
+                <button type='submit' name='search_room'  style='background-color: #003399; padding: 5px; ' class='button'>Search Room</button><a href='receptionist_res-list.php'>Back to Guests</a></form>
+                ";
 
 if(isset($_POST['search_room'])){
     $extend=$_POST['extend'];

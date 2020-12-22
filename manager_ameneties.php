@@ -1,6 +1,7 @@
 <?php
    session_start();
    ob_start();
+   error_reporting(0);
 ?>
 
 <!DOCTYPE html>
@@ -83,12 +84,12 @@ include 'connection.php';
                     }?>
 
     <div class="amty-box">
-        <img src="assets/img-dummy.jpg">
+        <img src="assets/dove-shampoo.jpg">
             <p class="name"><?php echo $result1_name[0]."<br>Price:".$result1_price[0]; ?></p>
                 <div class="counter">
                     <form action="<?php echo $_SERVER['PHP_SELF'];  ?>" method="post">
                     
-                    <input type="submit" name="h_minus0" value="-">
+                    <input type="submit" name="h_minus0" value="-" class="button">
                     
                     <?php
                         $_SESSION['h_num0']=((isset($_SESSION['h_num0']))?$_SESSION['h_num0']:0);
@@ -121,7 +122,7 @@ include 'connection.php';
 
 
     <div class="amty-box">
-        <img src="assets/img-dummy.jpg">
+        <img src="assets/dove-conditioner.jpg">
             <p class="name"><?php echo $result1_name[1]."<br>Price:".$result1_price[1]; ?></p>
                 <div class="counter">
                     
@@ -158,7 +159,7 @@ include 'connection.php';
 
 
     <div class="amty-box">
-        <img src="assets/img-dummy.jpg">
+        <img src="assets/sunsilk-shampoo.png">
             <p class="name"><?php echo $result1_name[2]."<br>Price:".$result1_price[2]; ?></p>
                 <div class="counter">
                     
@@ -194,7 +195,7 @@ include 'connection.php';
     </div>
 
     <div class="amty-box">
-        <img src="assets/img-dummy.jpg">
+        <img src="assets/creamsilk.jpg">
             <p class="name"><?php echo $result1_name[3]."<br>Price:".$result1_price[3]; ?></p>
                 <div class="counter">
                     
@@ -263,7 +264,7 @@ include 'connection.php';
                     }?>
 
     <div class="amty-box">
-        <img src="assets/img-dummy.jpg">
+        <img src="assets/Piattos.JFIF">
             <p class="name"><?php echo $result2_name[0]."<br>Price:".$result2_price[0]; ?></p>
                 <div class="counter">
                     
@@ -300,7 +301,7 @@ include 'connection.php';
 
 
     <div class="amty-box">
-        <img src="assets/img-dummy.jpg">
+        <img src="assets/nova.png">
             <p class="name"><?php echo $result2_name[1]."<br>Price:".$result2_price[1]; ?></p>
                 <div class="counter">
                     
@@ -337,7 +338,7 @@ include 'connection.php';
 
 
     <div class="amty-box">
-        <img src="assets/img-dummy.jpg">
+        <img src="assets/taquitos.jpg">
             <p class="name"><?php echo $result2_name[2]."<br>Price:".$result2_price[2]; ?></p>
                 <div class="counter">
                     
@@ -373,7 +374,7 @@ include 'connection.php';
     </div>
 
     <div class="amty-box">
-        <img src="assets/img-dummy.jpg">
+        <img src="assets/vcut.jpg">
             <p class="name"><?php echo $result2_name[3]."<br>Price:".$result2_price[3]; ?></p>
                 <div class="counter">
                     
@@ -428,7 +429,7 @@ include 'connection.php';
                     }?>
 
     <div class="amty-box">
-        <img src="assets/img-dummy.jpg">
+        <img src="assets/naturespring-350.png">
             <p class="name"><?php echo $result3_name[0]."<br>Price:".$result3_price[0]; ?></p>
                 <div class="counter">
                     
@@ -465,7 +466,7 @@ include 'connection.php';
 
 
     <div class="amty-box">
-        <img src="assets/img-dummy.jpg">
+        <img src="assets/naturespring-500.png">
             <p class="name"><?php echo $result3_name[1]."<br>Price:".$result3_price[1]; ?></p>
                 <div class="counter">
                     
@@ -502,7 +503,7 @@ include 'connection.php';
 
 
     <div class="amty-box">
-        <img src="assets/img-dummy.jpg">
+        <img src="assets/pepsi-8oz.jpg">
             <p class="name"><?php echo $result3_name[2]."<br>Price:".$result3_price[2]; ?></p>
                 <div class="counter">
                     
@@ -538,7 +539,7 @@ include 'connection.php';
     </div>
 
     <div class="amty-box">
-        <img src="assets/img-dummy.jpg">
+        <img src="assets/mirinda-8.jpg">
             <p class="name"><?php echo $result3_name[3]."<br>Price:".$result3_price[3]; ?></p>
                 <div class="counter">
                     
@@ -592,7 +593,7 @@ include 'connection.php';
                     }?>
 
     <div class="amty-box">
-        <img src="assets/img-dummy.jpg">
+        <img src="assets/Pillow.jpg">
             <p class="name"><?php echo $result4_name[0]."<br>Price:".$result4_price[0]; ?></p>
                 <div class="counter">
                     
@@ -629,7 +630,7 @@ include 'connection.php';
 
 
     <div class="amty-box">
-        <img src="assets/img-dummy.jpg">
+        <img src="assets/lights.JFIF">
             <p class="name"><?php echo $result4_name[1]."<br>Price:".$result4_price[1]; ?></p>
                 <div class="counter">
                     

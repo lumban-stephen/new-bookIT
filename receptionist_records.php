@@ -61,7 +61,7 @@
 
         <?php
             include 'connection.php';
-            //error_reporting(0);?
+            error_reporting(0);
 
         $sql = "SELECT  r.room_id as room_id, 
                         rec.record_type as record_type, 

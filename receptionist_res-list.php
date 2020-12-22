@@ -103,7 +103,7 @@ while($row = $result->fetch_assoc()){
                 <td>
                 <span class='grid-container'>
                 <button type='submit' name='checkin' ' class='Greenbutton'>Check in</button>
-                <button type='submit' name='update'  class='Graybutton'>Update/Reschedule</button>
+                <button type='submit' name='update'  class='Graybutton'>Update<br>Reschedule</button>
                 <button type='submit' name='cancel' class='Checkoutbutton'>Cancel Booking</button>
                 </span>
                 </td>

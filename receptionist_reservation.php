@@ -78,14 +78,14 @@
 
         <button type="submit" name="submit" class="Offerbutton">SEARCH</button>
 
-        <a href="receptionist_res-list.php" class="Viewbutton" style="color: white;">Liservation List</a>
+        <a href="receptionist_res-list.php">Liservation List</a>
         <br><br>
 </form>
 
 
     <?php
     include 'connection.php';
-    //error_reporting(0);
+    error_reporting(0);
     if(isset($_POST['submit'])){
         
     $checkin=$_POST['checkin'];
