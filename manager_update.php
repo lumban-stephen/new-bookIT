@@ -314,7 +314,7 @@ $prepare02= $conn->prepare("UPDATE payments SET payment_amount =?
         header("location:receptionist_res-list.php");
     }
 }
-
+unset($_SESSION['extended_date']);
 ob_end_flush();
 ?>
 

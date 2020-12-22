@@ -64,7 +64,7 @@ include 'connection.php';
 
 ?>
 
-
+<a href="manager_restock">RESTOCK AMENITIES</a>>
 
         <p>Hygiene</p>
             <div class="amty">
@@ -696,7 +696,7 @@ include 'connection.php';
                       ?>
                     
                     <button type='submit' name='process'class="amty-btn bluegray">Process Order</button>
-                    <button type='submit' name='Cancel' class="amty-btn green">Cancel</button>
+                    <button type='submit' name='checkin' class="amty-btn green">Check in</button>
                     </form>
 
     <?php
@@ -888,7 +888,7 @@ include 'connection.php';
         header("location:manager_dashboard.php");
     }
 
-    if(isset($_POST['Cancel'])){
+    if(isset($_POST['checkin'])){
         unset($_SERVER['PHP_SELF']);
         session_destroy();
         header("location:manager_dashboard.php");

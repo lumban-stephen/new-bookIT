@@ -697,7 +697,7 @@ include 'connection.php';
                       ?>
                     
                     <button type='submit' name='process'class="amty-btn bluegray">Process Order</button>
-                    <button type='submit' name='Cancel' class="amty-btn green">Cancel</button>
+                    <button type='submit' name='checkin' class="amty-btn green">Check in</button>
                     </form>
 
     <?php
@@ -890,7 +890,7 @@ include 'connection.php';
         
     }
 
-    if(isset($_POST['Cancel'])){
+    if(isset($_POST['checkin'])){
         unset($_SERVER['PHP_SELF']);
         session_destroy();
         header("location:receptionist_dashboard.php");

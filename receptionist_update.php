@@ -156,6 +156,8 @@ $prepare02= $conn->prepare("UPDATE payments SET payment_amount =?
 
     $_SESSION['room_id']=$room_id;
     header("location:receptionist_update.php");
+
+
 }
 
 //edit info
@@ -307,7 +309,6 @@ $prepare02= $conn->prepare("UPDATE payments SET payment_amount =?
         $prepare02->bind_param("ii", $payment, $payment_id);
         $prepare02->execute();
     $_SESSION['room_id']=$room_id;
-    header("location:receptionist_update.php");
 
 }
 
