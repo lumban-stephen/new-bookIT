@@ -23,10 +23,7 @@
                 </a>
             </div>
             <div class="right-float">
-                <p>Welcome,</p>
-            </div>
-            <div class="right-float">
-                <a><img></img></a>
+                <p>Welcome Manager</p>
             </div>
         </div>
         </header>
@@ -117,7 +114,7 @@
             $_SESSION['guest_id']=$guest_id;
             $_SESSION['customer_id']=$customer_id;
             $_SESSION['extend']="extend";
-            header("location:receptionist_update.php");
+            header("location:manager_update.php");
             } 
 
             if(isset($_POST['checkout'])){
@@ -147,7 +144,7 @@
 
 
 
-            header("location:receptionist_ameneties.php");
+            header("location:manager_ameneties.php");
             }
 
 
