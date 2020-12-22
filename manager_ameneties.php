@@ -64,7 +64,7 @@ include 'connection.php';
 
 ?>
 
-<a href="manager_restock">RESTOCK AMENITIES</a>>
+<a href="manager_restock.php">RESTOCK AMENITIES</a>>
 
         <p>Hygiene</p>
             <div class="amty">
