@@ -121,8 +121,7 @@
         $room_id = $_POST['room_id'];
         
         $_SESSION['room_id'] = $room_id;
-        $_SESSION['from_checkin']=1;
-        header("location:receptionist_checkinform.php");   
+        header("location:receptionist_booking.php");   
     }
 
         ?>
