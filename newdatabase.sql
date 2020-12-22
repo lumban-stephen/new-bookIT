@@ -59,8 +59,11 @@ CREATE TABLE Users(
         record_type ENUM ('COMING','STAYING','CHECKED OUT'),
         record_desc VARCHAR(100),
         record_time TIME,
-        record_date DATE , 
-        guest_id INT
+        record_date DATE ,
+        record_paid FLOAT(10,2), 
+        guest_id INT,
+        room_id INT,
+        payment_id INT 
     );
 
     CREATE TABLE schedule(
@@ -115,7 +118,9 @@ ALTER TABLE `Guests`
 
 
 ALTER TABLE `Records`
-  ADD CONSTRAINT `records_guests_pk` FOREIGN KEY (`guest_id`) REFERENCES `Guests` (`guest_id`);
+  ADD CONSTRAINT `records_guests_pk` FOREIGN KEY (`guest_id`) REFERENCES `Guests` (`guest_id`),
+  ADD CONSTRAINT `records_room_pk` FOREIGN KEY (`room_id`) REFERENCES `Rooms` (`room_id`),
+  ADD CONSTRAINT `records_payment_pk` FOREIGN KEY (`payment_id`) REFERENCES `Payments` (`payment_id`);
 
 ALTER TABLE `schedule`
   ADD CONSTRAINT `schedule_guests_pk` FOREIGN KEY (`guest_id`) REFERENCES `Guests` (`guest_id`),
