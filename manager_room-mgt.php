@@ -23,7 +23,7 @@
                 </a>
             </div>
             <div class="right-float">
-                <p>Welcome Manager,</p>
+                <p>Welcome Manager  </p>
             </div>
         </div>
         </header>
@@ -46,6 +46,7 @@
         <div id="content">
             <!--Code here for manager room management code-->
             <h2>Rooms</h2>
+            <form action="room_server.php" method="get">
             <table id="Table">
               <tr>
                 <th>Room Number</th>
@@ -77,13 +78,13 @@
                          <td>". $rows['Room Status']. "</td>
                          <td>". $rows['Room Cost']. "</td>
                          <td>". $rows['Room Description']. "</td>";
-                    if ($rows['Room Status'] == 'Maintenance' ||$rows['Room Status'] == 'Unavailable') {
+                    if ($rows['Room Status'] == 'Maintenance' || $rows['Room Status'] == 'Unavailable') {
                         echo "<td>
-                                <button class= 'Greenbutton'>Enable<br>Room</button></td>
+                                <button class= 'Greenbutton' name='enable'><a href='manager_room-mgt.php?enable=".$rows['Room Number'].">Enable<br>Room</a></button></td>
                              </tr>";
                     }elseif ($rows['Room Status'] == 'Available') {
                         echo "<td>
-                                <button class= 'Checkoutbutton'>Disable<br>Room</button></td>
+                                <button class= 'Checkoutbutton' name='disable'>Disable<br>Room</button></td>
                              </tr>";
                     }elseif($rows['Room Status'] == 'Used by guest'){
                         echo "<td>
@@ -95,8 +96,9 @@
             }else{
                   echo "No rooms added";
                 }
+            
             $conn->close();        
             ?>
-
+            </form>
         </div>
     </body>
