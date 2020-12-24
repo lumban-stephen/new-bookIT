@@ -52,41 +52,67 @@
                 <form method="POST">
                   <label>Search Guest Name: </label>
                   <input type="text" placeholder="Search.." name="keyword">
-                  <input type="submit" name="submit">
+                  <input type="submit" name="search">
                 </form>
             </div>
-            <?php
-            if (isset($_POST['keyword'])) {
-            // Filter
-            $keyword = trim ($_POST['keyword']);
 
-            // Select statement
-            $submit = "SELECT ch.checked_in_id AS 'ID',
-                        CONCAT(c.fname, ' ', c.MI, ' ', c.lname) AS 'Guest Name',
-                        r.room_id as 'Room Number', g.guest_id AS 'guest_id' 
+            <?php
+            include 'connection.php';
+            if (isset($_POST['keyword'])) {
+
+            $keyword = trim ($_POST['keyword']);
+            $_SESSION['keyword'] = $keyword;  
+
+            
+            $sql1 = "SELECT g.guest_id,
+                        CONCAT(c.fname, ' ', c.MI, ' ', c.lname) AS 'Guest Name', c.fname as 'fname',c.MI as 'mname',c.lname as 'lname',
+                    r.room_id as 'Room Number',b.bill_id as 'bill_id'
                     FROM
-                        Checked_in_guests ch, Guests g, Customers c,
-                        Rooms r
+                        Guests g, Customers c,
+                        Rooms r,bill b
                     WHERE
-                        ch.guest_id = g.guest_id AND g.customer_id = c.customer_id
-                        AND ch.room_id = r.room_id AND g.guest_id LIKE '%$keyword%'
+                        g.customer_id = c.customer_id
+                        AND g.room_id = r.room_id AND CONCAT(c.fname, ' ', c.MI, ' ', c.lname) LIKE '%$keyword%'
+                    GROUP BY
+                        g.guest_id 
                     ORDER BY
                         g.date_in;";
-            // Display
-            $result = $conn->query($submit) or die('query did not work');
-            while($result_arr = $result->fetch_assoc($result))
+                        $result = $conn->query($sql1) or die('query did not work');
+            
+           echo "<div id='SearchTable'>
+           <input type='button' id='close' class='Logoutbutton' style='float:right'value='Close search result' onclick='closeTable()'>
+           <table id='Table'>
+           <tr>
+           <th>Guest Name</th>
+           <th>Room Number</th>
+           <th>Actions</th>
+           <th>More Info</th>
+           </tr>";
+
+            while($rows = $result->fetch_assoc())
             { 
-            echo $result_arr['Guest Name']; 
-            echo " ";
-            echo "<br>"; 
-            echo "<br>"; 
+            echo "<tr><td>" .$rows['Guest Name']."</td>
+                    <td>" .$rows['Room Number']."</td>
+                    <td><button  class='Offerbutton' name='ameneties'>Offer<br>Amenities</a></button>
+                    <button class='Extendbutton' name='extend'>Extend<br>Stay</button>
+                    <button type='submit' class='Checkoutbutton' name='checkout'>Early Checkout</button></td>
+                <td><button class= 'Viewbutton'><a href= 'receptionist_guestview.php?id=".$rows['guest_id']."'>View</a></button></td></tr>
+                <input type='hidden' name='guest_id' value='{$rows['guest_id']}'>
+                <input type='hidden' name='bill_id' value='{$rows['bill_id']}'>
+                <input type='hidden' name='fname' value='{$rows['fname']}'>
+                <input type='hidden' name='lname' value='{$rows['lname']}'>
+                <input type='hidden' name='mname' value='{$rows['mname']}'>
+               
+                </form>";  
             }
-            $anymatches=mysql_num_rows($result); 
+            echo "</table></div>";
+            $anymatches= mysqli_num_rows($result); 
             if ($anymatches == 0) 
             { 
             echo "Nothing was found that matched your query.<br><br>"; 
             }
-            }
+        }
+        
             ?>
             
             <br>
@@ -102,24 +128,24 @@
         include 'connection.php';
         ob_start();
         
-            $sql = "SELECT s.sched_id AS 'SID',
+            $sql = "SELECT g.guest_id,
                     CONCAT(c.fname, ' ', c.MI, ' ', c.lname) AS 'Guest Name',c.fname as 'fname',c.MI as 'mname',c.lname as 'lname',
                     r.room_id as 'Room Number', g.guest_id AS 'guest_id',b.bill_id as 'bill_id'
             FROM
-                    Schedule s, Guests g, Customers c,
+                    Guests g, Customers c,
                     Rooms r,bill b
             WHERE
-                    s.guest_id = g.guest_id AND g.customer_id = c.customer_id
-                    AND s.room_id = r.room_id AND b.guest_id=g.guest_id
+                    g.customer_id = c.customer_id
+                    AND g.room_id = r.room_id AND b.guest_id=g.guest_id AND g.guest_status = 'INCOMPLETE'
             GROUP BY
-                    g.guest_id /*I grouped it by guest id because it would be group by roomtype_id if isnt guest_id*/ 
+                    g.guest_id 
             ORDER BY
-                    g.date_in;"; //Ordered the table by the dates they checked in
+                    g.date_in;"; 
 
             $display = $conn->query($sql);
 
     
-            if($rows = $display != NULL){ //I didn't put fetch assoc because the first value won't show if the fetch_assoc() is called twice.
+            if($rows = $display != NULL){ 
                 while($rows = $display->fetch_assoc()){
                     echo
                         "<form action='' method='POST'>
@@ -127,8 +153,8 @@
                              <td>". $rows['Room Number']. "</td>
                              <td><button  class='Offerbutton' name='ameneties'>Offer<br>Amenities</a></button>
                                  <button class='Extendbutton' name='extend'>Extend<br>Stay</button>
-                                 <button type='submit' class='Checkoutbutton' name='checkout'>Early Checkout</button></td>
-                             <td><button class= 'Viewbutton'><a href= 'receptionist_guestview.php?id=".$rows['SID']."'>View</a></button></td></tr>
+                                 <button type='submit' class='Checkoutbutton' name='checkout1'>Early Checkout</button></td>
+                             <td><button class= 'Viewbutton'><a href= 'receptionist_guestview.php?id=".$rows['guest_id']."'>View</a></button></td></tr>
                              <input type='hidden' name='guest_id' value='{$rows['guest_id']}'>
                              <input type='hidden' name='bill_id' value='{$rows['bill_id']}'>
                              <input type='hidden' name='fname' value='{$rows['fname']}'>
@@ -150,13 +176,23 @@
             header("location:receptionist_update.php");
             } 
 
-            if(isset($_POST['checkout'])){
+            if(isset($_POST['checkout1'])){
             $guest_id=$_POST['guest_id'];
-            $sched_id=$_POST['SID'];
             $_SESSION['guest_id']=$guest_id;
-            $_SESSION['sched_id']=$sched_id;
             header("location:receptionist_checkout.php");
-            }
+
+                $date1 = "SELECT CURRENT_DATE";
+                $updateDate = "UPDATE guests SET date_out = $date1 WHERE guest_id = $guest_id";
+                
+                if ($conn->query($updateDate) === TRUE) {
+                    echo "<script language='javascript'>
+                                window.location.href='receptionist_checkout.php';
+                                alert('Early Checkout Date Update is successful');
+                        </script>";
+                } else {
+                    echo "Error: " .$updateDate. "<br>" .$conn->error;
+                }
+                }
 
 
             if(isset($_POST['ameneties'])){
@@ -171,12 +207,6 @@
             $_SESSION['fname']=$fname;
             $_SESSION['mname']=$mname;
             $_SESSION['lname']=$lname;
-
-
-
-
-
-
             header("location:receptionist_ameneties.php");
             }
 
@@ -185,5 +215,5 @@
                $conn->close();        
         ?>
         </div>
-
+        <script src="dashmodal.js"></script>
     </body>

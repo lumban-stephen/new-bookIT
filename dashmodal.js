@@ -69,3 +69,6 @@ document.querySelector('.bg-modal5').style.display = 'none';
     updateClock();
     window.setInterval("updateClock()", 1);
   }
+  function closeTable(){
+    document.getElementById('SearchTable').style.display = 'none';
+  }

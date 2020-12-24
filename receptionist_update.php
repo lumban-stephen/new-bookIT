@@ -321,8 +321,10 @@ $prepare02= $conn->prepare("UPDATE payments SET payment_amount =?
 }
 
 unset($_SESSION['extended_date']);
+
 ob_end_flush();
 ?>
+
 
                 
         </div>

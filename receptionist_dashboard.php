@@ -55,7 +55,7 @@
                         include 'connection.php';
         
                         $sql = "SELECT COUNT(*) AS 'Guests'
-                                 FROM checked_in_guests;";
+                                 FROM guests WHERE guest_status = 'INCOMPLETE';";
                         $display = $conn->query($sql);
                         if($rows = $display != NULL){ 
                             while($rows = $display->fetch_assoc()){
@@ -82,15 +82,15 @@
                         <?php
                                 include 'connection.php';
                 
-                                $sql = "SELECT ch.checked_in_id AS 'ID',
+                                $sql = "SELECT g.guest_id AS 'ID',
                                                 CONCAT(c.fname, ' ', c.MI, ' ', c.lname) AS 'Guest Name',
-                                                r.room_id as 'Room Number', g.guest_id AS 'guest_id'
+                                                r.room_id as 'Room Number'
                                         FROM
-                                                Checked_in_guests ch, Guests g, Customers c,
+                                                Guests g, Customers c,
                                                 Rooms r
                                         WHERE
-                                                ch.guest_id = g.guest_id AND g.customer_id = c.customer_id
-                                                AND ch.room_id = r.room_id
+                                                g.customer_id = c.customer_id
+                                                AND g.room_id = r.room_id AND g.guest_status = 'INCOMPLETE'
                                         ORDER BY
                                                 g.date_in;";
                                         $display = $conn->query($sql);
@@ -113,8 +113,8 @@
                          include 'connection.php';
         
                          $sql = "SELECT COUNT(*) AS 'checkout' 
-                                 FROM checked_in_guests ch,guests g 
-                                 WHERE ch.guest_id=g.guest_id AND g.date_out= CURDATE();";
+                                 FROM guests g 
+                                 WHERE g.guest_status = 'INCOMPLETE' AND g.date_out= CURDATE();";
                         $display = $conn->query($sql);
                         if($rows = $display != NULL){ 
                             while($rows = $display->fetch_assoc()){
@@ -143,11 +143,11 @@
                                         $sql = "SELECT CONCAT(c.fname, ' ', c.MI, ' ', c.lname) AS 'Guest Name',
                                                      r.room_id as 'Room Number'
                                                 FROM
-                                                        Checked_in_guests ch, Guests g, Customers c,
+                                                        Guests g, Customers c,
                                                         Rooms r
                                                 WHERE
-                                                        ch.guest_id = g.guest_id AND g.customer_id = c.customer_id
-                                                        AND ch.room_id = r.room_id AND g.date_out= CURDATE()
+                                                        g.customer_id = c.customer_id
+                                                        AND g.room_id = r.room_id AND g.date_out= CURDATE() AND g.guest_status = 'INCOMPLETE'
                                                 ORDER BY
                                                         g.date_in;";
                                                 $display = $conn->query($sql);
@@ -219,7 +219,8 @@
                          $sql = "SELECT 
                                     count(*)
                                  FROM
-                                    Schedule s;";
+                                    guests
+                                WHERE date_in > CURDATE();";
                         $display = $conn->query($sql);
                         if($rows = $display != NULL){ 
                             while($rows = $display->fetch_assoc()){
@@ -245,11 +246,11 @@
                                         include 'connection.php';
                         
                                         $sql = "SELECT CONCAT(c.fname, ' ', c.MI, ' ', c.lname) AS 'Guest Name',
-                                                     g.date_in AS 'Guest in'
+                                                        g.date_in AS 'Guest in'
                                                 FROM
-                                                        schedule s, Guests g, Customers c
+                                                        Guests g, Customers c
                                                 WHERE
-                                                        s.guest_id = g.guest_id AND s.customer_id = c.customer_id;";
+                                                        g.customer_id = c.customer_id AND date_in > CURDATE();";
                                                 $display = $conn->query($sql);
                                                 if($rows = $display != NULL){ 
                                                     while($rows = $display->fetch_assoc()){

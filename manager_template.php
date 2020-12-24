@@ -23,7 +23,7 @@
                 </a>
             </div>
             <div class="right-float">
-                <p>Welcome Manager,</p>
+                <p>Welcome Manager</p>
             </div>
         </div>
         </header>

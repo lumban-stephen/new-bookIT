@@ -51,8 +51,8 @@
 <?php
         include 'connection.php';
 
-        $sql = "SELECT s.sched_id AS 'SID', g.guest_id AS 'guest_id', b.bill_id as 'bill_id',
-                    CONCAT(c.fname, ' ', c.MI, ' ', c.lname) AS 'Guest Name', c.phone AS 'Phone', c.email AS 'Email',
+        $sql = "SELECT g.guest_id AS 'SID', g.guest_id AS 'guest_id', b.bill_id as 'bill_id',
+                    c.fname AS 'Firstname', c.MI AS 'Middlename', c.lname AS 'Lastname', c.phone AS 'Phone', c.email AS 'Email',
                     g.date_in AS 'Check-in Date', g.date_out AS 'Check-out Date',
                     r.room_id AS 'Room Number', rt.room_desc AS 'Room Type',
                     g.guest_status AS 'Guest Status', g.guests_count AS 'Number of Guests'
@@ -60,17 +60,19 @@
                     Schedule s, Guests g, Customers c,
                      Rooms r, room_type rt, bill b
                 WHERE
-                    s.guest_id = g.guest_id AND g.customer_id = c.customer_id
-                    AND s.room_id = r.room_id AND b.guest_id=g.guest_id AND s.sched_id ='".$_GET['id']."'
+                     g.customer_id = c.customer_id
+                    AND s.room_id = r.room_id AND b.guest_id=g.guest_id AND g.guest_id ='".$_GET['id']."'
                 GROUP BY
-                 	s.sched_id;";
+                    g.guest_id;";
 
 
         $result = $conn->query($sql);
         while($row = $result->fetch_assoc()){
 
         echo "<form method='post' action='' enctype='multipart/form-data'>  
-                <label class='Labelform'>Guest Name</label><input type='text' class='booking' value=".$row['Guest Name'].">
+                <label class='Labelform'>Guest Name</label><input type='text' class='booking' value=".$row['Firstname'].">
+                <label class='Labelform'>Guest Name</label><input type='text' class='booking' value=".$row['Middlename'].">
+                <label class='Labelform'>Guest Name</label><input type='text' class='booking' value=".$row['Lastname'].">
                 <br>
                 <label class='Labelform'>Phone Number</label><input type='text' class='booking'  value=".$row['Phone'].">
                 <label class='Labelform'>Email</label><input type='text' class='booking'  value=".$row['Email'].">
