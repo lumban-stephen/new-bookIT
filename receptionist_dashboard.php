@@ -60,7 +60,8 @@
                         if($rows = $display != NULL){ 
                             while($rows = $display->fetch_assoc()){
                                 echo
-                                    "Number of Guests checked in:  ".$rows['Guests'].""; 
+                                    "<div class='box1header'><h3>Number of Guests checked in:</h3></div>  
+                                    <div class='dashcontent'><h1>".$rows['Guests']."</h1></div>"; 
                              }
                             }else{
                               echo "No guest checked in";
@@ -74,6 +75,7 @@
             <div class="header_modal1">
                         <h1>Guests checked in</h1>
                         </div><br>
+                        <div class="Pad">
                         <table id="Table">
                         <tr>
                             <th>Guest Name</th>
@@ -103,7 +105,7 @@
                                             }else{
                                               echo "No guest checked in";
                                             } 
-                                            echo "</table>" ;  
+                                            echo "</table></div>" ;  
                                 ?>
                         </div>
                         </div>
@@ -119,7 +121,8 @@
                         if($rows = $display != NULL){ 
                             while($rows = $display->fetch_assoc()){
                                 echo
-                                    "Number of Guests about to check-out:  ".$rows['checkout'].""; 
+                                    "<div class='box2header'><h3>Number of Guests about to check-out: </h3></div> 
+                                    <div class='dashcontent'><h1>".$rows['checkout']."</h1></div>"; 
                              }
                             }else{
                               echo "No guest is about to check-out";
@@ -132,6 +135,7 @@
                     <div class="header_modal2">
                                 <h1>About to checkout</h1>
                                 </div><br>
+                                <div class="Pad">
                                 <table id="Table">
                                 <tr>
                                     <th>Guest Names</th>
@@ -160,7 +164,7 @@
                                                     }else{
                                                     echo "No guest is going to checkout";
                                                     } 
-                                                    echo "</table>" ;  
+                                                    echo "</table></div>" ;  
                                         ?>
                         </div>
                         </div>
@@ -175,7 +179,8 @@
                         if($rows = $display != NULL){ 
                             while($rows = $display->fetch_assoc()){
                                 echo
-                                    "Number of Vacancies:  ".$rows['Vacancies'].""; 
+                                    "<div class='box3header'><h3>Number of Vacancies:</h3></div>  
+                                    <div class='dashcontent'><h1>".$rows['Vacancies']."</h1></div>"; 
                              }
                             }else{
                               echo "No available rooms";
@@ -187,6 +192,7 @@
                     <div class="header_modal3">
                                 <h1>Vacant Rooms</h1>
                                 </div><br>
+                                <div class="Pad">
                                 <table id="Table">
                                 <tr>
                                     <th>Room ID</th>
@@ -208,7 +214,7 @@
                                                     }else{
                                                     echo "No Vacant rooms";
                                                     } 
-                                                    echo "</table>" ;  
+                                                    echo "</table></div>" ;  
                                         ?>
                         </div>
                         </div>
@@ -225,7 +231,8 @@
                         if($rows = $display != NULL){ 
                             while($rows = $display->fetch_assoc()){
                                 echo
-                                    "Number of Reservations:  ".$rows['count(*)'].""; 
+                                    "<div class='box4header'><h3>Number of Reservations:</h3></div>
+                                    <div class='dashcontent'><h1> ".$rows['count(*)']."</h1></div>"; 
                              }
                             }else{
                               echo "No reservations";
@@ -237,6 +244,7 @@
                     <div class="header_modal4">
                                 <h1>Reservations</h1>
                                 </div><br>
+                                <div class="Pad">
                                 <table id="Table">
                                 <tr>
                                     <th>Guest name</th>
@@ -261,7 +269,7 @@
                                                     }else{
                                                     echo "No Reservations";
                                                     } 
-                                                    echo "</table>" ;  
+                                                    echo "</table></div>" ;  
                                         ?>
                         </div>
                         </div>

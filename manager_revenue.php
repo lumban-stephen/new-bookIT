@@ -58,15 +58,13 @@
             <!--Code here for manager revenue page code-->
             <form action='' method='POST'>
                 <h2>
-                    <label for='week'>Week: </label>
-                    <input type='number' name='week' id='weekly' min='1' max='53'>
-                    <label for='month'>Month: </label>
-                    <input type='number' name='month' id='monthly' min='1' max='12' required>
-                    <label for='year'>Year: </label>
-                    <input type='number' name='year' id='yearly' min='2000' max='2021' required>
-                    <input type='submit' name='search' value='Search'>
+                    <label class="Labelform-Rev" for='week'>Week: </label><input type='number' class="input-Rev"  name='week' id='weekly' min='1' max='53'>
+                    <label class="Labelform-Rev" for='month'>Month: </label><input type='number' class="input-Rev" name='month' id='monthly' min='1' max='12' required>
+                    <label class="Labelform-Rev" for='year'>Year: </label><input type='number' class="input-Rev" name='year' id='yearly' min='2000' max='2021' required>
+                    <input type='submit' class="Greenbutton" name='search' value='Search'>
                 </h2>
             </form>
+            <br><br>
 
             <?php
             include 'connection.php';
@@ -78,7 +76,7 @@
                 $week = $_POST['week'];                
 
                 echo "Week: ".$_POST['week'].   " Month: ".$_POST['month'].   " Year: ".$_POST['year']."";
-
+                echo "<br><br>";
                 echo "<div class='grid-container'>";
                     $sql3 = "SELECT SUM(record_paid) as weekly
                             FROM    records
@@ -86,7 +84,7 @@
                                     record_type = 'CHECKED OUT'";
                             $result3 = $conn->query($sql3);
                             while($row3 = $result3->fetch_assoc()){
-                                echo "<button type='submit' name='select' style='background-color: #FEC200; padding: 10px;' class='button'><p>weekly</p><h1>".$row3['weekly']."</h1></button>";   
+                                echo "<button type='submit' name='select' style='background-color: #FEC200; padding: 20px;' class='button'><p>weekly</p><h1>".$row3['weekly']."</h1></button>";   
                             }
 
                     $sql1 = "SELECT SUM(record_paid) as monthly
@@ -95,7 +93,7 @@
                                     record_type = 'CHECKED OUT'";
                             $result1 = $conn->query($sql1);
                             while($row1 = $result1->fetch_assoc()){
-                                echo "<button type='submit' name='select' style='background-color: #E35D40; padding: 10px;' class='button'><p>monthly</p><h1>".$row1['monthly']."</h1></button>";   
+                                echo "<button type='submit' name='select' style='background-color: #E35D40; padding: 20px;' class='button'><p>monthly</p><h1>".$row1['monthly']."</h1></button>";   
                             }
 
                     $sql2 = "SELECT SUM(record_paid) as yearly
@@ -104,7 +102,7 @@
                                     record_type = 'CHECKED OUT'";
                             $result2 = $conn->query($sql2);
                             while($row2 = $result2->fetch_assoc()){
-                                echo "<button type='submit' name='select' style='background-color: #C70039; padding: 10px; grid-column: 1 / span 2;' class='button'><p>yearly</p><h1>".$row2['yearly']."</h1></div>";   
+                                echo "<button type='submit' name='select' style='background-color: #C70039; padding: 20px; grid-column: 1 / span 2;' class='button'><p>yearly</p><h1>".$row2['yearly']."</h1></div>";   
                             }
                     }                 
                 echo "</div>"

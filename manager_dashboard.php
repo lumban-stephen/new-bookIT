@@ -58,7 +58,8 @@
                         if($rows = $display != NULL){ 
                             while($rows = $display->fetch_assoc()){
                                 echo
-                                    "Number of Guests checked in:  ".$rows['Guests'].""; 
+                                    "<div class='box1header'><h3>Number of Guests checked in:</h3></div>
+                                    <div class='dashcontent'><h1>".$rows['Guests']."</h1></div>"; 
                              }
                             }else{
                               echo "No guest checked in";
@@ -115,7 +116,8 @@
                         if($rows = $display != NULL){ 
                             while($rows = $display->fetch_assoc()){
                                 echo
-                                    "Number of Vacancies:  ".$rows['Vacancies'].""; 
+                                    "<div class='box2header'><h3>Number of Vacancies: </h3></div>
+                                    <div class='dashcontent'><h1> ".$rows['Vacancies']."</h1></div>"; 
                              }
                             }else{
                               echo "No available rooms";
@@ -163,7 +165,8 @@
                         if($rows = $display != NULL){ 
                             while($rows = $display->fetch_assoc()){
                                 echo
-                                    "Number of Guests about to check-in:  ".$rows['Checkin'].""; 
+                                    "<div class='box3header'><h3>Number of Guests about to check-in: </h3></div>
+                                    <div class='dashcontent'><h1> ".$rows['Checkin']."</h1></div>"; 
                              }
                             }else{
                               echo "No guest is about to check-in";
@@ -221,7 +224,8 @@
                         if($rows = $display != NULL){ 
                             while($rows = $display->fetch_assoc()){
                                 echo
-                                    "Number of Reservations:  ".$rows['count(*)'].""; 
+                                    "<div class='box4header'><h3>Number of Reservations:</h3></div> 
+                                    <div class='dashcontent'><h1> ".$rows['count(*)']."</h1></div>"; 
                              }
                             }else{
                               echo "No reservations";
@@ -270,7 +274,8 @@
                             $result1 = $conn->query($sql);
                             while($row1 = $result1->fetch_assoc()){
                                 echo
-                                    "Earnings of this month :  ".$row1['monthly'].""; 
+                                    "<div class='box5header'>Earnings of this month :</h3></div>
+                                    <div class='dashcontent'><h1> ".$row1['monthly']."</h1></div>"; 
                              }
                             ?></div>
                             

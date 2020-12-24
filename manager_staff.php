@@ -86,23 +86,25 @@
             <br>
             <hr>
             <br>                
-            <form method="post" action="staff-server.php" >
-                <div>
-                    <label class='Labelform'>First Name</label><input type="text" class='mngt' name="fname" value="<?php echo $fname;?>">
-                    <label class='Labelform'>Middle Initial</label><input type="text" class='mngt' name="mi"value="<?php echo $mi;?>">
-                    <label class='Labelform'>Last Name</label><input type="text" class='mngt' name="lname" value="<?php echo $lname;?>">
-                </div>
-                <div>
-                    <label class='Labelform'>Email</label><input type="email" class='mngt' name="email" value="<?php echo $email;?>"required>
-                    <label class='Labelform'>Password</label><input type="password" class='mngt' name="password" value=""required>
-                </div>
-                <div>
-                    <label class='Labelform'>Job</label><select name="jobs" class='mngt' id="jobs">
+            <form method="post" action="staff-server.php" class="staffgrid">
+                <span class="staffbox1">
+                    <label class='Labelform-staff'>First Name</label><input type="text" class='input-staff' name="fname" value="<?php echo $fname;?>"></span>
+                <span class="staffbox2">
+                    <label class='Labelform-staff'>Middle Initial</label><input type="text" class='input-staff' name="mi"value="<?php echo $mi;?>"></span>
+                <span class="staffbox3">
+                    <label class='Labelform-staff'>Last Name</label><input type="text" class='input-staff' name="lname" value="<?php echo $lname;?>"></span>
+                <span class="staffbox4">
+                    <label class='Labelform-staff'>Email</label><input type="email" class='input-staff' name="email" value="<?php echo $email;?>"required></span>
+                <span class="staffbox5">        
+                    <label class='Labelform-staff'>Password</label><input type="password" class='input-staff' name="password" value=""required></span>
+                <span class="staffbox6">
+                    <label class='Labelform-staff'>Job</label><select name="jobs" class='input-staff' id="jobs">
                         <option value="Receptionist">Receptionist</option>
                         <option value="Admin">Manager</option>
-                    </select>
-                <label class='Labelform'>Salary Per Day</label><input type="text" class='mngt' name="salary" value="<?php echo $salary;?>">
-                </div>
+                    </select></span>
+                <span class="staffbox7">
+                <label class='Labelform-staff'>Salary Per Day</label><input type="text" class='input-staff' name="salary" value="<?php echo $salary;?>"></span>
+                
                 <?php 
                     if($update == true):
                 ?>

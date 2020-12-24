@@ -79,7 +79,7 @@
 
         <button type="submit" name="submit" class="Offerbutton">SEARCH</button>
 
-        <a href="receptionist_res-list.php">Liservation List</a>
+        <button class="Viewbutton"><a href="receptionist_res-list.php">Reservation List</a></button>
         <br><br>
 </form>
 

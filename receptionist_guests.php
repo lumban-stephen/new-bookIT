@@ -139,7 +139,7 @@
                             CURDATE() as 'date'
             FROM
                     Guests g, Customers c,
-                    Rooms r,bill b
+                    Rooms r,bill b, schedule s
             WHERE
 
                     s.guest_id = g.guest_id AND 

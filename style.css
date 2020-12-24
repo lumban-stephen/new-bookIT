@@ -155,12 +155,13 @@ li a:hover:not(.active) {
 }
 .Labelform {
   height: 40px;
-  padding: 12px 20px;
   margin: 8px 0px 8px 0px;
   display: inline-block;
   color: white;
   background-color: #0088B6;
-  padding: 10px 15px;
+  padding: 12px 20px;
+  border: 2px solid #D3DEE8;
+ 
 }
 .booking, .mngt {
   height: 40px;
@@ -169,6 +170,7 @@ li a:hover:not(.active) {
   display: inline-block;
   border: 2px solid #D3DEE8;
 }
+
 .bookingsession {
   width: 39.5%;
   height: 40px;
@@ -210,6 +212,110 @@ input.mngt[type="email"],input.mngt[type="password"] {
 #address.booking {
   width: 89%;
 }
+
+.Labelform-Rev {
+  display: inline-block;
+  padding: 8px 15px;
+  font-size: 20px;
+  color: white;
+  border-radius: 0;
+  border: 2px solid #D3DEE8;
+  background-color: #0088B6;
+  -webkit-box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  box-sizing:border-box;
+  margin-top: 20px;
+}
+.input-Rev {
+  display: inline-block;
+  padding: 7.8px 15px;
+  font-size: 20px;
+  border-radius: 0;
+  -webkit-appearance: none;
+  border: 2px solid #D3DEE8;
+  background-color: #F1F1F1;
+  -webkit-box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  box-sizing:border-box;
+}
+.Labelform-staff {
+  display: inline-block;
+  padding: 8px 15px;
+  font-size: 18px;
+  color: white;
+  
+  border: 2px solid #D3DEE8;
+  background-color: #0088B6;
+  -webkit-box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  box-sizing:border-box;
+  margin-top: 20px;
+}
+.input-staff {
+  display: inline-block;
+  padding: 7.8px 0px;
+  font-size: 18px;
+  width: auto;
+  -webkit-appearance: none;
+  border: 2px solid #D3DEE8;
+  background-color: #F1F1F1;
+  -webkit-box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  box-sizing:border-box;
+}
+
+.staffgrid{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 1em;
+  rid-auto-rows: minmax(100px, auto);
+  width: 100%;
+  align-items: stretch;
+}
+.staffbox1{
+  border: 1px solid rgba(213, 213, 213, 0.37);
+  grid-column: 1;
+  grid-row:1;
+  color: #fff;
+}
+.staffbox2{
+  border: 1px solid rgba(213, 213, 213, 0.37);
+  grid-column: 2;
+  grid-row:1;
+  color: #fff;
+}
+.staffbox3{
+  border: 1px solid rgba(213, 213, 213, 0.37);
+  grid-column: 3;
+  grid-row:1;
+  color: #fff;
+}
+.staffbox4{
+  border: 1px solid rgba(213, 213, 213, 0.37);
+  grid-column: 1/2.5;
+  grid-row:2;
+  color: #fff;
+}
+.staffbox5{
+  border: 1px solid rgba(213, 213, 213, 0.37);
+  grid-column: 2.5/4;
+  grid-row:2;
+  color: #fff;
+}
+.staffbox6{
+  border: 1px solid rgba(213, 213, 213, 0.37);
+  grid-column: 3;
+  grid-row:;
+  color: #fff;
+}
+.staffbox7{
+  border: 1px solid rgba(213, 213, 213, 0.37);
+  grid-column: 1;
+  grid-row:3;
+  color: #fff;
+}
+
+
 /** DASHBOARD;
 -------------------------------------------------*/
 .dash-box p {
@@ -238,32 +344,50 @@ input.mngt[type="email"],input.mngt[type="password"] {
   justify-items: stretch;
   align-items: stretch;
 }
-.dashwrapper > div {padding: 1em;}
 .box1{/**mgt-guests-in*/
   border: 1px solid rgba(213, 213, 213, 0.37);
   background: #72205A;
   grid-column: 1;
   grid-row:1/3;
+  color: #fff;
 }
+
 .box1:hover{
   background-color: #B53791;
 }
-
+.box1header,.box2header,.box3header,.box4header,.box5header{
+  background-color: #5E1A4A;
+  overflow: hidden;
+  padding: 20px;
+  height: 30%;
+}
+.box1header{background-color: #5E1A4A;}
+.box2header{background-color: #AC0031;}
+.box3header{background-color: #FFC200;}
+.box4header{background-color: #820031;}
+.box5header{background-color: #C03011;}
+.dashcontent{
+  float: right;
+  padding: 1em;
+  font-size: 270%;
+}
 .box2{/*mgt-vacancies*/
   background: #C70039;
   border: 1px solid rgba(213, 213, 213, 0.37);
   grid-column: 2;
   grid-row: 1/3;
+  color: #fff;
 }
 .box2:hover{
   background-color: #F90047;
 }
 
 .box3{/*mgt-coming*/
-  background: rgba(254, 194, 0, 0.85);
+  background:#FFCF35;
   border: 1px solid rgba(213, 213, 213, 0.37);
   grid-column: 3;
   grid-row: 1/3;
+  color: #fff;
 }
 .box3:hover{
   background-color: #FFDB66;
@@ -273,17 +397,16 @@ input.mngt[type="email"],input.mngt[type="password"] {
   border: 1px solid rgba(213, 213, 213, 0.37);
   grid-column: 1;
   grid-row: 3/5;
+  color: #fff;
 }
 .box4:hover{
   background-color: #FF2477;
 }
 .longbox5{
-  background: #E35D40;
+  background: #E24E2E;
   grid-column: 2/4;
   grid-row: 3/5;
   color: #fff;
-  font-family: "Segoe UI", sans-serif;
-  padding: 15px 10px;
   transition: 0.5s;
 }
 .longbox5:hover{
@@ -304,12 +427,12 @@ input.mngt[type="email"],input.mngt[type="password"] {
   display: none; 
   margin-bottom: 0;
   overflow-x: hidden;
-  z-index:10;
-  padding: 50em;
+  z-index:999;
+
 }
 .modal-content1,.modal-content2,.modal-content3,.modal-content4{
   width: 400px;
-  height: 400px;
+  height: auto;
   background-color: white;
   border-radius: 4px;
   text-align: center;
@@ -328,6 +451,9 @@ input.mngt[type="email"],input.mngt[type="password"] {
   font-size: 42px;
   transform: rotate(45deg);
   cursor: pointer;
+}
+.Pad{
+  padding: 1em;
 }
 
 /** DIGITAL CLOCK
@@ -363,6 +489,8 @@ input.mngt[type="email"],input.mngt[type="password"] {
 }
 .datetime{
   padding: 30px 10px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /** TABLES: RECORDS AND GUEST;
@@ -519,8 +647,8 @@ button{
 }
 @media all and (max-width:30em){
 .Offerbutton,.Extendbutton, .Checkoutbutton, .Graybutton, .Viewbutton, .Logoutbutton:active{
-  display:block;
-  margin:0.4em auto;
+  display: block;
+  margin: 0.4em auto;
 }
 
 
@@ -551,7 +679,7 @@ button{
   .search-container {
     float: none;
   }
-
+}
   .search-container input[type=text] {
     border: 1px solid #ccc;  
 }
