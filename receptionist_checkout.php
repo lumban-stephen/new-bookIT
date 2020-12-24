@@ -48,6 +48,17 @@
         <div id="content">
             <!--Code Here only-->
             <!--Check out page code in here-->
+            <table id="Table">
+                <tr>
+                    <th>Room Number</th>
+                    <th>Guest ID</th>
+                    <th>Customer Name</th>
+                    <th>Payables</th>
+                    <th>Room Cost</th>
+                    <th>Total Amount</th>
+                    <th>Payment Amount</th>
+                    <th>Action</th>
+                </tr>
             <?php
                 include 'connection.php';
 
@@ -78,32 +89,30 @@
 
                     while($row = mysqli_fetch_assoc($result)){
                         echo "
-                        <div class='grid-container'>
+                        
                             <form action='' method='POST'>
-                                <h2>Room Number: ".$row["room_id"]."</h2> 
-                                <p> 
-                                    Guest ID: ".$row["guest_id"]."<br>
-                                    Customer Name: ".$row["fname"]." ".$row["lname"]."<br><br>
-                                    Payables: ".$row["payables"]."<br>
-                                    Room Cost: ".$row["room_cost"]."<br>   
-                                    Total Amount: ".$row["total_amount"]."<br><br>   
-                                    Payment Amount: <input type='number' name='newPay' value=".$row["payment_amount"].">
-                                    <input type='submit' name='updatePay' value='Update Payment'>
-                                    <br><br>
-                                    <input type='submit' name='remove' value='Check Out'>
+                                <tr>
+                                    <td>".$row["room_id"]."</td> 
+                                    <td>".$row["guest_id"]."</td>
+                                    <td>".$row["fname"]." ".$row["lname"]."</td>
+                                    <td>".$row["payables"]."</td>
+                                    <td>".$row["room_cost"]."</td>
+                                    <td>".$row["total_amount"]."</td>
+                                    <td><input type='number' name='newPay' value=".$row["payment_amount"].">
+                                        <input type='submit' name='updatePay' value='Update Payment'></td>
+                                    <td><input type='submit' name='remove' value='Check Out'></td> 
+                                </tr>    
                                     <input type='hidden' name='guestID' value='{$row['guest_id']}'>
                                     <input type='hidden' name='roomID' value='{$row['room_id']}'>
                                     <input type='hidden' name='date' value='{$row['date']}'>
                                     <input type='hidden' name='time' value='{$row['time']}'>
                                     <input type='hidden' name='payAmount' value='{$row['payment_amount']}'>
                                     <input type='hidden' name='totAmount' value='{$row['total_amount']}'>
-                                    <input type='hidden' name='payID' value='{$row['payment_id']}'>
-                                    <br><br><br><br>
-                                </p>
-                            </form>
-                        </div>
+                                    <input type='hidden' name='payID' value='{$row['payment_id']}'>                               
+                            </form>                    
                         ";
                     }
+                    echo "</table>";
                 } else {
                     echo 'No guests are checking out for today.';
                 }
