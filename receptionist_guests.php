@@ -102,15 +102,24 @@
         include 'connection.php';
         ob_start();
         
-            $sql = "SELECT s.sched_id AS 'SID',
-                    CONCAT(c.fname, ' ', c.MI, ' ', c.lname) AS 'Guest Name',c.fname as 'fname',c.MI as 'mname',c.lname as 'lname',
-                    r.room_id as 'Room Number', g.guest_id AS 'guest_id',b.bill_id as 'bill_id'
+            $sql = "SELECT  s.sched_id AS 'SID',
+                            CONCAT(c.fname, ' ', c.MI, ' ', c.lname) AS 'Guest Name',
+                            c.fname as 'fname',
+                            c.MI as 'mname',
+                            c.lname as 'lname',
+                            r.room_id as 'Room Number', 
+                            g.guest_id AS 'guest_id',
+                            b.bill_id as 'bill_id',
+                            CURDATE() as 'date'
             FROM
                     Schedule s, Guests g, Customers c,
                     Rooms r,bill b
             WHERE
-                    s.guest_id = g.guest_id AND g.customer_id = c.customer_id
-                    AND s.room_id = r.room_id AND b.guest_id=g.guest_id
+                    s.guest_id = g.guest_id AND 
+                    g.customer_id = c.customer_id AND 
+                    s.room_id = r.room_id AND 
+                    b.guest_id=g.guest_id AND 
+                    g.guest_status = 'INCOMPLETE'
             GROUP BY
                     g.guest_id /*I grouped it by guest id because it would be group by roomtype_id if isnt guest_id*/ 
             ORDER BY
@@ -127,8 +136,10 @@
                              <td>". $rows['Room Number']. "</td>
                              <td><button  class='Offerbutton' name='ameneties'>Offer<br>Amenities</a></button>
                                  <button class='Extendbutton' name='extend'>Extend<br>Stay</button>
-                                 <button type='submit' class='Checkoutbutton' name='checkout'>Early Checkout</button></td>
+                                 
+                                 <input type='submit' class='Checkoutbutton'  name='checkout' value='Early Checkout'></td>
                              <td><button class= 'Viewbutton'><a href= 'receptionist_guestview.php?id=".$rows['SID']."'>View</a></button></td></tr>
+                             <input type='hidden' name='Date' value='{$rows['date']}'>
                              <input type='hidden' name='guest_id' value='{$rows['guest_id']}'>
                              <input type='hidden' name='bill_id' value='{$rows['bill_id']}'>
                              <input type='hidden' name='fname' value='{$rows['fname']}'>
@@ -151,11 +162,22 @@
             } 
 
             if(isset($_POST['checkout'])){
-            $guest_id=$_POST['guest_id'];
-            $sched_id=$_POST['SID'];
-            $_SESSION['guest_id']=$guest_id;
-            $_SESSION['sched_id']=$sched_id;
-            header("location:receptionist_checkout.php");
+                $guest_id = $_POST['guest_id'];
+                $date = $_POST['Date'];
+                
+                $updateDate = " UPDATE guests 
+                                SET date_out = $date AND
+                                    guest_status = 'INCOMPLETE' 
+                                WHERE guest_id = $guest_id";
+            
+                    if ($conn->query($updateDate) === TRUE) {
+                        echo "<script language='javascript'>
+                                    window.location.href='receptionist_checkout.php';
+                                    alert('Early Checkout Date Update is successful');
+                            </script>";
+                    } else {
+                        echo "Error: " .$updateDate. "<br>" .$conn->error;
+                    }
             }
 
 
