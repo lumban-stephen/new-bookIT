@@ -122,7 +122,7 @@
                     $_SESSION['guest_id']=$guest_id;
                     $_SESSION['customer_id']=$customer_id;
                     $_SESSION['extend']="extend";
-                    header("location:receptionist_update.php");
+                    header("location:manager_update.php");
                     } 
 
                     if(isset($_POST['checkout'])){
