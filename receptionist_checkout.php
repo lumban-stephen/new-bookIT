@@ -161,21 +161,7 @@
                                 </script>";
                     }
                 }
-                if(isset($_POST['checkout'])){
-                    $guest_id=$_POST['guest_id'];
-        
-                        $date1 = "SELECT CURRENT_DATE";
-                        $updateDate = "UPDATE guests SET date_out = $date1 WHERE guest_id = $guest_id";
-                        
-                        if ($conn->query($updateDate) === TRUE) {
-                            echo "<script language='javascript'>
-                                        window.location.href='receptionist_checkout.php';
-                                        alert('Early Checkout Date Update is successful');
-                                </script>";
-                        } else {
-                            echo "Error: " .$updateDate. "<br>" .$conn->error;
-                        }
-                        }
+
             ?>
         </div>
     </body>
