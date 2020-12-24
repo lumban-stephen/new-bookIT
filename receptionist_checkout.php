@@ -105,7 +105,7 @@
                         ";
                     }
                 } else {
-                    echo 'No data found.';
+                    echo 'No guests are checking out for today.';
                 }
 
                 if(isset($_POST['updatePay'])){
