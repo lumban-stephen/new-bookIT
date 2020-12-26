@@ -166,10 +166,10 @@
             $prepare7 = $conn->prepare("INSERT INTO records(record_type,record_date,record_time,guest_id) VALUES (?,?,?,?)");
             $prepare7->bind_param("sssi",$record_type,$_SESSION['checkin'],$time,$guest_id);
             $prepare7->execute();
-            
+            header("location:receptionist_dashboard.php");}
            
 
-            }
+            
 
             
 

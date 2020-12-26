@@ -62,7 +62,7 @@
             <!--receptionist check in form page code in here-->
 <?php
 include 'connection.php';
-error_reporting(0);
+//error_reporting(0);
 
 ?>
 
@@ -688,11 +688,20 @@ error_reporting(0);
                         $payment_id=$row['payment_id'];
                     }
 
+                    $sql3 = "SELECT SUM(bi.quantity*a.amenity_price) as 'total_amenty' 
+                    FROM bill b, bill_items bi, amenities a
+                    WHERE bi.bill_id=b.bill_id AND bi.amenity_id=a.amenity_id AND b.guest_id='{$_SESSION['guest_id']}'";
+                    $result3 = $conn->query($sql3);
+                    while($row= $result3->fetch_assoc()){
+                        $total_amenty=$row['total_amenty'];
+                    }
+                    $pre_total=$room_fee+$total_amenty;
+
                     $_SESSION['total']=$_SESSION['total_amenity']+$room_fee;
 
                     echo "<p>Guest Name:".$_SESSION['fname']." ".$_SESSION['mname']." ".$_SESSION['lname']." </p>
                      <p>Bill ID: ".$_SESSION['bill_id']."</p>
-                     <p>Total Amount: ".$_SESSION['total']."(room fee: ".$room_fee.")</p>";
+                     <p>Total Amount: ".$_SESSION['total']."(previous total: ".$pre_total.")</p>";
                      echo "aaa".$_SESSION['guest_id'];
 
                       ?>
@@ -882,9 +891,7 @@ error_reporting(0);
             $prepareh11->execute();      
         }
 
-        $prepare= $conn->prepare("UPDATE payments SET payment_amount=? WHERE payment_id=?");
-        $prepare->bind_param("ii",$_SESSION['total'], $payment_id);
-        $prepare->execute();
+        
         unset($_SERVER['PHP_SELF']);
         session_destroy();
         header("location:receptionist_dashboard.php");
