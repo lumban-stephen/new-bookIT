@@ -156,13 +156,31 @@ li a:hover:not(.active) {
 }
 .Labelform {
   height: 40px;
-  margin: 8px 0px 8px 0px;
   display: inline-block;
   color: white;
+  font-size: 15px;
   background-color: #0088B6;
   padding: 12px 20px;
   border: 2px solid #D3DEE8;
- 
+  -webkit-box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  box-sizing:border-box;
+  margin-top: 20px;
+  padding: 8px 15px;
+}
+.input-search {
+  display: inline-block;
+  padding: 8px 15px;
+  font-size: 15px;
+  border-radius: 0;
+  padding-bottom: 11px;
+  -webkit-appearance: none;
+  border: 2px solid #D3DEE8;
+  background-color: #F1F1F1;
+  -webkit-box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  box-sizing:border-box;
+  padding-right: 20px;
 }
 .booking, .mngt {
   height: 40px;
@@ -242,7 +260,7 @@ input.mngt[type="email"],input.mngt[type="password"] {
 .input-Rev {
   display: inline-block;
   padding: 7.8px 15px;
-  font-size: 20px;
+  font-size: 15px;
   border-radius: 0;
   -webkit-appearance: none;
   border: 2px solid #D3DEE8;
@@ -268,7 +286,7 @@ input.mngt[type="email"],input.mngt[type="password"] {
   display: inline-block;
   padding: 7.8px 0px;
   font-size: 18px;
-  width: auto;
+  width: 100%;
   -webkit-appearance: none;
   border: 2px solid #D3DEE8;
   background-color: #F1F1F1;
@@ -277,14 +295,12 @@ input.mngt[type="email"],input.mngt[type="password"] {
   box-sizing:border-box;
 }
 .input-staffsal{
-  max-width: 20px;
+
 }
 .staffgrid{
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 1em;
-  grid-auto-rows: minmax(100px, auto);
-  width: 100%;
   align-items: stretch;
 }
 .staffbox1{
@@ -292,6 +308,7 @@ input.mngt[type="email"],input.mngt[type="password"] {
   grid-column: 1;
   grid-row:1;
   color: #fff;
+  width: 500px;
 }
 .staffbox2{
   border: 1px solid rgba(213, 213, 213, 0.37);
@@ -320,7 +337,7 @@ input.mngt[type="email"],input.mngt[type="password"] {
 .staffbox6{
   border: 1px solid rgba(213, 213, 213, 0.37);
   grid-column: 3;
-  grid-row:;
+  grid-row: 2;
   color: #fff;
 }
 .staffbox7{
@@ -332,7 +349,7 @@ input.mngt[type="email"],input.mngt[type="password"] {
 .staffbox8{
   grid-column: 2;
   grid-row:3;
-  bottom: 0;
+  
 }
 
 
@@ -662,40 +679,3 @@ button{
 .search-container {
   float: left;
 }
-​
-
-
-.search-container button {
-  float: right;
-  padding: 6px 10px;
-  margin-top: 8px;
-  margin-right: 16px;
-  background: #ddd;
-  font-size: 17px;
-  border: none;
-  cursor: pointer;
-}
-
-.search-container button:hover {
-  background: #ccc;
-}
-
-@media screen and (max-width: 600px) {
-  .search-container {
-    float: none;
-  }
-}
-  .search-container input[type=text] {
-    border: 1px solid #ccc;  
-}
-
-.searchButton{ 
-        background-color: #0074D9; 
-        color: #f2f2f2; 
-        float: right; 
-        padding: 5px 10px; 
-        margin-right: 16px; 
-        font-size: 12px; 
-        border: none; 
-        cursor: pointer; 
-    }

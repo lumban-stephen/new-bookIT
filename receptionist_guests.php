@@ -48,12 +48,78 @@
 
         <div id="content">
                 <div class="search-container">
-                        <form action="/action_page.php">
-                        <label>Search Guest Name: </label>
-                        <input type="text" placeholder="Search.." name="search">
+                <form method="POST">
+                        <label class="Labelform">Search Guest Name: </label><input type="text" class="input-search"placeholder="Search.." name="keyword">
+                        <button class= 'Viewbutton' class="Viewbutton" name="search">Search</button>
                         </form>
                     </div>
+                    <?php 
+                        include 'connection.php';
+                        if (isset($_POST['keyword'])) {
+                            $keyword = trim ($_POST['keyword']);
 
+                            $sql1 = "SELECT 
+                                        CONCAT(c.fname, ' ', c.MI, ' ', c.lname) AS 'Guest Name',
+                                        c.fname as 'fname',
+                                        c.MI as 'mname',
+                                        c.lname as 'lname',
+                                        r.room_id as 'Room Number', 
+                                        g.guest_id AS 'guest_id',
+                                        b.bill_id as 'bill_id',
+                                        CURDATE() as 'date'
+                                    FROM
+                                             Guests g, Customers c,
+                                            Rooms r,bill b
+                                    WHERE
+                                            g.customer_id = c.customer_id AND 
+                                            g.room_id = r.room_id AND 
+                                            b.guest_id=g.guest_id AND 
+                                            g.guest_status = 'INCOMPLETE' AND CONCAT(c.fname, ' ', c.MI, ' ', c.lname) LIKE '%$keyword%'
+                                    GROUP BY
+                                            g.guest_id /*I grouped it by guest id because it would be group by roomtype_id if isnt guest_id*/ 
+                                    ORDER BY
+                                            g.date_in;";
+                            echo "<br>
+                                <div id='SearchTable'>
+                                    <div>
+                                        <h4 style='float:left;'>Results for \"$keyword\"</h4> <input type='submit' style='float:right;' class='Logoutbutton'  onclick='closeTable()' value='Close Search'>
+                                    </div>
+                                <table id='Table'>
+                                    <tr>
+                                        <th>Guest Name</th>
+                                        <th>Room Number</th>
+                                        <th>Actions</th>
+                                        <th>More Info</th>
+                                    </tr>";
+            
+                            $display = $conn->query($sql1) or die('query did not work');
+
+                            if($rows = $display != NULL){ //I didn't put fetch assoc because the first value won't show if the fetch_assoc() is called twice.
+                                while($rows = $display->fetch_assoc()){
+                                    echo
+                                        "<form action='' method='POST'>
+                                        <tr><td>". $rows['Guest Name']. "</td>
+                                            <td>". $rows['Room Number']. "</td>
+                                            <td><button  class='Offerbutton' name='ameneties'>Offer<br>Amenities</a></button>
+                                                <button class='Extendbutton' name='extend'>Extend<br>Stay</button>
+                                                
+                                                <input type='submit' class='Checkoutbutton'  name='checkout' value='Early Checkout'></td>
+                                            <td><button class= 'Viewbutton'><a href= 'receptionist_guestview.php?id=".$rows['guest_id']."'>View</a></button></td></tr>
+                                            <input type='hidden' name='Date' value='{$rows['date']}'>
+                                            <input type='hidden' name='guest_id' value='{$rows['guest_id']}'>
+                                            <input type='hidden' name='bill_id' value='{$rows['bill_id']}'>
+                                            <input type='hidden' name='fname' value='{$rows['fname']}'>
+                                            <input type='hidden' name='lname' value='{$rows['lname']}'>
+                                            <input type='hidden' name='mname' value='{$rows['mname']}'>
+                                            
+                                            </form>"; 
+                                    }
+                                    echo "</table></div>";
+                                }else{
+                                echo "Nothing was found that matched your query.<br><br>";
+                                }
+                        }
+                    ?>
                     <br>
                     <table id="Table">
                     <tr>
