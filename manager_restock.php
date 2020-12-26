@@ -13,15 +13,7 @@
         <title>BookIT</title>
         
         <link rel="stylesheet" href="style.css">
-<style type="text/css">
-.grid-container {
-  display: grid;
-  grid-template-columns: auto auto auto auto;
-  grid-gap: 10px;
-  padding: 10px;
-}
 
-</style>
     </head>
 
     <body>
@@ -65,11 +57,12 @@
 
 <?php
 //edit
-    if(isset($_SESSION['edit'])){  
+    if(isset($_SESSION['edit'])){
+    unset($_SESSION['edit']); 
     echo "<div>
         <form method='post' action='' >
         <label class='Labelform'>Name</label><input type='text' class='mngt' name='name' value='{$_SESSION['name']}'>
-        <label class='Labelform'>PRICE</label><input type='number' class='mngt' name='price'value='{$_SESSION['price']}'>
+        <label class='Labelform'>PRICE</label><input type='number' class='mngt' style='width:20%;' name='price'value='{$_SESSION['price']}'><br>
         <label class='Labelform'>TYPE</label>
         <select name='type' class='mngt' value='{$_SESSION['type']}'>
         <option value='Select'>Select</option>
@@ -87,7 +80,7 @@
         echo "<div>
         <form method='post' action='' >
         <label class='Labelform'>Name</label><input type='text' class='mngt' name='name' >
-        <label class='Labelform'>PRICE</label><input type='number' class='mngt' name='price'>
+        <label class='Labelform'>PRICE</label><input type='number' class='mngt' style='width:20%;' name='price'><br>
         <label class='Labelform'>TYPE</label>
         <select name='type' class='mngt'>
         <option value='Select'>Select</option>
@@ -170,8 +163,9 @@
 
 
 
-    if(isset($_POST['save'])){
+    if(isset($_POST['add'])){
         $price=$_POST['price'];
+        $number=$_POST['number'];
         $amenity_id=$_POST['amenity_id'];
         $stock=$_POST['stock'];
         $stock=$stock+$number;
@@ -209,7 +203,7 @@
 
 
 
-    if(isset($_POST['add'])){
+    if(isset($_POST['save'])){
         $name = $_POST['name'];
         $price = $_POST['price'];
         $type = $_POST['type'];
