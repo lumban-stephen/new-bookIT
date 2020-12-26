@@ -191,8 +191,10 @@
 
     if(isset($_POST['delete'])){
         $amenity_id=$_POST['amenity_id'];
-    
-        $sql2 = "DELETE FROM amenities WHERE amenity_id = $amenity_id";
+        
+        $delete=$conn->prepare("DELETE FROM amenities WHERE amenity_id = ?");
+        $delete->bind_param("i", $amenity_id);
+        $delete->execute();
     }
 
     if(isset($_POST['edit'])){
