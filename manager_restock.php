@@ -13,15 +13,7 @@
         <title>BookIT</title>
         
         <link rel="stylesheet" href="style.css">
-<style type="text/css">
-.grid-container {
-  display: grid;
-  grid-template-columns: auto auto auto auto;
-  grid-gap: 10px;
-  padding: 10px;
-}
 
-</style>
     </head>
 
     <body>
@@ -55,6 +47,7 @@
                 <li><a href="manager_guests.php">Guests</a></li>
                 <li><a href="manager_room-mgt.php">Room Management</a></li>
                 <li><a href="manager_staff.php">Staff Management</a></li>
+                <li><a href="#">Restock Amenities</a></li>
             </ul>
         </nav>
         <div id="content">
@@ -65,11 +58,12 @@
 
 <?php
 //edit
-    if(isset($_SESSION['edit'])){  
+    if(isset($_SESSION['edit'])){
+    unset($_SESSION['edit']); 
     echo "<div>
         <form method='post' action='' >
         <label class='Labelform'>Name</label><input type='text' class='mngt' name='name' value='{$_SESSION['name']}'>
-        <label class='Labelform'>PRICE</label><input type='number' class='mngt' name='price'value='{$_SESSION['price']}'>
+        <label class='Labelform'>PRICE</label><input type='number' class='mngt' style='width:20%;' name='price'value='{$_SESSION['price']}'><br>
         <label class='Labelform'>TYPE</label>
         <select name='type' class='mngt' value='{$_SESSION['type']}'>
         <option value='Select'>Select</option>
@@ -87,7 +81,7 @@
         echo "<div>
         <form method='post' action='' >
         <label class='Labelform'>Name</label><input type='text' class='mngt' name='name' >
-        <label class='Labelform'>PRICE</label><input type='number' class='mngt' name='price'>
+        <label class='Labelform'>PRICE</label><input type='number' class='mngt' style='width:20%;' name='price'><br>
         <label class='Labelform'>TYPE</label>
         <select name='type' class='mngt'>
         <option value='Select'>Select</option>
@@ -98,7 +92,7 @@
         </select>
         <label class='Labelform'>STOCK</label>
         <input type='number' class='' name='stock'>
-        <button type='submit' class='Greenbutton' name='add' >SAVE</button>
+        <button type='submit' class='Greenbutton' name='save' >SAVE</button>
         
         </form> 
     </div>";
@@ -115,6 +109,18 @@
         $prepare->execute();
 
     }
+    if(isset($_POST['save'])){
+        $name = $_POST['name'];
+        $price = $_POST['price'];
+        $type = $_POST['type'];
+        $stock = $_POST['stock'];
+
+    $save = $conn->prepare("INSERT INTO amenities(amenity_name, amenity_price, amenity_type, stock) 
+        VALUES(?,?,?,?)"); 
+    $save->bind_param("sisi",$name,$price,$type,$stock);
+    $save->execute();
+}       
+         
 
 ?>
  
@@ -170,22 +176,25 @@
 
 
 
-    if(isset($_POST['save'])){
+    if(isset($_POST['add'])){
         $price=$_POST['price'];
+        $number=$_POST['number'];
         $amenity_id=$_POST['amenity_id'];
         $stock=$_POST['stock'];
         $stock=$stock+$number;
 
-        $prepare= $conn->prepare("UPDATE amenities SET stock =?,amenity_price=?
+        $prepare= $conn->prepare("UPDATE amenities SET stock =?
             WHERE amenity_id=?");
-        $prepare->bind_param("iii", $stock,$price,$amenity_id);
+        $prepare->bind_param("ii", $stock,$amenity_id);
         $prepare->execute();
     }
 
     if(isset($_POST['delete'])){
         $amenity_id=$_POST['amenity_id'];
-    
-        $sql2 = "DELETE FROM amenities WHERE amenity_id = $amenity_id";
+        
+        $delete=$conn->prepare("DELETE FROM amenities WHERE amenity_id = ?");
+        $delete->bind_param("i", $amenity_id);
+        $delete->execute();
     }
 
     if(isset($_POST['edit'])){
@@ -209,19 +218,7 @@
 
 
 
-    if(isset($_POST['add'])){
-        $name = $_POST['name'];
-        $price = $_POST['price'];
-        $type = $_POST['type'];
-        $stock = $_POST['stock'];
-
-    $insert = "INSERT INTO amenities(amenity_name, amenity_price, amenity_type, stock) 
-        VALUES('$name','$price', '$type', '$stock')"; 
-   
-
-          
-    $conn->query($insert) or die($conn->error);}       
-                    ?>
+           ?>
             </table>
 
 

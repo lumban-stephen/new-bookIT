@@ -209,6 +209,7 @@ while($row = $result->fetch_assoc()){
         $_SESSION['email']=$email;
         $_SESSION['numguest']=$numguest;
         $_SESSION['customer_id']=$customer_id;
+        $_SESSION['update']="update";
     
      
 }

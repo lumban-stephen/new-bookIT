@@ -42,6 +42,7 @@
                 <li><a href="manager_guests.php">Guests</a></li>
                 <li><a href="manager_room-mgt.php">Room Management</a></li>
                 <li><a href="manager_staff.php">Staff Management</a></li>
+                <li><a href="manager_restock.php">Restock Amenities</a></li>
             </ul>
         </nav>
 

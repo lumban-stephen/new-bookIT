@@ -180,4 +180,5 @@ INSERT INTO `task` (`task_name`,`task_desc`,task_status) VALUES
 ('clean room','a customer spilled juice on the bed.','INCOMPLETE'),('Order equipmemts','check the storage, and order them.','INCOMPLETE')
 ;
 
-ALTER TABLE 'users' ADD COLUMN 'salary' FLOAT(4,2);
+
+ALTER TABLE users ADD COLUMN salary FLOAT(4,2);

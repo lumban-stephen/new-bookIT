@@ -42,6 +42,7 @@
                 <li><a href="#">Guests</a></li>
                 <li><a href="manager_room-mgt.php">Room Management</a></li>
                 <li><a href="manager_staff.php">Staff Management</a></li>
+                <li><a href="manager_restock.php">Restock Amenities</a></li>
             </ul>
         </nav>
         <div id="content">
@@ -121,8 +122,7 @@
                     $guest_id=$_POST['guest_id'];
                     $_SESSION['guest_id']=$guest_id;
                     $_SESSION['customer_id']=$customer_id;
-                    $_SESSION['extend']="extend";
-                    header("location:manager_update.php");
+                    header("location:manager_extend.php");
                     } 
 
                     if(isset($_POST['checkout'])){
