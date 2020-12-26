@@ -100,7 +100,7 @@ li a:hover:not(.active) {
   display: flex;
   flex-direction: row;
   margin-top: 200px;
-  margin-left: 10px;
+  margin-left: 0px;
 }
 .login_flex{
   margin-left: 150px;
@@ -243,7 +243,6 @@ input.mngt[type="email"],input.mngt[type="password"] {
   padding: 8px 15px;
   font-size: 18px;
   color: white;
-  
   border: 2px solid #D3DEE8;
   background-color: #0088B6;
   -webkit-box-sizing:border-box;
@@ -268,7 +267,7 @@ input.mngt[type="email"],input.mngt[type="password"] {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 1em;
-  rid-auto-rows: minmax(100px, auto);
+  grid-auto-rows: minmax(100px, auto);
   width: 100%;
   align-items: stretch;
 }

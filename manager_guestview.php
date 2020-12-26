@@ -44,17 +44,6 @@
                 <li><a href="manager_staff.php">Staff Management</a></li>
             </ul>
         </nav>
-            <ul>
-                <li id="logoli"><img src="assets/bookIT_Logo.png"></li>
-                <li><a href="receptionist_dashboard.php">Dashboard</a></li>
-                <li><a href="receptionist_checkin.php">Check In</a></li>
-                <li><a href="receptionist_checkout.php">Check Out</a></li>
-                <li><a href="receptionist_reservation.php">Reservation</a></li>
-                <li><a href="receptionist_records.php">Records</a></li>
-                <li><a href="receptionist_toDoList.php">To Do List</a></li>
-                <li><a href="receptionist_guests.php">Guests</a></li>
-            </ul>
-        </nav>
 
         <div id="content">
         <a href="manager_guests.php">Back to List</a>
@@ -80,21 +69,21 @@
         while($row = $result->fetch_assoc()){
 
         echo "<form method='post' action='' enctype='multipart/form-data'>  
-                <label class='Labelform'>Guest Name</label><input type='text' class='booking' value=".$row['Firstname'].">
-                <label class='Labelform'>Guest Name</label><input type='text' class='booking' value=".$row['Middlename'].">
-                <label class='Labelform'>Guest Name</label><input type='text' class='booking' value=".$row['Lastname'].">
+                <label class='Labelform'>Guest Name</label><input type='text' class='booking' value=\"".$row['Firstname']."\" >
+                <label class='Labelform'>Guest Name</label><input type='text' class='booking' value=\"".$row['Middlename']."\">
+                <label class='Labelform'>Guest Name</label><input type='text' class='booking' value=\"".$row['Lastname']."\">
                 <br>
-                <label class='Labelform'>Phone Number</label><input type='text' class='booking'  value=".$row['Phone'].">
-                <label class='Labelform'>Email</label><input type='text' class='booking'  value=".$row['Email'].">
+                <label class='Labelform'>Phone Number</label><input type='text' class='booking'  value=\"".$row['Phone']."\">
+                <label class='Labelform'>Email</label><input type='text' class='booking'  value=\"".$row['Email']."\">
                 <br>
-                <label class='Labelform'>Check-in Date</label><input type='text' class='booking'  value=".$row['Check-in Date'].">
-                <label class='Labelform'>Check-out Date</label><input type='text' class='booking'  value=".$row['Check-out Date'].">
+                <label class='Labelform'>Check-in Date</label><input type='text' class='booking'  value=\"".$row['Check-in Date']."\">
+                <label class='Labelform'>Check-out Date</label><input type='text' class='booking'  value=\"".$row['Check-out Date']."\">
                 <br><br>
-                <label class='Labelform'>Room Number</label><input type='text' class='booking'  value=".$row['Room Number'].">
-                <label class='Labelform'>Room Description</label><input type='text' class='booking'  value=".$row['Room Type'].">
+                <label class='Labelform'>Room Number</label><input type='text' class='booking'  value=\"".$row['Room Number']."\">
+                <label class='Labelform'>Room Description</label><input type='text' class='booking'  value=\"".$row['Room Type']."\">
                 <br><br>
-                <label class='Labelform'>Guest Status</label><input type='text' class='booking'  value=".$row['Guest Status'].">
-                <label class='Labelform'>Number of Guests</label><input type='text' class='booking'  value=".$row['Number of Guests']. ">
+                <label class='Labelform'>Guest Status</label><input type='text' class='booking'  value=\"".$row['Guest Status']."\">
+                <label class='Labelform'>Number of Guests</label><input type='text' class='booking'  value=\"".$row['Number of Guests']. "\">
                 <br><br>
             </form>";                
         }

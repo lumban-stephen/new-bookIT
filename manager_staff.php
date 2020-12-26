@@ -104,14 +104,14 @@
                     </select></span>
                 <span class="staffbox7">
                 <label class='Labelform-staff'>Salary Per Day</label><input type="text" class='input-staff' name="salary" value="<?php echo $salary;?>"></span>
-                
+                <span class="staffbox8">
                 <?php 
                     if($update == true):
                 ?>
                 <button type="submit" class="Greenbutton" name="update" >Update</button>
                 <?php else: ?>
                 <button type="submit" class="Greenbutton" name="save" >Save</button>
-                <?php endif; ?>
+                <?php endif; ?></span>
 	        </form>
         </div>
     </body>
