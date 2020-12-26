@@ -55,31 +55,31 @@
             //error_reporting(0);
 
             echo "<form method='post' action=''>  
-                <label>First Name</label>
-                <input type='text' name='fname' class='button'>
+                <label class='Labelform'>First Name</label>
+                <input type='text' name='fname'class='booking'>
                 <br><br>
-                <label>Last Name</label>
-                <input type='text' name='lname' class='button'>
+                <label class='Labelform'>Last Name</label>
+                <input type='text' name='lname' class='booking'>
                 <br><br>
-                <label>Middle Name</label>
-                <input type='text' name='mname' class='button' >
+                <label class='Labelform'>Middle Name</label>
+                <input type='text' name='mname' class='booking' >
                 <br><br>
-                <label>Check-in</label><br>".$_SESSION['checkin']."
+                <label class='Labelform'>Check-in</label><span class='booking'>".$_SESSION['checkin']."</span>
                 <br><br>
-                <label>Check-out</label><br>".$_SESSION['checkout']."
+                <label class='Labelform'>Check-out</label><span class='booking'>".$_SESSION['checkout']."</span>
                 <br><br>
-                <label>Check-in Time</label>
-                <input type='time' name='time' class='button'>
+                <label class='Labelform'>Check-in Time</label>
+                <input type='time' name='time' class='booking'>
                 <br><br>
-                <label>Number of Guests</label><br>".$_SESSION['numguest']."
+                <label class='Labelform'>Number of Guests</label><span class='booking'>".$_SESSION['numguest']."</span>
                 <br><br>
-                <label>Room Selected</label><br>".$_SESSION['room_id']."
+                <label class='Labelform'>Room Selected</label><span class='booking'>".$_SESSION['room_id']."</span>
                 <br><br>
-                <label>Phone Number</label>
-                <input type='number' name='phone' class='button'>
+                <label class='Labelform'>Phone Number</label>
+                <input type='number' name='phone' class='booking' style='width:20%;'>
                 <br><br>
-                <label>E-mail</label>
-                <input type='email' name='email' class='button'>
+                <label class='Labelform'>E-mail</label>
+                <input type='email' name='email' class='booking' style='width:30%;'>
                 <br><br>
                 <button type='submit' name='book' class='Greenbutton'>Book Reservation</button>
                 <input type='submit' name='cancel' value='Cancel Check-in' class='Checkoutbutton'>

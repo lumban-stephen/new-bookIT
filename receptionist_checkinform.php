@@ -60,15 +60,14 @@ ob_start();
                 <label class='Labelform'>Last Name</label><div class='booking'>".$_SESSION['lname']."</div>
                 <label class='Labelform'>Middle Name</label><div class='booking'>".$_SESSION['mname']."</div>
                 <br><br>
-                <label class='Labelform'>Check-in</label><div class='bookingsession' id='checkin'>".$_SESSION['checkin']."</div>
-                <label class='Labelform'>Check-out</label><div class='bookingsession' id='checkout'>".$_SESSION['checkout']."</div>
+                <label class='Labelform'>Check-in</label><div class='booking' id='checkin'>".$_SESSION['checkin']."</div>
+                <label class='Labelform'>Check-out</label><div class='booking' id='checkout'>".$_SESSION['checkout']."</div>
                 <br><br>
-                <label class='Labelform'>Number of Guests</label><div class='bookingsession1' id='numguest'>" .$_SESSION['numguest']."</div>
-                <label class='Labelform'>Room Selected</label><div class='bookingsession1' id='room_id'>" .$_SESSION['room_id']."</div>
+                <label class='Labelform'>Number of Guests</label><div class='booking' id='numguest'>" .$_SESSION['numguest']."</div>
+                <label class='Labelform'>Room Selected</label><div class='booking' id='room_id'>" .$_SESSION['room_id']."</div>
                 <br><br>
-                <label class='Labelform'>Phone Number</label><div class='bookingsession' id='checkin'>".$_SESSION['phone']."</div>
-                <br><br>
-                <label class='Labelform'>E-mail</label><div class='bookingsession' id='checkin'>".$_SESSION['email']."</div>
+                <label class='Labelform'>Phone Number</label><div class='booking' id='checkin'>".$_SESSION['phone']."</div>
+                <label class='Labelform'>E-mail</label><div class='booking' id='checkin'>".$_SESSION['email']."</div>
                 <br><br>
              <label class='Labelform'>ID Type</label><select name='id_type' class='booking'>
                 <option value='Select'>Select</option>
@@ -84,7 +83,7 @@ ob_start();
                 </select>
                 <label class='Labelform'>ID_number</label><input type='text' name='ID_number' class='booking' >
                 <br><br><label class='Labelform'>File Upload</label><input type='file' class='booking' name='file'>
-                <br><br>
+                
                 <label class='Labelform'>Address</label><input type='text' name='address' class='booking' >
                 <br><br>
                 <input type='submit' name='amenities1' value='Proceed to Amenities' class='Greenbutton'>
