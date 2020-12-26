@@ -74,6 +74,7 @@
             <div class="header_modal1">
                         <h1>Guests checked in</h1>
                         </div><br>
+                        <div class="Pad">
                         <table id="Table">
                         <tr>
                             <th>Guest Name</th>
@@ -106,7 +107,7 @@
                                             echo "</table>" ;  
                                 ?>
                         </div>
-                        </div>
+                        </div></div>
                 <div class="dash box2" id="Modal2"><?php
                          include 'connection.php';
         
@@ -130,6 +131,7 @@
                     <div class="header_modal2">
                                 <h1>Vacant Rooms</h1>
                                 </div><br>
+                                <div class="Pad">
                                 <table id="Table">
                                 <tr>
                                     <th>Room ID</th>
@@ -154,7 +156,7 @@
                                                     echo "</table>" ;  
                                         ?>
                         </div>
-                        </div>
+                        </div></div>
                 <div class="dash box3" id="Modal3">
                 <?php
                          include 'connection.php';
@@ -180,6 +182,7 @@
                     <div class="header_modal3">
                                 <h1>About to checkin</h1>
                                 </div><br>
+                                <div class="Pad">
                                 <table id="Table">
                                 <tr>
                                     <th>Guest Names</th>
@@ -210,7 +213,7 @@
                                                     } 
                                                     echo "</table>" ;  
                                         ?>
-                        </div>
+                        </div></div>
                         </div>
                 <div class="dash box4" id="Modal4">
                 <?php
@@ -238,6 +241,7 @@
                     <div class="header_modal4">
                                 <h1>Reservations</h1>
                                 </div><br>
+                                <div class="Pad">
                                 <table id="Table">
                                 <tr>
                                     <th>Guest name</th>
@@ -265,7 +269,7 @@
                                                     echo "</table>" ;  
                                         ?>
                         </div>
-                        </div>
+                        </div></div>
                 <div class="dash longbox5" id="Modal5">
                     <?php
                 $sql = "SELECT SUM(record_paid) as monthly

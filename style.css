@@ -13,7 +13,7 @@
 	color: white;
   height: 65px;
   width: 100%;
-  z-index: 999;
+  z-index: 0;
   position: absolute;
   margin-top: -32px;
 }
@@ -59,12 +59,12 @@ ul {
 #logoli{
   background-color: #11C3FF;
 }
-#logoli img{
+li img{
   height: 65px;
   width: 145px;
   margin-left: 15px;
-} 
-
+  padding-top: 8px;
+}
 li a {
   padding-top:4px;
   display: block;
@@ -122,6 +122,7 @@ li a:hover:not(.active) {
   margin: 0 auto 0 auto;
   padding: 20px;
   position: absolute;
+  margin-left: 150px;
 
 }
 .field{
@@ -213,6 +214,18 @@ input.mngt[type="email"],input.mngt[type="password"] {
   width: 89%;
 }
 
+.restocknum {
+  display: inline-block;
+  font-size: 15px;
+  border-radius: 0;
+  -webkit-appearance: none;
+  border: 2px solid #bcc9d4;
+  background-color: #F1F1F1;
+  -webkit-box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  box-sizing:border-box;
+  margin-bottom: 5px;
+}
 .Labelform-Rev {
   display: inline-block;
   padding: 8px 15px;
@@ -237,6 +250,7 @@ input.mngt[type="email"],input.mngt[type="password"] {
   -webkit-box-sizing:border-box;
   -moz-box-sizing:border-box;
   box-sizing:border-box;
+  padding-right: 20px;
 }
 .Labelform-staff {
   display: inline-block;
@@ -250,7 +264,7 @@ input.mngt[type="email"],input.mngt[type="password"] {
   box-sizing:border-box;
   margin-top: 20px;
 }
-.input-staff {
+.input-staff,.input-staffsal {
   display: inline-block;
   padding: 7.8px 0px;
   font-size: 18px;
@@ -262,7 +276,9 @@ input.mngt[type="email"],input.mngt[type="password"] {
   -moz-box-sizing:border-box;
   box-sizing:border-box;
 }
-
+.input-staffsal{
+  max-width: 20px;
+}
 .staffgrid{
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -322,21 +338,6 @@ input.mngt[type="email"],input.mngt[type="password"] {
 
 /** DASHBOARD;
 -------------------------------------------------*/
-.dash-box p {
-  color: whitesmoke;
-  font-size: 20px;
-  font-family: 'Montserrat', sans-serif;
-  padding: 8px;
-  text-align: center;
-}
-
-.dash-long-box p {
-  color: whitesmoke;
-  font-size: 24px;
-  font-family: 'Montserrat', sans-serif;
-  padding: 16px;
-}
-
 .center-box {
   margin-left: 500px;
 }
@@ -457,7 +458,7 @@ input.mngt[type="email"],input.mngt[type="password"] {
   cursor: pointer;
 }
 .Pad{
-  padding: 1em;
+  padding: 4px;
 }
 
 /** DIGITAL CLOCK

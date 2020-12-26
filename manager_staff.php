@@ -104,7 +104,7 @@
                         <option value="Admin">Manager</option>
                     </select></span>
                 <span class="staffbox7">
-                <label class='Labelform-staff'>Salary Per Day</label><input type="text" class='input-staff' name="salary" value="<?php echo $salary;?>"></span>
+                <label class='Labelform-staff'>Salary Per Day</label><input type="text" class='input-staffsal' name="salary" value="<?php echo $salary;?>"></span>
                 <span class="staffbox8">
                 <?php 
                     if($update == true):

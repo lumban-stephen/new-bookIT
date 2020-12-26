@@ -80,18 +80,16 @@
 //add new items
         echo "<div>
         <form method='post' action='' >
-        <label class='Labelform'>Name</label><input type='text' class='mngt' name='name' >
-        <label class='Labelform'>PRICE</label><input type='number' class='mngt' style='width:20%;' name='price'><br>
-        <label class='Labelform'>TYPE</label>
-        <select name='type' class='mngt'>
-        <option value='Select'>Select</option>
-        <option value='Hygiene'>Hygiene</option>
-        <option value='Foods'>Foods</option>
-        <option value='Drinks'>Drinks</option>
-        <option value='Extras'>Extras</option>
-        </select>
-        <label class='Labelform'>STOCK</label>
-        <input type='number' class='' name='stock'>
+        <label class='Labelform-Rev'>Name</label><input type='text' class='input-Rev' name='name' >
+        <label class='Labelform-Rev'>PRICE</label><input type='number' class='input-Rev' style='width:20%;' name='price'><br>
+        <label class='Labelform-Rev'>TYPE</label><select name='type' class='input-Rev'>
+            <option value='Select'>Select</option>
+            <option value='Hygiene'>Hygiene</option>
+            <option value='Foods'>Foods</option>
+            <option value='Drinks'>Drinks</option>
+            <option value='Extras'>Extras</option>
+            </select>
+        <label class='Labelform-Rev'>STOCK</label><input type='number' class='input-Rev' name='stock'>
         <button type='submit' class='Greenbutton' name='save' >SAVE</button>
         
         </form> 
@@ -152,7 +150,7 @@
             <td>". $rows['amenity_type']. "</td>
             <td>". $rows['stock']. "</td>
             <td>
-            <input type='number' name='number'>
+            <input type='number' class='restocknum' name='number'>
             <button type='submit' name='add' class='Greenbutton'>Add</button>
             <input type='hidden' name='amenity_id' value='{$rows['amenity_id']}'>
             <input type='hidden' name='stock' value='{$rows['stock']}'>
