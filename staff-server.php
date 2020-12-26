@@ -46,9 +46,9 @@
     if(isset($_GET['edit'])){
         $id = $_GET['edit'];
         $update = true;
-        $deleteQuery = "SELECT * FROM users WHERE user_id=$id";
+        $editQuery = "SELECT * FROM users WHERE user_id=$id";
 
-        $result = $conn->query($deleteQuery) or die($conn->error);
+        $result = $conn->query($editQuery) or die($conn->error);
         if(count($result)!=NULL){
             $row = $result->fetch_array();
             $fname = $row['fname'];
