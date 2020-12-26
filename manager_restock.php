@@ -92,7 +92,7 @@
         </select>
         <label class='Labelform'>STOCK</label>
         <input type='number' class='' name='stock'>
-        <button type='submit' class='Greenbutton' name='add' >SAVE</button>
+        <button type='submit' class='Greenbutton' name='save' >SAVE</button>
         
         </form> 
     </div>";
@@ -109,6 +109,18 @@
         $prepare->execute();
 
     }
+    if(isset($_POST['save'])){
+        $name = $_POST['name'];
+        $price = $_POST['price'];
+        $type = $_POST['type'];
+        $stock = $_POST['stock'];
+
+    $save = $conn->prepare("INSERT INTO amenities(amenity_name, amenity_price, amenity_type, stock) 
+        VALUES(?,?,?,?)"); 
+    $save->bind_param("sisi",$name,$price,$type,$stock);
+    $save->execute();
+}       
+         
 
 ?>
  
@@ -171,9 +183,9 @@
         $stock=$_POST['stock'];
         $stock=$stock+$number;
 
-        $prepare= $conn->prepare("UPDATE amenities SET stock =?,amenity_price=?
+        $prepare= $conn->prepare("UPDATE amenities SET stock =?
             WHERE amenity_id=?");
-        $prepare->bind_param("iii", $stock,$price,$amenity_id);
+        $prepare->bind_param("ii", $stock,$amenity_id);
         $prepare->execute();
     }
 
@@ -204,19 +216,7 @@
 
 
 
-    if(isset($_POST['save'])){
-        $name = $_POST['name'];
-        $price = $_POST['price'];
-        $type = $_POST['type'];
-        $stock = $_POST['stock'];
-
-    $insert = "INSERT INTO amenities(amenity_name, amenity_price, amenity_type, stock) 
-        VALUES('$name','$price', '$type', '$stock')"; 
-   
-
-          
-    $conn->query($insert) or die($conn->error);}       
-                    ?>
+           ?>
             </table>
 
 

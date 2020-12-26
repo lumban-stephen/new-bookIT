@@ -98,18 +98,19 @@ ob_start();
         echo "<form method='post' action='' enctype='multipart/form-data'>  
                 <label class='Labelform'>First Name</label><input type='text' class='booking' name='fname'>
                 <label class='Labelform'>Last Name</label><input type='text' class='booking' name='lname'>
+                <br>
                 <label class='Labelform'>Middle Name</label><input type='text' class='booking' name='mname'>
-                <br><br>
-                <label class='Labelform'>Check-in</label><div class='bookingsession' id='checkin'>" .$_SESSION['checkin']."</div>
-                <label class='Labelform'>Check-out</label><div class='bookingsession' id='checkout'>" .$_SESSION['checkout']."</div>
-                <br><br>
-                <label class='Labelform'>Number of Guests</label><div class='bookingsession1' id='numguest'>" .$_SESSION['numguest']."</div>
-                <label class='Labelform'>Room Selected</label><div class='bookingsession1' id='room_id'>" .$_SESSION['room_id']."</div>
-                <br><br>
-                <label class='Labelform'>Phone Number</label><input type='number' class='booking' name='phone'>
-                <br><br>
-                <label class='Labelform'>E-mail</label><input type='email' class='booking' name='email'>
-                <br><br>
+                <br>
+                <label class='Labelform'>Check-in</label><div class='booking' id='checkin'>" .$_SESSION['checkin']."</div>
+                <label class='Labelform'>Check-out</label><div class='booking' id='checkout'>" .$_SESSION['checkout']."</div>
+                <br>
+                <label class='Labelform'>Number of Guests</label><div class='booking' id='numguest'>" .$_SESSION['numguest']."</div>
+                <label class='Labelform'>Room Selected</label><div class='booking' id='room_id'>" .$_SESSION['room_id']."</div>
+                <br>
+                <label class='Labelform'>Phone Number</label><input type='number' class='booking' name='phone' style='width:30%;'>
+                <br>
+                <label class='Labelform'>E-mail</label><input type='email' class='booking' name='email'  style='width:30%;'>
+                <br>
              <label class='Labelform'>ID Type</label><select class='booking' name='id_type' >
                 <option value='Select'>Select</option>
                 <option value='passport'>passport</option>
@@ -123,13 +124,15 @@ ob_start();
                 <option value='OTHERS'>OTHERS</option>
                 </select>
                 <label class='Labelform'>ID_number</label><input type='text' class='booking' name='ID_number' class='button' >
+                <br>
                 <label class='Labelform'>File Upload</label><input type='file' class='booking' name='file'>
-                <br><br>
-                <label class='Labelform'>Address</label><input type='text'class='booking' id='address' name='address' class='button' >
-                <br><br>
+                <br>
+                
+                <label class='Labelform'>Address</label><input type='text'class='booking' id='address' name='address' class='button' style='width:40%;'>
+                <br>
                 <input type='submit'  name='amenities2' value='Proceed to Amenities' class='Greenbutton'>
                 <input type='submit' name='cancel' value='Cancel Check-in' class='Checkoutbutton'>
-                <br><br>
+                <br>
             </form>";                
         unset($_SESSION['from_checkin']);
 
