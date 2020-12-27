@@ -62,7 +62,7 @@
                     <label class="Labelform-Rev" for='week'>Week: </label><input type='number' class="input-Rev"  name='week' id='weekly' min='1' max='53'>
                     <label class="Labelform-Rev" for='month'>Month: </label><input type='number' class="input-Rev" name='month' id='monthly' min='1' max='12' required>
                     <label class="Labelform-Rev" for='year'>Year: </label><input type='number' class="input-Rev" name='year' id='yearly' min='2000' max='2021' required>
-                    <input type='submit' class="Greenbutton" name='search' value='Search'>
+                    <input type='submit' class="searchbutton" name='search' value='Search'>
                 </h2>
             </form>
             <br><br>
