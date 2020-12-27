@@ -197,10 +197,7 @@
                         $guest_id = $_POST['guest_id'];
                         $date = $_POST['Date'];
                         
-                        $updateDate = " UPDATE guests 
-                                        SET date_out = $date,
-                                            guest_status = 'INCOMPLETE' 
-                                        WHERE guest_id = $guest_id";
+                        $updateDate = " UPDATE guests SET date_out = '$date' WHERE guest_id = $guest_id";
                     
                             if ($conn->query($updateDate) === TRUE) {
                                 echo "<script language='javascript'>

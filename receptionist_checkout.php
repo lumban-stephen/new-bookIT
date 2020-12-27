@@ -99,8 +99,8 @@
                                     <td>".$row["room_cost"]."</td>
                                     <td>".$row["total_amount"]."</td>
                                     <td><input type='number' name='newPay' value=".$row["payment_amount"].">
-                                        <input type='submit' name='updatePay' value='Update Payment'></td>
-                                    <td><input type='submit' name='remove' value='Check Out'></td> 
+                                        <input type='submit' class='Greenbutton' name='updatePay' value='Update Payment'></td>
+                                    <td><input type='submit' class='Checkoutbutton' name='remove' value='Check Out'></td> 
                                 </tr>    
                                     <input type='hidden' name='guestID' value='{$row['guest_id']}'>
                                     <input type='hidden' name='roomID' value='{$row['room_id']}'>
@@ -151,7 +151,10 @@
                                             $gID)";
                         $deleteSched = "DELETE FROM schedule WHERE guest_id = $gID";
             
-                        if ($conn->query($updateGuest) === TRUE && $conn->query($updateRoom) === TRUE && $conn->query($newRecord) === TRUE && $conn->query($deleteSched) === TRUE) {
+                        if ($conn->query($updateGuest) === TRUE &&
+                            $conn->query($updateRoom) === TRUE && 
+                            $conn->query($newRecord) === TRUE && 
+                            $conn->query($deleteSched) === TRUE) {
                             echo "<script language='javascript'>
                                         window.location.href='receptionist_checkout.php';
                                         alert('Check Out is successful');

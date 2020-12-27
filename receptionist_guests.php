@@ -143,7 +143,7 @@
                                     r.room_id as 'Room Number', 
                                     g.guest_id AS 'guest_id',
                                     b.bill_id as 'bill_id',
-                                    CURDATE() as 'date'
+                                    CURRENT_DATE as 'date'
                     FROM
                             Schedule s, Guests g, Customers c,
                             Rooms r,bill b
@@ -197,14 +197,11 @@
                         $guest_id = $_POST['guest_id'];
                         $date = $_POST['Date'];
                         
-                        $updateDate = " UPDATE guests 
-                                        SET date_out = $date,
-                                            guest_status = 'INCOMPLETE' 
-                                        WHERE guest_id = $guest_id";
+                        $updateDate = " UPDATE guests SET date_out = '$date' WHERE guest_id = $guest_id";
                     
                             if ($conn->query($updateDate) === TRUE) {
                                 echo "<script language='javascript'>
-                                            window.location.href='manager_checkout.php';
+                                            window.location.href='receptionist_checkout.php';
                                             alert('Early Checkout Date Update is successful');
                                     </script>";
                             } else {
