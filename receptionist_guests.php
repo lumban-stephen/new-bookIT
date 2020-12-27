@@ -232,7 +232,7 @@
 
 
 
-                    header("location:manager_ameneties.php");
+                    header("location:receptionist_ameneties.php");
                     }
 
 

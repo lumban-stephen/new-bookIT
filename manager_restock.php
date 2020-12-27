@@ -72,7 +72,8 @@
         <option value='Drinks'>Drinks</option>
         <option value='Extras'>Extras</option>
         </select>
-        <button type='submit' class='Greenbutton' name='new_edit' >SAVE</button>
+        <input type='hidden' name='id' value='{$_SESSION['id']}'>
+        <button type='submit' class='Greenbutton' name='new_edit'>SAVE</button>
         
         </form> 
     </div>";}else if(isset($_POST['add_new'])){
@@ -83,7 +84,6 @@
         <label class='Labelform-Rev'>Name</label><input type='text' class='input-Rev' name='name' >
         <label class='Labelform-Rev'>PRICE</label><input type='number' class='input-Rev' style='width:20%;' name='price'><br>
         <label class='Labelform-Rev'>TYPE</label><select name='type' class='input-Rev'>
-            <option value='Select'>Select</option>
             <option value='Hygiene'>Hygiene</option>
             <option value='Foods'>Foods</option>
             <option value='Drinks'>Drinks</option>
@@ -100,11 +100,13 @@
         $name = $_POST['name'];
         $price = $_POST['price'];
         $type = $_POST['type'];
+        $id=$_POST['id'];
 
         $prepare= $conn->prepare("UPDATE amenities SET amenity_name =?,amenity_price=?,amenity_type=?
             WHERE amenity_id=?");
-        $prepare->bind_param("sisi", $name,$price,$type,$_SESSION['id']);
+        $prepare->bind_param("sisi", $name,$price,$type,$id);
         $prepare->execute();
+        header("location:manager_restock.php");
 
     }
     if(isset($_POST['save'])){
@@ -136,20 +138,20 @@
             </tr>
 <?php
 
-    $sql = "SELECT * FROM amenities;"; 
+    $sql = "SELECT amenity_id,amenity_name,amenity_type,stock,amenity_price FROM amenities ORDER BY amenity_type ASC;"; 
                   
     $display = $conn->query($sql);
     
         if($rows = $display != NULL){
         while($rows = $display->fetch_assoc()){
-
+            if($rows['stock']>=0)
 
             echo "<tr><form action='' method='post'>
             <td>". $rows['amenity_name']. "</td>
             <td>". $rows['amenity_price']. "</td>
             <td>". $rows['amenity_type']. "</td>
             <td>". $rows['stock']. "</td>
-            <td>
+            <td>". $rows['amenity_id']. "
             <input type='number' class='restocknum' name='number'>
             <button type='submit' name='add' class='Greenbutton'>Add</button>
             <input type='hidden' name='amenity_id' value='{$rows['amenity_id']}'>
@@ -158,9 +160,9 @@
 
 
             <td>
-            <button type='submit' name='edit'class='Offerbutton' value='{$rows['amenity_id']}'>Edit Information</button>
+            <button type='submit' name='edit'class='Offerbutton'>Edit Information</button>
 
-            <button type='submit' name='delete'class='Checkoutbutton'>DELETE</button>
+            <button type='submit' name='delete' class='Checkoutbutton'>DELETE</button>
 
             
             </td></form>
@@ -175,7 +177,6 @@
 
 
     if(isset($_POST['add'])){
-        $price=$_POST['price'];
         $number=$_POST['number'];
         $amenity_id=$_POST['amenity_id'];
         $stock=$_POST['stock'];
@@ -185,25 +186,29 @@
             WHERE amenity_id=?");
         $prepare->bind_param("ii", $stock,$amenity_id);
         $prepare->execute();
+        header("location:manager_restock.php");
     }
-
+//when it is deleted. stock will be negative
     if(isset($_POST['delete'])){
+        $number=$_POST['number'];
         $amenity_id=$_POST['amenity_id'];
-        
-        $delete=$conn->prepare("DELETE FROM amenities WHERE amenity_id = ?");
-        $delete->bind_param("i", $amenity_id);
-        $delete->execute();
+        $stock=-10000000;
+
+        $prepare= $conn->prepare("UPDATE amenities SET stock =?
+            WHERE amenity_id=?");
+        $prepare->bind_param("ii", $stock,$amenity_id);
+        $prepare->execute();
+        header("location:manager_restock.php");
     }
 
     if(isset($_POST['edit'])){
-        $id = $_POST['edit'];
+        $id = $_POST['amenity_id'];
         $deleteQuery = "SELECT * FROM amenities WHERE amenity_id=$id";
 
         $result = $conn->query($deleteQuery) or die($conn->error);
         if(count($result)!=NULL){
             $row = $result->fetch_array();
             $price = $row['amenity_price'];
-            $stock = $row['stock'];
             $type = $row['amenity_type'];
             $name=$row['amenity_name'];
         }
@@ -212,6 +217,7 @@
         $_SESSION['type']=$type;
         $_SESSION['name']=$name;
         $_SESSION['id']=$id;
+        header("location:manager_restock.php");
     }
 
 

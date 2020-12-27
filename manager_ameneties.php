@@ -67,7 +67,6 @@ include 'connection.php';
 
 ?>
 
-<a href="manager_restock.php">RESTOCK AMENITIES</a>>
 
         <p>Hygiene</p>
             <div class="amty">
@@ -128,7 +127,7 @@ include 'connection.php';
             <p class="name"><?php echo $result1_name[1]."<br>Price:".$result1_price[1]; ?></p>
                 <div class="counter">
                     
-                    <input type="submit" name="h_minus1" value="-">
+                    <input type="submit" name="h_minus1" value="-" class="button">
                     
                     <?php
                         $_SESSION['h_num1']=((isset($_SESSION['h_num1']))?$_SESSION['h_num1']:0);
@@ -147,7 +146,7 @@ include 'connection.php';
                         $_SESSION['h_price1']=$result1_price[0]*$_SESSION['h_num1'];
                         
                     ?>            
-                    <input type="submit" name="h_plus1" value="+">
+                    <input type="submit" name="h_plus1" value="+" class="button">
                     <?php
                     $_SESSION['h_stock1']=$result1_stock[1]-$_SESSION['h_num1'];
                     echo "<br>stock: ".$_SESSION['h_stock1'];
@@ -165,7 +164,7 @@ include 'connection.php';
             <p class="name"><?php echo $result1_name[2]."<br>Price:".$result1_price[2]; ?></p>
                 <div class="counter">
                     
-                    <input type="submit" name="h_minus2" value="-">
+                    <input type="submit" name="h_minus2" value="-" class="button">
                     
                     <?php
                         $_SESSION['h_num2']=((isset($_SESSION['h_num2']))?$_SESSION['h_num2']:0);
@@ -184,7 +183,7 @@ include 'connection.php';
                         $_SESSION['h_price2']=$result1_price[2]*$_SESSION['h_num2'];
                         
                     ?>            
-                    <input type="submit" name="h_plus2" value="+">
+                    <input type="submit" name="h_plus2" value="+" class="button">
                     <?php
                     $_SESSION['h_stock2']=$result1_stock[2]-$_SESSION['h_num2'];
                     echo "<br>stock: ".$_SESSION['h_stock2'];
@@ -201,7 +200,7 @@ include 'connection.php';
             <p class="name"><?php echo $result1_name[3]."<br>Price:".$result1_price[3]; ?></p>
                 <div class="counter">
                     
-                    <input type="submit" name="h_minus3" value="-">
+                    <input type="submit" name="h_minus3" value="-" class="button">
                     
                     <?php
                         $_SESSION['h_num3']=((isset($_SESSION['h_num3']))?$_SESSION['h_num3']:0);
@@ -220,7 +219,7 @@ include 'connection.php';
                         $_SESSION['h_price3']=$result1_price[3]*$_SESSION['h_num3'];
                         
                     ?>            
-                    <input type="submit" name="h_plus3" value="+">
+                    <input type="submit" name="h_plus3" value="+" class="button">
                     <?php
                     $_SESSION['h_stock3']=$result1_stock[3]-$_SESSION['h_num3'];
                     echo "<br>stock: ".$_SESSION['h_stock3'];
@@ -270,7 +269,7 @@ include 'connection.php';
             <p class="name"><?php echo $result2_name[0]."<br>Price:".$result2_price[0]; ?></p>
                 <div class="counter">
                     
-                    <input type="submit" name="f_minus0" value="-">
+                    <input type="submit" name="f_minus0" value="-" class="button">
                     
                     <?php
                         $_SESSION['f_num0']=((isset($_SESSION['f_num0']))?$_SESSION['f_num0']:0);
@@ -288,7 +287,7 @@ include 'connection.php';
                         echo $_SESSION['f_num0'];
                         $_SESSION['f_price0']=$result2_price[0]*$_SESSION['f_num0'];
                     ?>            
-                    <input type="submit" name="f_plus0" value="+">
+                    <input type="submit" name="f_plus0" value="+" class="button">
                     <?php
                     $_SESSION['f_stock0']=$result2_stock[0]-$_SESSION['f_num0'];
                     echo "<br>stock: ".$_SESSION['f_stock0'];
@@ -307,7 +306,7 @@ include 'connection.php';
             <p class="name"><?php echo $result2_name[1]."<br>Price:".$result2_price[1]; ?></p>
                 <div class="counter">
                     
-                    <input type="submit" name="f_minus1" value="-">
+                    <input type="submit" name="f_minus1" value="-" class="button">
                     
                     <?php
                         $_SESSION['f_num1']=((isset($_SESSION['f_num1']))?$_SESSION['f_num1']:0);
@@ -326,7 +325,7 @@ include 'connection.php';
                         $_SESSION['f_price1']=$result2_price[0]*$_SESSION['f_num1'];
                         
                     ?>            
-                    <input type="submit" name="f_plus1" value="+">
+                    <input type="submit" name="f_plus1" value="+" class="button">
                     <?php
                     $_SESSION['f_stock1']=$result2_stock[1]-$_SESSION['f_num1'];
                     echo "<br>stock: ".$_SESSION['f_stock1'];
@@ -344,7 +343,7 @@ include 'connection.php';
             <p class="name"><?php echo $result2_name[2]."<br>Price:".$result2_price[2]; ?></p>
                 <div class="counter">
                     
-                    <input type="submit" name="f_minus2" value="-">
+                    <input type="submit" name="f_minus2" value="-" class="button">
                     
                     <?php
                         $_SESSION['f_num2']=((isset($_SESSION['f_num2']))?$_SESSION['f_num2']:0);
@@ -363,7 +362,7 @@ include 'connection.php';
                         $_SESSION['f_price2']=$result2_price[2]*$_SESSION['f_num2'];
                         
                     ?>            
-                    <input type="submit" name="f_plus2" value="+">
+                    <input type="submit" name="f_plus2" value="+" class="button">
                     <?php
                     $_SESSION['f_stock2']=$result2_stock[2]-$_SESSION['f_num2'];
                     echo "<br>stock: ".$_SESSION['f_stock2'];
@@ -380,7 +379,7 @@ include 'connection.php';
             <p class="name"><?php echo $result2_name[3]."<br>Price:".$result2_price[3]; ?></p>
                 <div class="counter">
                     
-                    <input type="submit" name="f_minus3" value="-">
+                    <input type="submit" name="f_minus3" value="-" class="button">
                     
                     <?php
                         $_SESSION['f_num3']=((isset($_SESSION['f_num3']))?$_SESSION['f_num3']:0);
@@ -399,7 +398,7 @@ include 'connection.php';
                         $_SESSION['f_price3']=$result2_price[3]*$_SESSION['f_num3'];
                         
                     ?>            
-                    <input type="submit" name="f_plus3" value="+">
+                    <input type="submit" name="f_plus3" value="+" class="button">
                     <?php
                     $_SESSION['f_stock3']=$result2_stock[3]-$_SESSION['f_num3'];
                     echo "<br>stock: ".$_SESSION['f_stock3'];
@@ -435,7 +434,7 @@ include 'connection.php';
             <p class="name"><?php echo $result3_name[0]."<br>Price:".$result3_price[0]; ?></p>
                 <div class="counter">
                     
-                    <input type="submit" name="d_minus0" value="-">
+                    <input type="submit" name="d_minus0" value="-" class="button">
                     
                     <?php
                         $_SESSION['d_num0']=((isset($_SESSION['d_num0']))?$_SESSION['d_num0']:0);
@@ -453,7 +452,7 @@ include 'connection.php';
                         echo $_SESSION['d_num0'];
                         $_SESSION['d_price0']=$result3_price[0]*$_SESSION['d_num0'];
                     ?>            
-                    <input type="submit" name="d_plus0" value="+">
+                    <input type="submit" name="d_plus0" value="+" class="button">
                     <?php
                     $_SESSION['d_stock0']=$result3_stock[0]-$_SESSION['d_num0'];
                     echo "<br>stock: ".$_SESSION['d_stock0'];
@@ -472,7 +471,7 @@ include 'connection.php';
             <p class="name"><?php echo $result3_name[1]."<br>Price:".$result3_price[1]; ?></p>
                 <div class="counter">
                     
-                    <input type="submit" name="d_minus1" value="-">
+                    <input type="submit" name="d_minus1" value="-" class="button">
                     
                     <?php
                         $_SESSION['d_num1']=((isset($_SESSION['d_num1']))?$_SESSION['d_num1']:0);
@@ -491,7 +490,7 @@ include 'connection.php';
                         $_SESSION['d_price1']=$result3_price[1]*$_SESSION['d_num1'];
                         
                     ?>            
-                    <input type="submit" name="d_plus1" value="+">
+                    <input type="submit" name="d_plus1" value="+" class="button">
                     <?php
                     $_SESSION['d_stock1']=$result3_stock[1]-$_SESSION['d_num1'];
                     echo "<br>stock: ".$_SESSION['d_stock1'];
@@ -509,7 +508,7 @@ include 'connection.php';
             <p class="name"><?php echo $result3_name[2]."<br>Price:".$result3_price[2]; ?></p>
                 <div class="counter">
                     
-                    <input type="submit" name="d_minus2" value="-">
+                    <input type="submit" name="d_minus2" value="-" class="button">
                     
                     <?php
                         $_SESSION['d_num2']=((isset($_SESSION['d_num2']))?$_SESSION['d_num2']:0);
@@ -528,7 +527,7 @@ include 'connection.php';
                         $_SESSION['d_price2']=$result3_price[2]*$_SESSION['d_num2'];
                         
                     ?>            
-                    <input type="submit" name="d_plus2" value="+">
+                    <input type="submit" name="d_plus2" value="+" class="button">
                     <?php
                     $_SESSION['d_stock2']=$result3_stock[2]-$_SESSION['d_num2'];
                     echo "<br>stock: ".$_SESSION['d_stock2'];
@@ -545,7 +544,7 @@ include 'connection.php';
             <p class="name"><?php echo $result3_name[3]."<br>Price:".$result3_price[3]; ?></p>
                 <div class="counter">
                     
-                    <input type="submit" name="d_minus3" value="-">
+                    <input type="submit" name="d_minus3" value="-" class="button">
                     
                     <?php
                         $_SESSION['d_num3']=((isset($_SESSION['d_num3']))?$_SESSION['d_num3']:0);
@@ -564,7 +563,7 @@ include 'connection.php';
                         $_SESSION['d_price3']=$result3_price[3]*$_SESSION['d_num3'];
                         
                     ?>            
-                    <input type="submit" name="d_plus3" value="+">
+                    <input type="submit" name="d_plus3" value="+" class="button">
                     <?php
                     $_SESSION['d_stock3']=$result3_stock[3]-$_SESSION['d_num3'];
                     echo "<br>stock: ".$_SESSION['d_stock3'];
@@ -599,7 +598,7 @@ include 'connection.php';
             <p class="name"><?php echo $result4_name[0]."<br>Price:".$result4_price[0]; ?></p>
                 <div class="counter">
                     
-                    <input type="submit" name="e_minus0" value="-">
+                    <input type="submit" name="e_minus0" value="-" class="button">
                     
                     <?php
                         $_SESSION['e_num0']=((isset($_SESSION['e_num0']))?$_SESSION['e_num0']:0);
@@ -617,7 +616,7 @@ include 'connection.php';
                         echo $_SESSION['e_num0'];
                         $_SESSION['e_price0']=$result4_price[0]*$_SESSION['e_num0'];
                     ?>            
-                    <input type="submit" name="e_plus0" value="+">
+                    <input type="submit" name="e_plus0" value="+" class="button">
                     <?php
                     $_SESSION['e_stock0']=$result4_stock[0]-$_SESSION['e_num0'];
                     echo "<br>stock: ".$_SESSION['e_stock0'];
@@ -636,7 +635,7 @@ include 'connection.php';
             <p class="name"><?php echo $result4_name[1]."<br>Price:".$result4_price[1]; ?></p>
                 <div class="counter">
                     
-                    <input type="submit" name="e_minus1" value="-">
+                    <input type="submit" name="e_minus1" value="-" class="button">
                     
                     <?php
                         $_SESSION['e_num1']=((isset($_SESSION['e_num1']))?$_SESSION['e_num1']:0);
@@ -655,7 +654,7 @@ include 'connection.php';
                         $_SESSION['e_price1']=$result4_price[0]*$_SESSION['e_num1'];
                         
                     ?>            
-                    <input type="submit" name="e_plus1" value="+">
+                    <input type="submit" name="e_plus1" value="+" class="button">
                     <?php
                     $_SESSION['e_stock1']=$result4_stock[1]-$_SESSION['e_num1'];
                     echo "<br>stock: ".$_SESSION['e_stock1'];
