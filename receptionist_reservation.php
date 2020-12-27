@@ -58,8 +58,8 @@
             <!--Code Here only-->
             <!--Reservation page code in here-->
             <form method="post" action="">  
-            <label>Number of Guests</label>
-            <select name="numguest" class="button" required>
+            <label class='Labelform'>Number of Guests</label>
+            <select name="numguest" class="booking" style='height: 10%;' required>
                 <option value="Select">Select</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -69,12 +69,12 @@
             </select> 
             <br><br>
 
-<label>Check-in</label><br>
-        <input type="date" name="checkin" class="button" required>
+<label class='Labelform'>Check-in</label>
+        <input type="date" name="checkin" class="booking" required>
         <br><br>
 
-        <label>Check-out</label><br>
-        <input type="date" name="checkout" class="button" required>
+        <label class='Labelform'>Check-out</label>
+        <input type="date" name="checkout" class="booking" required>
         <br><br>
 
         <button type="submit" name="submit" class="Offerbutton">SEARCH</button>
