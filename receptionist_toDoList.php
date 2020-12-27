@@ -51,7 +51,7 @@
 
     <?php
         include 'connection.php';
-        //error_reporting(0);
+        error_reporting(0);
 
         $sql = "SELECT task_id,task_name,task_desc
     FROM task 
@@ -81,6 +81,7 @@
         $prepare1= $conn->prepare("UPDATE task SET task_status =? WHERE task_id=?");
             $prepare1->bind_param("si", $task_status, $task_id);
             $prepare1->execute();
+        header("location:receptionist_toDoList.php");
     }
 
 ?>
@@ -103,6 +104,7 @@ if(isset($_POST['add'])){
         $prepare2 = $conn->prepare("INSERT INTO task(task_name,task_desc,task_status) VALUES (?,?,?)");
             $prepare2->bind_param("sss",$task_name,$task_desc,$task_status);
             $prepare2->execute();
+        header("location:receptionist_toDoList.php");
 }
 
 
