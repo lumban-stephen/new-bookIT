@@ -122,17 +122,17 @@
     <option value="4">4</option>
     <option value="5">5</option>  
     </select> 
-    <br><br>
+    <br>
 
     <label class='Labelform'>Check-in</label>
     <input type="date" name="checkin" class='booking' required>
-    <br><br>
+    <br>
 
     <label class='Labelform'>Check-out</label>
     <input type="date" name="checkout" class='booking' required>
     <br><br>
     <button type="submit" name="search" class="Offerbutton">SEARCH</button>
-        <br><br>
+        
     </form>
 
         </div>

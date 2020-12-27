@@ -65,8 +65,7 @@
         <label class='Labelform'>Name</label><input type='text' class='mngt' name='name' value='{$_SESSION['name']}'>
         <label class='Labelform'>PRICE</label><input type='number' class='mngt' style='width:20%;' name='price'value='{$_SESSION['price']}'><br>
         <label class='Labelform'>TYPE</label>
-        <select name='type' class='mngt' value='{$_SESSION['type']}'>
-        <option value='Select'>Select</option>
+        <select name='type' class='mngt' value='{$_SESSION['type']}' style='height:10%;'>
         <option value='Hygiene'>Hygiene</option>
         <option value='Foods'>Foods</option>
         <option value='Drinks'>Drinks</option>
@@ -81,15 +80,15 @@
 //add new items
         echo "<div>
         <form method='post' action='' >
-        <label class='Labelform-Rev'>Name</label><input type='text' class='input-Rev' name='name' >
-        <label class='Labelform-Rev'>PRICE</label><input type='number' class='input-Rev' style='width:20%;' name='price'><br>
-        <label class='Labelform-Rev'>TYPE</label><select name='type' class='input-Rev'>
+        <label class='Labelform-Rev'>Name</label><input type='text' class='input-Rev' name='name' required>
+        <label class='Labelform-Rev'>PRICE</label><input type='number' class='input-Rev' style='width:20%;' name='price' required><br>
+        <label class='Labelform-Rev'>TYPE</label><select name='type' class='input-Rev' required>
             <option value='Hygiene'>Hygiene</option>
             <option value='Foods'>Foods</option>
             <option value='Drinks'>Drinks</option>
             <option value='Extras'>Extras</option>
             </select>
-        <label class='Labelform-Rev'>STOCK</label><input type='number' class='input-Rev' name='stock'>
+        <label class='Labelform-Rev'>STOCK</label><input type='number' class='input-Rev' name='stock' required>
         <button type='submit' class='Greenbutton' name='save' >SAVE</button>
         
         </form> 
@@ -151,7 +150,7 @@
             <td>". $rows['amenity_price']. "</td>
             <td>". $rows['amenity_type']. "</td>
             <td>". $rows['stock']. "</td>
-            <td>". $rows['amenity_id']. "
+            <td>
             <input type='number' class='restocknum' name='number'>
             <button type='submit' name='add' class='Greenbutton'>Add</button>
             <input type='hidden' name='amenity_id' value='{$rows['amenity_id']}'>

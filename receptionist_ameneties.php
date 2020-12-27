@@ -697,7 +697,7 @@ error_reporting(0);
                     }
                     $pre_total=$room_fee+$total_amenty;
 
-                    $_SESSION['total']=$_SESSION['total_amenity']+$room_fee;
+                    $_SESSION['total']=$_SESSION['total_amenity']+$pre_total;
 
                     echo "<p>Guest Name:".$_SESSION['fname']." ".$_SESSION['mname']." ".$_SESSION['lname']." </p>
                      <p>Bill ID: ".$_SESSION['bill_id']."</p>
@@ -893,7 +893,7 @@ error_reporting(0);
         
         unset($_SERVER['PHP_SELF']);
         session_destroy();
-        header("location:receptionist_dashboard.php");
+        header("location:receptionist_guests.php");
         
     }
 
