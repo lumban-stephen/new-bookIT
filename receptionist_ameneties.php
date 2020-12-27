@@ -702,12 +702,11 @@ error_reporting(0);
                     echo "<p>Guest Name:".$_SESSION['fname']." ".$_SESSION['mname']." ".$_SESSION['lname']." </p>
                      <p>Bill ID: ".$_SESSION['bill_id']."</p>
                      <p>Total Amount: ".$_SESSION['total']."(previous total: ".$pre_total.")</p>";
-                     echo "aaa".$_SESSION['guest_id'];
+                    
 
                       ?>
                     
                     <button type='submit' name='process'class="amty-btn bluegray">Process Order</button>
-                    <button type='submit' name='checkin' class="amty-btn green">Check in</button>
                     </form>
 
     <?php
@@ -897,13 +896,6 @@ error_reporting(0);
         header("location:receptionist_dashboard.php");
         
     }
-
-    if(isset($_POST['checkin'])){
-        unset($_SERVER['PHP_SELF']);
-        session_destroy();
-        header("location:receptionist_dashboard.php");
-    }
-
 
 ob_end_flush();
       ?>
