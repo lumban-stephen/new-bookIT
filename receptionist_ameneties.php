@@ -71,7 +71,7 @@ error_reporting(0);
         <p>Hygiene</p>
             <div class="amty">
                 <?php
-                $sql1 = "SELECT * FROM amenities WHERE amenity_type = 'Hygiene'";
+                $sql1 = "SELECT * FROM amenities WHERE amenity_type = 'Hygiene' AND stock>=0";
                 $result1 = $conn->query($sql1);
                 $result1_id = array();
                 $result1_name = array();
@@ -236,7 +236,7 @@ error_reporting(0);
         <p>Food</p>
             <div class="amty">
                 <?php
-                $sql1 = "SELECT * FROM amenities WHERE amenity_type = 'Foods'";
+                $sql1 = "SELECT * FROM amenities WHERE amenity_type = 'Foods' AND stock>=0";
                 $result2 = $conn->query($sql1);
                 $result2_id = array();
                 $result2_name = array();
@@ -251,7 +251,7 @@ error_reporting(0);
 
     <div class="amty">
                 <?php
-                $sql1 = "SELECT * FROM amenities WHERE amenity_type = 'Foods'";
+                $sql1 = "SELECT * FROM amenities WHERE amenity_type = 'Foods' AND stock>=0";
                 $result2 = $conn->query($sql1);
                 $result2_id = array();
                 $result2_name = array();
@@ -416,7 +416,7 @@ error_reporting(0);
     <p>Drinks</p>
             <div class="amty">
                 <?php
-                $sql1 = "SELECT * FROM amenities WHERE amenity_type = 'Drinks'";
+                $sql1 = "SELECT * FROM amenities WHERE amenity_type = 'Drinks' AND stock>=0";
                 $result3 = $conn->query($sql1);
                 $result3_id = array();
                 $result3_name = array();
@@ -580,7 +580,7 @@ error_reporting(0);
             <p>Extras</p>
             <div class="amty">
                 <?php
-                $sql1 = "SELECT * FROM amenities WHERE amenity_type = 'Extras' ";
+                $sql1 = "SELECT * FROM amenities WHERE amenity_type = 'Extras' AND stock>=0";
                 $result4 = $conn->query($sql1);
                 $result4_id = array();
                 $result4_name = array();
