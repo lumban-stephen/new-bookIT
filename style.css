@@ -259,7 +259,6 @@ input.mngt[type="email"],input.mngt[type="password"] {
 }
 .input-Rev {
   display: inline-block;
-  padding: 7.8px 15px;
   font-size: 15px;
   border-radius: 0;
   -webkit-appearance: none;
@@ -269,6 +268,8 @@ input.mngt[type="email"],input.mngt[type="password"] {
   -moz-box-sizing:border-box;
   box-sizing:border-box;
   padding-right: 20px;
+  padding-top: 7px;
+  padding-bottom: 4px;
 }
 .Labelform-staff {
   display: inline-block;
@@ -295,7 +296,7 @@ input.mngt[type="email"],input.mngt[type="password"] {
   box-sizing:border-box;
 }
 .input-staffsal{
-
+ 
 }
 .staffgrid{
   display: grid;
@@ -304,43 +305,36 @@ input.mngt[type="email"],input.mngt[type="password"] {
   align-items: stretch;
 }
 .staffbox1{
-  border: 1px solid rgba(213, 213, 213, 0.37);
   grid-column: 1;
   grid-row:1;
   color: #fff;
 }
 .staffbox2{
-  border: 1px solid rgba(213, 213, 213, 0.37);
   grid-column: 2;
   grid-row:1;
   color: #fff;
 }
 .staffbox3{
-  border: 1px solid rgba(213, 213, 213, 0.37);
   grid-column: 3;
   grid-row:1;
   color: #fff;
 }
 .staffbox4{
-  border: 1px solid rgba(213, 213, 213, 0.37);
   grid-column: 1/2.5;
   grid-row:2;
   color: #fff;
 }
 .staffbox5{
-  border: 1px solid rgba(213, 213, 213, 0.37);
   grid-column: 2.5/4;
   grid-row:2;
   color: #fff;
 }
 .staffbox6{
-  border: 1px solid rgba(213, 213, 213, 0.37);
   grid-column: 3;
   grid-row: 2;
   color: #fff;
 }
 .staffbox7{
-  border: 1px solid rgba(213, 213, 213, 0.37);
   grid-column: 1;
   grid-row:3;
   color: #fff;

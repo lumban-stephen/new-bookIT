@@ -149,8 +149,9 @@
                                             '$time',
                                             $total,
                                             $gID)";
+                        $deleteSched = "DELETE FROM schedule WHERE guest_id = $gID";
             
-                        if ($conn->query($updateGuest) === TRUE && $conn->query($updateRoom) === TRUE && $conn->query($newRecord) === TRUE) {
+                        if ($conn->query($updateGuest) === TRUE && $conn->query($updateRoom) === TRUE && $conn->query($newRecord) === TRUE && $conn->query($deleteSched) === TRUE) {
                             echo "<script language='javascript'>
                                         window.location.href='receptionist_checkout.php';
                                         alert('Check Out is successful');
@@ -161,6 +162,8 @@
                             echo "Error: "  .$updateRoom. "<br>" .$conn->error;
                         } else if(!$conn->query($newRecord) === TRUE) {
                             echo "Error: " .$newRecord. "<br>" .$conn->error;
+                        } else if(!$conn->query($deleteSched) === TRUE) {
+                            echo "Error: " .$deleteSched. "<br>" .$conn->error;
                         }
                     
                     } else {

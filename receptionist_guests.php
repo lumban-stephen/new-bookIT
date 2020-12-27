@@ -198,7 +198,7 @@
                         $date = $_POST['Date'];
                         
                         $updateDate = " UPDATE guests 
-                                        SET date_out = $date AND
+                                        SET date_out = $date,
                                             guest_status = 'INCOMPLETE' 
                                         WHERE guest_id = $guest_id";
                     
