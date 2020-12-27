@@ -23,7 +23,7 @@
                 </a>
             </div>
             <div class="right-float">
-                <p>Welcome Manager</p>
+                <p>Welcome Receptionist  </p>
             </div>
         </div>
         </header>
@@ -33,16 +33,16 @@
                 header("location:index.php");
             }
         ?>
-        <nav>
+       <nav>
             <ul>
                 <li id="logoli"><img src="assets/bookIT_Logo.png"></li>
-                <li><a href="manager_dashboard.php">Dashboard</a></li>
-                <li><a href="manager_revenue.php">Revenue</a></li>
-                <li><a href="manager_records.php">Records</a></li>
-                <li><a href="#">Guests</a></li>
-                <li><a href="manager_room-mgt.php">Room Management</a></li>
-                <li><a href="manager_staff.php">Staff Management</a></li>
-                <li><a href="manager_restock.php">Restock Amenities</a></li>
+                <li><a href="receptionist_dashboard.php">Dashboard</a></li>
+                <li><a href="#">Check In</a></li>
+                <li><a href="receptionist_checkout.php">Check Out</a></li>
+                <li><a href="receptionist_reservation.php">Reservation</a></li>
+                <li><a href="receptionist_records.php">Records</a></li>
+                <li><a href="receptionist_toDoList.php">To Do List</a></li>
+                <li><a href="receptionist_guests.php">Guests</a></li>
             </ul>
         </nav>
         <div id="content">
