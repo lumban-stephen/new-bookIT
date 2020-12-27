@@ -50,7 +50,7 @@
             <div class="search-container">
                         <form method="POST">
                         <label class="Labelform">Search Guest Name: </label><input type="text" class="input-search"placeholder="Search.." name="keyword">
-                        <button class= 'Viewbutton' class="Viewbutton" name="search">Search</button>
+                        <button class= "searchbutton"  name="search">Search</button>
                         </form>
                     </div>
                     <?php 

@@ -75,9 +75,9 @@
 
     $sql1 = "SELECT r.room_id as 'room_id',t.room_desc AS room_desc
     FROM room_type t, rooms r, schedule s
-    WHERE r.roomtype_id=t.roomtype_id AND r.room_id NOT IN(
+    WHERE r.roomtype_id=t.roomtype_id AND r.room_status != 'Maintenance' AND r.room_status !='Used by guest' AND r.room_id NOT IN(
     SELECT s.room_id=r.room_id AND g.room_id FROM guests g where $checkin between g.date_in and g.date_out) AND r.room_id NOT IN(
-    SELECT g.room_id FROM guests g where $checkout between g.date_in and g.date_out) AND t.room_cap>=$numguest AND t.roomtype_id=r.roomtype_id AND r.room_status != 'Maintenance'
+    SELECT g.room_id FROM guests g where $checkout between g.date_in and g.date_out) AND t.room_cap>=$numguest
     GROUP BY r.room_id";
 
     $result1 = $conn->query($sql1); 
