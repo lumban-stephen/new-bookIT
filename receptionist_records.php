@@ -53,7 +53,6 @@
               <tr>
                 <th>Record Type</th>
                 <th>Room Number</th>
-                <th>Record Description</th>
                 <th>Paid Amount</th>
                 <th>Date</th>
                 <th>Time</th>
@@ -66,7 +65,6 @@
 
             $sql = "SELECT  r.room_id as room_id, 
                             rec.record_type as record_type, 
-                            rec.record_desc as record_desc, 
                             rec.record_paid as paid_amount, 
                             rec.record_date as record_date, 
                             rec.record_time as record_time
@@ -84,7 +82,6 @@
                 echo "<tr>
                         <td>".$row['record_type']."</td>
                         <td>".$row['room_id']."</td>
-                        <td>".$row['record_desc']."</td>
                         <td>".$row['paid_amount']."</td>
                         <td>".$row['record_date']."</td>
                         <td>".$row['record_time']."</td>
