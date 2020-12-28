@@ -56,12 +56,8 @@
         $editQuery = "UPDATE users SET fname='$fname', lname='$lname', mi='$mi', email='$email',
                       password='$password', user_type='$jobs', salary='$salary' WHERE user_id=$id";
 
-        $conn->query($deleteQuery) or die($conn->error);
-        $_SESSION['message'] = "Address updated!"; 
+        $conn->query($editQuery) or die($conn->error);
         header('location: index.php');
     }
-
-    if(isset($_POST['cancel'])){
-        header('location: manager_staff.php');
-    } 
+     
 ?>
