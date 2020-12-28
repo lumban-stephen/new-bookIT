@@ -112,7 +112,7 @@
 
 
     <form method="post" action="">  
-    <label class='Labelform'>Number of Guests</label><select name="numguest" class='bookingnum' style = 'height:10%;'required >
+    <label class='Labelform'>Number of Guests</label><select name="numguest" class='bookingnum' style = 'height:10%;' required>
     <option value="Select" >Select</option>
     <option value="1">1</option>
     <option value="2">2</option>

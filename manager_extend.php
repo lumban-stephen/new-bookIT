@@ -39,7 +39,7 @@
                 </a>
             </div>
             <div class="right-float">
-                <p>Welcome Receptionist  </p>
+                <p>Welcome Manager  </p>
             </div>
         </div>
         </header>
@@ -92,9 +92,9 @@
                 <span><label>Current Room</label><br>".$room_id."</span>
                 <span><label>Check-in</label><br>".$date_in."</span>
                 
-                <span><label>Check-out</label><br>".$date_out."<input type='date' name='extend'>
+                <span><label>Check-out</label><br>".$date_out."<input type='date' name='extend' required> 
                  </div>
-                <button type='submit' name='search_room'  style='background-color: #003399; padding: 5px; ' class='button'>Search Room</button><a href='manager_guests.php'>Back to Guests</a></form>
+                <button type='submit' name='search_room'  style='background-color: #003399; padding: 5px; ' class='button'>Search Room</button><a href='manager_guests.php' class='Greenbutton' style='width:15%;'>Back to Guests</a></form>
                 ";
 
 if(isset($_POST['search_room'])){
