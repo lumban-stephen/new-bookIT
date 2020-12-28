@@ -1,6 +1,30 @@
 <?php
     include 'connection.php';
-   session_start();
+    include 'staff-server.php';
+?>
+<?php 
+
+$sql = "SELECT user_id AS 'UID', 
+CONCAT(fname, ' ', MI, ' ', lname) AS 'Staff Name', 
+email AS 'Email', salary AS 'Salary', 
+user_type AS 'Job' FROM users;"; 
+
+if (isset($_GET['edit'])) {
+    $id = $_GET['edit'];
+    $update = true;
+    $record = mysqli_query($conn, $sql);
+
+    if (count($record) != 1 ) {
+        $arr = mysqli_fetch_array($record);
+        $fname = $arr['fname'];
+        $mi = $arr['mi'];
+        $lname = $arr['lname'];
+        $email = $arr['email'];
+        $password = $arr['password'];
+        $jobs = $arr['jobs'];
+        $salary = $arr['salary'];
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -13,6 +37,14 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
+        <?php if (isset($_SESSION['message'])): ?>
+            <div class="msg">
+                <?php 
+                    echo $_SESSION['message']; 
+                    unset($_SESSION['message']);
+                ?>
+            </div>
+        <?php endif ?>
         <header>
         <div id="header">
         <img src="assets/bookIT_Logo.png">
@@ -42,7 +74,7 @@
                 <li><a class="navli" href="manager_records.php">Records</a></li>
                 <li><a class="navli" href="manager_guests.php">Guests</a></li>
                 <li><a class="navli" href="manager_room-mgt.php">Room Management</a></li>
-                <li><a class="navli" href="#">Staff Management</a></li>
+                <li><a class="navli" href="manager_staff.php">Staff Management</a></li>
                 <li><a class="navli" href="manager_restock.php">Restock Amenities</a></li>
             </ul>
         </nav>
@@ -57,32 +89,19 @@
                         <th>Actions</th>
                     </tr>
                 
-                    <?php                                                     
-                            $sql = "SELECT user_id AS 'UID', 
-                            CONCAT(fname, ' ', MI, ' ', lname) AS 'Staff Name', 
-                            email AS 'Email', salary AS 'Salary', 
-                            user_type AS 'Job' FROM users;"; 
-                  
-                            $display = $conn->query($sql);
-                  
-                      
-                            if($rows = $display != NULL){
-                                while($rows = $display->fetch_assoc()){
-                                    echo
-                                        "<tr><td>". $rows['Staff Name']. "</td>
-                                             <td>". $rows['Email']. "</td>
-                                             <td>". $rows['Salary']. "</td>
-                                             <td>". $rows['Job']. "</td>
-                                             <td><button class='Offerbutton'><a href='manager_staff.php?edit=".$rows['UID']."'>Edit Information</a></button>
-                                                 <button class='Checkoutbutton'><a href='staff-server.php?delete=".$rows['UID']."'>Terminate</a></button></td>
-                                        </tr>"; 
-                                        }
-                                    echo "</table>";
-                            }else{
-                                echo "No staff here. ";
-                            }
-                            $conn->close();        
-                          
+                    <?php        
+                    $display = $conn->query($sql);
+                    
+                    while($rows = mysqli_fetch_array($display)){
+                        echo "<tr><td>". $rows['Staff Name']. "</td>
+                              <td>". $rows['Email']. "</td>
+                              <td>". $rows['Salary']. "</td>
+                              <td>". $rows['Job']. "</td>
+                              <td><button class='Offerbutton'><a href='manager_staff.php?edit=".$rows['UID']."'>Edit Information</a></button>
+                              <button class='Checkoutbutton'><a href='staff-server.php?delete=".$rows['UID']."'>Terminate</a></button></td>
+                              </tr>"; 
+                    }
+                    echo "</table>";
                     ?>
             </table>
             <br>
@@ -111,7 +130,7 @@
                     if($update == true):
                 ?>
                 <button type="submit" class="Greenbutton" name="update" >Update</button>
-                <button type="submit" class="Greenbutton" name="save" >Save</button>
+                <button class="Checkoutbutton" name="cancel" >Cancel</button>
                 <?php else: ?>
                 <button type="submit" class="Greenbutton" name="save" >Save</button>
                 <?php endif; ?></span>
