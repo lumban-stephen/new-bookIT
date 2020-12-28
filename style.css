@@ -204,51 +204,41 @@ li img{
 }
 #fname.booking,#lname.booking{
   width: 100%;
-  max-width: 260.3px;
+  
 }
 #mname.booking{
   width: 100%;
-  max-width: 240px;
  }
  #checkin.booking{
   width: 100%;
-  max-width: 480px;
+
  }
   #checkout.booking{
   width: 100%;
-  max-width: 468px;
  }
  #numguest.booking{
   width: 100%;
-  max-width: 400px;
  }
  #room_id.booking{
   width: 100%;
-  max-width: 425px;
  }
  #phone.booking{
   width: 100%;
-  max-width: 428px;
  } 
  #email.booking{
   width: 100%;
-  max-width: 500px;
  }
  #id_type.booking{
   width: 100%;
-  max-width: 286px;
  }
  #id_num.booking{
   width: 100%;
-  max-width: 255px;
  }
  #file.booking{
   width: 100%;
-  max-width: 251px;
  }
  #address.booking{
    width: 100%;
-   max-width: 1100px;
  }
 .restocknum {
   display: inline-block;
@@ -320,8 +310,6 @@ li img{
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 1em;
-  align-items: start;
-  border: 2px solid #D3DEE8;
 }
 .checkingrid{
   display: grid;
