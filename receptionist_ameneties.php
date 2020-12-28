@@ -70,7 +70,7 @@ error_reporting(0);
         <p>Hygiene</p>
             <div class="amty">
                 <?php
-                $sql1 = "SELECT * FROM amenities WHERE amenity_type = 'Hygiene' AND stock>=0";
+                $sql1 = "SELECT * FROM amenities WHERE amenity_type = 'Hygiene'";
                 $result1 = $conn->query($sql1);
                 $result1_id = array();
                 $result1_name = array();
@@ -89,11 +89,12 @@ error_reporting(0);
                 <div class="counter">
                     <form action="<?php echo $_SERVER['PHP_SELF'];  ?>" method="post">
                     
-                    <input type="submit" name="h_minus0" value="-" class="button" class="button">
+                    <input type="submit" name="h_minus0" value="-" class="button">
                     
                     <?php
                         $_SESSION['h_num0']=((isset($_SESSION['h_num0']))?$_SESSION['h_num0']:0);
                         $_SESSION['h_price0']=((isset($_SESSION['h_num0']))?$_SESSION['h_num0']:0);
+                        if($result1_stock[0]>0){
                         if(isset($_POST['h_minus0'])){
                             if($_SESSION['h_num0']<=0){
                             $_SESSION['h_num0']=0;
@@ -105,12 +106,15 @@ error_reporting(0);
                             $_SESSION['h_num0']++;
                         }
                         echo $_SESSION['h_num0'];
-                        $_SESSION['h_price0']=$result1_price[0]*$_SESSION['h_num0'];
+                        $_SESSION['h_price0']=$result1_price[0]*$_SESSION['h_num0'];}
                     ?>            
                     <input type="submit" name="h_plus0" value="+" class="button">
                     <?php
                     $_SESSION['h_stock0']=$result1_stock[0]-$_SESSION['h_num0'];
-                    echo "<br>stock: ".$_SESSION['h_stock0'];
+                    if($result1_stock[0]<=0){
+                        echo "<br>not available";
+                    }else{
+                    echo "<br>stock: ".$_SESSION['h_stock0'];}
                       ?>
                 
                     <input type="hidden" name="amenity_id_h0" value="<?php echo $result1_id[0]; ?>">
@@ -131,6 +135,7 @@ error_reporting(0);
                     <?php
                         $_SESSION['h_num1']=((isset($_SESSION['h_num1']))?$_SESSION['h_num1']:0);
                         $_SESSION['h_price1']=((isset($_SESSION['h_num1']))?$_SESSION['h_num1']:0);
+                        if($result1_stock[1]>0){
                         if(isset($_POST['h_minus1'])){
                             if($_SESSION['h_num1']<=0){
                             $_SESSION['h_num1']=0;
@@ -142,13 +147,16 @@ error_reporting(0);
                             $_SESSION['h_num1']++;
                         }
                         echo $_SESSION['h_num1'];
-                        $_SESSION['h_price1']=$result1_price[0]*$_SESSION['h_num1'];
+                        $_SESSION['h_price1']=$result1_price[1]*$_SESSION['h_num1'];}
                         
                     ?>            
                     <input type="submit" name="h_plus1" value="+" class="button">
                     <?php
+                    if($result1_stock[1]<=0){
+                        echo "<br>not available";
+                    }else{
                     $_SESSION['h_stock1']=$result1_stock[1]-$_SESSION['h_num1'];
-                    echo "<br>stock: ".$_SESSION['h_stock1'];
+                    echo "<br>stock: ".$_SESSION['h_stock1'];}
                       ?>
                 
                     <input type="hidden" name="amenity_id_h1" value="<?php echo $result1_id[1]; ?>">
@@ -168,6 +176,7 @@ error_reporting(0);
                     <?php
                         $_SESSION['h_num2']=((isset($_SESSION['h_num2']))?$_SESSION['h_num2']:0);
                         $_SESSION['h_price2']=((isset($_SESSION['h_num2']))?$_SESSION['h_num2']:0);
+                        if($result1_stock[2]>0){
                         if(isset($_POST['h_minus2'])){
                             if($_SESSION['h_num2']<=0){
                             $_SESSION['h_num2']=0;
@@ -179,14 +188,17 @@ error_reporting(0);
                             $_SESSION['h_num2']++;
                         }
                         echo $_SESSION['h_num2'];
-                        $_SESSION['h_price2']=$result1_price[2]*$_SESSION['h_num2'];
+                        $_SESSION['h_price2']=$result1_price[2]*$_SESSION['h_num2'];}
                         
                     ?>            
                     <input type="submit" name="h_plus2" value="+" class="button">
                     <?php
+                    if($result1_stock[2]<=0){
+                        echo "<br>not available";
+                    }else{
                     $_SESSION['h_stock2']=$result1_stock[2]-$_SESSION['h_num2'];
-                    echo "<br>stock: ".$_SESSION['h_stock2'];
-                      ?>
+                    echo "<br>stock: ".$_SESSION['h_stock2'];}
+                    ?>
                 
                     <input type="hidden" name="amenity_id_h2" value="<?php echo $result1_id[2]; ?>">
                     <input type="hidden" name="amenity_price" value="<?php echo $result1_price[2]; ?>"><br>
@@ -204,6 +216,7 @@ error_reporting(0);
                     <?php
                         $_SESSION['h_num3']=((isset($_SESSION['h_num3']))?$_SESSION['h_num3']:0);
                         $_SESSION['h_price3']=((isset($_SESSION['h_num3']))?$_SESSION['h_num3']:0);
+                        if($result1_stock[3]>0){
                         if(isset($_POST['h_minus3'])){
                             if($_SESSION['h_num3']<=0){
                             $_SESSION['h_num3']=0;
@@ -216,12 +229,15 @@ error_reporting(0);
                         }
                         echo $_SESSION['h_num3'];
                         $_SESSION['h_price3']=$result1_price[3]*$_SESSION['h_num3'];
-                        
+                        }
                     ?>            
                     <input type="submit" name="h_plus3" value="+" class="button">
                     <?php
+                    if($result1_stock[3]<=0){
+                        echo "<br>not available";
+                    }else{
                     $_SESSION['h_stock3']=$result1_stock[3]-$_SESSION['h_num3'];
-                    echo "<br>stock: ".$_SESSION['h_stock3'];
+                    echo "<br>stock: ".$_SESSION['h_stock3'];}
                       ?>
                 
                     <input type="hidden" name="amenity_id_h3" value="<?php echo $result1_id[3]; ?>">
@@ -250,7 +266,7 @@ error_reporting(0);
 
     <div class="amty">
                 <?php
-                $sql1 = "SELECT * FROM amenities WHERE amenity_type = 'Foods' AND stock>=0";
+                $sql1 = "SELECT * FROM amenities WHERE amenity_type = 'Foods'";
                 $result2 = $conn->query($sql1);
                 $result2_id = array();
                 $result2_name = array();
@@ -273,6 +289,7 @@ error_reporting(0);
                     <?php
                         $_SESSION['f_num0']=((isset($_SESSION['f_num0']))?$_SESSION['f_num0']:0);
                         $_SESSION['f_price0']=((isset($_SESSION['f_num0']))?$_SESSION['f_num0']:0);
+                        if($result2_stock[0]>0){
                         if(isset($_POST['f_minus0'])){
                             if($_SESSION['f_num0']<=0){
                             $_SESSION['f_num0']=0;
@@ -284,12 +301,15 @@ error_reporting(0);
                             $_SESSION['f_num0']++;
                         }
                         echo $_SESSION['f_num0'];
-                        $_SESSION['f_price0']=$result2_price[0]*$_SESSION['f_num0'];
+                        $_SESSION['f_price0']=$result2_price[0]*$_SESSION['f_num0'];}
                     ?>            
                     <input type="submit" name="f_plus0" value="+" class="button">
                     <?php
+                    if($result2_stock[0]<=0){
+                        echo "<br>not available";
+                    }else{
                     $_SESSION['f_stock0']=$result2_stock[0]-$_SESSION['f_num0'];
-                    echo "<br>stock: ".$_SESSION['f_stock0'];
+                    echo "<br>stock: ".$_SESSION['f_stock0'];}
                       ?>
                 
                     <input type="hidden" name="amenity_id_f0" value="<?php echo $result2_id[0]; ?>">
@@ -310,6 +330,7 @@ error_reporting(0);
                     <?php
                         $_SESSION['f_num1']=((isset($_SESSION['f_num1']))?$_SESSION['f_num1']:0);
                         $_SESSION['f_price1']=((isset($_SESSION['f_num1']))?$_SESSION['f_num1']:0);
+                        if($result2_stock[1]>0){
                         if(isset($_POST['f_minus1'])){
                             if($_SESSION['f_num1']<=0){
                             $_SESSION['f_num1']=0;
@@ -321,13 +342,16 @@ error_reporting(0);
                             $_SESSION['f_num1']++;
                         }
                         echo $_SESSION['f_num1'];
-                        $_SESSION['f_price1']=$result2_price[0]*$_SESSION['f_num1'];
+                        $_SESSION['f_price1']=$result2_price[1]*$_SESSION['f_num1'];}
                         
                     ?>            
                     <input type="submit" name="f_plus1" value="+" class="button">
                     <?php
+                    if($result2_stock[1]<=0){
+                        echo "<br>not available";
+                    }else{
                     $_SESSION['f_stock1']=$result2_stock[1]-$_SESSION['f_num1'];
-                    echo "<br>stock: ".$_SESSION['f_stock1'];
+                    echo "<br>stock: ".$_SESSION['f_stock1'];}
                       ?>
                 
                     <input type="hidden" name="amenity_id_f1" value="<?php echo $result2_id[1]; ?>">
@@ -347,6 +371,7 @@ error_reporting(0);
                     <?php
                         $_SESSION['f_num2']=((isset($_SESSION['f_num2']))?$_SESSION['f_num2']:0);
                         $_SESSION['f_price2']=((isset($_SESSION['f_num2']))?$_SESSION['f_num2']:0);
+                        if($result2_stock[2]>0){
                         if(isset($_POST['f_minus2'])){
                             if($_SESSION['f_num2']<=0){
                             $_SESSION['f_num2']=0;
@@ -358,13 +383,16 @@ error_reporting(0);
                             $_SESSION['f_num2']++;
                         }
                         echo $_SESSION['f_num2'];
-                        $_SESSION['f_price2']=$result2_price[2]*$_SESSION['f_num2'];
+                        $_SESSION['f_price2']=$result2_price[2]*$_SESSION['f_num2'];}
                         
                     ?>            
                     <input type="submit" name="f_plus2" value="+" class="button">
                     <?php
+                    if($result2_stock[2]<=0){
+                        echo "<br>not available";
+                    }else{
                     $_SESSION['f_stock2']=$result2_stock[2]-$_SESSION['f_num2'];
-                    echo "<br>stock: ".$_SESSION['f_stock2'];
+                    echo "<br>stock: ".$_SESSION['f_stock2'];}
                       ?>
                 
                     <input type="hidden" name="amenity_id_f2" value="<?php echo $result2_id[2]; ?>">
@@ -383,6 +411,7 @@ error_reporting(0);
                     <?php
                         $_SESSION['f_num3']=((isset($_SESSION['f_num3']))?$_SESSION['f_num3']:0);
                         $_SESSION['f_price3']=((isset($_SESSION['f_num3']))?$_SESSION['f_num3']:0);
+                        if($result2_stock[3]>0){
                         if(isset($_POST['f_minus3'])){
                             if($_SESSION['f_num3']<=0){
                             $_SESSION['f_num3']=0;
@@ -394,13 +423,16 @@ error_reporting(0);
                             $_SESSION['f_num3']++;
                         }
                         echo $_SESSION['f_num3'];
-                        $_SESSION['f_price3']=$result2_price[3]*$_SESSION['f_num3'];
+                        $_SESSION['f_price3']=$result2_price[3]*$_SESSION['f_num3'];}
                         
                     ?>            
                     <input type="submit" name="f_plus3" value="+" class="button">
                     <?php
+                    if($result2_stock[3]<=0){
+                        echo "<br>not available";
+                    }else{
                     $_SESSION['f_stock3']=$result2_stock[3]-$_SESSION['f_num3'];
-                    echo "<br>stock: ".$_SESSION['f_stock3'];
+                    echo "<br>stock: ".$_SESSION['f_stock3'];}
                       ?>
                 
                     <input type="hidden" name="amenity_id_f3" value="<?php echo $result2_id[3]; ?>">
@@ -415,7 +447,7 @@ error_reporting(0);
     <p>Drinks</p>
             <div class="amty">
                 <?php
-                $sql1 = "SELECT * FROM amenities WHERE amenity_type = 'Drinks' AND stock>=0";
+                $sql1 = "SELECT * FROM amenities WHERE amenity_type = 'Drinks'";
                 $result3 = $conn->query($sql1);
                 $result3_id = array();
                 $result3_name = array();
@@ -438,6 +470,7 @@ error_reporting(0);
                     <?php
                         $_SESSION['d_num0']=((isset($_SESSION['d_num0']))?$_SESSION['d_num0']:0);
                         $_SESSION['d_price0']=((isset($_SESSION['d_num0']))?$_SESSION['d_num0']:0);
+                        if($result3_stock[0]>0){
                         if(isset($_POST['d_minus0'])){
                             if($_SESSION['d_num0']<=0){
                             $_SESSION['d_num0']=0;
@@ -449,12 +482,15 @@ error_reporting(0);
                             $_SESSION['d_num0']++;
                         }
                         echo $_SESSION['d_num0'];
-                        $_SESSION['d_price0']=$result3_price[0]*$_SESSION['d_num0'];
+                        $_SESSION['d_price0']=$result3_price[0]*$_SESSION['d_num0'];}
                     ?>            
                     <input type="submit" name="d_plus0" value="+" class="button">
                     <?php
+                    if($result3_stock[0]<=0){
+                        echo "<br>not available";
+                    }else{
                     $_SESSION['d_stock0']=$result3_stock[0]-$_SESSION['d_num0'];
-                    echo "<br>stock: ".$_SESSION['d_stock0'];
+                    echo "<br>stock: ".$_SESSION['d_stock0'];}
                       ?>
                 
                     <input type="hidden" name="amenity_id_d0" value="<?php echo $result3_id[0]; ?>">
@@ -475,6 +511,7 @@ error_reporting(0);
                     <?php
                         $_SESSION['d_num1']=((isset($_SESSION['d_num1']))?$_SESSION['d_num1']:0);
                         $_SESSION['d_price1']=((isset($_SESSION['d_num1']))?$_SESSION['d_num1']:0);
+                        if($result3_stock[1]>0){
                         if(isset($_POST['d_minus1'])){
                             if($_SESSION['d_num1']<=0){
                             $_SESSION['d_num1']=0;
@@ -486,13 +523,16 @@ error_reporting(0);
                             $_SESSION['d_num1']++;
                         }
                         echo $_SESSION['d_num1'];
-                        $_SESSION['d_price1']=$result3_price[1]*$_SESSION['d_num1'];
+                        $_SESSION['d_price1']=$result3_price[1]*$_SESSION['d_num1'];}
                         
                     ?>            
                     <input type="submit" name="d_plus1" value="+" class="button">
                     <?php
+                    if($result3_stock[1]<=0){
+                        echo "<br>not available";
+                    }else{
                     $_SESSION['d_stock1']=$result3_stock[1]-$_SESSION['d_num1'];
-                    echo "<br>stock: ".$_SESSION['d_stock1'];
+                    echo "<br>stock: ".$_SESSION['d_stock1'];}
                       ?>
                 
                     <input type="hidden" name="amenity_id_d1" value="<?php echo $result3_id[1]; ?>">
@@ -512,6 +552,7 @@ error_reporting(0);
                     <?php
                         $_SESSION['d_num2']=((isset($_SESSION['d_num2']))?$_SESSION['d_num2']:0);
                         $_SESSION['d_price2']=((isset($_SESSION['d_num2']))?$_SESSION['d_num2']:0);
+                        if($result3_stock[2]>0){
                         if(isset($_POST['d_minus2'])){
                             if($_SESSION['d_num2']<=0){
                             $_SESSION['d_num2']=0;
@@ -523,13 +564,16 @@ error_reporting(0);
                             $_SESSION['d_num2']++;
                         }
                         echo $_SESSION['d_num2'];
-                        $_SESSION['d_price2']=$result3_price[2]*$_SESSION['d_num2'];
+                        $_SESSION['d_price2']=$result3_price[2]*$_SESSION['d_num2'];}
                         
                     ?>            
                     <input type="submit" name="d_plus2" value="+" class="button">
                     <?php
+                    if($result3_stock[2]<=0){
+                        echo "<br>not available";
+                    }else{
                     $_SESSION['d_stock2']=$result3_stock[2]-$_SESSION['d_num2'];
-                    echo "<br>stock: ".$_SESSION['d_stock2'];
+                    echo "<br>stock: ".$_SESSION['d_stock2'];}
                       ?>
                 
                     <input type="hidden" name="amenity_id_d2" value="<?php echo $result3_id[2]; ?>">
@@ -548,6 +592,7 @@ error_reporting(0);
                     <?php
                         $_SESSION['d_num3']=((isset($_SESSION['d_num3']))?$_SESSION['d_num3']:0);
                         $_SESSION['d_price3']=((isset($_SESSION['d_num3']))?$_SESSION['d_num3']:0);
+                        if($result3_stock[3]>0){
                         if(isset($_POST['d_minus3'])){
                             if($_SESSION['d_num3']<=0){
                             $_SESSION['d_num3']=0;
@@ -559,13 +604,16 @@ error_reporting(0);
                             $_SESSION['d_num3']++;
                         }
                         echo $_SESSION['d_num3'];
-                        $_SESSION['d_price3']=$result3_price[3]*$_SESSION['d_num3'];
+                        $_SESSION['d_price3']=$result3_price[3]*$_SESSION['d_num3'];}
                         
                     ?>            
                     <input type="submit" name="d_plus3" value="+" class="button">
                     <?php
+                    if($result3_stock[3]<=0){
+                        echo "<br>not available";
+                    }else{
                     $_SESSION['d_stock3']=$result3_stock[3]-$_SESSION['d_num3'];
-                    echo "<br>stock: ".$_SESSION['d_stock3'];
+                    echo "<br>stock: ".$_SESSION['d_stock3'];}
                       ?>
                 
                     <input type="hidden" name="amenity_id_d3" value="<?php echo $result3_id[3]; ?>">
@@ -579,7 +627,7 @@ error_reporting(0);
             <p>Extras</p>
             <div class="amty">
                 <?php
-                $sql1 = "SELECT * FROM amenities WHERE amenity_type = 'Extras' AND stock>=0";
+                $sql1 = "SELECT * FROM amenities WHERE amenity_type = 'Extras'";
                 $result4 = $conn->query($sql1);
                 $result4_id = array();
                 $result4_name = array();
@@ -602,6 +650,7 @@ error_reporting(0);
                     <?php
                         $_SESSION['e_num0']=((isset($_SESSION['e_num0']))?$_SESSION['e_num0']:0);
                         $_SESSION['e_price0']=((isset($_SESSION['e_num0']))?$_SESSION['e_num0']:0);
+                        if($result4_stock[0]>0){
                         if(isset($_POST['e_minus0'])){
                             if($_SESSION['e_num0']<=0){
                             $_SESSION['e_num0']=0;
@@ -613,12 +662,15 @@ error_reporting(0);
                             $_SESSION['e_num0']++;
                         }
                         echo $_SESSION['e_num0'];
-                        $_SESSION['e_price0']=$result4_price[0]*$_SESSION['e_num0'];
+                        $_SESSION['e_price0']=$result4_price[0]*$_SESSION['e_num0'];}
                     ?>            
                     <input type="submit" name="e_plus0" value="+" class="button">
                     <?php
+                    if($result4_stock[0]<=0){
+                        echo "<br>not available";
+                    }else{
                     $_SESSION['e_stock0']=$result4_stock[0]-$_SESSION['e_num0'];
-                    echo "<br>stock: ".$_SESSION['e_stock0'];
+                    echo "<br>stock: ".$_SESSION['e_stock0'];}
                       ?>
                 
                     <input type="hidden" name="amenity_id_e0" value="<?php echo $result4_id[0]; ?>">
@@ -639,6 +691,7 @@ error_reporting(0);
                     <?php
                         $_SESSION['e_num1']=((isset($_SESSION['e_num1']))?$_SESSION['e_num1']:0);
                         $_SESSION['e_price1']=((isset($_SESSION['e_num1']))?$_SESSION['e_num1']:0);
+                        if($result4_stock[1]>0){
                         if(isset($_POST['e_minus1'])){
                             if($_SESSION['e_num1']<=0){
                             $_SESSION['e_num1']=0;
@@ -650,13 +703,16 @@ error_reporting(0);
                             $_SESSION['e_num1']++;
                         }
                         echo $_SESSION['e_num1'];
-                        $_SESSION['e_price1']=$result4_price[0]*$_SESSION['e_num1'];
+                        $_SESSION['e_price1']=$result4_price[0]*$_SESSION['e_num1'];}
                         
                     ?>            
                     <input type="submit" name="e_plus1" value="+" class="button">
                     <?php
+                    if($result4_stock[1]<=0){
+                        echo "<br>not available";
+                    }else{
                     $_SESSION['e_stock1']=$result4_stock[1]-$_SESSION['e_num1'];
-                    echo "<br>stock: ".$_SESSION['e_stock1'];
+                    echo "<br>stock: ".$_SESSION['e_stock1'];}
                       ?>
                 
                     <input type="hidden" name="amenity_id_e1" value="<?php echo $result4_id[1]; ?>">
