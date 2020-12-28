@@ -34,15 +34,15 @@
             }
         ?>
         <nav>
-            <ul>
-                <li id="logoli"><img src="assets/bookIT_Logo.png"></li>
-                <li><a href="receptionist_dashboard.php">Dashboard</a></li>
-                <li><a href="receptionist_checkin.php">Check In</a></li>
-                <li><a href="#">Check Out</a></li>
-                <li><a href="receptionist_reservation.php">Reservation</a></li>
-                <li><a href="receptionist_records.php">Records</a></li>
-                <li><a href="receptionist_toDoList.php">To Do List</a></li>
-                <li><a href="receptionist_guests.php">Guests</a></li>
+        <ul>
+        <li id="logoli"><a href="receptionist_dashboard.php"><img src="assets/bookIT_Logo.png"></li>
+                <li><a class="navli" href="receptionist_dashboard.php">Dashboard</a></li>
+                <li><a class="navli" href="receptionist_checkin.php">Check In</a></li>
+                <li><a class="navli" href="receptionist_checkout.php">Check Out</a></li>
+                <li><a class="navli" href="receptionist_reservation.php">Reservation</a></li>
+                <li><a class="navli" href="receptionist_records.php">Records</a></li>
+                <li><a class="navli" href="receptionist_toDoList.php">To Do List</a></li>
+                <li><a class="navli" href="receptionist_guests.php">Guests</a></li>
             </ul>
         </nav>
         <div id="content">
@@ -111,8 +111,8 @@
                                             <td>".$row["payables"]."</td>
                                             <td>".$row["room_cost"]."</td>
                                             <td>".$row["total_amount"]."</td>
-                                            <td><input type='number' name='newPay' value=".$row["payment_amount"].">
-                                                <input type='submit' class='Greenbutton' name='updatePay' value='Update Payment'></td>
+                                            <td><input type='number' class='restocknum' name='newPay' value=".$row["payment_amount"].">
+                                                <input type='submit' class='Greenbutton1' name='updatePay' value='Update Payment'></td>
                                             <td><input type='submit' class='Checkoutbutton' name='remove' value='Check Out'></td> 
                                         </tr>    
                                             <input type='hidden' name='guestID' value='{$row['guest_id']}'>
@@ -175,26 +175,26 @@
                     while($row = mysqli_fetch_assoc($result)){
                         echo "
                         
-                            <form action='' method='POST'>
-                                <tr>
-                                    <td>".$row["room_id"]."</td> 
-                                    <td>".$row["guest_id"]."</td>
-                                    <td>".$row["fname"]." ".$row["lname"]."</td>
-                                    <td>".$row["payables"]."</td>
-                                    <td>".$row["room_cost"]."</td>
-                                    <td>".$row["total_amount"]."</td>
-                                    <td><input type='number' name='newPay' value=".$row["payment_amount"].">
-                                        <input type='submit' name='updatePay' value='Update Payment'></td>
-                                    <td><input type='submit' name='remove' value='Check Out'></td> 
-                                </tr>    
-                                    <input type='hidden' name='guestID' value='{$row['guest_id']}'>
-                                    <input type='hidden' name='roomID' value='{$row['room_id']}'>
-                                    <input type='hidden' name='date' value='{$row['date']}'>
-                                    <input type='hidden' name='time' value='{$row['time']}'>
-                                    <input type='hidden' name='payAmount' value='{$row['payment_amount']}'>
-                                    <input type='hidden' name='totAmount' value='{$row['total_amount']}'>
-                                    <input type='hidden' name='payID' value='{$row['payment_id']}'>                               
-                            </form>                    
+                        <form action='' method='POST'>
+                        <tr>
+                            <td>".$row["room_id"]."</td> 
+                            <td>".$row["guest_id"]."</td>
+                            <td>".$row["fname"]." ".$row["lname"]."</td>
+                            <td>".$row["payables"]."</td>
+                            <td>".$row["room_cost"]."</td>
+                            <td>".$row["total_amount"]."</td>
+                            <td><input type='number' class='restocknum' name='newPay' value=".$row["payment_amount"].">
+                                <input type='submit' class='Greenbutton1' name='updatePay' value='Update Payment'></td>
+                            <td><input type='submit' class='Checkoutbutton' name='remove' value='Check Out'></td> 
+                        </tr>    
+                            <input type='hidden' name='guestID' value='{$row['guest_id']}'>
+                            <input type='hidden' name='roomID' value='{$row['room_id']}'>
+                            <input type='hidden' name='date' value='{$row['date']}'>
+                            <input type='hidden' name='time' value='{$row['time']}'>
+                            <input type='hidden' name='payAmount' value='{$row['payment_amount']}'>
+                            <input type='hidden' name='totAmount' value='{$row['total_amount']}'>
+                            <input type='hidden' name='payID' value='{$row['payment_id']}'>                               
+                    </form>                    
                         ";
                     }
                     echo "</table>";

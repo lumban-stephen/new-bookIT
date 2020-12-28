@@ -42,15 +42,15 @@
             }
         ?>
         <nav>
-            <ul>
-                <li id="logoli"><img src="assets/bookIT_Logo.png"></li>
-                <li><a href="receptionist_dashboard.php">Dashboard</a></li>
-                <li><a href="receptionist_checkin.php">Check In</a></li>
-                <li><a href="receptionist_checkout.php">Check Out</a></li>
-                <li><a href="receptionist_reservation.php">Reservation</a></li>
-                <li><a href="receptionist_records.php">Records</a></li>
-                <li><a href="receptionist_toDoList.php">To Do List</a></li>
-                <li><a href="receptionist_guests.php">Guests</a></li>
+        <ul>
+                <li id="logoli"><a href="receptionist_dashboard.php"><img src="assets/bookIT_Logo.png"></li>
+                <li><a class="navli" href="receptionist_dashboard.php">Dashboard</a></li>
+                <li><a class="navli" href="receptionist_checkin.php">Check In</a></li>
+                <li><a class="navli" href="receptionist_checkout.php">Check Out</a></li>
+                <li><a class="navli" href="receptionist_reservation.php">Reservation</a></li>
+                <li><a class="navli" href="receptionist_records.php">Records</a></li>
+                <li><a class="navli" href="receptionist_toDoList.php">To Do List</a></li>
+                <li><a class="navli" href="receptionist_guests.php">Guests</a></li>
             </ul>
         </nav>
         <div id="content">
@@ -63,8 +63,7 @@
             ob_start();
             
             echo "<form method='post' action=''>  
-                <label class='Labelform'>First Name</label>
-                <input type='text' class='mngt' name='fname' value='{$_SESSION['fname']}'>
+                <label class='Labelform'>First Name</label><input type='text' class='mngt' name='fname' value='{$_SESSION['fname']}'>
                 <br>
 
                 <label class='Labelform'>Last Name</label><input type='text' class='mngt' name='lname' value='{$_SESSION['lname']}'><br>
@@ -101,13 +100,13 @@ if(isset($_POST['update'])){
     }
 
             echo "<hr>
-                <label  class='Labelform'>Room Selected</label>".$_SESSION['room_id']."
+                <label  class='Labelform'>Room Selected</label>  ".$_SESSION['room_id']."
                 <br>
-                <label class='Labelform'>Check-in</label>  ".$_SESSION['checkin']."  <input type='date' name='checkin' class='mngt'>
+                <label class='Labelform'>Check-in</label>  ".$_SESSION['checkin']."<input type='date' name='checkin' class='mngt'>
                 
-                <label class='Labelform'>Check-out</label>  ".$_SESSION['checkout']."  <input type='date' name='checkout' class='mngt'>
+                <label class='Labelform'>Check-out</label>  ".$_SESSION['checkout']."<input type='date' name='checkout' class='mngt'>
                 
-                <label class='Labelform'>Number of Guests</label>  ".$_SESSION['numguest']."  <select name='numguest' class='mngt' style='width:10%;'>
+                <label class='Labelform'>Number of Guests</label>  ".$_SESSION['numguest']."<select name='numguest' class='mngt' style='width:10%;'>
     <option value='Select'>Select</option>
     <option value='1'>1</option>
     <option value='2'>2</option>
@@ -187,7 +186,7 @@ header("location:receptionist_update.php");
 
 ob_end_flush();
 ?>
-<a href='receptionist_res-list.php'>Back to Liservation List</a>
+<a href='receptionist_res-list.php'>Back to Reservation List</a>
 
                 
         </div>

@@ -14,14 +14,14 @@
         <style type="text/css">
         .grid-container {
         display: grid;
-        grid-template-columns: 20% 20% 20% 20%;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
         grid-gap: 10px;
         padding: 10px;
         }
 
 
         </style>
-    </head>
+   </head>
     <body>
         <header>
         <div id="header">
@@ -44,16 +44,16 @@
                 header("location:index.php");
             }
         ?>
-       <nav>
+        <nav>
             <ul>
-                <li id="logoli"><img src="assets/bookIT_Logo.png"></li>
-                <li><a href="receptionist_dashboard.php">Dashboard</a></li>
-                <li><a href="#">Check In</a></li>
-                <li><a href="receptionist_checkout.php">Check Out</a></li>
-                <li><a href="receptionist_reservation.php">Reservation</a></li>
-                <li><a href="receptionist_records.php">Records</a></li>
-                <li><a href="receptionist_toDoList.php">To Do List</a></li>
-                <li><a href="receptionist_guests.php">Guests</a></li>
+                <li id="logoli"><a href="receptionist_dashboard.php"><img src="assets/bookIT_Logo.png"></li>
+                <li><a class="navli" href="receptionist_dashboard.php">Dashboard</a></li>
+                <li><a class="navli" href="receptionist_checkin.php">Check In</a></li>
+                <li><a class="navli" href="receptionist_checkout.php">Check Out</a></li>
+                <li><a class="navli" href="receptionist_reservation.php">Reservation</a></li>
+                <li><a class="navli" href="receptionist_records.php">Records</a></li>
+                <li><a class="navli" href="receptionist_toDoList.php">To Do List</a></li>
+                <li><a class="navli" href="receptionist_guests.php">Guests</a></li>
             </ul>
         </nav>
         <div id="content">
@@ -113,8 +113,7 @@
 
 
     <form method="post" action="">  
-    <label class='Labelform'>Number of Guests</label>
-    <select name="numguest" class='booking' style = 'height:10%;'required >
+    <label class='Labelform'>Number of Guests</label><select name="numguest" class='bookingnum' style = 'height:10%;'required >
     <option value="Select" >Select</option>
     <option value="1">1</option>
     <option value="2">2</option>
@@ -124,14 +123,12 @@
     </select> 
     <br>
 
-    <label class='Labelform'>Check-in</label>
-    <input type="date" name="checkin" class='booking' required>
+    <label class='Labelform'>Check-in</label><input type="date" name="checkin" class='booking' required>
     <br>
 
-    <label class='Labelform'>Check-out</label>
-    <input type="date" name="checkout" class='booking' required>
+    <label class='Labelform'>Check-out</label><input type="date" name="checkout" class='booking' required>
     <br><br>
-    <button type="submit" name="search" class="Offerbutton">SEARCH</button>
+    <button type="submit" name="search" class="searchbutton">SEARCH</button>
         
     </form>
 

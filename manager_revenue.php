@@ -44,15 +44,15 @@
             }
         ?>
         <nav>
-            <ul>
+        <ul>
                 <li id="logoli"><img src="assets/bookIT_Logo.png"></li>
-                <li><a href="manager_dashboard.php">Dashboard</a></li>
-                <li><a href="#">Revenue</a></li>
-                <li><a href="manager_records.php">Records</a></li>
-                <li><a href="manager_guests.php">Guests</a></li>
-                <li><a href="manager_room-mgt.php">Room Management</a></li>
-                <li><a href="manager_staff.php">Staff Management</a></li>
-                <li><a href="manager_restock.php">Restock Amenities</a></li>
+                <li><a class="navli" href="manager_dashboard.php">Dashboard</a></li>
+                <li><a class="navli" href="#">Revenue</a></li>
+                <li><a class="navli" href="manager_records.php">Records</a></li>
+                <li><a class="navli" href="manager_guests.php">Guests</a></li>
+                <li><a class="navli" href="manager_room-mgt.php">Room Management</a></li>
+                <li><a class="navli" href="manager_staff.php">Staff Management</a></li>
+                <li><a class="navli" href="manager_restock.php">Restock Amenities</a></li>
             </ul>
         </nav>
         <div id="content">

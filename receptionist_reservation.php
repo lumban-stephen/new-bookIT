@@ -44,44 +44,41 @@
         ?>
         <nav>
             <ul>
-                <li id="logoli"><img src="assets/bookIT_Logo.png"></li>
-                <li><a href="receptionist_dashboard.php">Dashboard</a></li>
-                <li><a href="receptionist_checkin.php">Check In</a></li>
-                <li><a href="receptionist_checkout.php">Check Out</a></li>
-                <li><a href="receptionist_reservation.php">Reservation</a></li>
-                <li><a href="receptionist_records.php">Records</a></li>
-                <li><a href="receptionist_toDoList.php">To Do List</a></li>
-                <li><a href="receptionist_guests.php">Guests</a></li>
+                <li id="logoli"><a href="receptionist_dashboard.php"><img src="assets/bookIT_Logo.png"></li>
+                <li><a class="navli" href="receptionist_dashboard.php">Dashboard</a></li>
+                <li><a class="navli" href="receptionist_checkin.php">Check In</a></li>
+                <li><a class="navli" href="receptionist_checkout.php">Check Out</a></li>
+                <li><a class="navli" href="receptionist_reservation.php">Reservation</a></li>
+                <li><a class="navli" href="receptionist_records.php">Records</a></li>
+                <li><a class="navli" href="receptionist_toDoList.php">To Do List</a></li>
+                <li><a class="navli" href="receptionist_guests.php">Guests</a></li>
             </ul>
         </nav>
         <div id="content">
             <!--Code Here only-->
             <!--Reservation page code in here-->
             <form method="post" action="">  
-            <label class='Labelform'>Number of Guests</label>
-            <select name="numguest" class="booking" style='height: 10%;' required>
-                <option value="Select">Select</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>  
-            </select> 
-            <br><br>
+                <label class='Labelform'>Number of Guests</label><select name="numguest" class="booking" style='height: 10%;' required>
+                    <option value="Select">Select</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>  
+                </select> 
+                <br><br>
 
-<label class='Labelform'>Check-in</label>
-        <input type="date" name="checkin" class="booking" required>
-        <br><br>
+                <label class='Labelform'>Check-in</label><input type="date" name="checkin" class="booking" required>
+                <br><br>
 
-        <label class='Labelform'>Check-out</label>
-        <input type="date" name="checkout" class="booking" required>
-        <br><br>
+                <label class='Labelform'>Check-out</label><input type="date" name="checkout" class="booking" required>
+                <br><br>
 
-        <button type="submit" name="submit" class="Offerbutton">SEARCH</button>
+                <button type="submit" name="submit" class="searchbutton">SEARCH</button>
 
-        <button class="Viewbutton"><a href="receptionist_res-list.php">Reservation List</a></button>
-        <br><br>
-</form>
+                <button class="Viewbutton"><a href="receptionist_res-list.php">Reservation List</a></button>
+                <br><br>
+            </form>
 
 
     <?php
