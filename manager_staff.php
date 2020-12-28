@@ -130,7 +130,7 @@ if (isset($_GET['edit'])) {
                     if($update == true):
                 ?>
                 <button type="submit" class="Greenbutton" name="update" >Update</button>
-                <button class="Checkoutbutton" name="cancel" >Cancel</button>
+                <a class="Checkoutbutton" href="manager_staff.php">Cancel</a>
                 <?php else: ?>
                 <button type="submit" class="Greenbutton" name="save" >Save</button>
                 <?php endif; ?></span>
