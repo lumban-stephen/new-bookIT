@@ -23,7 +23,7 @@
                 </a>
             </div>
             <div class="right-float">
-                <p>Welcome Receptionist  </p>
+                <p>Welcome Manager</p>
             </div>
         </div>
         </header>
@@ -33,16 +33,16 @@
                 header("location:index.php");
             }
         ?>
-       <nav>
-            <ul>
-                <li id="logoli"><img src="assets/bookIT_Logo.png"></li>
-                <li><a href="receptionist_dashboard.php">Dashboard</a></li>
-                <li><a href="#">Check In</a></li>
-                <li><a href="receptionist_checkout.php">Check Out</a></li>
-                <li><a href="receptionist_reservation.php">Reservation</a></li>
-                <li><a href="receptionist_records.php">Records</a></li>
-                <li><a href="receptionist_toDoList.php">To Do List</a></li>
-                <li><a href="receptionist_guests.php">Guests</a></li>
+        <nav>
+        <ul>
+                <li id="logoli"><a href="receptionist_dashboard.php"><img src="assets/bookIT_Logo.png"></li>
+                <li><a class="navli" href="receptionist_dashboard.php">Dashboard</a></li>
+                <li><a class="navli" href="receptionist_checkin.php">Check In</a></li>
+                <li><a class="navli" href="receptionist_checkout.php">Check Out</a></li>
+                <li><a class="navli" href="receptionist_reservation.php">Reservation</a></li>
+                <li><a class="navli" href="receptionist_records.php">Records</a></li>
+                <li><a class="navli" href="receptionist_toDoList.php">To Do List</a></li>
+                <li><a class="navli" href="#">Guests</a></li>
             </ul>
         </nav>
         <div id="content">
@@ -143,7 +143,7 @@
                                     r.room_id as 'Room Number', 
                                     g.guest_id AS 'guest_id',
                                     b.bill_id as 'bill_id',
-                                    CURRENT_DATE as 'date'
+                                    CURDATE() as 'date'
                     FROM
                             Schedule s, Guests g, Customers c,
                             Rooms r,bill b
@@ -197,11 +197,14 @@
                         $guest_id = $_POST['guest_id'];
                         $date = $_POST['Date'];
                         
-                        $updateDate = " UPDATE guests SET date_out = '$date' WHERE guest_id = $guest_id";
+                        $updateDate = " UPDATE guests 
+                                        SET date_out = $date,
+                                            guest_status = 'INCOMPLETE' 
+                                        WHERE guest_id = $guest_id";
                     
                             if ($conn->query($updateDate) === TRUE) {
                                 echo "<script language='javascript'>
-                                            window.location.href='receptionist_checkout.php';
+                                            window.location.href='manager_checkout.php';
                                             alert('Early Checkout Date Update is successful');
                                     </script>";
                             } else {
@@ -229,7 +232,7 @@
 
 
 
-                    header("location:manager_ameneties.php");
+                    header("location:receptionist_ameneties.php");
                     }
 
 

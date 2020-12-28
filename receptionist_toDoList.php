@@ -34,15 +34,15 @@
             }
         ?>
         <nav>
-            <ul>
-                <li id="logoli"><img src="assets/bookIT_Logo.png"></li>
-                <li><a href="receptionist_dashboard.php">Dashboard</a></li>
-                <li><a href="receptionist_checkin.php">Check In</a></li>
-                <li><a href="receptionist_checkout.php">Check Out</a></li>
-                <li><a href="receptionist_reservation.php">Reservation</a></li>
-                <li><a href="receptionist_records.php">Records</a></li>
-                <li><a href="#">To Do List</a></li>
-                <li><a href="receptionist_guests.php">Guests</a></li>
+        <ul>
+                <li id="logoli"><a href="receptionist_dashboard.php"><img src="assets/bookIT_Logo.png"></li>
+                <li><a class="navli" href="receptionist_dashboard.php">Dashboard</a></li>
+                <li><a class="navli" href="receptionist_checkin.php">Check In</a></li>
+                <li><a class="navli" href="receptionist_checkout.php">Check Out</a></li>
+                <li><a class="navli" href="receptionist_reservation.php">Reservation</a></li>
+                <li><a class="navli" href="receptionist_records.php">Records</a></li>
+                <li><a class="navli" href="#">To Do List</a></li>
+                <li><a class="navli" href="receptionist_guests.php">Guests</a></li>
             </ul>
         </nav>
         <div id="content">
@@ -51,7 +51,7 @@
 
     <?php
         include 'connection.php';
-        //error_reporting(0);
+        error_reporting(0);
 
         $sql = "SELECT task_id,task_name,task_desc
     FROM task 
@@ -81,14 +81,15 @@
         $prepare1= $conn->prepare("UPDATE task SET task_status =? WHERE task_id=?");
             $prepare1->bind_param("si", $task_status, $task_id);
             $prepare1->execute();
+        header("location:receptionist_toDoList.php");
     }
 
 ?>
     
     <form action="" method="POST">
-        <input type="text" name="task_name" placeholder="task name" required>
+        <label class='Labelform'>Task name</label><input type="text" name="task_name" class="booking" placeholder="task name" required>
         <br>
-        <input type="text" name="task_desc" placeholder="task description" required>
+        <label class='Labelform'>Task description</label><input type="text" name="task_desc" class="booking" placeholder="task description" required>
         <br>
         <input type="submit" name="add" value="add" class="Greenbutton">
     </form>
@@ -103,6 +104,7 @@ if(isset($_POST['add'])){
         $prepare2 = $conn->prepare("INSERT INTO task(task_name,task_desc,task_status) VALUES (?,?,?)");
             $prepare2->bind_param("sss",$task_name,$task_desc,$task_status);
             $prepare2->execute();
+        header("location:receptionist_toDoList.php");
 }
 
 

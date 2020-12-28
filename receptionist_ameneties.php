@@ -10,7 +10,6 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>BookIT</title>
-        
         <link rel="stylesheet" href="ameneties.css">
 <style type="text/css">
 .grid-container {
@@ -47,14 +46,14 @@
         ?>
         <nav>
             <ul>
-                <li id="logoli"><img src="assets/bookIT_Logo.png"></li>
-                <li><a href="receptionist_dashboard.php">Dashboard</a></li>
-                <li><a href="receptionist_checkin.php">Check In</a></li>
-                <li><a href="receptionist_checkout.php">Check Out</a></li>
-                <li><a href="receptionist_reservation.php">Reservation</a></li>
-                <li><a href="receptionist_records.php">Records</a></li>
-                <li><a href="receptionist_toDoList.php">To Do List</a></li>
-                <li><a href="receptionist_guests.php">Guests</a></li>
+                <li id="logoli"><a href="receptionist_dashboard.php"><img src="assets/bookIT_Logo.png"></li>
+                <li><a class="navli" href="receptionist_dashboard.php">Dashboard</a></li>
+                <li><a class="navli" href="receptionist_checkin.php">Check In</a></li>
+                <li><a class="navli" href="receptionist_checkout.php">Check Out</a></li>
+                <li><a class="navli" href="receptionist_reservation.php">Reservation</a></li>
+                <li><a class="navli" href="receptionist_records.php">Records</a></li>
+                <li><a class="navli" href="receptionist_toDoList.php">To Do List</a></li>
+                <li><a class="navli" href="receptionist_guests.php">Guests</a></li>
             </ul>
         </nav>
         <div id="content">
@@ -62,7 +61,7 @@
             <!--receptionist check in form page code in here-->
 <?php
 include 'connection.php';
-//error_reporting(0);
+error_reporting(0);
 
 ?>
 
@@ -71,7 +70,7 @@ include 'connection.php';
         <p>Hygiene</p>
             <div class="amty">
                 <?php
-                $sql1 = "SELECT * FROM amenities WHERE amenity_type = 'Hygiene'";
+                $sql1 = "SELECT * FROM amenities WHERE amenity_type = 'Hygiene' AND stock>=0";
                 $result1 = $conn->query($sql1);
                 $result1_id = array();
                 $result1_name = array();
@@ -236,7 +235,7 @@ include 'connection.php';
         <p>Food</p>
             <div class="amty">
                 <?php
-                $sql1 = "SELECT * FROM amenities WHERE amenity_type = 'Foods'";
+                $sql1 = "SELECT * FROM amenities WHERE amenity_type = 'Foods' AND stock>=0";
                 $result2 = $conn->query($sql1);
                 $result2_id = array();
                 $result2_name = array();
@@ -251,7 +250,7 @@ include 'connection.php';
 
     <div class="amty">
                 <?php
-                $sql1 = "SELECT * FROM amenities WHERE amenity_type = 'Foods'";
+                $sql1 = "SELECT * FROM amenities WHERE amenity_type = 'Foods' AND stock>=0";
                 $result2 = $conn->query($sql1);
                 $result2_id = array();
                 $result2_name = array();
@@ -416,7 +415,7 @@ include 'connection.php';
     <p>Drinks</p>
             <div class="amty">
                 <?php
-                $sql1 = "SELECT * FROM amenities WHERE amenity_type = 'Drinks'";
+                $sql1 = "SELECT * FROM amenities WHERE amenity_type = 'Drinks' AND stock>=0";
                 $result3 = $conn->query($sql1);
                 $result3_id = array();
                 $result3_name = array();
@@ -580,7 +579,7 @@ include 'connection.php';
             <p>Extras</p>
             <div class="amty">
                 <?php
-                $sql1 = "SELECT * FROM amenities WHERE amenity_type = 'Extras' ";
+                $sql1 = "SELECT * FROM amenities WHERE amenity_type = 'Extras' AND stock>=0";
                 $result4 = $conn->query($sql1);
                 $result4_id = array();
                 $result4_name = array();
@@ -697,17 +696,16 @@ include 'connection.php';
                     }
                     $pre_total=$room_fee+$total_amenty;
 
-                    $_SESSION['total']=$_SESSION['total_amenity']+$room_fee;
+                    $_SESSION['total']=$_SESSION['total_amenity']+$pre_total;
 
                     echo "<p>Guest Name:".$_SESSION['fname']." ".$_SESSION['mname']." ".$_SESSION['lname']." </p>
                      <p>Bill ID: ".$_SESSION['bill_id']."</p>
                      <p>Total Amount: ".$_SESSION['total']."(previous total: ".$pre_total.")</p>";
-                     echo "aaa".$_SESSION['guest_id'];
+                    
 
                       ?>
                     
                     <button type='submit' name='process'class="amty-btn bluegray">Process Order</button>
-                    <button type='submit' name='checkin' class="amty-btn green">Check in</button>
                     </form>
 
     <?php
@@ -894,16 +892,9 @@ include 'connection.php';
         
         unset($_SERVER['PHP_SELF']);
         session_destroy();
-        header("location:receptionist_dashboard.php");
+        header("location:receptionist_guests.php");
         
     }
-
-    if(isset($_POST['checkin'])){
-        unset($_SERVER['PHP_SELF']);
-        session_destroy();
-        header("location:receptionist_dashboard.php");
-    }
-
 
 ob_end_flush();
       ?>

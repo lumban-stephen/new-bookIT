@@ -10,18 +10,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>BookIT</title>
         <link rel="stylesheet" href="style.css">
-        <link rel="stylesheet" href="ameneties.css">
         <style type="text/css">
         .grid-container {
         display: grid;
-        grid-template-columns: 20% 20% 20% 20%;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
         grid-gap: 10px;
         padding: 10px;
         }
-
-
         </style>
-    </head>
+   </head>
     <body>
         <header>
         <div id="header">
@@ -44,16 +41,16 @@
                 header("location:index.php");
             }
         ?>
-       <nav>
+        <nav>
             <ul>
-                <li id="logoli"><img src="assets/bookIT_Logo.png"></li>
-                <li><a href="receptionist_dashboard.php">Dashboard</a></li>
-                <li><a href="#">Check In</a></li>
-                <li><a href="receptionist_checkout.php">Check Out</a></li>
-                <li><a href="receptionist_reservation.php">Reservation</a></li>
-                <li><a href="receptionist_records.php">Records</a></li>
-                <li><a href="receptionist_toDoList.php">To Do List</a></li>
-                <li><a href="receptionist_guests.php">Guests</a></li>
+                <li id="logoli"><a href="receptionist_dashboard.php"><img src="assets/bookIT_Logo.png"></li>
+                <li><a class="navli" href="receptionist_dashboard.php">Dashboard</a></li>
+                <li><a class="navli" href="receptionist_checkin.php">Check In</a></li>
+                <li><a class="navli" href="receptionist_checkout.php">Check Out</a></li>
+                <li><a class="navli" href="receptionist_reservation.php">Reservation</a></li>
+                <li><a class="navli" href="receptionist_records.php">Records</a></li>
+                <li><a class="navli" href="receptionist_toDoList.php">To Do List</a></li>
+                <li><a class="navli" href="receptionist_guests.php">Guests</a></li>
             </ul>
         </nav>
         <div id="content">
@@ -83,6 +80,7 @@
     $result1 = $conn->query($sql1); 
 
     if(mysqli_num_rows($result1) > 0){
+        echo "Available Rooms<br><br>";
         echo "<div class='grid-container'>";
     while($row = $result1->fetch_assoc()){
                 
@@ -96,6 +94,9 @@
     }else{
         echo 'No available room.';
     }
+    echo "<br><br>
+              <hr>
+              <br><br>";
     }
 
      if(isset($_POST['select'])){  
@@ -107,32 +108,27 @@
         
         ?>
 
-    <br><br>
-    <hr>
-    <br><br>
+    
 
 
     <form method="post" action="">  
-    <label>Number of Guests</label>
-    <select name="numguest" required>
-    <option value="Select">Select</option>
+    <label class='Labelform'>Number of Guests</label><select name="numguest" class='bookingnum' style = 'height:10%;'required >
+    <option value="Select" >Select</option>
     <option value="1">1</option>
     <option value="2">2</option>
     <option value="3">3</option>
     <option value="4">4</option>
     <option value="5">5</option>  
     </select> 
-    <br><br>
+    <br>
 
-    <label>Check-in</label><br>
-    <input type="date" name="checkin" required>
-    <br><br>
+    <label class='Labelform'>Check-in</label><input type="date" name="checkin" class='booking' required>
+    <br>
 
-    <label>Check-out</label><br>
-    <input type="date" name="checkout" required>
+    <label class='Labelform'>Check-out</label><input type="date" name="checkout" class='booking' required>
     <br><br>
-    <button type="submit" name="search" class="Offerbutton">SEARCH</button>
-        <br><br>
+    <button type="submit" name="search" class="searchbutton">SEARCH</button>
+        
     </form>
 
         </div>

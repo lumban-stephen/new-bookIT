@@ -17,13 +17,6 @@
   grid-gap: 10px;
   padding: 10px;
 }
-.grid-form {
-  display: grid;
-  grid-template-columns: 20% 20% 20%;
-  grid-gap: 10px;
-  padding: 10px;
-}
-
 </style>
     </head>
     <body>
@@ -49,15 +42,15 @@
             }
         ?>
         <nav>
-            <ul>
-                <li id="logoli"><img src="assets/bookIT_Logo.png"></li>
-                <li><a href="receptionist_dashboard.php">Dashboard</a></li>
-                <li><a href="receptionist_checkin.php">Check In</a></li>
-                <li><a href="receptionist_checkout.php">Check Out</a></li>
-                <li><a href="receptionist_reservation.php">Reservation</a></li>
-                <li><a href="receptionist_records.php">Records</a></li>
-                <li><a href="receptionist_toDoList.php">To Do List</a></li>
-                <li><a href="receptionist_guests.php">Guests</a></li>
+        <ul>
+                <li id="logoli"><a href="receptionist_dashboard.php"><img src="assets/bookIT_Logo.png"></li>
+                <li><a class="navli" href="receptionist_dashboard.php">Dashboard</a></li>
+                <li><a class="navli" href="receptionist_checkin.php">Check In</a></li>
+                <li><a class="navli" href="receptionist_checkout.php">Check Out</a></li>
+                <li><a class="navli" href="receptionist_reservation.php">Reservation</a></li>
+                <li><a class="navli" href="receptionist_records.php">Records</a></li>
+                <li><a class="navli" href="receptionist_toDoList.php">To Do List</a></li>
+                <li><a class="navli" href="receptionist_guests.php">Guests</a></li>
             </ul>
         </nav>
         <div id="content">
@@ -69,31 +62,59 @@
             error_reporting(0);
             ob_start();
             
-            echo "<form method='post' action='' enctype='multipart/form-data'>  
-                <label>First Name</label><br>".$_SESSION['fname']."
-                <input type='text' name='fname' class='button'>
-                <br><br>
+            echo "<form method='post' action=''>  
+                <label class='Labelform'>First Name</label><input type='text' class='mngt' name='fname' value='{$_SESSION['fname']}'>
+                <br>
 
-                <label>Last Name</label><br>".$_SESSION['lname']."<input type='text' name='lname' class='button'>
+                <label class='Labelform'>Last Name</label><input type='text' class='mngt' name='lname' value='{$_SESSION['lname']}'><br>
+                <label class='Labelform'>Middle Name</label><input type='text' class='mngt' name='mname' value='{$_SESSION['mname']}'>
                 <br><br>
-                <label>Middle Name</label><br>".$_SESSION['mname']."<input type='text' name='mname'>
-                <button type='submit' name='upname'  style='background-color: #81B1D5; padding: 5px; ' class='button'>Update</button>
-                <br><br>
+              
+                <label class='Labelform'>Phone Number</label><input type='number' name='phone' class='mngt' value='{$_SESSION['phone']}' style='width:20%;'>
 
-    <div class='grid-form'>
-                <span><label>Check-in</label><br>".$_SESSION['checkin']."<input type='date' name='checkin'></span>
+                <br>
+                <label class='Labelform'>E-mail</label><input type='email' name='email' class='mngt' value='{$_SESSION['email']}' style='width:30%;'>
                 
-                <span><label>Check-out</label><br>".$_SESSION['checkout']."<input type='date' name='checkout'></span>
+                <br>
                 
-                <span><label>Number of Guests</label><br>".$_SESSION['numguest']."<br><select name='numguest'>
+                <button type='submit' name='update' class='Greenbutton'><h3>Update</h3></button>
+            </form>";
+
+
+//update name
+if(isset($_POST['update'])){
+    $fname=$_POST['fname'];
+    $lname=$_POST['lname'];
+    $mname=$_POST['mname'];
+    $phone=$_POST['phone'];
+    $email=$_POST['email'];
+    $update= $conn->prepare("UPDATE customers SET fname =?,lname =?,MI =?,phone =?,email =? WHERE customer_id=?");
+        $update->bind_param("sssisi", $fname,$lname,$mname,$phone,$email,$_SESSION['customer_id']);
+        $update->execute();
+    $_SESSION['fname']=$fname;
+    $_SESSION['lname']=$lname;
+    $_SESSION['mname']=$mname;
+    $_SESSION['phone']=$phone;
+    $_SESSION['email']=$email;
+    header("location:receptionist_update.php");
+    }
+
+            echo "<hr>
+                <label  class='Labelform'>Room Selected</label>  ".$_SESSION['room_id']."
+                <br>
+                <label class='Labelform'>Check-in</label>  ".$_SESSION['checkin']."<input type='date' name='checkin' class='mngt'>
+                
+                <label class='Labelform'>Check-out</label>  ".$_SESSION['checkout']."<input type='date' name='checkout' class='mngt'>
+                
+                <label class='Labelform'>Number of Guests</label>  ".$_SESSION['numguest']."<select name='numguest' class='mngt' style='width:10%;'>
     <option value='Select'>Select</option>
     <option value='1'>1</option>
     <option value='2'>2</option>
     <option value='3'>3</option>
     <option value='4'>4</option>
     <option value='5'>5</option>  
-    </select></span> </div>
-    <button type='submit' name='search_room'  style='background-color: #003399; padding: 5px; ' class='button'>Search Room</button>";
+    </select></span><br>
+    <button type='submit' name='search_room'  style='background-color: #003399; padding: 5px; ' class='button'>Search Room</button><br><br>";
 
 if(isset($_POST['search_room'])){
     $checkin=$_POST['checkin'];
@@ -126,68 +147,8 @@ $sql1 = "SELECT r.room_id as 'room_id',t.room_desc AS room_desc
                 echo "</div>";
 
 }}
-            echo "<br><br>
-                <label>Room Selected</label><br>".$_SESSION['room_id']."
-                <br><br>
-                <label>Phone Number</label><br>".$_SESSION['phone']."<input type='number' name='phone' class='button'>
-                <button type='submit' name='upphone'  style='background-color: #81B1D5; padding: 5px; ' class='button'>Update</button>
-                <br><br>
-                <label>E-mail</label><br>".$_SESSION['email']."<input type='email' name='email' class='button'>
-                <button type='submit' name='upemail'  style='background-color: #81B1D5; padding: 5px; ' class='button'>Update</button>
-                <br><br>
-                
-                <a href='receptionist_res-list.php' class='Greenbutton' style='color: white;'>Back to Liservation List</a>
-                <br><br>
-            </form>";
+            
 
-//update name
-if(isset($_POST['upname'])){
-    if(isset($_POST['fname'])){
-    $fname=$_POST['fname'];
-    $prepare= $conn->prepare("UPDATE customers SET fname =? WHERE customer_id=?");
-        $prepare->bind_param("si", $fname, $_SESSION['customer_id']);
-        $prepare->execute();
-    $_SESSION['fname']=$fname;
-}
-
-if(isset($_POST['lname'])){
-    $lname=$_POST['lname'];
-    $prepare= $conn->prepare("UPDATE customers SET lname =? WHERE customer_id=?");
-        $prepare->bind_param("si", $lname, $_SESSION['customer_id']);
-        $prepare->execute();
-    $_SESSION['lname']=$lname;
-    header("location:receptionist_update.php");
-}
-
-if(isset($_POST['mname'])){
-    $mname=$_POST['mname'];
-    $prepare= $conn->prepare("UPDATE customers SET MI =? WHERE customer_id=?");
-        $prepare->bind_param("si", $mname, $_SESSION['customer_id']);
-        $prepare->execute();
-    $_SESSION['mname']=$mname;
-    header("location:receptionist_update.php");
-}
-}
-
-if(isset($_POST['upphone'])){
-    $phone=$_POST['phone'];
-    $prepare= $conn->prepare("UPDATE customers SET phone =? WHERE customer_id=?");
-        $prepare->bind_param("ii", $phone, $_SESSION['customer_id']);
-        $prepare->execute();
-    $_SESSION['phone']=$phone;
-    header("location:receptionist_update.php");
-}
-
-
-
-if(isset($_POST['upemail'])){
-    $email=$_POST['email'];
-    $prepare= $conn->prepare("UPDATE customers SET email =? WHERE customer_id=?");
-        $prepare->bind_param("si", $email, $_SESSION['customer_id']);
-        $prepare->execute();
-    $_SESSION['email']=$email;
-    header("location:receptionist_update.php");
-}
 
 if(isset($_POST['select'])){
     $room_id=$_POST['room_id'];
@@ -216,20 +177,16 @@ $prepare02= $conn->prepare("UPDATE payments SET payment_amount =?
         $prepare02->bind_param("ii", $payment, $payment_id);
         $prepare02->execute();
     $_SESSION['room_id']=$room_id;
+header("location:receptionist_update.php");
 
 }
-
-    if(isset($_POST['back'])){
-        header("location:receptionist_res-list.php");
-        
-        }
 
 
 
 
 ob_end_flush();
 ?>
-
+<a href='receptionist_res-list.php'>Back to Reservation List</a>
 
                 
         </div>
