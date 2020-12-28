@@ -111,6 +111,7 @@
                     if($update == true):
                 ?>
                 <button type="submit" class="Greenbutton" name="update" >Update</button>
+                <button type="submit" class="Greenbutton" name="save" >Save</button>
                 <?php else: ?>
                 <button type="submit" class="Greenbutton" name="save" >Save</button>
                 <?php endif; ?></span>
