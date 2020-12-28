@@ -23,7 +23,7 @@
                 </a>
             </div>
             <div class="right-float">
-                <p>Welcome Manager</p>
+                <p>Welcome Receptionist  </p>
             </div>
         </div>
         </header>
@@ -190,7 +190,7 @@
                     $guest_id=$_POST['guest_id'];
                     $_SESSION['guest_id']=$guest_id;
                     $_SESSION['customer_id']=$customer_id;
-                    header("location:manager_extend.php");
+                    header("location:receptionist_extend.php");
                     } 
 
                     if(isset($_POST['checkout'])){

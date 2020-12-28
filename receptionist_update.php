@@ -99,14 +99,14 @@ if(isset($_POST['update'])){
     header("location:receptionist_update.php");
     }
 
-            echo "<hr>
+            echo "<hr><form method='post' action=''>
                 <label  class='Labelform'>Room Selected</label>  ".$_SESSION['room_id']."
                 <br>
-                <label class='Labelform'>Check-in</label>  ".$_SESSION['checkin']."<input type='date' name='checkin' class='mngt'>
+                <label class='Labelform'>Check-in</label>  ".$_SESSION['checkin']."<input type='date' name='checkin' class='mngt' required>
                 
-                <label class='Labelform'>Check-out</label>  ".$_SESSION['checkout']."<input type='date' name='checkout' class='mngt'>
+                <label class='Labelform'>Check-out</label>  ".$_SESSION['checkout']."<input type='date' name='checkout' class='mngt' required>
                 
-                <label class='Labelform'>Number of Guests</label>  ".$_SESSION['numguest']."<select name='numguest' class='mngt' style='width:10%;'>
+                <label class='Labelform'>Number of Guests</label>  ".$_SESSION['numguest']."<select name='numguest' class='mngt' style='width:10%;' required>
     <option value='Select'>Select</option>
     <option value='1'>1</option>
     <option value='2'>2</option>
@@ -114,7 +114,7 @@ if(isset($_POST['update'])){
     <option value='4'>4</option>
     <option value='5'>5</option>  
     </select></span><br>
-    <button type='submit' name='search_room'  style='background-color: #003399; padding: 5px; ' class='button'>Search Room</button><br><br>";
+    <button type='submit' name='search_room'  style='background-color: #003399; padding: 5px; ' class='button'>Search Room</button></form><br><br>";
 
 if(isset($_POST['search_room'])){
     $checkin=$_POST['checkin'];
@@ -186,7 +186,7 @@ header("location:receptionist_update.php");
 
 ob_end_flush();
 ?>
-<a href='receptionist_res-list.php'>Back to Reservation List</a>
+<a href='receptionist_res-list.php' class='Graybutton' style='width:20%;'>Back to Reservation List</a>
 
                 
         </div>

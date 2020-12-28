@@ -56,27 +56,27 @@
 
             echo "<form method='post' action=''>  
                 <label class='Labelform'>First Name</label>
-                <input type='text' name='fname'class='booking'>
+                <input type='text' name='fname'class='booking' required>
                 <br><br>
                 <label class='Labelform'>Last Name</label>
-                <input type='text' name='lname' class='booking'>
+                <input type='text' name='lname' class='booking' required>
                 <br><br>
                 <label class='Labelform'>Middle Name</label>
-                <input type='text' name='mname' class='booking' >
+                <input type='text' name='mname' class='booking'>
                 <br><br>
                 <label class='Labelform'>Check-in</label><span class='booking'>".$_SESSION['checkin']."</span>
                 <br><br>
                 <label class='Labelform'>Check-out</label><span class='booking'>".$_SESSION['checkout']."</span>
                 <br><br>
                 <label class='Labelform'>Check-in Time</label>
-                <input type='time' name='time' class='booking'>
+                <input type='time' name='time' class='booking' required>
                 <br><br>
                 <label class='Labelform'>Number of Guests</label><span class='booking'>".$_SESSION['numguest']."</span>
                 <br><br>
                 <label class='Labelform'>Room Selected</label><span class='booking'>".$_SESSION['room_id']."</span>
                 <br><br>
                 <label class='Labelform'>Phone Number</label>
-                <input type='number' name='phone' class='booking' style='width:20%;'>
+                <input type='number' name='phone' class='booking' style='width:20%;' required>
                 <br><br>
                 <label class='Labelform'>E-mail</label>
                 <input type='email' name='email' class='booking' style='width:30%;'>
