@@ -75,7 +75,7 @@ ob_start();
                 <span class='checkinbox9'>
                 <label class='Labelform'>E-mail</label><div class='booking' id='email'>".$_SESSION['email']."</div></span>
                 <span class='checkinbox10'>
-                <label class='Labelform'>ID Type</label><select name='id_type' class='booking'>
+                <label class='Labelform'>ID Type</label><select name='id_type' id='id_type' class='booking'>
                     <option value='Select'>Select</option>
                     <option value='passport'>passport</option>
                     <option value='driver license'>driver license</option>
@@ -103,7 +103,7 @@ ob_start();
 
 //if this is from check in
         else if(isset($_SESSION['from_checkin'])){
-        echo "<form method='post' action='' enctype='multipart/form-data' class='checkingrid'>  
+            echo "<form method='post' action='' enctype='multipart/form-data' class='checkingrid'>  
             <span class='checkinbox1'>
                 <label class='Labelform'>First Name</label><input type='text' class='booking' id='fname' name='fname'></span>
             <span class='checkinbox2'>
@@ -119,11 +119,11 @@ ob_start();
             <span class='checkinbox7'>
                 <label class='Labelform'>Room Selected</label><div class='booking' id='room_id'>" .$_SESSION['room_id']."</div></span>
             <span class='checkinbox8'>
-                <label class='Labelform'>Phone Number</label><input type='number' class='booking' name='phone'></span>
+                <label class='Labelform'>Phone Number</label><input type='number' class='booking' id='phone' name='phone'></span>
             <span class='checkinbox9'>
-                <label class='Labelform'>E-mail</label><input type='email' class='booking' name='email'></span>
+                <label class='Labelform'>E-mail</label><input type='email' class='booking' id='email'name='email'></span>
             <span class='checkinbox10'>
-             <label class='Labelform'>ID Type</label><select class='booking' name='id_type' >
+             <label class='Labelform'>ID Type</label><select class='booking' id='id_type' name='id_type' >
                 <option value='Select'>Select</option>
                 <option value='passport'>passport</option>
                 <option value='driver license'>driver license</option>
@@ -136,13 +136,12 @@ ob_start();
                 <option value='OTHERS'>OTHERS</option>
                 </select></span>
             <span class='checkinbox11'>
-                <label class='Labelform'>ID_number</label><input type='text' class='booking' name='ID_number' class='button' ></span>
+                <label class='Labelform'>ID_number</label><input type='text' class='booking' id='id_num' name='ID_number' class='button' ></span>
             <span class='checkinbox12'>
-                <label class='Labelform'>File Upload</label><input type='file' class='booking' name='file'></span>
+                <label class='Labelform'>File Upload</label><input type='file' id='file' class='booking' name='file'></span>
             <span class='checkinbox13'>
                 <label class='Labelform'>Address</label><input type='text' class='booking' id='address' name='address' class='button'></span>
                 <br>
-                <span class= 'checkinbox14'>
                 <input type='submit'  name='amenities2' value='Proceed to Amenities' class='Greenbutton'>
                 <input type='submit' name='cancel' value='Cancel Check-in' class='Checkoutbutton'></span>
                 <br>

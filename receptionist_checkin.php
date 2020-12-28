@@ -10,7 +10,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>BookIT</title>
         <link rel="stylesheet" href="style.css">
-        <link rel="stylesheet" href="ameneties.css">
         <style type="text/css">
         .grid-container {
         display: grid;
@@ -18,8 +17,6 @@
         grid-gap: 10px;
         padding: 10px;
         }
-
-
         </style>
    </head>
     <body>
@@ -83,6 +80,7 @@
     $result1 = $conn->query($sql1); 
 
     if(mysqli_num_rows($result1) > 0){
+        echo "Available Rooms<br><br>";
         echo "<div class='grid-container'>";
     while($row = $result1->fetch_assoc()){
                 
@@ -96,6 +94,9 @@
     }else{
         echo 'No available room.';
     }
+    echo "<br><br>
+              <hr>
+              <br><br>";
     }
 
      if(isset($_POST['select'])){  
@@ -107,9 +108,7 @@
         
         ?>
 
-    <br><br>
-    <hr>
-    <br><br>
+    
 
 
     <form method="post" action="">  

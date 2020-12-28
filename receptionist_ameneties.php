@@ -10,7 +10,6 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>BookIT</title>
-        
         <link rel="stylesheet" href="ameneties.css">
 <style type="text/css">
 .grid-container {

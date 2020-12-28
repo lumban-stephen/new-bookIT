@@ -87,9 +87,9 @@
 ?>
     
     <form action="" method="POST">
-        <input type="text" name="task_name" placeholder="task name" required>
+        <label class='Labelform'>Task name</label><input type="text" name="task_name" class="booking" placeholder="task name" required>
         <br>
-        <input type="text" name="task_desc" placeholder="task description" required>
+        <label class='Labelform'>Task description</label><input type="text" name="task_desc" class="booking" placeholder="task description" required>
         <br>
         <input type="submit" name="add" value="add" class="Greenbutton">
     </form>
