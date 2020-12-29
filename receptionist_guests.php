@@ -74,7 +74,7 @@
                                             g.customer_id = c.customer_id AND 
                                             g.room_id = r.room_id AND 
                                             b.guest_id=g.guest_id AND 
-                                            g.guest_status = 'INCOMPLETE' AND CONCAT(c.fname, ' ', c.MI, ' ', c.lname) LIKE '%$keyword%'
+                                            g.guest_status = 'INCOMPLETE' AND CONCAT(c.fname, ' ', c.lname) LIKE '%$keyword%'
                                     GROUP BY
                                             g.guest_id /*I grouped it by guest id because it would be group by roomtype_id if isnt guest_id*/ 
                                     ORDER BY
@@ -198,13 +198,12 @@
                         $date = $_POST['Date'];
                         
                         $updateDate = " UPDATE guests 
-                                        SET date_out = $date,
-                                            guest_status = 'INCOMPLETE' 
+                                        SET date_out = '$date'
                                         WHERE guest_id = $guest_id";
                     
                             if ($conn->query($updateDate) === TRUE) {
                                 echo "<script language='javascript'>
-                                            window.location.href='manager_checkout.php';
+                                            window.location.href='receptionist_checkout.php';
                                             alert('Early Checkout Date Update is successful');
                                     </script>";
                             } else {

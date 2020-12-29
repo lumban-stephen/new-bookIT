@@ -55,13 +55,15 @@
                     c.fname AS 'Firstname', c.MI AS 'Middlename', c.lname AS 'Lastname', c.phone AS 'Phone', c.email AS 'Email',
                     g.date_in AS 'Check-in Date', g.date_out AS 'Check-out Date',
                     r.room_id AS 'Room Number', rt.room_desc AS 'Room Type', c.Address AS 'address',
-                    g.guest_status AS 'Guest Status', g.guests_count AS 'Number of Guests'
+                    g.guest_status AS 'Guest Status', g.guests_count AS 'Number of Guests',
+                    g.ID_type AS 'ID type',g.ID_number AS 'ID num', g.files AS 'files'
                 FROM
                     Schedule s, Guests g, Customers c,
                      Rooms r, room_type rt, bill b
                 WHERE
                      g.customer_id = c.customer_id
-                    AND s.room_id = r.room_id AND b.guest_id=g.guest_id AND g.guest_id ='".$_GET['id']."'
+                    AND s.room_id = r.room_id AND b.guest_id=g.guest_id AND g.guest_id =2
+       
                 GROUP BY
                     g.guest_id;";
 
@@ -88,11 +90,15 @@
             <label class='Labelform'>Guest Status</label><input type='text' class='booking'  id='gueststatus' value=\"".$row['Guest Status']."\"></span>
             <span class='checkinbox9'>
             <label class='Labelform'>Number of Guests</label><input type='text' class='booking' id='numguest' value=\"".$row['Number of Guests']. "\"></span>
-            <span class='checkinbox10'>
-            <label class='Labelform'>Phone Number</label><input type='text' class='booking' id='phone' value=\"".$row['Phone']."\"></span>
-            <span class='checkinbox11'>
+            <span class='checkin1box10'>
+            <label class='Labelform'>ID type</label><input type='text' class='booking' id='phone' value=\"".$row['ID type']."\"></span>
+            <span class='checkin1box11'>
+            <label class='Labelform'>ID number</label><input type='text' class='booking'  id='email' value=\"".$row['ID num']."\"></span>
+            <span class='checkinbox14'>
+            <label class='Labelform'>Phone Number</label><input type='text' class='booking'  id='email' value=\"".$row['Phone']."\"></span>
+            <span class='checkinbox15'>
             <label class='Labelform'>Email</label><input type='text' class='booking'  id='email' value=\"".$row['Email']."\"></span>
-            <span class='checkinbox13'>
+            <span class='checkin1box13'>
                 <label class='Labelform'>Address</label><input type='text' id='address'name='address' class='booking' value=\"".$row['address']."\"></span>
                 
                 <br><br>
