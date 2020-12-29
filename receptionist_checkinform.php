@@ -189,6 +189,8 @@ ob_start();
             $prepare5->bind_param("sssi",$record_type,$_SESSION['checkin'],$time,$_SESSION['guest_id']);
             $prepare5->execute();
 
+
+
         unset($_SESSION['customer_id']);
         //unset($_SESSION['fname']);
         unset($_SESSION['room_code']);
@@ -298,10 +300,12 @@ ob_start();
             $prepare12->execute();
 
             //create data in bill_items
-            $prepare7 = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_date) VALUES (?,?,?)");
-            $prepare7->bind_param("iis",$stays,$bill_id,$_SESSION['checkin']);
+            $q=1;
+            $amenity=100;
+            $prepare7 = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_date,amenity_id) VALUES (?,?,?,?)");
+            $prepare7->bind_param("iisi",$q,$bill_id,$_SESSION['checkin'],$amenity);
             $prepare7->execute();
-
+                        
 
         //create data in checked-in-guests
         $prepare9= $conn->prepare("INSERT INTO checked_in_guests(guest_id) VALUES (?)");
