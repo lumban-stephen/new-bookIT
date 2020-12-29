@@ -271,7 +271,7 @@ CREATE TABLE `guests` (
   `date_in` date DEFAULT NULL,
   `date_out` date DEFAULT NULL,
   `guests_count` int(11) DEFAULT NULL,
-  `guest_status` enum('COMPLETE','INCOMPLETE','CANCELLED') DEFAULT 'INCOMPLETE',
+  `guest_status` enum('COMPLETE','INCOMPLETE','CANCELLED', 'RESERVED') DEFAULT 'INCOMPLETE',
   `ID_type` enum('passport','driver license','PhilHealth','SSS UMID','POSTAL','TIN','SENIOR CITIZEN','OFW','OTHERS') DEFAULT NULL,
   `ID_number` varchar(100) DEFAULT NULL,
   `files` varchar(100) DEFAULT NULL,
