@@ -48,6 +48,93 @@
         <div id="content">
             <!--Code Here only-->
             <!--Check out page code in here-->
+            <div class="search-container">
+                        <form method="POST">
+                            <label class="Labelform">Search Room Number: </label><input type="text" class="input-search"placeholder="Search.." name="keyword">
+                            <button class= "searchbutton"  name="search">Search</button>
+                        </form>
+                    </div>
+                    <?php 
+                        include 'connection.php';
+                        if (isset($_POST['keyword'])) {
+                            $keyword = trim ($_POST['keyword']);
+
+                            $sql1 = "SELECT  rooms.room_id, 
+                                            guests.guest_id, 
+                                            customers.fname, 
+                                            customers.lname,
+                                            SUM(bill_items.quantity * amenities.amenity_price) AS 'payables', 
+                                            room_type.room_cost,
+                                            SUM(bill_items.quantity * amenities.amenity_price) + room_type.room_cost AS 'total_amount',
+                                            payments.payment_id,
+                                            payments.payment_amount,
+                                            CURRENT_DATE AS 'date',
+                                            CURRENT_TIME AS 'time'                                 
+                                    FROM guests, customers, rooms, room_type, payments, bill, bill_items, amenities
+                                    WHERE guests.customer_id = customers.customer_id AND 
+                                        guests.room_id = rooms.room_id AND 
+                                        guests.payment_id = payments.payment_id AND 
+                                        rooms.roomtype_id = room_type.roomtype_id AND 
+                                        payments.bill_id = bill.bill_id AND
+                                        bill.bill_id = bill_items.bill_id AND
+                                        bill_items.amenity_id = amenities.amenity_id AND
+                                        guests.guest_status = 'INCOMPLETE' AND 
+                                        rooms.room_id LIKE '%$keyword%' AND
+                                        guests.date_out = CURDATE()
+                                    GROUP BY guests.guest_id";
+                            echo "<br>
+                                <div id='SearchTable'>
+                                    <div>
+                                        <h4 style='float:left;'>Results for \"$keyword\"</h4> <input type='submit' style='float:right;' class='Logoutbutton'  onclick='closeTable()' value='Close Search'>
+                                    </div>
+                                <table id='Table'>
+                                    <tr>
+                                        <th>Room Number</th>
+                                        <th>Guest ID</th>
+                                        <th>Customer Name</th>
+                                        <th>Payables</th>
+                                        <th>Room Cost</th>
+                                        <th>Total Amount</th>
+                                        <th>Payment Amount</th>
+                                        <th>Action</th>
+                                    </tr>";
+            
+                         $result = mysqli_query($conn, $sql1) or die('query did not work');;
+
+                            if(mysqli_num_rows($result) > 0){
+            
+                                while($row = mysqli_fetch_assoc($result)){
+                                    echo "
+                                    <form action='' method='POST'>
+                                        <tr>
+                                            <td>".$row["room_id"]."</td> 
+                                            <td>".$row["guest_id"]."</td>
+                                            <td>".$row["fname"]." ".$row["lname"]."</td>
+                                            <td>".$row["payables"]."</td>
+                                            <td>".$row["room_cost"]."</td>
+                                            <td>".$row["total_amount"]."</td>
+                                            <td><input type='number' class='restocknum' name='newPay' value=".$row["payment_amount"].">
+                                                <input type='submit' class='Greenbutton1' name='updatePay' value='Update Payment'></td>
+                                            <td><input type='submit' class='Checkoutbutton' name='remove' value='Check Out'></td> 
+                                        </tr>    
+                                            <input type='hidden' name='guestID' value='{$row['guest_id']}'>
+                                            <input type='hidden' name='roomID' value='{$row['room_id']}'>
+                                            <input type='hidden' name='date' value='{$row['date']}'>
+                                            <input type='hidden' name='time' value='{$row['time']}'>
+                                            <input type='hidden' name='payAmount' value='{$row['payment_amount']}'>
+                                            <input type='hidden' name='totAmount' value='{$row['total_amount']}'>
+                                            <input type='hidden' name='payID' value='{$row['payment_id']}'>                               
+                                    </form>                    
+                                ";
+                            }
+                                    echo "</table></div>";
+                                    unset($_POST['keyword']); 
+                                }else{
+                                echo "...  Nothing was found that matched your query.  :(( sorry..</table></div><br><br>";
+                                }
+                        }
+                    ?>
+            <br>
             <table id="Table">
                 <tr>
                     <th>Room Number</th>
@@ -176,5 +263,6 @@
                 }
 
             ?>
+            <script src="dashmodal.js"></script>
         </div>
     </body>
