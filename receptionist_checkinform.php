@@ -177,7 +177,7 @@ ob_start();
         $prepare3->bind_param("i", $_SESSION['guest_id']);
         $prepare3->execute();
 
-        //insert guest_id rooms
+        //insert status rooms
         $room_status="Used by guest";
         $prepare4= $conn->prepare("UPDATE rooms SET room_status=? WHERE room_id=?");
         $prepare4->bind_param("si",$room_status, $_SESSION['room_id']);
@@ -186,7 +186,7 @@ ob_start();
     //insert data in records
             $record_type="STAYING";
             $prepare5 = $conn->prepare("INSERT INTO records(record_type,record_date,record_time,guest_id) VALUES (?,?,?,?)");
-            $prepare5->bind_param("sssi",$record_type,$_SESSION['checkin'],$time,$guest_id);
+            $prepare5->bind_param("sssi",$record_type,$_SESSION['checkin'],$time,$_SESSION['guest_id']);
             $prepare5->execute();
 
         unset($_SESSION['customer_id']);
@@ -259,7 +259,6 @@ ob_start();
             $prepare2 = $conn->prepare("INSERT INTO guests(date_in,date_out,guests_count,room_id,customer_id,ID_type , ID_number, files) VALUES (?,?,?,?,?,?,?,?)");
             $prepare2->bind_param("ssiiisss",$_SESSION['checkin'],$_SESSION['checkout'],$_SESSION['numguest'],$_SESSION['room_id'],$customer_id,$id_type,$ID_number, $filename,);
             $prepare2->execute();
-
             //get guest_id ($conn->insert_id : get the last generated id)
             $guest_id = $conn->insert_id;
             $_SESSION['guest_id']=$guest_id;
@@ -298,17 +297,11 @@ ob_start();
             $prepare12->bind_param("ii", $bill_id, $payment_id);
             $prepare12->execute();
 
-
             //create data in bill_items
             $prepare7 = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_date) VALUES (?,?,?)");
             $prepare7->bind_param("iis",$stays,$bill_id,$_SESSION['checkin']);
             $prepare7->execute();
 
-
-            //create data in checked-in-guests
-            $prepare8= $conn->prepare("INSERT INTO checked_in_guests(guest_id) VALUES (?)");
-            $prepare8->bind_param("i", $_SESSION['guest_id']);
-           $prepare8->execute();
 
         //create data in checked-in-guests
         $prepare9= $conn->prepare("INSERT INTO checked_in_guests(guest_id) VALUES (?)");

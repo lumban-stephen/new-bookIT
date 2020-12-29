@@ -81,7 +81,8 @@
                         payments.bill_id = bill.bill_id AND
                         bill.bill_id = bill_items.bill_id AND
                         bill_items.amenity_id = amenities.amenity_id AND
-                        guests.guest_status = 'INCOMPLETE'
+                        guests.guest_status = 'INCOMPLETE' AND
+                        guests.date_out = CURDATE()
                         GROUP BY guests.guest_id";
                 $result = mysqli_query($conn, $sql);
 
@@ -98,9 +99,9 @@
                                     <td>".$row["payables"]."</td>
                                     <td>".$row["room_cost"]."</td>
                                     <td>".$row["total_amount"]."</td>
-                                    <td><input type='number' name='newPay' value=".$row["payment_amount"].">
-                                        <input type='submit' name='updatePay' value='Update Payment'></td>
-                                    <td><input type='submit' name='remove' value='Check Out'></td> 
+                                    <td><input type='number' class='restocknum' name='newPay' value=".$row["payment_amount"].">
+                                        <input type='submit' classs='Greenbutton1' name='updatePay' value='Update Payment'></td>
+                                    <td><input type='submit' class='Checkoutbutton' name='remove' value='Check Out'></td> 
                                 </tr>    
                                     <input type='hidden' name='guestID' value='{$row['guest_id']}'>
                                     <input type='hidden' name='roomID' value='{$row['room_id']}'>
@@ -149,8 +150,9 @@
                                             '$time',
                                             $total,
                                             $gID)";
+                        $deleteSched = "DELETE FROM schedule WHERE guest_id = $gID";
             
-                        if ($conn->query($updateGuest) === TRUE && $conn->query($updateRoom) === TRUE && $conn->query($newRecord) === TRUE) {
+                        if ($conn->query($updateGuest) === TRUE && $conn->query($updateRoom) === TRUE && $conn->query($newRecord) === TRUE && $conn->query($deleteSched) === TRUE) {
                             echo "<script language='javascript'>
                                         window.location.href='receptionist_checkout.php';
                                         alert('Check Out is successful');
@@ -161,6 +163,8 @@
                             echo "Error: "  .$updateRoom. "<br>" .$conn->error;
                         } else if(!$conn->query($newRecord) === TRUE) {
                             echo "Error: " .$newRecord. "<br>" .$conn->error;
+                        } else if(!$conn->query($deleteSched) === TRUE) {
+                            echo "Error: " .$deleteSched. "<br>" .$conn->error;
                         }
                     
                     } else {

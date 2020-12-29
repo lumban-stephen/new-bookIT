@@ -131,7 +131,7 @@
 
             //create data in schedule
             $prepare3 = $conn->prepare("INSERT INTO schedule(guest_id,room_id) VALUES (?,?)");
-            $prepare3->bind_param("ii",$guest_id,$room_id);
+            $prepare3->bind_param("ii",$guest_id,$_SESSION['room_id']);
             $prepare3->execute();
 
 
@@ -161,11 +161,16 @@
             $prepare7->bind_param("iis",$stays,$bill_id,$_SESSION['checkin']);
             $prepare7->execute();
 
+            //add bill_id in payments
+            $up_payments= $conn->prepare("UPDATE payments SET bill_id =? WHERE guest_id=?");
+            $up_payments->bind_param("ii", $bill_id, $guest_id);
+            $up_payments->execute();
+
             //create data in records
             $record_type="COMING";
-            $prepare7 = $conn->prepare("INSERT INTO records(record_type,record_date,record_time,guest_id) VALUES (?,?,?,?)");
-            $prepare7->bind_param("sssi",$record_type,$_SESSION['checkin'],$time,$guest_id);
-            $prepare7->execute();
+            $coming = $conn->prepare("INSERT INTO records(record_type,record_date,record_time,guest_id) VALUES (?,?,?,?)");
+            $coming->bind_param("sssi",$record_type,$_SESSION['checkin'],$time,$guest_id);
+            $coming->execute();
             header("location:receptionist_dashboard.php");}
            
 

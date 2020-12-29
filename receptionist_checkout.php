@@ -78,7 +78,9 @@
                                         payments.bill_id = bill.bill_id AND
                                         bill.bill_id = bill_items.bill_id AND
                                         bill_items.amenity_id = amenities.amenity_id AND
-                                        guests.guest_status = 'INCOMPLETE' AND rooms.room_id LIKE '%$keyword%'
+                                        guests.guest_status = 'INCOMPLETE' AND 
+                                        rooms.room_id LIKE '%$keyword%' AND
+                                        guests.date_out = CURDATE()
                                     GROUP BY guests.guest_id";
                             echo "<br>
                                 <div id='SearchTable'>
@@ -166,7 +168,8 @@
                         payments.bill_id = bill.bill_id AND
                         bill.bill_id = bill_items.bill_id AND
                         bill_items.amenity_id = amenities.amenity_id AND
-                        guests.guest_status = 'INCOMPLETE'
+                        guests.guest_status = 'INCOMPLETE' AND
+                        guests.date_out = CURDATE()
                         GROUP BY guests.guest_id";
                 $result = mysqli_query($conn, $sql);
 
