@@ -13,7 +13,6 @@
     $jobs = "";
     $salary = "";
     $id = 0;
-    $update = false;
 
     if(isset($_POST['save'])){
         $fname = $_POST['fname'];
@@ -42,7 +41,7 @@
         header('location: manager_staff.php');
     }
 
-    if(isset($_POST['edit'])){
+    if(isset($_POST['edited'])){
         $id = $_POST['id'];
         $fname = $_POST['id'];
         $mi = $_POST['id'];
@@ -51,13 +50,12 @@
         $password = $_POST['id'];
         $jobs = $_POST['id'];
         $salary = $_POST['id'];
-        $update = true;
 
-        $editQuery = "UPDATE users SET fname='$fname', lname='$lname', mi='$mi', email='$email',
+        $update = "UPDATE users SET fname='$fname', lname='$lname', mi='$mi', email='$email',
                       password='$password', user_type='$jobs', salary='$salary' WHERE user_id=$id";
 
-        $conn->query($editQuery) or die($conn->error);
-        header('location: index.php');
+        $updateQuery = $conn->query($update);
+        $updateResult = $updateQuery->fetch_assoc();
     }
      
 ?>
