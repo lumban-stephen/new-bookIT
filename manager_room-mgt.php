@@ -119,7 +119,7 @@
                 if ($conn->query($updateStatus) === TRUE) {
                     echo "<script language='javascript'>
                                 window.location.href='manager_room-mgt.php';
-                                alert('Room Status Update is successful');
+                                
                         </script>";
                 } else {
                     echo "Error: " .$updateStatus. "<br>" .$conn->error;
@@ -133,7 +133,7 @@
                 if ($conn->query($updateStatus) === TRUE) {
                     echo "<script language='javascript'>
                                 window.location.href='manager_room-mgt.php';
-                                alert('Room Status Update is successful');
+                                
                         </script>";
                 } else {
                     echo "Error: " .$updateStatus. "<br>" .$conn->error;

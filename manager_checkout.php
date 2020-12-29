@@ -213,7 +213,7 @@
                     if ($conn->query($updatePayment) === TRUE) {
                         echo "<script language='javascript'>
                                     window.location.href='receptionist_checkout.php';
-                                    alert('Payment Update is successful');
+                                    
                             </script>";
                     } else {
                         echo "Error: " .$updatePayment. "<br>" .$conn->error;
@@ -238,11 +238,16 @@
                                             $total,
                                             $gID)";
                         $deleteSched = "DELETE FROM schedule WHERE guest_id = $gID";
+                        $deleteCheckIn = "DELETE FROM check_in_guest WHERE guest_id = $gID";
             
-                        if ($conn->query($updateGuest) === TRUE && $conn->query($updateRoom) === TRUE && $conn->query($newRecord) === TRUE && $conn->query($deleteSched) === TRUE) {
+                        if ($conn->query($updateGuest) === TRUE && 
+                            $conn->query($updateRoom) === TRUE && 
+                            $conn->query($newRecord) === TRUE && 
+                            $conn->query($deleteSched) === TRUE &&
+                            $conn->query($deleteCheckIn) === TRUE) {
                             echo "<script language='javascript'>
                                         window.location.href='receptionist_checkout.php';
-                                        alert('Check Out is successful');
+                                      
                                 </script>";
                         } else if(!$conn->query($updateGuest) === TRUE) {
                             echo "Error: " .$updateGuest. "<br>" .$conn->error;
@@ -252,12 +257,13 @@
                             echo "Error: " .$newRecord. "<br>" .$conn->error;
                         } else if(!$conn->query($deleteSched) === TRUE) {
                             echo "Error: " .$deleteSched. "<br>" .$conn->error;
+                        } else if(!$conn->query($deleteCheckIn) === TRUE) {
+                            echo "Error: " .$deleteCheckIn. "<br>" .$conn->error;
                         }
-                    
                     } else {
                         echo "<script language='javascript'>
                                         window.location.href='receptionist_checkout.php';
-                                        alert('Payment Amount is not enough! Pay the total amount of $total');
+                                       
                                 </script>";
                     }
                 }
