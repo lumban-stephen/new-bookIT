@@ -39,23 +39,5 @@
         $conn->query($deleteQuery) or die($conn->error);
 
         header('location: manager_staff.php');
-    }
-
-    if(isset($_POST['edited'])){
-        $id = $_POST['id'];
-        $fname = $_POST['id'];
-        $mi = $_POST['id'];
-        $lname = $_POST['id'];
-        $email = $_POST['id'];
-        $password = $_POST['id'];
-        $jobs = $_POST['id'];
-        $salary = $_POST['id'];
-
-        $update = "UPDATE users SET fname='$fname', lname='$lname', mi='$mi', email='$email',
-                      password='$password', user_type='$jobs', salary='$salary' WHERE user_id=$id";
-
-        $updateQuery = $conn->query($update);
-        $updateResult = $updateQuery->fetch_assoc();
-    }
-     
+    }     
 ?>
