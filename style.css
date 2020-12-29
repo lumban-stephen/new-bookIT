@@ -206,39 +206,18 @@ li img{
   width: 100%;
   
 }
-#mname.booking{
+#mname.booking,#checkin.booking, #checkout.booking, #numguest.booking{
   width: 100%;
  }
- #checkin.booking{
+ #room_id.booking, #phone.booking, #email.booking, #id_type.booking {
   width: 100%;
 
  }
-  #checkout.booking{
+ #id_num.booking, #file.booking, #address.booking,#gueststatus.booking{
   width: 100%;
  }
- #numguest.booking{
+ #gueststatus.booking,#roomdesc.booking{
   width: 100%;
- }
- #room_id.booking{
-  width: 100%;
- }
- #phone.booking{
-  width: 100%;
- } 
- #email.booking{
-  width: 100%;
- }
- #id_type.booking{
-  width: 100%;
- }
- #id_num.booking{
-  width: 100%;
- }
- #file.booking{
-  width: 100%;
- }
- #address.booking{
-   width: 100%;
  }
 .restocknum {
   display: inline-block;
@@ -393,6 +372,7 @@ li img{
 .checkinbox11{
   grid-column: 3/5;
   grid-row:5;
+  border: 2px solid #D3DEE8;
 }
 .checkinbox12{
   grid-column: 5/7;

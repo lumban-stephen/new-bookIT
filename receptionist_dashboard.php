@@ -225,8 +225,7 @@
                          $sql = "SELECT 
                                     count(*)
                                  FROM
-                                    guests
-                                WHERE date_in > CURDATE();";
+                                    schedule";
                         $display = $conn->query($sql);
                         if($rows = $display != NULL){ 
                             while($rows = $display->fetch_assoc()){
