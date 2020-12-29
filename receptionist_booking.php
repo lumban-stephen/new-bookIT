@@ -156,15 +156,17 @@
             //get bill_id ($conn->insert_id : get the last generated id)
             $bill_id= $conn->insert_id;
             
+            $q=1;
+            $amenity=100;
             //create data in bill_items
-            $prepare7 = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_date) VALUES (?,?,?)");
-            $prepare7->bind_param("iis",$stays,$bill_id,$_SESSION['checkin']);
+            $prepare7 = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_date,amenity_id) VALUES (?,?,?,?)");
+            $prepare7->bind_param("iisi",$q,$bill_id,$_SESSION['checkin'],$amenity);
             $prepare7->execute();
 
             //add bill_id in payments
-            $up_payments= $conn->prepare("UPDATE payments SET bill_id =? WHERE guest_id=?");
-            $up_payments->bind_param("ii", $bill_id, $guest_id);
-            $up_payments->execute();
+            $addbill= $conn->prepare("UPDATE payments SET bill_id =? WHERE payment_id=?");
+            $addbill->bind_param("ii", $bill_id, $payment_id);
+            $addbill->execute();
 
             //create data in records
             $record_type="COMING";
