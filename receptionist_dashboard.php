@@ -55,7 +55,7 @@
                         include 'connection.php';
         
                         $sql = "SELECT COUNT(*) AS 'Guests'
-                                 FROM guests WHERE guest_status = 'INCOMPLETE';";
+                                 FROM guests WHERE guest_status = 'INCOMPLETE' AND g.date<= CURRENT_DATE;";
                         $display = $conn->query($sql);
                         if($rows = $display != NULL){ 
                             while($rows = $display->fetch_assoc()){
@@ -92,7 +92,7 @@
                                                 Rooms r
                                         WHERE
                                                 g.customer_id = c.customer_id
-                                                AND g.room_id = r.room_id AND g.guest_status = 'INCOMPLETE'
+                                                AND g.room_id = r.room_id AND g.guest_status = 'INCOMPLETE' AND g.date<= CURRENT_DATE
                                         ORDER BY
                                                 g.date_in;";
                                         $display = $conn->query($sql);
