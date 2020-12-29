@@ -143,7 +143,7 @@
     
         if($rows = $display != NULL){
         while($rows = $display->fetch_assoc()){
-            if($rows['amenity_id']<=8||$rows['amenity_id']>=16&&$rows['amenity_id']<=19||$rows['amenity_id']>=33){
+            if($rows['amenity_id']<=8||$rows['amenity_id']>=16&&$rows['amenity_id']<=19||$rows['amenity_id']>=33&&$rows['amenity_id']!=100){
 //if it is not available
             if($rows['stock']<0){
                 $rows['stock']="Not Available";
