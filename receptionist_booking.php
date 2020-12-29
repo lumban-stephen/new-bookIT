@@ -131,7 +131,7 @@
 
             //create data in schedule
             $prepare3 = $conn->prepare("INSERT INTO schedule(guest_id,room_id) VALUES (?,?)");
-            $prepare3->bind_param("ii",$guest_id,$room_id);
+            $prepare3->bind_param("ii",$guest_id,$_SESSION['room_id']);
             $prepare3->execute();
 
 

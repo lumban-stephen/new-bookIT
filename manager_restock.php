@@ -143,8 +143,29 @@
     
         if($rows = $display != NULL){
         while($rows = $display->fetch_assoc()){
-            if($rows['stock']>=0)
+            if($rows['amenity_id']<=8||$rows['amenity_id']>=16&&$rows['amenity_id']<=19||$rows['amenity_id']>=33){
+//if it is not available
+            if($rows['stock']<0){
+                $rows['stock']="Not Available";
+            echo "<tr><form action='' method='post'>
+            <td>". $rows['amenity_name']. "</td>
+            <td>". $rows['amenity_price']. "</td>
+            <td>". $rows['amenity_type']. "</td>
+            <td>". $rows['stock']. "</td>
+            <td>
+            <input type='hidden' name='amenity_id' value='{$rows['amenity_id']}'>
+            </td>
 
+
+            <td>
+            <button type='submit' name='edit'class='Offerbutton'>Edit Information</button>
+
+            <button type='submit' name='activate' class='Greenbutton'>ACTIVATE</button>
+
+            
+            </td></form>
+            </tr>"; }else{
+//if available            
             echo "<tr><form action='' method='post'>
             <td>". $rows['amenity_name']. "</td>
             <td>". $rows['amenity_price']. "</td>
@@ -154,18 +175,19 @@
             <input type='number' class='restocknum' name='number'>
             <button type='submit' name='add' class='Greenbutton'>Add</button>
             <input type='hidden' name='amenity_id' value='{$rows['amenity_id']}'>
-            <input type='hidden' name='stock' value='{$rows['stock']}'>
             </td>
 
 
             <td>
             <button type='submit' name='edit'class='Offerbutton'>Edit Information</button>
 
-            <button type='submit' name='delete' class='Checkoutbutton'>DELETE</button>
+            <button type='submit' name='deactivate' class='Checkoutbutton' style='width: 80%;'>DEACTIVATE</button>
 
             
             </td></form>
-            </tr>"; 
+            </tr>";
+
+            }}
                                         }
             echo "</table>";
                             }else{
@@ -187,11 +209,23 @@
         $prepare->execute();
         header("location:manager_restock.php");
     }
-//when it is deleted. stock will be negative
-    if(isset($_POST['delete'])){
+//when it is DEactivated. stock will be -1
+    if(isset($_POST['deactivate'])){
         $number=$_POST['number'];
         $amenity_id=$_POST['amenity_id'];
-        $stock=-10000000;
+        $stock=-1;
+
+        $prepare= $conn->prepare("UPDATE amenities SET stock =?
+            WHERE amenity_id=?");
+        $prepare->bind_param("ii", $stock,$amenity_id);
+        $prepare->execute();
+        header("location:manager_restock.php");
+    }
+
+//when it is Activated. stock will be -1
+    if(isset($_POST['activate'])){
+        $amenity_id=$_POST['amenity_id'];
+        $stock=0;
 
         $prepare= $conn->prepare("UPDATE amenities SET stock =?
             WHERE amenity_id=?");
