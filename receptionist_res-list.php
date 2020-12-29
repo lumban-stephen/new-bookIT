@@ -87,7 +87,7 @@ ob_start();
     $today=date("Y-d-m");
     $status="COMPLETE";
 
-$sql = "SELECT CONCAT(c.fname,' ',c.MI,' ',c.lname) as name,c.fname as fname,c.MI as mname, c.lname as lname, r.room_id as room_id, g.date_in as date_in, g.date_out as date_out, g.guests_count as numguest, c.phone as phone, c.email as email, g.guest_status as guest_status, s.guest_id as guest_id, c.customer_id as customer_id
+$sql = "SELECT CONCAT(c.fname,' ',c.MI,' ',c.lname) as name,c.fname as fname,c.MI as mname, c.lname as lname, r.room_id as room_id, g.date_in as date_in, g.date_out as date_out, g.guests_count as numguest, c.phone as phone, c.email as email, g.guest_status as guest_status, s.guest_id as guest_id, c.customer_id as customer_id,g.ID_number as ID_number
         FROM guests g, customers c, rooms r, schedule s
         WHERE g.customer_id = c.customer_id and r.room_id = g.room_id and s.guest_id=g.guest_id AND guest_status = 'INCOMPLETE' AND g.date_in >= CURRENT_DATE
         ORDER BY g.date_in;";
@@ -95,6 +95,7 @@ $sql = "SELECT CONCAT(c.fname,' ',c.MI,' ',c.lname) as name,c.fname as fname,c.M
     $result = $conn->query($sql); 
 while($row = $result->fetch_assoc()){
     if($row['guest_status'] != $status){
+        if($row['ID_number']==NULL)
          echo "<form method='post' action=''><tr>
         
                 <td>".$row['name']."</td>
