@@ -120,8 +120,9 @@
             
             
             //create data in guests
-            $prepare2 = $conn->prepare("INSERT INTO guests(date_in,date_out,guests_count,room_id,customer_id) VALUES (?,?,?,?,?)");
-            $prepare2->bind_param("ssiii",$_SESSION['checkin'],$_SESSION['checkout'],$_SESSION['numguest'],$_SESSION['room_id'],$customer_id);
+            $status = 'RESERVED'; //added this to since this is a reservation
+            $prepare2 = $conn->prepare("INSERT INTO guests(date_in,date_out,guest_status,guests_count,room_id,customer_id) VALUES (?,?,?,?,?,?)");
+            $prepare2->bind_param("sssiii",$_SESSION['checkin'],$_SESSION['checkout'],$status,$_SESSION['numguest'],$_SESSION['room_id'],$customer_id);
             $prepare2->execute();
 
             //get guest_id ($conn->insert_id : get the last generated id)
@@ -173,7 +174,7 @@
             $coming = $conn->prepare("INSERT INTO records(record_type,record_date,record_time,guest_id) VALUES (?,?,?,?)");
             $coming->bind_param("sssi",$record_type,$_SESSION['checkin'],$time,$guest_id);
             $coming->execute();
-            header("location:receptionist_dashboard.php");}
+            header("location:receptionist_res-list.php");}
            
 
             

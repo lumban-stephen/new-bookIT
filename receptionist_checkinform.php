@@ -168,8 +168,9 @@ ob_start();
         $prepare1->execute();
 
         //insert ID details to guests table
-        $prepare2= $conn->prepare("UPDATE guests SET ID_type =?, ID_number=?, files=? WHERE customer_id=?");
-        $prepare2->bind_param("sssi", $id_type,$ID_number, $filename, $_SESSION['customer_id']);
+        $status = "INCOMPLETE"; //since this came from the res-list then we change the RESERVED status to INCOMPLETE
+        $prepare2= $conn->prepare("UPDATE guests SET ID_type =?, ID_number=?, files=?, guest_status=? WHERE customer_id=?");
+        $prepare2->bind_param("sssi", $id_type,$ID_number, $filename, $_SESSION['customer_id'], $status);
         $prepare2->execute();
 
         //create data in checked-in-guests

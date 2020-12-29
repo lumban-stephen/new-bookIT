@@ -54,7 +54,7 @@
                         include 'connection.php';
         
                         $sql = "SELECT COUNT(*) AS 'Guests'
-                                 FROM guests WHERE guest_status = 'INCOMPLETE' AND g.date<= CURRENT_DATE ;";
+                                 FROM guests WHERE guest_status = 'INCOMPLETE' ;";
                         $display = $conn->query($sql);
                         if($rows = $display != NULL){ 
                             while($rows = $display->fetch_assoc()){
@@ -91,7 +91,7 @@
                                                 Rooms r
                                         WHERE
                                                 g.customer_id = c.customer_id
-                                                AND g.room_id = r.room_id AND g.guest_status = 'INCOMPLETE'  AND g.date<= CURRENT_DATE
+                                                AND g.room_id = r.room_id AND g.guest_status = 'INCOMPLETE' 
                                         ORDER BY
                                                 g.date_in;";
                                         $display = $conn->query($sql);
@@ -163,7 +163,7 @@
         
                          $sql = "SELECT COUNT(*) AS 'Checkin' 
                          FROM guests g 
-                         WHERE g.date_in= CURDATE() AND g.guest_status = 'INCOMPLETE';";
+                         WHERE g.date_in= CURDATE() AND g.guest_status = 'RESERVED';";
                         $display = $conn->query($sql);
                         if($rows = $display != NULL){ 
                             while($rows = $display->fetch_assoc()){
@@ -198,7 +198,9 @@
                                                         Rooms r
                                                 WHERE
                                                         g.customer_id = c.customer_id
-                                                        AND g.room_id = r.room_id AND g.date_in= CURDATE() AND g.guest_status = 'INCOMPLETE'
+                                                        AND g.room_id = r.room_id AND 
+                                                        g.date_in= CURDATE() AND 
+                                                        g.guest_status = 'RESERVED'
                                                 ORDER BY
                                                         g.date_in;";
                                                 $display = $conn->query($sql);
@@ -221,7 +223,7 @@
         
                          $sql = "SELECT COUNT(*) as 'count'
                          FROM schedule s, guests g
-                         WHERE s.guest_id=g.guest_id AND g.guest_status = 'INCOMPLETE' AND g.date_in >= CURRENT_DATE";
+                         WHERE s.guest_id=g.guest_id AND g.guest_status = 'RESERVED';";
 
                         $display = $conn->query($sql);
                         if($rows = $display != NULL){ 
@@ -251,7 +253,7 @@
                         
                                         $sql = "SELECT CONCAT(c.fname,' ',c.MI,' ',c.lname) as 'Guest Name', g.date_in as date_in
                                         FROM guests g, customers c, schedule s
-                                        WHERE g.customer_id = c.customer_id AND s.guest_id=g.guest_id AND guest_status = 'INCOMPLETE' AND g.date_in >= CURRENT_DATE
+                                        WHERE g.customer_id = c.customer_id AND s.guest_id=g.guest_id AND guest_status = 'RESERVED'
                                         ORDER BY g.date_in";
                                                 $display = $conn->query($sql);
                                                 if($rows = $display != NULL){ 
