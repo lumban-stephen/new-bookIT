@@ -372,7 +372,6 @@ li img{
 .checkinbox11{
   grid-column: 3/5;
   grid-row:5;
-  border: 2px solid #D3DEE8;
 }
 .checkinbox101{
   grid-column: 1/4;
