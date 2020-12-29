@@ -215,19 +215,19 @@
                                         ?>
                         </div></div>
                         </div>
-                < <div class="dash box4" id="Modal4">
-                    <?php
+                <div class="dash box4" id="Modal4">
+                <?php
                          include 'connection.php';
         
                          $sql = "SELECT COUNT(*) as 'count'
-                                    FROM schedule s, guests g
-                                    WHERE s.guest_id=g.guest_id AND g.guest_status = 'INCOMPLETE' AND g.date_in >= CURRENT_DATE";
+                         FROM schedule s, guests g
+                         WHERE s.guest_id=g.guest_id AND g.guest_status = 'INCOMPLETE' AND g.date_in >= CURRENT_DATE";
 
                         $display = $conn->query($sql);
                         if($rows = $display != NULL){ 
                             while($rows = $display->fetch_assoc()){
                                 echo
-                                    "<div class='box4header'><h3>Number of Reservations:</h3></div>
+                                    "<div class='box4header'><h3>Number of Reservations:</h3></div> 
                                     <div class='dashcontent'><h1> ".$rows['count']."</h1></div>"; 
                              }
                             }else{
@@ -263,10 +263,10 @@
                                                     }else{
                                                     echo "No Reservations";
                                                     } 
-                                                    echo "</table></div>" ;  
+                                                    echo "</table>" ;  
                                         ?>
                         </div>
-                        </div>
+                        </div></div>
                 <div class="dash longbox5" id="Modal5">
                     <?php
                 $sql = "SELECT SUM(record_paid) as monthly
