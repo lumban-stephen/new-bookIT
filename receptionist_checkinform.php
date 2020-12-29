@@ -297,7 +297,6 @@ ob_start();
             $prepare12->bind_param("ii", $bill_id, $payment_id);
             $prepare12->execute();
 
-
             //create data in bill_items
             $prepare7 = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_date) VALUES (?,?,?)");
             $prepare7->bind_param("iis",$stays,$bill_id,$_SESSION['checkin']);
