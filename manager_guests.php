@@ -198,8 +198,7 @@
                         $date = $_POST['Date'];
                         
                         $updateDate = " UPDATE guests 
-                                        SET date_out = $date,
-                                            guest_status = 'INCOMPLETE' 
+                                        SET date_out = '$date'
                                         WHERE guest_id = $guest_id";
                     
                             if ($conn->query($updateDate) === TRUE) {
