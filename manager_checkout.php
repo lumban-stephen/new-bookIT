@@ -212,7 +212,7 @@
 
                     if ($conn->query($updatePayment) === TRUE) {
                         echo "<script language='javascript'>
-                                    window.location.href='receptionist_checkout.php';
+                                    window.location.href='manager_checkout.php';
                                     
                             </script>";
                     } else {
@@ -246,7 +246,7 @@
                             $conn->query($deleteSched) === TRUE &&
                             $conn->query($deleteCheckIn) === TRUE) {
                             echo "<script language='javascript'>
-                                        window.location.href='receptionist_checkout.php';
+                                        window.location.href='manager_checkout.php';
                                       
                                 </script>";
                         } else if(!$conn->query($updateGuest) === TRUE) {
@@ -262,7 +262,7 @@
                         }
                     } else {
                         echo "<script language='javascript'>
-                                        window.location.href='receptionist_checkout.php';
+                                        window.location.href='manager_checkout.php';
                                        
                                 </script>";
                     }
