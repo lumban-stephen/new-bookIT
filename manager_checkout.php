@@ -238,7 +238,7 @@
                                             $total,
                                             $gID)";
                         $deleteSched = "DELETE FROM schedule WHERE guest_id = $gID";
-                        $deleteCheckIn = "DELETE FROM check_in_guest WHERE guest_id = $gID";
+                        $deleteCheckIn = "DELETE FROM checked_in_guests WHERE guest_id = $gID";
             
                         if ($conn->query($updateGuest) === TRUE && 
                             $conn->query($updateRoom) === TRUE && 
