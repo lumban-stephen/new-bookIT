@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 28, 2020 at 05:43 PM
--- Server version: 10.4.14-MariaDB
--- PHP Version: 7.4.9
+-- Generation Time: Dec 30, 2020 at 06:34 AM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -40,14 +40,14 @@ CREATE TABLE `amenities` (
 --
 
 INSERT INTO `amenities` (`amenity_id`, `amenity_name`, `amenity_price`, `amenity_type`, `stock`) VALUES
-(1, 'Piattosss', 15.00, 'Foods', 109),
-(2, 'Dove Conditioner', 10.00, 'Hygiene', 98),
-(3, 'Sunsilk Shampoo', 8.00, 'Hygiene', 93),
-(4, 'Sunsilk Conditioner', 8.00, 'Hygiene', 100),
-(5, 'Nature Spring 350ml', 10.00, 'Drinks', 99),
-(6, 'Nature Spring 500ml', 15.00, 'Drinks', 100),
-(7, 'Pepsi 8oz', 10.00, 'Drinks', 100),
-(8, 'Mirinda 8oz', 10.00, 'Drinks', 100),
+(1, 'Piattosss', 15.00, 'Foods', 96),
+(2, 'Dove Conditioner', 10.00, 'Hygiene', 89),
+(3, 'Sunsilk Shampoo', 8.00, 'Hygiene', 69),
+(4, 'Sunsilk Conditioner', 8.00, 'Hygiene', -1),
+(5, 'Nature Spring 350ml', 10.00, 'Drinks', 87),
+(6, 'Nature Spring 500ml', 15.00, 'Drinks', 96),
+(7, 'Pepsi 8oz', 10.00, 'Drinks', 92),
+(8, 'Mirinda 8oz', 10.00, 'Drinks', 94),
 (9, 'Mountain Dew 8oz', 10.00, 'Drinks', 100),
 (10, 'Pepsi 12oz', 15.00, 'Drinks', 100),
 (11, 'Mirinda 12oz', 15.00, 'Drinks', 100),
@@ -55,9 +55,9 @@ INSERT INTO `amenities` (`amenity_id`, `amenity_name`, `amenity_price`, `amenity
 (13, 'Pepsi 1L', 30.00, 'Drinks', -10000000),
 (14, 'San Miguel Light 330ml', 50.00, 'Drinks', 100),
 (15, 'San Miguel Pale Pilsen 320ml', 35.00, 'Drinks', 100),
-(16, 'Piattos', 15.00, 'Foods', 100),
-(17, 'Nova', 15.00, 'Foods', 98),
-(18, 'Taquitos', 15.00, 'Foods', 100),
+(16, 'Piattos', 15.00, 'Foods', 80),
+(17, 'Nova', 15.00, 'Foods', 76),
+(18, 'Taquitos', 15.00, 'Foods', 89),
 (19, 'Vcut', 15.00, 'Foods', 100),
 (20, 'Clover', 15.00, 'Foods', 100),
 (21, 'Dingdong', 12.00, 'Foods', 100),
@@ -72,10 +72,11 @@ INSERT INTO `amenities` (`amenity_id`, `amenity_name`, `amenity_price`, `amenity
 (30, 'Hotsilog', 70.00, 'Foods', 9999999),
 (31, 'Cornsilog', 70.00, 'Foods', 9999999),
 (32, 'Tunasilog', 70.00, 'Foods', 9999999),
-(33, 'Pillows', 70.00, 'Extras', 9),
+(33, 'Pillows', 70.00, 'Extras', 8),
 (34, 'Lights', 70.00, 'Extras', 4),
 (35, 'burger', 24.00, 'Foods', 5),
-(36, 'dove clay', 5.00, 'Hygiene', -10000000);
+(36, 'dove clay', 15.00, 'Hygiene', 150),
+(37, 'hotdog', 10.00, 'Foods', -1);
 
 -- --------------------------------------------------------
 
@@ -94,21 +95,18 @@ CREATE TABLE `bill` (
 --
 
 INSERT INTO `bill` (`bill_id`, `bill_date`, `guest_id`) VALUES
-(1, '2020-10-11', 1),
-(2, '2020-10-11', 2),
-(3, '2020-11-11', 3),
-(4, '2020-11-13', 4),
-(5, '2020-11-14', 5),
-(6, '2020-12-15', 6),
-(7, '2020-12-24', 7),
-(8, '2020-12-26', 8),
-(9, '2020-12-26', 9),
-(10, '2020-12-27', 10),
-(11, '2020-12-28', 11),
-(12, '2020-12-28', 12),
-(13, '2020-12-28', 13),
-(14, '2020-12-28', 14),
-(15, '2020-12-29', 15);
+(21, '2019-12-30', 22),
+(22, '2019-12-31', 23),
+(23, '2020-12-30', 24),
+(24, '2020-12-31', 25),
+(25, '2020-12-30', 26),
+(26, '2020-12-16', 27),
+(27, '2020-12-22', 28),
+(28, '2020-12-27', 29),
+(29, '2020-12-26', 30),
+(30, '2020-12-30', 31),
+(31, '2020-12-30', 32),
+(32, '2020-12-31', 33);
 
 -- --------------------------------------------------------
 
@@ -129,61 +127,51 @@ CREATE TABLE `bill_items` (
 --
 
 INSERT INTO `bill_items` (`billitem_id`, `quantity`, `bill_id`, `bill_date`, `amenity_id`) VALUES
-(1, 1, 1, NULL, 5),
-(2, 1, 1, NULL, 8),
-(3, 1, 1, NULL, 11),
-(4, 2, 1, NULL, 29),
-(5, 1, 2, NULL, 1),
-(6, 1, 2, NULL, 3),
-(7, 3, 2, NULL, 17),
-(8, 2, 2, NULL, 25),
-(9, 1, 3, NULL, 5),
-(10, 1, 3, NULL, 8),
-(11, 1, 3, NULL, 11),
-(12, 2, 3, NULL, 29),
-(13, 1, 4, NULL, 5),
-(14, 1, 4, NULL, 8),
-(15, 1, 4, NULL, 11),
-(16, 2, 4, NULL, 29),
-(17, 1, 5, NULL, 5),
-(18, 1, 5, NULL, 8),
-(19, 1, 5, NULL, 11),
-(20, 2, 5, NULL, 29),
-(21, 2, 7, NULL, 15),
-(22, 2, 7, NULL, 16),
-(23, 2, 7, NULL, 19),
-(24, 2, 7, NULL, 22),
-(25, 2, 7, NULL, 10),
-(26, 2, 7, NULL, 4),
-(27, 2, 7, NULL, 9),
-(28, 6, 8, NULL, 15),
-(29, 3, 8, NULL, 16),
-(30, 5, 8, NULL, 19),
-(31, 1, 8, NULL, 22),
-(32, 3, 8, NULL, 10),
-(33, 1, 6, NULL, 5),
-(34, 1, 6, NULL, 8),
-(35, 1, 6, NULL, 11),
-(36, 2, 6, NULL, 29),
-(37, 1, 1, '2020-12-24', 34),
-(38, 1, 9, '2020-12-26', NULL),
-(39, 1, 2, '2020-12-27', 1),
-(40, 2, 2, '2020-12-27', 2),
-(41, 1, 10, '2020-12-27', NULL),
-(42, 4, 10, '2020-12-27', 3),
-(43, 1, 10, '2020-12-27', 17),
-(44, 2, 3, '2020-12-28', 2),
-(45, 1, 11, '2020-12-28', NULL),
-(46, 1, 12, '2020-12-28', NULL),
-(47, 2, 3, '2020-12-28', 3),
-(48, 1, 13, '2020-12-28', NULL),
-(49, 1, 13, '2020-12-28', 17),
-(50, 1, 14, '2020-12-28', NULL),
-(51, 1, 3, '2020-12-28', 33),
-(52, 1, 15, '2020-12-29', NULL),
-(53, 2, 15, '2020-12-28', 2),
-(54, 1, 15, '2020-12-28', 3),
-(55, 1, 15, '2020-12-28', 5);
+(80, 2, 21, '2020-12-30', 2),
+(81, 2, 21, '2020-12-30', 3),
+(82, 1, 21, '2020-12-30', 6),
+(83, 2, 21, '2020-12-30', 16),
+(84, 2, 21, '2020-12-30', 17),
+(86, 1, 22, '2020-12-30', 3),
+(87, 2, 22, '2020-12-30', 4),
+(88, 1, 22, '2020-12-30', 7),
+(89, 3, 22, '2020-12-30', 1),
+(90, 1, 22, '2020-12-30', 18),
+(94, 4, 25, '2020-12-30', 3),
+(95, 4, 25, '2020-12-30', 5),
+(96, 3, 25, '2020-12-30', 7),
+(97, 3, 25, '2020-12-30', 16),
+(99, 3, 26, '2020-12-30', 2),
+(100, 2, 26, '2020-12-30', 7),
+(101, 4, 26, '2020-12-30', 16),
+(102, 2, 26, '2020-12-30', 17),
+(104, 1, 27, '2020-12-30', 5),
+(105, 3, 27, '2020-12-30', 8),
+(106, 3, 27, '2020-12-30', 1),
+(107, 3, 27, '2020-12-30', 17),
+(108, 1, 27, '2020-12-30', 18),
+(110, 3, 28, '2020-12-30', 3),
+(111, 2, 28, '2020-12-30', 16),
+(112, 2, 28, '2020-12-30', 17),
+(113, 3, 28, '2020-12-30', 18),
+(115, 3, 29, '2020-12-30', 1),
+(116, 4, 29, '2020-12-30', 16),
+(117, 3, 29, '2020-12-30', 17),
+(118, 3, 29, '2020-12-30', 18),
+(119, 2, 29, '2020-12-30', 5),
+(121, 2, 30, '2020-12-30', 3),
+(122, 1, 30, '2020-12-30', 5),
+(123, 1, 30, '2020-12-30', 1),
+(124, 1, 30, '2020-12-30', 16),
+(126, 2, 31, '2020-12-30', 2),
+(127, 2, 31, '2020-12-30', 3),
+(128, 2, 31, '2020-12-30', 8),
+(129, 2, 31, '2020-12-30', 17),
+(130, 1, 31, '2020-12-30', 33),
+(131, 2, 31, '2020-12-30', 1),
+(133, 2, NULL, '2020-12-30', 2),
+(134, 3, NULL, '2020-12-30', 16),
+(135, 2, NULL, '2020-12-30', 17);
 
 -- --------------------------------------------------------
 
@@ -202,18 +190,11 @@ CREATE TABLE `checked_in_guests` (
 --
 
 INSERT INTO `checked_in_guests` (`checked_in_id`, `paid_amount`, `guest_id`) VALUES
-(1, NULL, 9),
-(2, NULL, 9),
-(3, NULL, 10),
-(4, NULL, 10),
-(5, NULL, 11),
-(6, NULL, 11),
-(7, NULL, 12),
-(8, NULL, 12),
-(9, NULL, 13),
-(10, NULL, 13),
-(11, NULL, 15),
-(12, NULL, 15);
+(20, NULL, 26),
+(22, NULL, 28),
+(24, NULL, 30),
+(25, NULL, 31),
+(27, NULL, 33);
 
 -- --------------------------------------------------------
 
@@ -236,29 +217,18 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`customer_id`, `fname`, `lname`, `MI`, `Address`, `email`, `phone`) VALUES
-(1, 'Ana', 'Manalastas', 'Z', 'Philippines', 'dummyemail@gmail.com', '12345678999'),
-(2, 'Ana', 'Manalastas', 'Z', 'Philippines', 'dummyemail@gmail.com', '12345678999'),
-(3, 'Joey', 'De Leon', 'Z', 'Philippines', 'dummyemail@gmail.com', '12345678999'),
-(4, 'Cardo', 'Dalisay', 'Z', 'Philippines', '', ''),
-(5, 'Ador', 'Dalisay', 'Z', 'Philippines', '', ''),
-(6, 'John', 'Doe', 'Z', 'America', 'dummyemail@gmail.com', '12345678999'),
-(7, 'Naruto', 'Uzumaki', 'Z', 'Japan', '', ''),
-(8, 'Yami', 'Sukihiro', 'Z', 'Japan', '', '654654'),
-(9, 'Ana', 'Manalastas', 'Z', 'Philippines', 'dummyemail@gmail.com', '12345678999'),
-(10, 'Ana', 'Manalastas', 'Z', 'Philippines', 'dummyemail@gmail.com', '12345678999'),
-(11, 'Joey', 'De Leon', 'Z', 'Philippines', 'dummyemail@gmail.com', '12345678999'),
-(12, 'Cardo', 'Dalisay', 'Z', 'Philippines', '', ''),
-(13, 'Ador', 'Dalisay', 'Z', 'Philippines', '', ''),
-(14, 'John', 'Doe', 'Z', 'America', 'dummyemail@gmail.com', '12345678999'),
-(15, 'Naruto', 'Uzumaki', 'Z', 'Japan', '', ''),
-(16, 'Yami', 'Sukihiro', 'Z', 'Japan', '', ''),
-(17, '', '', '', '', '', ''),
-(18, 'fasdfa', 'lhujhj', 'l', 'fadfad', 'afds@mail.com', '2145656'),
-(19, '', '', '', '', '', ''),
-(20, '', '', '', '', '', ''),
-(21, 'Carla', 'Gwapa', 'G', 'cebu', 'carla@email.com', '789645'),
-(22, 'stephen', 'lumban', 'p', NULL, 'gwapo@email.com', '561654456'),
-(23, 'asfd', 'asfaf', 'afads', 'fadsfad', 'fadf@mail.com', '');
+(30, 'Dummy1', 'Tester1', '', 'dumb street 1', 'dumb1@email.com', '321654987'),
+(31, 'Dummy2', 'Tester2', '', 'dumb street 2', 'dumb2@email.com', '123654987'),
+(32, 'YEAAAAAAH', 'BOIIIIIIIII', 'H', 'space and galaxy', 'shootingStars@email.com', '123456789'),
+(33, 'Tester', 'Dummy', '', NULL, 'dumb@email.com', '741852963'),
+(34, 'Disguised', 'Toast', '', 'Among Us', 'comfycartel@email.com', '789456123'),
+(35, 'Philip', 'Ojomo', '', 'Azarov\'s Lair', 'wraith@email.com', '753453123'),
+(36, 'Billy', 'Thompson', '', 'thompson\'s farm', 'hilibilly@email.com', '963852741'),
+(37, 'Sally', 'Smithson', '', 'Hospital', 'nurse@email.com', '654987320'),
+(38, 'Herman', 'Carter', '', 'Lery\'s Memorial Institute', 'theDoctor@gmail.com', '753951654'),
+(39, 'Evan', 'McMillan', '', 'McMillan Estate', 'trapper@email.com', '987654'),
+(40, 'Dummy', 'Tester', '', 'dumb street', 'dumb@email.com', '7834123'),
+(41, 'Dummy3', 'Tester3', 'F', NULL, 'dumb3@email.com', '7856413');
 
 -- --------------------------------------------------------
 
@@ -271,7 +241,7 @@ CREATE TABLE `guests` (
   `date_in` date DEFAULT NULL,
   `date_out` date DEFAULT NULL,
   `guests_count` int(11) DEFAULT NULL,
-  `guest_status` enum('COMPLETE','INCOMPLETE','CANCELLED', 'RESERVED') DEFAULT 'INCOMPLETE',
+  `guest_status` enum('COMPLETE','INCOMPLETE','CANCELLED','RESERVED') DEFAULT 'INCOMPLETE',
   `ID_type` enum('passport','driver license','PhilHealth','SSS UMID','POSTAL','TIN','SENIOR CITIZEN','OFW','OTHERS') DEFAULT NULL,
   `ID_number` varchar(100) DEFAULT NULL,
   `files` varchar(100) DEFAULT NULL,
@@ -285,21 +255,18 @@ CREATE TABLE `guests` (
 --
 
 INSERT INTO `guests` (`guest_id`, `date_in`, `date_out`, `guests_count`, `guest_status`, `ID_type`, `ID_number`, `files`, `payment_id`, `room_id`, `customer_id`) VALUES
-(1, '2020-10-11', '0000-00-00', 1, 'COMPLETE', NULL, NULL, NULL, 1, 101, 1),
-(2, '2020-10-11', '2020-12-27', 1, 'COMPLETE', NULL, NULL, NULL, 2, 101, 2),
-(3, '2020-11-11', '0000-00-00', 3, 'INCOMPLETE', NULL, NULL, NULL, 3, 205, 3),
-(4, '2020-11-13', '2020-11-14', 2, 'COMPLETE', NULL, NULL, NULL, 4, 202, 4),
-(5, '2020-11-14', '0000-00-00', 6, 'COMPLETE', NULL, NULL, NULL, 5, 301, 5),
-(6, '2020-12-15', '2020-12-27', 4, 'INCOMPLETE', NULL, NULL, NULL, 6, 204, 6),
-(7, '2020-12-24', '0000-00-00', 5, 'COMPLETE', NULL, NULL, NULL, 7, 303, 7),
-(8, '2020-12-26', '2020-12-28', 1, 'INCOMPLETE', NULL, NULL, NULL, 8, 206, 8),
-(9, '1000-01-01', '1000-01-01', 2, 'CANCELLED', '', '', '', 9, 101, 17),
-(10, '2020-12-27', '2020-12-28', 1, 'COMPLETE', 'passport', '45864645', '', 10, 105, 18),
-(11, '1000-01-01', '1000-01-01', 3, 'CANCELLED', '', '', '', 11, 306, 19),
-(12, '1000-01-01', '1000-01-01', 2, 'CANCELLED', '', '', '', 12, 205, 20),
-(13, '2020-12-28', '0000-00-00', 3, 'COMPLETE', 'SENIOR CITIZEN', '7898745', '', 13, 203, 21),
-(14, '1000-01-01', '1000-01-01', NULL, 'CANCELLED', NULL, NULL, NULL, 14, 201, 22),
-(15, '2020-12-29', '0000-00-00', 2, 'COMPLETE', '', '45564', '', 15, 101, 23);
+(22, '2019-12-30', '2020-12-30', 2, 'COMPLETE', 'PhilHealth', '456789', '', 21, 101, 30),
+(23, '2019-12-31', '2020-12-30', 4, 'COMPLETE', 'passport', '123', '', 22, 302, 31),
+(24, '2020-12-30', '2021-01-09', 1, 'INCOMPLETE', 'SSS UMID', '15698', '', 23, 101, 32),
+(25, '1000-01-01', '1000-01-01', 2, 'CANCELLED', NULL, NULL, NULL, 24, 103, 33),
+(26, '2020-12-30', '2021-01-01', 1, 'INCOMPLETE', 'PhilHealth', '15698', '', 25, 105, 34),
+(27, '2020-12-16', '2020-12-30', 3, 'COMPLETE', 'SSS UMID', '456789', '', 26, 203, 35),
+(28, '2020-12-22', '2020-12-30', 2, 'INCOMPLETE', 'POSTAL', '753', '', 27, 204, 36),
+(29, '2020-12-27', '2020-12-30', 1, 'COMPLETE', 'PhilHealth', '7586', '', 28, 104, 37),
+(30, '2020-12-26', '2021-01-02', 3, 'INCOMPLETE', 'OFW', '753423', '', 29, 305, 38),
+(31, '2020-12-30', '2020-12-30', 3, 'INCOMPLETE', 'driver license', '645483327', '', 30, 205, 39),
+(32, '2020-12-30', '2020-12-30', 1, 'COMPLETE', 'OTHERS', '456789', '', 31, 102, 40),
+(33, '2020-12-31', '2021-01-02', NULL, 'RESERVED', NULL, NULL, NULL, 32, 106, 41);
 
 -- --------------------------------------------------------
 
@@ -320,21 +287,18 @@ CREATE TABLE `payments` (
 --
 
 INSERT INTO `payments` (`payment_id`, `payment_amount`, `payment_date`, `payment_type`, `bill_id`) VALUES
-(1, 5070.00, '2020-10-12', 'Cash', 1),
-(2, 5000.00, '2020-10-12', 'Cash', 2),
-(3, 217500.00, '2020-11-12', 'Credit Card', 3),
-(4, 2175.00, '2020-11-14', 'Cash', 4),
-(5, 9175.00, '2020-11-15', 'Credit Card', 5),
-(6, 117500.00, '2020-12-16', 'Cash', 6),
-(7, 10000.00, '2020-12-26', 'Cash', 7),
-(8, 5000.00, '2020-12-28', 'Credit Card', 8),
-(9, 0.00, NULL, NULL, 9),
-(10, 3000.00, NULL, NULL, 10),
-(11, 0.00, NULL, NULL, 11),
-(12, 100000000.00, NULL, NULL, 12),
-(13, 4515.00, NULL, NULL, 13),
-(14, 0.00, NULL, NULL, NULL),
-(15, 2040.00, NULL, NULL, 15);
+(21, 8000.00, NULL, NULL, 21),
+(22, 36000.00, NULL, NULL, 22),
+(23, 20000.00, NULL, NULL, 23),
+(24, 0.00, NULL, NULL, 24),
+(25, 4000.00, NULL, NULL, 25),
+(26, 63000.00, NULL, NULL, 26),
+(27, 49500.00, NULL, NULL, 27),
+(28, 6000.00, NULL, NULL, 28),
+(29, 63000.00, NULL, NULL, 29),
+(30, 27000.00, NULL, NULL, 30),
+(31, 18000.00, NULL, NULL, 31),
+(32, 4000.00, NULL, NULL, 32);
 
 -- --------------------------------------------------------
 
@@ -357,41 +321,23 @@ CREATE TABLE `records` (
 --
 
 INSERT INTO `records` (`record_id`, `record_type`, `record_desc`, `record_time`, `record_date`, `record_paid`, `guest_id`) VALUES
-(1, 'COMING', 'coming', '14:00:00', '2020-10-11', 150.00, 1),
-(2, 'STAYING', 'staying', '15:00:00', '2020-10-11', 150.00, 102),
-(3, 'CHECKED OUT', '', '09:00:00', '2020-10-12', 150.00, 1),
-(4, 'COMING', 'coming', '14:00:00', '2020-10-11', 150.00, 2),
-(5, 'STAYING', 'staying', '16:00:00', '2020-10-11', 150.00, 2),
-(6, 'CHECKED OUT', '', '10:00:00', '2020-10-12', 150.00, 2),
-(7, 'COMING', 'coming', '14:00:00', '2020-11-11', 150.00, 3),
-(8, 'STAYING', 'staying', '15:00:00', '2020-11-11', 150.00, 3),
-(9, 'CHECKED OUT', '', '08:00:00', '2020-11-12', 150.00, 3),
-(10, 'COMING', 'coming', '14:00:00', '2020-11-13', 150.00, 4),
-(11, 'STAYING', 'staying', '16:00:00', '2020-11-13', 150.00, 4),
-(12, 'CHECKED OUT', '', '16:00:00', '2020-11-14', 150.00, 4),
-(13, 'COMING', 'coming', '14:00:00', '2020-11-14', 150.00, 5),
-(14, 'STAYING', 'staying', '16:00:00', '2020-11-14', 150.00, 5),
-(15, 'CHECKED OUT', '', '16:00:00', '2020-11-15', 150.00, 5),
-(16, 'COMING', 'coming', '14:00:00', '2020-12-15', 150.00, 6),
-(17, 'STAYING', 'staying', '13:00:00', '2020-12-15', 150.00, 6),
-(18, 'CHECKED OUT', '', '10:00:00', '2020-12-16', 150.00, 6),
-(19, 'COMING', 'coming', '14:00:00', '2020-12-24', 150.00, 7),
-(20, 'COMING', 'coming', '14:00:00', '2020-12-26', 150.00, 8),
-(21, 'CHECKED OUT', NULL, '13:55:36', '2020-12-26', 2245.00, 1),
-(22, 'STAYING', NULL, '07:01:34', '2020-12-26', NULL, 9),
-(23, 'CHECKED OUT', NULL, '13:28:52', '2020-12-27', 2105.00, 2),
-(24, 'CHECKED OUT', NULL, '13:30:05', '2020-12-27', 9216.00, 7),
-(25, 'STAYING', NULL, '06:40:51', '2020-12-27', NULL, 10),
-(26, 'CHECKED OUT', NULL, '13:42:14', '2020-12-27', 2047.00, 10),
-(27, 'STAYING', NULL, '09:07:46', '2020-12-28', NULL, 11),
-(28, 'STAYING', NULL, '09:08:46', '2020-12-28', NULL, 12),
-(29, 'CHECKED OUT', NULL, '16:10:19', '2020-12-28', 2175.00, 4),
-(30, 'CHECKED OUT', NULL, '23:44:25', '2020-12-28', 9175.00, 5),
-(31, 'STAYING', NULL, '04:47:03', '2020-12-28', NULL, 13),
-(32, 'CHECKED OUT', NULL, '23:48:24', '2020-12-28', 4515.00, 13),
-(33, 'COMING', NULL, '23:49:00', '2020-12-28', NULL, 14),
-(34, 'STAYING', NULL, '05:22:19', '2020-12-29', NULL, 15),
-(35, 'CHECKED OUT', NULL, '00:23:17', '2020-12-29', 2038.00, 15);
+(49, 'CHECKED OUT', NULL, '10:14:24', '2020-12-30', 2111.00, 22),
+(50, 'CHECKED OUT', NULL, '10:14:32', '2020-12-30', 9094.00, 23),
+(51, 'COMING', NULL, '11:20:00', '2020-12-30', NULL, 24),
+(52, 'COMING', NULL, '22:34:00', '2020-12-31', NULL, 25),
+(53, 'STAYING', NULL, '03:32:57', '2020-12-30', NULL, 26),
+(54, 'STAYING', NULL, '03:36:33', '2020-12-16', NULL, 27),
+(55, 'STAYING', NULL, '03:39:52', '2020-12-22', NULL, 28),
+(56, 'STAYING', NULL, '03:42:43', '2020-12-27', NULL, 29),
+(57, 'CHECKED OUT', NULL, '10:43:16', '2020-12-30', 6129.00, 29),
+(58, 'STAYING', NULL, '03:48:14', '2020-12-26', NULL, 30),
+(59, 'COMING', NULL, '10:52:00', '2020-12-30', NULL, 31),
+(60, 'STAYING', NULL, NULL, '2020-12-30', NULL, 31),
+(61, 'STAYING', NULL, '04:21:43', '2020-12-30', NULL, 32),
+(62, 'CHECKED OUT', NULL, '11:26:42', '2020-12-30', 18186.00, 32),
+(63, 'COMING', NULL, '00:30:00', '2020-12-31', NULL, 33),
+(64, 'STAYING', NULL, NULL, '2020-12-30', NULL, 33),
+(65, 'CHECKED OUT', NULL, '11:36:34', '2020-12-30', 63140.00, 27);
 
 -- --------------------------------------------------------
 
@@ -410,24 +356,24 @@ CREATE TABLE `rooms` (
 --
 
 INSERT INTO `rooms` (`room_id`, `room_status`, `roomtype_id`) VALUES
-(101, 'Available', 1),
-(102, 'Maintenance', 1),
-(103, 'Maintenance', 1),
-(104, 'Maintenance', 1),
-(105, 'Available', 2),
-(106, 'Maintenance', 2),
+(101, 'Used by guest', 1),
+(102, 'Available', 1),
+(103, 'Reserved', 1),
+(104, 'Available', 1),
+(105, 'Used by guest', 2),
+(106, 'Reserved', 2),
 (201, 'Available', 2),
 (202, 'Available', 2),
 (203, 'Available', 3),
-(204, 'Available', 3),
+(204, 'Used by guest', 3),
 (205, 'Used by guest', 3),
 (206, 'Maintenance', 3),
 (301, 'Available', 4),
 (302, 'Maintenance', 4),
 (303, 'Available', 4),
 (304, 'Available', 4),
-(305, 'Maintenance', 4),
-(306, 'Used by guest', 4);
+(305, 'Used by guest', 4),
+(306, 'Available', 4);
 
 -- --------------------------------------------------------
 
@@ -469,13 +415,12 @@ CREATE TABLE `schedule` (
 --
 
 INSERT INTO `schedule` (`sched_id`, `guest_id`, `room_id`) VALUES
-(1, 1, 101),
-(2, 2, 102),
-(3, 3, 103),
-(6, 6, 202),
-(7, 7, 303),
-(8, 8, 206),
-(10, 10, 105);
+(23, 24, 101),
+(25, 26, 105),
+(27, 28, 204),
+(29, 30, 305),
+(30, 31, 205),
+(32, 33, 106);
 
 -- --------------------------------------------------------
 
@@ -499,7 +444,8 @@ INSERT INTO `task` (`task_id`, `task_name`, `task_desc`, `task_status`) VALUES
 (2, 'Order equipmemts', 'check the storage, and order them.', 'INCOMPLETE'),
 (3, 'bugs', 'hide bugs', 'COMPLETE'),
 (4, 'bugs', 'hide bugs', 'COMPLETE'),
-(5, 'Clean room 205', 'clean room because dirty', 'COMPLETE');
+(5, 'Clean room 205', 'clean room because dirty', 'COMPLETE'),
+(6, 'run demo', 'test running now', 'COMPLETE');
 
 -- --------------------------------------------------------
 
@@ -629,49 +575,49 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `amenities`
 --
 ALTER TABLE `amenities`
-  MODIFY `amenity_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `amenity_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `bill`
 --
 ALTER TABLE `bill`
-  MODIFY `bill_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `bill_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `bill_items`
 --
 ALTER TABLE `bill_items`
-  MODIFY `billitem_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `billitem_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=136;
 
 --
 -- AUTO_INCREMENT for table `checked_in_guests`
 --
 ALTER TABLE `checked_in_guests`
-  MODIFY `checked_in_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `checked_in_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `guests`
 --
 ALTER TABLE `guests`
-  MODIFY `guest_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `guest_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `records`
 --
 ALTER TABLE `records`
-  MODIFY `record_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `record_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT for table `rooms`
@@ -689,19 +635,19 @@ ALTER TABLE `room_type`
 -- AUTO_INCREMENT for table `schedule`
 --
 ALTER TABLE `schedule`
-  MODIFY `sched_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `sched_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `task`
 --
 ALTER TABLE `task`
-  MODIFY `task_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `task_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables
