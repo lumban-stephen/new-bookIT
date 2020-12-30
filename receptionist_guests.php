@@ -103,7 +103,6 @@
                                             <td>". $rows['Room Number']. "</td>
                                             <td><button  class='Offerbutton' name='ameneties'>Offer<br>Amenities</a></button>
                                                 <button class='Extendbutton' name='extend'>Extend<br>Stay</button>
-                                                
                                                 <input type='submit' class='Checkoutbutton'  name='checkout' value='Early Checkout'></td>
                                             <td><button class= 'Viewbutton'><a href= 'receptionist_guestview.php?id=".$rows['guest_id']."'>View</a></button></td></tr>
                                             <input type='hidden' name='Date' value='{$rows['date']}'>
