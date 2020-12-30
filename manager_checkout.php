@@ -212,7 +212,7 @@
 
                     if ($conn->query($updatePayment) === TRUE) {
                         echo "<script language='javascript'>
-                                    window.location.href='receptionist_checkout.php';
+                                    window.location.href='manager_checkout.php';
                                     
                             </script>";
                     } else {
@@ -238,7 +238,7 @@
                                             $total,
                                             $gID)";
                         $deleteSched = "DELETE FROM schedule WHERE guest_id = $gID";
-                        $deleteCheckIn = "DELETE FROM checked_in_guest WHERE guest_id = $gID";
+                        $deleteCheckIn = "DELETE FROM checked_in_guests WHERE guest_id = $gID";
             
                         if ($conn->query($updateGuest) === TRUE && 
                             $conn->query($updateRoom) === TRUE && 
@@ -246,7 +246,7 @@
                             $conn->query($deleteSched) === TRUE &&
                             $conn->query($deleteCheckIn) === TRUE) {
                             echo "<script language='javascript'>
-                                        window.location.href='receptionist_checkout.php';
+                                        window.location.href='manager_checkout.php';
                                       
                                 </script>";
                         } else if(!$conn->query($updateGuest) === TRUE) {
@@ -262,7 +262,7 @@
                         }
                     } else {
                         echo "<script language='javascript'>
-                                        window.location.href='receptionist_checkout.php';
+                                        window.location.href='manager_checkout.php';
                                        
                                 </script>";
                     }
