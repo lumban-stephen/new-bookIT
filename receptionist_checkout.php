@@ -68,21 +68,22 @@
                                             SUM(bill_items.quantity * amenities.amenity_price) + payments.payment_amount AS 'total_amount',
                                             payments.payment_id,
                                             ch.paid_amount as payment_amount,
+                                            
                                             CURRENT_DATE AS 'date',
-                                            CURRENT_TIME AS 'time',
-
-                                    FROM guests, customers, rooms, room_type, payments, bill, bill_items, amenities, checked_in_guests ch
+                                            CURRENT_TIME AS 'time'                                 
+                                    FROM guests, customers, rooms, room_type, payments, bill, bill_items, amenities,checked_in_guests ch
                                     WHERE guests.customer_id = customers.customer_id AND 
-                                        guests.room_id = rooms.room_id AND 
-                                        guests.payment_id = payments.payment_id AND 
-                                        rooms.roomtype_id = room_type.roomtype_id AND 
-                                        payments.bill_id = bill.bill_id AND
-                                        bill.bill_id = bill_items.bill_id AND
-                                        bill_items.amenity_id = amenities.amenity_id AND
-                                        guests.guest_status = 'INCOMPLETE' AND 
-                                        rooms.room_id LIKE '%$keyword%' AND
-                                        guests.date_out = CURDATE() AND ch.guest_id=guests.guest_id
+                                    guests.room_id = rooms.room_id AND 
+                                    guests.payment_id = payments.payment_id AND 
+                                    rooms.roomtype_id = room_type.roomtype_id AND 
+                                    payments.bill_id = bill.bill_id AND
+                                    bill.bill_id = bill_items.bill_id AND
+                                    bill_items.amenity_id = amenities.amenity_id AND
+                                    guests.guest_status = 'INCOMPLETE' AND
+                                    guests.date_out = CURDATE() AND ch.guest_id=guests.guest_id AND 
+                                    rooms.room_id LIKE '%$keyword%'
                                     GROUP BY guests.guest_id";
+                           
                             echo "<br>
                                 <div id='SearchTable'>
                                     <div>
