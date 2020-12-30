@@ -169,6 +169,12 @@
             $addbill->bind_param("ii", $bill_id, $payment_id);
             $addbill->execute();
 
+            //update room to reserved
+            $roomStat='Reserved';
+            $prepare8 = $conn->prepare("UPDATE rooms SET room_status = ? WHERE room_id = ?");
+            $prepare8->bind_param("si", $roomStat, $_SESSION['room_id']);
+            $prepare8->execute();
+                
             //create data in records
             $record_type="COMING";
             $coming = $conn->prepare("INSERT INTO records(record_type,record_date,record_time,guest_id) VALUES (?,?,?,?)");

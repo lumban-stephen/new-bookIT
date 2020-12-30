@@ -380,6 +380,7 @@ li img{
 .checkinbox111{
   grid-column: 4/7;
   grid-row:5;
+  border: 2px solid #D3DEE8;
 }
 .checkinbox12{
   grid-column: 5/7;

@@ -401,7 +401,7 @@ INSERT INTO `records` (`record_id`, `record_type`, `record_desc`, `record_time`,
 
 CREATE TABLE `rooms` (
   `room_id` int(11) NOT NULL,
-  `room_status` enum('Available','Used by guest','Maintenance') DEFAULT NULL,
+  `room_status` enum('Available','Used by guest','Maintenance','Reserved') DEFAULT NULL,
   `roomtype_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

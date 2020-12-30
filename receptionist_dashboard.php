@@ -55,7 +55,7 @@
                         include 'connection.php';
         
                         $sql = "SELECT COUNT(*) AS 'Guests'
-                                 FROM guests g WHERE guest_status = 'INCOMPLETE' AND g.date_in<= CURRENT_DATE  ;";
+                                 FROM guests WHERE guest_status = 'INCOMPLETE' ;";
                         $display = $conn->query($sql);
                         if($rows = $display != NULL){ 
                             while($rows = $display->fetch_assoc()){
