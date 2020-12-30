@@ -206,6 +206,7 @@
                             if ($conn->query($updateDate) === TRUE) {
                                 echo "<script language='javascript'>
                                             window.location.href='receptionist_checkout.php';
+                                            alert('Early Checkout Date Update is successful');
                                     </script>";
                             } else {
                                 echo "Error: " .$updateDate. "<br>" .$conn->error;
