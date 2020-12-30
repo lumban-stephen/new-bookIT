@@ -64,13 +64,14 @@
                                             customers.fname, 
                                             customers.lname,
                                             SUM(bill_items.quantity * amenities.amenity_price) AS 'payables', 
-                                            room_type.room_cost,
-                                            SUM(bill_items.quantity * amenities.amenity_price) + room_type.room_cost AS 'total_amount',
+                                            payments.payment_amount as room_cost,
+                                            SUM(bill_items.quantity * amenities.amenity_price) + payments.payment_amount AS 'total_amount',
                                             payments.payment_id,
-                                            payments.payment_amount,
+                                            ch.paid_amount as payment_amount,
                                             CURRENT_DATE AS 'date',
-                                            CURRENT_TIME AS 'time'                                 
-                                    FROM guests, customers, rooms, room_type, payments, bill, bill_items, amenities
+                                            CURRENT_TIME AS 'time',
+
+                                    FROM guests, customers, rooms, room_type, payments, bill, bill_items, amenities, checked_in_guests ch
                                     WHERE guests.customer_id = customers.customer_id AND 
                                         guests.room_id = rooms.room_id AND 
                                         guests.payment_id = payments.payment_id AND 
@@ -80,7 +81,7 @@
                                         bill_items.amenity_id = amenities.amenity_id AND
                                         guests.guest_status = 'INCOMPLETE' AND 
                                         rooms.room_id LIKE '%$keyword%' AND
-                                        guests.date_out = CURDATE()
+                                        guests.date_out = CURDATE() AND ch.guest_id=guests.guest_id
                                     GROUP BY guests.guest_id";
                             echo "<br>
                                 <div id='SearchTable'>
@@ -123,7 +124,7 @@
                                             <input type='hidden' name='time' value='{$row['time']}'>
                                             <input type='hidden' name='payAmount' value='{$row['payment_amount']}'>
                                             <input type='hidden' name='totAmount' value='{$row['total_amount']}'>
-                                            <input type='hidden' name='payID' value='{$row['payment_id']}'>                               
+                                            <input type='hidden' name='payID' value='{$row['guest_id']}'>                               
                                     </form>                    
                                 ";
                             }
@@ -154,13 +155,14 @@
                                 customers.fname, 
                                 customers.lname,
                                 SUM(bill_items.quantity * amenities.amenity_price) AS 'payables', 
-                                room_type.room_cost,
-                                SUM(bill_items.quantity * amenities.amenity_price) + room_type.room_cost AS 'total_amount',
+                                payments.payment_amount as room_cost,
+                                SUM(bill_items.quantity * amenities.amenity_price) + payments.payment_amount AS 'total_amount',
                                 payments.payment_id,
-                                payments.payment_amount,
+                                ch.paid_amount as payment_amount,
+                                
                                 CURRENT_DATE AS 'date',
                                 CURRENT_TIME AS 'time'                                 
-                        FROM guests, customers, rooms, room_type, payments, bill, bill_items, amenities
+                        FROM guests, customers, rooms, room_type, payments, bill, bill_items, amenities,checked_in_guests ch
                         WHERE guests.customer_id = customers.customer_id AND 
                         guests.room_id = rooms.room_id AND 
                         guests.payment_id = payments.payment_id AND 
@@ -169,7 +171,7 @@
                         bill.bill_id = bill_items.bill_id AND
                         bill_items.amenity_id = amenities.amenity_id AND
                         guests.guest_status = 'INCOMPLETE' AND
-                        guests.date_out = CURDATE()
+                        guests.date_out = CURDATE() AND ch.guest_id=guests.guest_id
                         GROUP BY guests.guest_id";
                 $result = mysqli_query($conn, $sql);
 
@@ -178,26 +180,26 @@
                     while($row = mysqli_fetch_assoc($result)){
                         echo "
                         
-                            <form action='' method='POST'>
-                                <tr>
-                                    <td>".$row["room_id"]."</td> 
-                                    <td>".$row["guest_id"]."</td>
-                                    <td>".$row["fname"]." ".$row["lname"]."</td>
-                                    <td>".$row["payables"]."</td>
-                                    <td>".$row["room_cost"]."</td>
-                                    <td>".$row["total_amount"]."</td>
-                                    <td><input type='number' class='restocknum' name='newPay' value=".$row["payment_amount"].">
-                                        <input type='submit' classs='Greenbutton1' name='updatePay' value='Update Payment'></td>
-                                    <td><input type='submit' class='Checkoutbutton' name='remove' value='Check Out'></td> 
-                                </tr>    
-                                    <input type='hidden' name='guestID' value='{$row['guest_id']}'>
-                                    <input type='hidden' name='roomID' value='{$row['room_id']}'>
-                                    <input type='hidden' name='date' value='{$row['date']}'>
-                                    <input type='hidden' name='time' value='{$row['time']}'>
-                                    <input type='hidden' name='payAmount' value='{$row['payment_amount']}'>
-                                    <input type='hidden' name='totAmount' value='{$row['total_amount']}'>
-                                    <input type='hidden' name='payID' value='{$row['payment_id']}'>                               
-                            </form>                    
+                        <form action='' method='POST'>
+                        <tr>
+                            <td>".$row["room_id"]."</td> 
+                            <td>".$row["guest_id"]."</td>
+                            <td>".$row["fname"]." ".$row["lname"]."</td>
+                            <td>".$row["payables"]."</td>
+                            <td>".$row["room_cost"]."</td>
+                            <td>".$row["total_amount"]."</td>
+                            <td><input type='number' class='restocknum' name='newPay' value=".$row["payment_amount"].">
+                                <input type='submit' class='Greenbutton1' name='updatePay' value='Update Payment'></td>
+                            <td><input type='submit' class='Checkoutbutton' name='remove' value='Check Out'></td> 
+                        </tr>    
+                            <input type='hidden' name='guestID' value='{$row['guest_id']}'>
+                            <input type='hidden' name='roomID' value='{$row['room_id']}'>
+                            <input type='hidden' name='date' value='{$row['date']}'>
+                            <input type='hidden' name='time' value='{$row['time']}'>
+                            <input type='hidden' name='payAmount' value='{$row['payment_amount']}'>
+                            <input type='hidden' name='totAmount' value='{$row['total_amount']}'>
+                            <input type='hidden' name='payID' value='{$row['guest_id']}'>                               
+                    </form>                    
                         ";
                     }
                     echo "</table>";
@@ -208,12 +210,12 @@
                 if(isset($_POST['updatePay'])){
                     $pID = $_POST['payID'];
                     $newPay = $_POST['newPay'];
-                    $updatePayment = "UPDATE payments SET payment_amount = $newPay WHERE payment_id = $pID";
+                    $updatePayment = "UPDATE checked_in_guests SET paid_amount = $newPay WHERE guest_id = $pID";
 
                     if ($conn->query($updatePayment) === TRUE) {
-                        echo "<script language='javascript'>
+                        echo "
+                            <script language='javascript'>
                                     window.location.href='receptionist_checkout.php';
-                                    
                             </script>";
                     } else {
                         echo "Error: " .$updatePayment. "<br>" .$conn->error;
@@ -260,9 +262,10 @@
                         } else if(!$conn->query($deleteCheckIn) === TRUE) {
                             echo "Error: " .$deleteCheckIn. "<br>" .$conn->error;
                         }
+                    
                     } else {
                         echo "<script language='javascript'>
-                                        window.location.href='receptionist_checkout.php';
+                                        window.location.href='manager_guests.php';
                                        
                                 </script>";
                     }

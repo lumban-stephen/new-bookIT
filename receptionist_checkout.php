@@ -64,13 +64,14 @@
                                             customers.fname, 
                                             customers.lname,
                                             SUM(bill_items.quantity * amenities.amenity_price) AS 'payables', 
-                                            room_type.room_cost,
-                                            SUM(bill_items.quantity * amenities.amenity_price) + room_type.room_cost AS 'total_amount',
+                                            payments.payment_amount as room_cost,
+                                            SUM(bill_items.quantity * amenities.amenity_price) + payments.payment_amount AS 'total_amount',
                                             payments.payment_id,
-                                            payments.payment_amount,
+                                            ch.paid_amount as payment_amount,
                                             CURRENT_DATE AS 'date',
-                                            CURRENT_TIME AS 'time'                                 
-                                    FROM guests, customers, rooms, room_type, payments, bill, bill_items, amenities
+                                            CURRENT_TIME AS 'time',
+
+                                    FROM guests, customers, rooms, room_type, payments, bill, bill_items, amenities, checked_in_guests ch
                                     WHERE guests.customer_id = customers.customer_id AND 
                                         guests.room_id = rooms.room_id AND 
                                         guests.payment_id = payments.payment_id AND 
@@ -80,7 +81,7 @@
                                         bill_items.amenity_id = amenities.amenity_id AND
                                         guests.guest_status = 'INCOMPLETE' AND 
                                         rooms.room_id LIKE '%$keyword%' AND
-                                        guests.date_out = CURDATE()
+                                        guests.date_out = CURDATE() AND ch.guest_id=guests.guest_id
                                     GROUP BY guests.guest_id";
                             echo "<br>
                                 <div id='SearchTable'>
@@ -123,7 +124,7 @@
                                             <input type='hidden' name='time' value='{$row['time']}'>
                                             <input type='hidden' name='payAmount' value='{$row['payment_amount']}'>
                                             <input type='hidden' name='totAmount' value='{$row['total_amount']}'>
-                                            <input type='hidden' name='payID' value='{$row['payment_id']}'>                               
+                                            <input type='hidden' name='payID' value='{$row['guest_id']}'>                               
                                     </form>                    
                                 ";
                             }
@@ -154,13 +155,14 @@
                                 customers.fname, 
                                 customers.lname,
                                 SUM(bill_items.quantity * amenities.amenity_price) AS 'payables', 
-                                room_type.room_cost,
-                                SUM(bill_items.quantity * amenities.amenity_price) + room_type.room_cost AS 'total_amount',
+                                payments.payment_amount as room_cost,
+                                SUM(bill_items.quantity * amenities.amenity_price) + payments.payment_amount AS 'total_amount',
                                 payments.payment_id,
-                                payments.payment_amount,
+                                ch.paid_amount as payment_amount,
+                                
                                 CURRENT_DATE AS 'date',
                                 CURRENT_TIME AS 'time'                                 
-                        FROM guests, customers, rooms, room_type, payments, bill, bill_items, amenities
+                        FROM guests, customers, rooms, room_type, payments, bill, bill_items, amenities,checked_in_guests ch
                         WHERE guests.customer_id = customers.customer_id AND 
                         guests.room_id = rooms.room_id AND 
                         guests.payment_id = payments.payment_id AND 
@@ -169,7 +171,7 @@
                         bill.bill_id = bill_items.bill_id AND
                         bill_items.amenity_id = amenities.amenity_id AND
                         guests.guest_status = 'INCOMPLETE' AND
-                        guests.date_out = CURDATE()
+                        guests.date_out = CURDATE() AND ch.guest_id=guests.guest_id
                         GROUP BY guests.guest_id";
                 $result = mysqli_query($conn, $sql);
 
@@ -196,7 +198,7 @@
                             <input type='hidden' name='time' value='{$row['time']}'>
                             <input type='hidden' name='payAmount' value='{$row['payment_amount']}'>
                             <input type='hidden' name='totAmount' value='{$row['total_amount']}'>
-                            <input type='hidden' name='payID' value='{$row['payment_id']}'>                               
+                            <input type='hidden' name='payID' value='{$row['guest_id']}'>                               
                     </form>                    
                         ";
                     }
@@ -208,7 +210,7 @@
                 if(isset($_POST['updatePay'])){
                     $pID = $_POST['payID'];
                     $newPay = $_POST['newPay'];
-                    $updatePayment = "UPDATE payments SET payment_amount = $newPay WHERE payment_id = $pID";
+                    $updatePayment = "UPDATE checked_in_guests SET paid_amount = $newPay WHERE guest_id = $pID";
 
                     if ($conn->query($updatePayment) === TRUE) {
                         echo "
@@ -238,7 +240,7 @@
                                             $total,
                                             $gID)";
                         $deleteSched = "DELETE FROM schedule WHERE guest_id = $gID";
-                        $deleteCheckIn = "DELETE FROM check_in_guest WHERE guest_id = $gID";
+                        $deleteCheckIn = "DELETE FROM checked_in_guests WHERE guest_id = $gID";
             
                         if ($conn->query($updateGuest) === TRUE && 
                             $conn->query($updateRoom) === TRUE && 
