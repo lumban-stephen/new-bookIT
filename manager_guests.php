@@ -154,14 +154,14 @@
                             b.guest_id=g.guest_id AND 
                             g.guest_status = 'INCOMPLETE'
                     GROUP BY
-                            g.guest_id /*I grouped it by guest id because it would be group by roomtype_id if isnt guest_id*/ 
+                            g.guest_id 
                     ORDER BY
                             g.date_in;"; //Ordered the table by the dates they checked in
 
                     $display = $conn->query($sql);
 
             
-                    if($rows = $display != NULL){ //I didn't put fetch assoc because the first value won't show if the fetch_assoc() is called twice.
+                    if($rows = $display != NULL){ 
                         while($rows = $display->fetch_assoc()){
                             echo
                                 "<form action='' method='POST'>
