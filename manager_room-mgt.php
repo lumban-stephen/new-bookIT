@@ -51,7 +51,6 @@
             <h2 style=" display: inline-block;">Rooms</h2>
                 <div style="float: right;">
                     <form action='' method='POST'>
-                        <input type='submit' class='Offerbutton'  name='Createroomtype' value='Create New Roomtype'>
                         <input type='submit' class='Greenbutton'  name='Createroom' value='Add Room'>
                     </form>
                 </div>
@@ -62,23 +61,6 @@
                     echo "<br><div>
                             <form method='POST' action='' >
                             <label class='Labelform-Rev'>Room Number</label><input type='text' class='input-Rev' name='roomnum' required>
-                            <label class='Labelform-Rev'>Room Type</label><select name='roomtype' class='input-Rev'  id='roomtype' required />
-                                    <option value='1'>Single bed, Aircon, 1-2 people</option>
-                                    <option value='2'>Single bed, Fan only, 1-2 people</option>
-                                    <option value='3'>Two beds, Aircon, 2-4 people</option>
-                                    <option value='4'>Three beds, Aircon, 3-5 people</option>
-                            </select>
-                            <label class='Labelform-Rev'>Room Status</label><select name='roomstatus' class='input-Rev' id='status' required>
-                                <option value='Available'>Available</option>
-                                <option value='Maintenance'>Maintenance</option>
-                            </select>
-                            <button type='submit' class='Greenbutton' name='save' >SAVE</button>
-                            
-                            </form> 
-                        </div>";
-                }
-                if(isset($_POST['Createroomtype'])){
-                echo "<form method='POST' action='' >
                             <label class='Labelform-Rev'>Room Rate per night</label><input type='number' class='input-Rev' name='roomrate' required><br>
                             <label class='Labelform-Rev'>Room Capacity</label><input type='number' class='input-Rev' name='roomcap' required><br>
                             <label class='Labelform-Rev'>Room Description</label><input type='text' class='input-Rev' list='desc' name='roomdesc' required />
@@ -87,34 +69,35 @@
                                     <option value='Single bed, Fan only, 1-2 people'>Single bed, Fan only, 1-2 people</option>
                                     <option value='Two beds, Aircon, 2-4 people'>Two beds, Aircon, 2-4 people</option>
                                     <option value='Three beds, Aircon, 3-5 people'>Three beds, Aircon, 3-5 people</option>
-                                </datalist> </form>
-                                <button type='submit' class='Greenbutton' name='savetype' >SAVE</button>
-                                </form> ";
+                                </datalist>
+                                <label class='Labelform-Rev'>Room Status</label><select name='roomstatus' class='input-Rev' id='status' required>
+                                <option value='Available'>Available</option>
+                                <option value='Maintenance'>Maintenance</option>
+                            </select>
+                            <button type='submit' class='Greenbutton' name='save' >SAVE</button>
+                            
+                            </form> 
+                        </div>";
                 }
 
                 if(isset($_POST['save'])){
                     $roomnum = $_POST['roomnum'];
-                    $roomtype = $_POST['roomtype'];
-                    $roomstatus = $_POST['roomstatus'];
-                    
-                    $sqlinsert1 = "INSERT INTO rooms(room_id, room_status,roomtype_id) 
-                            VALUES('$roomnum','$roomstatus','$roomtype')";           
-                    $conn->query($sqlinsert1) or die($conn->error);
-            
-                    header('location: manager_room-mgt.php');
-                }
-                if(isset($_POST['savetype'])){
                     $roomrate = $_POST['roomrate'];
+                    
                     $roomcap = $_POST['roomcap'];
                     $roomdesc = $_POST['roomdesc'];
+                    $roomstatus = $_POST['roomstatus'];
 
                     $sqlinsert1 = "INSERT INTO room_type(room_cost, room_desc, room_cap) 
                             VALUES('$roomrate','$roomdesc', '$roomcap')";
                     $conn->query($sqlinsert1) or die($conn->error);
+                    
+                    $sqlinsert2 = "INSERT INTO rooms(room_id, room_status,roomtype_id) 
+                            VALUES('$roomnum','$roomstatus',LAST_INSERT_ID())";           
+                    $conn->query($sqlinsert2) or die($conn->error);
             
                     header('location: manager_room-mgt.php');
                 }
-               
             ?>
             
             <form action="room_server.php" method="get">
