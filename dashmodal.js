@@ -28,7 +28,16 @@ document.querySelector('.bg-modal5').style.display = 'flex';
 document.querySelector('.close5').addEventListener('click',function(){
 document.querySelector('.bg-modal5').style.display = 'none';
             });  
-                    
+document.getElementById('add').addEventListener('click',function() {
+document.querySelector('.bg-modal5').style.display = 'flex';
+            });
+document.getElementById('New').addEventListener('click',function() {
+document.querySelector('.bg-modal5').style.display = 'flex';
+            });
+document.getElementById('Newroom').addEventListener('click',function() {
+document.querySelector('.Modalform').style.display = 'flex';
+            });
+
 /** Date and Time
  --------------------------------------*/
  function updateClock(){
