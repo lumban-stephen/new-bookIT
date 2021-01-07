@@ -1,24 +1,7 @@
 <?php
-    include 'connection.php';
-    include 'staff-server.php';
+    include 'connection.php'; //ensures connection with the database.
+    include 'staff-server.php'; //creates a server file for the functions in this page.
     error_reporting(0);
-
-if (isset($_GET['edit'])) {
-    $id = $_GET['edit'];
-    $update = true;
-    $record = mysqli_query($conn, $sql);
-
-    if (count($record) != 1 ) {
-        $arr = mysqli_fetch_array($record);
-        $fname = $arr['fname'];
-        $mi = $arr['mi'];
-        $lname = $arr['lname'];
-        $email = $arr['email'];
-        $password = $arr['password'];
-        $jobs = $arr['jobs'];
-        $salary = $arr['salary'];
-    }
-}
 ?>
 
 <!DOCTYPE html>
@@ -31,28 +14,20 @@ if (isset($_GET['edit'])) {
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <?php if (isset($_SESSION['message'])): ?>
-            <div class="msg">
-                <?php 
-                    echo $_SESSION['message']; 
-                    unset($_SESSION['message']);
-                ?>
-            </div>
-        <?php endif ?>
         <header>
-        <div id="header">
-        <img src="assets/bookIT_Logo.png">
-        <div class="right-float">
-                <a>
-                    <form method="post" action="#">
-                        <button class="Logoutbutton" name="logout">Logout</button>
-                    </form>
-                </a>
-            </div>
+            <div id="header">
+            <img src="assets/bookIT_Logo.png">
             <div class="right-float">
-                <p>Welcome Manager,</p>
+                    <a>
+                        <form method="post" action="#">
+                            <button class="Logoutbutton" name="logout">Logout</button>
+                        </form>
+                    </a>
+                </div>
+                <div class="right-float">
+                    <p>Welcome Manager,</p>
+                </div>
             </div>
-        </div>
         </header>
         <?php
             if(isset($_POST['logout'])){
@@ -76,7 +51,6 @@ if (isset($_GET['edit'])) {
         <br>
         <h2>Staff</h2>
             <table id="Table">
-            
         <?php       
                 echo "
                     <tr>
@@ -91,10 +65,17 @@ if (isset($_GET['edit'])) {
                     CONCAT(fname, ' ', MI, ' ', lname) AS 'Staff Name', 
                     email AS 'Email', salary AS 'Salary', 
                     user_type AS 'Job' FROM users;"; 
+                    /*Query is created for all of the data from the users table*/
+
 
                     $display = $conn->query($sql);
-                    
+                    /*Query is called and the contents is placed into $display variable.*/
+
+                    /*Using fetch_assoc() on $display variable, it is turned into an associative array 
+                    and placed inside $rows variable. */
                     while($rows = $display->fetch_assoc()){
+                        /*The contents of the table is echoed using the $rows variable. It also uses $_SERVER['PHP_SELF'] 
+                        as the form action. While there are still rows to fetch it will continuously put out into the table. */
                         echo "<tr><td>". $rows['Staff Name']. "</td>
                               <td>". $rows['Email']. "</td>
                               <td>". $rows['Salary']. "</td>
@@ -106,6 +87,7 @@ if (isset($_GET['edit'])) {
                               </form>
                               <button class='Checkoutbutton'><a href='staff-server.php?delete=".$rows['UID']."'>Terminate</a></button></td>
                               </tr>"; 
+                            /*Inside this table are the actions button that contains edit info and the terminate function. */  
                     }
                     echo "</table>
                         </table>
@@ -115,6 +97,7 @@ if (isset($_GET['edit'])) {
                         ";
           
                 if(isset($_POST['update'])){
+                    /* Gets the specific row of data in the table according to post data in form. */  
 
                     $update = "SELECT user_id, 
                             fname, MI, lname, 
@@ -122,40 +105,41 @@ if (isset($_GET['edit'])) {
                             user_type AS 'Job' FROM users WHERE user_id='".$_POST['user_id']."'";
 
                     $updateQuery = $conn->query($update);
+                    /* Contents of the query is placed in $updateQuery variable. */
                     $updateResult = $updateQuery->fetch_assoc();
-
+                    /* The query is turned into an assoc array placed in $updateResult variable. */
                 
               
-                echo '
-                <div>
-                    <form method="post" action="'.$_SERVER["PHP_SELF"].'" class="staffgrid">
-                        <span class="staffbox1">
-                            <label class="Labelform-staff">First Name</label><input type="text" class="input-staff" id="fname" name="fname" value="'.$updateResult["fname"].'"></span>
-                        <span class="staffbox2">
-                            <label class="Labelform-staff">Middle Initial</label><input type="text" class="input-staff" id="mi" name="mi"value="'.$updateResult["MI"].'"></span>
-                        <span class="staffbox3">
-                            <label class="Labelform-staff">Last Name</label><input type="text" class="input-staff" id="lname" name="lname" value="'.$updateResult["lname"].'"></span>
-                        <span class="staffbox4">
-                            <label class="Labelform-staff">Email</label><input type="email" class="input-staff" id="email" name="email" value="'.$updateResult["Email"].'"required></span>
-                        <span class="staffbox5">        
-                            <label class="Labelform-staff">Password</label><input type="password" class="input-staff" id="password" name="password" value=""required></span>
-                        <span class="staffbox6">
-                            <label class="Labelform-staff">Job</label><select name="jobs" class="input-staff" id="jobs">
-                                <option value="Receptionist">Receptionist</option>
-                                <option value="Admin">Manager</option>
-                            </select></span>
-                        <span class="staffbox7">
-                        <label class="Labelform-staff">Salary Per Day</label><input type="text" class="input-staffsal" id="salary" name="salary" value="'.$updateResult["Salary"].'"></span>
-                        <input type="hidden" name="user_id" value="'.$updateResult["user_id"].'">
-                        <span class="staffbox8">
-                        
-                        
-                        <button type="submit" class="Greenbutton" name="updateData" >Update</button>
-                        <a class="Checkoutbutton" href="manager_staff.php">Cancel</a>
-                    </form>
-                </div><br><br><hr><br><br>
-                ';
-  
+                    echo '
+                    <div>
+                        <form method="post" action="'.$_SERVER["PHP_SELF"].'" class="staffgrid">
+                            <span class="staffbox1">
+                                <label class="Labelform-staff">First Name</label><input type="text" class="input-staff" id="fname" name="fname" value="'.$updateResult["fname"].'"></span>
+                            <span class="staffbox2">
+                                <label class="Labelform-staff">Middle Initial</label><input type="text" class="input-staff" id="mi" name="mi"value="'.$updateResult["MI"].'"></span>
+                            <span class="staffbox3">
+                                <label class="Labelform-staff">Last Name</label><input type="text" class="input-staff" id="lname" name="lname" value="'.$updateResult["lname"].'"></span>
+                            <span class="staffbox4">
+                                <label class="Labelform-staff">Email</label><input type="email" class="input-staff" id="email" name="email" value="'.$updateResult["Email"].'"required></span>
+                            <span class="staffbox5">        
+                                <label class="Labelform-staff">Password</label><input type="password" class="input-staff" id="password" name="password" value=""required></span>
+                            <span class="staffbox6">
+                                <label class="Labelform-staff">Job</label><select name="jobs" class="input-staff" id="jobs">
+                                    <option value="Receptionist">Receptionist</option>
+                                    <option value="Admin">Manager</option>
+                                </select></span>
+                            <span class="staffbox7">
+                            <label class="Labelform-staff">Salary Per Day</label><input type="text" class="input-staffsal" id="salary" name="salary" value="'.$updateResult["Salary"].'"></span>
+                            <input type="hidden" name="user_id" value="'.$updateResult["user_id"].'">
+                            <span class="staffbox8">
+                            
+                            
+                            <button type="submit" class="Greenbutton" name="updateData" >Update</button>
+                            <a class="Checkoutbutton" href="manager_staff.php">Cancel</a>
+                        </form>
+                    </div><br><br><hr><br><br>
+                    ';
+                        /* This is the new form, that is created when you edit info. */
                 }
 
                 //Update Data from table
@@ -173,13 +157,13 @@ if (isset($_GET['edit'])) {
         ?>                
             <form method="post" action="staff-server.php" class="staffgrid">
                 <span class="staffbox1">
-                    <label class='Labelform-staff'>First Name</label><input type="text" class='input-staff' id="fname" name="fname" value="<?php echo $fname;?>"></span>
+                    <label class='Labelform-staff'>First Name</label><input type="text" class='input-staff' id="fname" name="fname" value=""></span>
                 <span class="staffbox2">
-                    <label class='Labelform-staff'>Middle Initial</label><input type="text" class='input-staff' id="mi" name="mi"value="<?php echo $mi;?>"></span>
+                    <label class='Labelform-staff'>Middle Initial</label><input type="text" class='input-staff' id="mi" name="mi"value=""></span>
                 <span class="staffbox3">
-                    <label class='Labelform-staff'>Last Name</label><input type="text" class='input-staff' id="lname" name="lname" value="<?php echo $lname;?>"></span>
+                    <label class='Labelform-staff'>Last Name</label><input type="text" class='input-staff' id="lname" name="lname" value=""></span>
                 <span class="staffbox4">
-                    <label class='Labelform-staff'>Email</label><input type="email" class='input-staff' id="email" name="email" value="<?php echo $email;?>"required></span>
+                    <label class='Labelform-staff'>Email</label><input type="email" class='input-staff' id="email" name="email" value=""required></span>
                 <span class="staffbox5">        
                     <label class='Labelform-staff'>Password</label><input type="password" class='input-staff' id="password" name="password" value=""required></span>
                 <span class="staffbox6">
@@ -191,7 +175,7 @@ if (isset($_GET['edit'])) {
                 <label class='Labelform-staff'>Salary Per Day</label><input type="text" class='input-staffsal' id="salary" name="salary" value="<?php echo $salary;?>"></span>
                 <span class="staffbox8">
                 <button type="submit" class="Greenbutton" name="save" >Save</button>
-                
+                <!--This is the form when you want to add a new staff-->
 	        </form>
         </div>
     </body>
