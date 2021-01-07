@@ -100,7 +100,7 @@ if(isset($_POST['update'])){
     }
 
             echo "<hr><form method='post' action=''>
-                <label  class='Labelform'>Room Selected</label>  ".$_SESSION['room_id']."
+                <label  class='Labelform'>Room Type</label>  ".$_SESSION['room_desc']."
                 <br>
                 <label class='Labelform'>Check-in</label>  ".$_SESSION['checkin']."<input type='date' name='checkin' class='mngt' required>
                 
@@ -125,23 +125,32 @@ if(isset($_POST['search_room'])){
     $_SESSION['checkout'] = $checkout;
     $_SESSION['numguest'] = $numguest;
 
-$sql1 = "SELECT r.room_id as 'room_id',t.room_desc AS room_desc
-    FROM room_type t, rooms r
-    WHERE r.room_id NOT IN(
-    SELECT g.room_id FROM guests g where $checkin between g.date_in and g.date_out) AND r.room_id NOT IN(
-    SELECT g.room_id FROM guests g where $checkout between g.date_in and g.date_out) AND t.room_cap>=$numguest AND t.roomtype_id=r.roomtype_id AND r.room_status != 'Maintenance'";
+$rooomtype = "SELECT DISTINCT t.room_desc AS room_desc, t.roomtype_id as roomtype_id
+            FROM    room_type t, 
+                    rooms r
+            WHERE   r.roomtype_id=t.roomtype_id AND 
+                    r.room_status != 'Maintenance' AND 
+                    r.room_status !='Used by guest' AND 
+                    r.room_status !='Reserved' AND 
+                    r.room_id NOT IN(SELECT g.room_id 
+                                    FROM guests g 
+                                    WHERE $checkin between g.date_in and g.date_out) AND 
+                    r.room_id NOT IN(SELECT g.room_id 
+                                    FROM guests g 
+                                    WHERE $checkout between g.date_in and g.date_out) AND 
+                    t.room_cap>=$numguest";
 
-    $result1 = $conn->query($sql1); 
+    $result1 = $conn->query($rooomtype); 
 
     if(mysqli_num_rows($result1) > 0){
+        echo "Available Room Type<br><br>";
         echo "<div class='grid-container'>";
     while($row = $result1->fetch_assoc()){
                 
                 echo "
-                <form action='' method='POST'>
-                <button type='submit' name='select' style='background-color: #28C479; padding: 10px; ' class='button'><h1>ROOM  ".$row['room_id']."</h1>".$row['room_desc']."</button>
-                <input type='hidden' name='room_id' value='{$row['room_id']}'>
-                <input type='hidden' name='room_desc' value='{$row['room_desc']}'>
+                <form  method='post' action=''>
+                <button type='submit' name='select' style='background-color: #28C479; padding: 10px; '><h1>".$row['room_desc']."</button>
+                <input type='hidden' name='roomtype_id' value='{$row['roomtype_id']}'>
                 
                 </form>";}
                 echo "</div>";
@@ -151,10 +160,25 @@ $sql1 = "SELECT r.room_id as 'room_id',t.room_desc AS room_desc
 
 
 if(isset($_POST['select'])){
-    $room_id=$_POST['room_id'];
+    $roomtype_id = $_POST['roomtype_id'];
+    $rooomId = "SELECT r.room_id AS room_id
+            FROM    rooms r
+            WHERE   r.roomtype_id=$roomtype_id AND 
+                    r.room_status = 'Available' AND 
+                    r.room_id NOT IN(SELECT g.room_id 
+                                    FROM guests g 
+                                    WHERE '{$_SESSION['checkin']}' between g.date_in and g.date_out) AND 
+                    r.room_id NOT IN(SELECT g.room_id 
+                                    FROM guests g 
+                                    WHERE '{$_SESSION['checkout']}' between g.date_in and g.date_out)";
+    $result2 = $conn->query($rooomId); 
+    while($rows = $result2->fetch_assoc()){
+    $room_id=$rows['room_id'];}
+    $_SESSION['room_id']=$room_id;
+
         
     $prepare01= $conn->prepare("UPDATE guests SET date_in =?, date_out=?, guests_count=?,room_id=? WHERE customer_id=?");
-        $prepare01->bind_param("ssiii", $_SESSION['checkin'],  $_SESSION['checkout'], $guests_count,$room_id, $_SESSION['customer_id']);
+        $prepare01->bind_param("ssiii", $_SESSION['checkin'],  $_SESSION['checkout'], $_SESSION['numguest'],$room_id, $_SESSION['customer_id']);
         $prepare01->execute();
 
     $stays=(strtotime($_SESSION['checkout'])-strtotime($_SESSION['checkin']))/60/60/24; //number of stays

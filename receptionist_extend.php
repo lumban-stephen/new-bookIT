@@ -66,7 +66,7 @@
 
              <?php
             include 'connection.php';
-            error_reporting(0);
+            //error_reporting(0);
             ob_start();
             //to extend
             

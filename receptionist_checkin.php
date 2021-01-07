@@ -70,42 +70,32 @@
     $_SESSION['checkout'] = $checkout;
     $_SESSION['numguest'] = $numguest;
 
-    $sql1 = "SELECT r.room_id as 'room_id',
-                    t.room_desc AS room_desc
+    $rooomtype = "SELECT DISTINCT t.room_desc AS room_desc, t.roomtype_id as roomtype_id
             FROM 	room_type t, 
                     rooms r
             WHERE 	r.roomtype_id=t.roomtype_id AND 
                     r.room_status != 'Maintenance' AND 
                     r.room_status !='Used by guest' AND 
                     r.room_status !='Reserved' AND 
-                    r.room_id NOT IN(SELECT s.room_id 
-                                    FROM schedule s, guests g 
-                                    WHERE  g.room_id = s.room_id AND
-                                            $checkin between g.date_in and g.date_out) AND
                     r.room_id NOT IN(SELECT g.room_id 
                                     FROM guests g 
                                     WHERE $checkin between g.date_in and g.date_out) AND 
-                    r.room_id NOT IN(SELECT s.room_id 
-                                    FROM schedule s, guests g 
-                                    WHERE  g.room_id = s.room_id AND
-                                            $checkout between g.date_in and g.date_out) AND
                     r.room_id NOT IN(SELECT g.room_id 
                                     FROM guests g 
                                     WHERE $checkout between g.date_in and g.date_out) AND 
-                    t.room_cap>=$numguest
-            GROUP BY r.room_id";
+                    t.room_cap>=$numguest";
 
-    $result1 = $conn->query($sql1); 
+    $result1 = $conn->query($rooomtype); 
 
     if(mysqli_num_rows($result1) > 0){
-        echo "Available Rooms<br><br>";
+        echo "Available Room Type<br><br>";
         echo "<div class='grid-container'>";
     while($row = $result1->fetch_assoc()){
                 
                 echo "
-                <form  method='post' action=''><button type='submit' name='select' style='background-color: #28C479; padding: 10px; '><h1>ROOM  ".$row['room_id']."</h1>".$row['room_desc']."</button>
-                <input type='hidden' name='room_id' value='{$row['room_id']}'>
-                <input type='hidden' name='room_desc' value='{$row['room_desc']}'>
+                <form  method='post' action=''>
+                <button type='submit' name='select' style='background-color: #28C479; padding: 10px; '><h1>".$row['room_desc']."</button>
+                <input type='hidden' name='roomtype_id' value='{$row['roomtype_id']}'>
                 
                 </form>";}
                 echo "</div>";
@@ -118,12 +108,24 @@
     }
 
      if(isset($_POST['select'])){  
-        $room_id = $_POST['room_id'];
-        $_SESSION['room_id'] = $room_id;
-        $_SESSION['from_checkin']=1; //examine in checkin_form if it is from checkin.
-        header("location:receptionist_checkinform.php");   
-}
-        
+        $roomtype_id = $_POST['roomtype_id'];
+        $rooomId = "SELECT r.room_id AS room_id
+            FROM    rooms r
+            WHERE   r.roomtype_id=$roomtype_id AND 
+                    r.room_status = 'Available' AND 
+                    r.room_id NOT IN(SELECT g.room_id 
+                                    FROM guests g 
+                                    WHERE '{$_SESSION['checkin']}' between g.date_in and g.date_out) AND 
+                    r.room_id NOT IN(SELECT g.room_id 
+                                    FROM guests g 
+                                    WHERE '{$_SESSION['checkout']}' between g.date_in and g.date_out)";
+        $result2 = $conn->query($rooomId); 
+        while($rows = $result2->fetch_assoc()){
+        $room_id=$rows['room_id'];}
+        $_SESSION['room_id']=$room_id;
+
+        header("location:receptionist_checkinform_Fromcheckin.php");   
+        }
         ?>
 
     
