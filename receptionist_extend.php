@@ -64,7 +64,7 @@
             <!--Code Here only-->
             <!--receptionist check in form page code in here-->
 
-             <?php
+            <?php
             include 'connection.php';
             //error_reporting(0);
             ob_start();
@@ -90,11 +90,11 @@
 
                 echo "<form method='post' action=''>
                 <div class='grid-form'>
-                <span><label>Current Room</label><br>".$room_id."<br>
-                <label>Current Room Type</label><br>".$room_desc."</span>
-                <span><label>Check-in</label><br>".$date_in."</span>
+                <span><label  class='Labelform'>Room</label><p>".$room_id."</p><br>
+                <label  class='Labelform'>Room Type</label><p>".$room_desc."</P></span>
+                <span><label class='Labelform'>Check-in</label><p>".$date_in."</p></span>
                 
-                <span><label>Check-out</label><br>".$date_out."<input type='date' name='extend' required>
+                <span><label class='Labelform'>Check-out</label><br><p>".$date_out."</p><input type='date' name='extend' required>
                  </div>
                 <button type='submit' name='search_room'  style='background-color: #003399; padding: 5px; ' class='button'>Search Room</button><a href='receptionist_guests.php' style='width:15%;'class='Greenbutton'>Back to Guests</a></form>
                 ";
