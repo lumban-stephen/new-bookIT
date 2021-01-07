@@ -193,7 +193,7 @@
                 }
             }
             
-            if(isset($_GET['delete'])){
+            if(isset($_POST['delete'])){
                 $roomID = $_POST['roomID'];
                 
                 $deleteQuery = "DELETE FROM rooms WHERE room_id=$roomID";
