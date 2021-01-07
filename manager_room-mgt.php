@@ -62,18 +62,17 @@
                     echo "<br><div>
                             <form method='POST' action='' >
                             <label class='Labelform-Rev'>Room Number</label><input type='text' class='input-Rev' name='roomnum' required>
-                            <label class='Labelform-Rev'>Room Type</label><input type='text' class='input-Rev' list='type' name='roomtype' required />
-                                <datalist id='type'>
-                                    <option value='Single bed, Aircon, 1-2 people'>Single bed, Aircon, 1-2 people</option>
-                                    <option value='Single bed, Fan only, 1-2 people'>Single bed, Fan only, 1-2 people</option>
-                                    <option value='Two beds, Aircon, 2-4 people'>Two beds, Aircon, 2-4 people</option>
-                                    <option value='Three beds, Aircon, 3-5 people'>Three beds, Aircon, 3-5 people</option>
-                                </datalist>
-                                <label class='Labelform-Rev'>Room Status</label><select name='roomstatus' class='input-Rev' id='status' required>
+                            <label class='Labelform-Rev'>Room Type</label><select name='roomtype' class='input-Rev'  id='roomtype' required />
+                                    <option value='1'>Single bed, Aircon, 1-2 people</option>
+                                    <option value='2'>Single bed, Fan only, 1-2 people</option>
+                                    <option value='3'>Two beds, Aircon, 2-4 people</option>
+                                    <option value='4'>Three beds, Aircon, 3-5 people</option>
+                            </select>
+                            <label class='Labelform-Rev'>Room Status</label><select name='roomstatus' class='input-Rev' id='status' required>
                                 <option value='Available'>Available</option>
                                 <option value='Maintenance'>Maintenance</option>
                             </select>
-                            <button type='submit' class='Greenbutton' name='savetype' >SAVE</button>
+                            <button type='submit' class='Greenbutton' name='save' >SAVE</button>
                             
                             </form> 
                         </div>";
@@ -89,25 +88,18 @@
                                     <option value='Two beds, Aircon, 2-4 people'>Two beds, Aircon, 2-4 people</option>
                                     <option value='Three beds, Aircon, 3-5 people'>Three beds, Aircon, 3-5 people</option>
                                 </datalist> </form>
-                                <button type='submit' class='Greenbutton' name='save' >SAVE</button>
+                                <button type='submit' class='Greenbutton' name='savetype' >SAVE</button>
                                 </form> ";
                 }
 
                 if(isset($_POST['save'])){
                     $roomnum = $_POST['roomnum'];
-                    $roomrate = $_POST['roomrate'];
-                    
-                    $roomcap = $_POST['roomcap'];
-                    $roomdesc = $_POST['roomdesc'];
+                    $roomtype = $_POST['roomtype'];
                     $roomstatus = $_POST['roomstatus'];
-
-                    $sqlinsert1 = "INSERT INTO room_type(room_cost, room_desc, room_cap) 
-                            VALUES('$roomrate','$roomdesc', '$roomcap')";
-                    $conn->query($sqlinsert1) or die($conn->error);
                     
-                    $sqlinsert2 = "INSERT INTO rooms(room_id, room_status,roomtype_id) 
-                            VALUES('$roomnum','$roomstatus',LAST_INSERT_ID())";           
-                    $conn->query($sqlinsert2) or die($conn->error);
+                    $sqlinsert1 = "INSERT INTO rooms(room_id, room_status,roomtype_id) 
+                            VALUES('$roomnum','$roomstatus','$roomtype')";           
+                    $conn->query($sqlinsert1) or die($conn->error);
             
                     header('location: manager_room-mgt.php');
                 }
@@ -122,22 +114,7 @@
             
                     header('location: manager_room-mgt.php');
                 }
-                if(isset($_GET['delete'])){
-                    $roomID = $_POST['roomID'];
-                    
-                    $deleteQuery = "DELETE FROM rooms WHERE room_id=$roomID";
-            
-                    $conn->query($deleteQuery) or die($conn->error);
-                    
-                    if ($conn->query($deleteQuery) === TRUE) {
-                        echo "<script language='javascript'>
-                                    window.location.href='manager_room-mgt.php';
-                                    
-                            </script>";
-                    } else {
-                        echo "Error: " .$deleteQuery. "<br>" .$conn->error;
-                    }
-                }     
+               
             ?>
             
             <form action="room_server.php" method="get">
@@ -232,7 +209,23 @@
                     echo "Error: " .$updateStatus. "<br>" .$conn->error;
                 }
             }
-           
+            
+            if(isset($_GET['delete'])){
+                $roomID = $_POST['roomID'];
+                
+                $deleteQuery = "DELETE FROM rooms WHERE room_id=$roomID";
+        
+                $conn->query($deleteQuery) or die($conn->error);
+                
+                if ($conn->query($deleteQuery) === TRUE) {
+                    echo "<script language='javascript'>
+                                window.location.href='manager_room-mgt.php';
+                                
+                        </script>";
+                } else {
+                    echo "Error: " .$deleteQuery. "<br>" .$conn->error;
+                }
+            }     
             $conn->close();        
             ?>
             </form>
