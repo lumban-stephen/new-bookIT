@@ -47,7 +47,7 @@
         </nav>
 
         <div id="content">
-        <a class="Checkoutbutton" href="manager_guests.php">Back to List</a>
+        <a class="Checkoutbutton" href="receptionist_guests.php">Back to List</a>
 <?php
         include 'connection.php';
 

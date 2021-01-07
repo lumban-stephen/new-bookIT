@@ -54,36 +54,29 @@
             include 'connection.php';
             //error_reporting(0);
 
-            echo "<form method='post' action=''>  
-                <label class='Labelform'>First Name</label>
-                <input type='text' name='fname'class='booking' required>
-                <br><br>
-                <label class='Labelform'>Last Name</label>
-                <input type='text' name='lname' class='booking' required>
-                <br><br>
-                <label class='Labelform'>Middle Name</label>
-                <input type='text' name='mname' class='booking'>
-                <br><br>
+            echo "<form method='post' action=''> 
+            <span class='checkinbox1'>
+                <label class='Labelform'>First Name</label><input type='text' name='fname'class='booking' required></span>
+            <span class='checkinbox2'>
+                <label class='Labelform'>Last Name</label><input type='text' name='lname' class='booking' required></span>
+            <span class='checkinbox3'>
+                <label class='Labelform'>Middle Name</label><input type='text' name='mname' class='booking'></span>
+            <span class='checkinbox4'>
                 <label class='Labelform'>Check-in</label><span class='booking'>".$_SESSION['checkin']."</span>
-                <br><br>
+            <span class='checkinbox5'>
                 <label class='Labelform'>Check-out</label><span class='booking'>".$_SESSION['checkout']."</span>
-                <br><br>
-                <label class='Labelform'>Check-in Time</label>
-                <input type='time' name='time' class='booking' required>
-                <br><br>
+            <span class='checkinboxsix'>
+                <label class='Labelform'>Check-in Time</label><input type='time' name='time' class='booking' required></span>
+            <span class='checkinboxseven'>
                 <label class='Labelform'>Number of Guests</label><span class='booking'>".$_SESSION['numguest']."</span>
-                <br><br>
+            <span class='checkinboxeight'>
                 <label class='Labelform'>Room Type</label><span class='booking'>".$_SESSION['room_desc']."</span>
-                <br><br>
-                <label class='Labelform'>Phone Number</label>
-                <input type='number' name='phone' class='booking' style='width:20%;' required>
-                <br><br>
-                <label class='Labelform'>E-mail</label>
-                <input type='email' name='email' class='booking' style='width:30%;'>
-                <br><br>
-                <button type='submit' name='book' class='Greenbutton'>Book Reservation</button>
-                <input type='submit' name='cancel' value='Cancel Check-in' class='Checkoutbutton'>
-                <br><br>
+            <span class='checkinbox8'>
+                <label class='Labelform'>Phone Number</label><input type='number' name='phone' class='booking' style='width:20%;' required></span>
+            <span class='checkinbox9'>
+                <label class='Labelform'>E-mail</label><input type='email' name='email' class='booking' style='width:30%;'></span>
+                <span class='checkinbox11'>
+                <button type='submit' name='book' class='Greenbutton'>Book Reservation</button><input type='submit' name='cancel' value='Cancel Check-in' class='Checkoutbutton'></span>
             </form>";
 
         if(isset($_POST['book'])){
