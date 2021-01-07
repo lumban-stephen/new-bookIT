@@ -100,11 +100,13 @@ $sql = "SELECT  CONCAT(c.fname,' ',c.MI,' ',c.lname) as name,
                 g.guest_status as guest_status, 
                 s.guest_id as guest_id, 
                 c.customer_id as customer_id,
-                g.ID_number as ID_number
-        FROM    guests g, customers c, rooms r, schedule s
+                g.ID_number as ID_number,
+                t.room_desc as room_desc
+        FROM    guests g, customers c, rooms r, schedule s, room_type t
         WHERE   g.customer_id = c.customer_id and 
                 r.room_id = g.room_id and 
-                s.guest_id=g.guest_id AND 
+                s.guest_id=g.guest_id AND
+                t.roomtype_id = r.roomtype_id AND 
                 guest_status = 'RESERVED' AND 
                 g.date_in >= CURRENT_DATE
         ORDER BY g.date_in;";
@@ -138,12 +140,12 @@ while($row = $result->fetch_assoc()){
                 <input type='hidden' name='email' value='{$row['email']}'>
                 <input type='hidden' name='guest_id' value='{$row['guest_id']}'>
                 <input type='hidden' name='customer_id' value='{$row['customer_id']}'>
-                
+                <input type='hidden' name='room_desc' value='{$row['room_desc']}'>
                 
               </tr></form>";}}
 
    if(isset($_POST['checkin'])){
-    header("location:receptionist_checkinform.php");
+    header("location:receptionist_checkinform_Fromlist.php");
         $fname=$_POST['fname'];
         $lname=$_POST['lname'];
         $mname=$_POST['mname'];
@@ -154,6 +156,7 @@ while($row = $result->fetch_assoc()){
         $email=$_POST['email'];
         $numguest=$_POST['numguest'];
         $customer_id=$_POST['customer_id'];
+        
         $_SESSION['fname']=$fname;
         $_SESSION['lname']=$lname;
         $_SESSION['mname']=$mname;
@@ -165,7 +168,7 @@ while($row = $result->fetch_assoc()){
         $_SESSION['email']=$email;
         $_SESSION['numguest']=$numguest;
         $_SESSION['customer_id']=$customer_id;
-        $_SESSION['list']=2; ////examine in checkin_form if it is from list.
+
 }
 
    if(isset($_POST['cancel'])){
@@ -215,6 +218,7 @@ while($row = $result->fetch_assoc()){
         $email=$_POST['email'];
         $numguest=$_POST['numguest'];
         $customer_id=$_POST['customer_id'];
+        $room_desc=$_POST['room_desc'];
 
         $_SESSION['fname']=$fname;
         $_SESSION['lname']=$lname;
@@ -227,7 +231,7 @@ while($row = $result->fetch_assoc()){
         $_SESSION['email']=$email;
         $_SESSION['numguest']=$numguest;
         $_SESSION['customer_id']=$customer_id;
-        $_SESSION['update']="update";
+        $_SESSION['room_desc']=$room_desc;
     
      
 }

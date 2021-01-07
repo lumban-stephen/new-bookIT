@@ -73,7 +73,7 @@
                 <br><br>
                 <label class='Labelform'>Number of Guests</label><span class='booking'>".$_SESSION['numguest']."</span>
                 <br><br>
-                <label class='Labelform'>Room Selected</label><span class='booking'>".$_SESSION['room_id']."</span>
+                <label class='Labelform'>Room Type</label><span class='booking'>".$_SESSION['room_desc']."</span>
                 <br><br>
                 <label class='Labelform'>Phone Number</label>
                 <input type='number' name='phone' class='booking' style='width:20%;' required>
