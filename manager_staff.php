@@ -73,6 +73,8 @@ if (isset($_GET['edit'])) {
             </ul>
         </nav>
         <div id="content">
+        <br>
+        <h2>Staff</h2>
             <table id="Table">
             
         <?php       
