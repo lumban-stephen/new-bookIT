@@ -69,12 +69,13 @@
                                         CURDATE() as 'date'
                                     FROM
                                              Guests g, Customers c,
-                                            Rooms r,bill b
+                                            Rooms r,bill b, checked_in_guests ch
                                     WHERE
                                             g.customer_id = c.customer_id AND 
                                             g.room_id = r.room_id AND 
                                             b.guest_id=g.guest_id AND 
-                                            g.guest_status = 'INCOMPLETE' AND CONCAT(c.fname, ' ', c.MI, ' ', c.lname) LIKE '%$keyword%'
+                                            ch.guest_id=g.guest_id AND
+                                            g.guest_status = 'INCOMPLETE' AND CONCAT(c.fname, ' ', c.lname) LIKE '%$keyword%'
                                     GROUP BY
                                             g.guest_id /*I grouped it by guest id because it would be group by roomtype_id if isnt guest_id*/ 
                                     ORDER BY
