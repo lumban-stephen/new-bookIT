@@ -11,15 +11,16 @@
         <title>BookIT</title>
         <link rel="stylesheet" href="style.css">
     <style type="text/css">
-.grid-container {
-  display: grid;
-  grid-template-columns: auto auto;
-  grid-gap: 10px;
-  padding: 10px;
-  grid-auto-rows: minmax(200px, auto);
-}
+    
+    .grid-container {
+        display: grid;
+        grid-template-columns: auto auto;
+        grid-gap: 10px;
+        padding: 10px;
+        grid-auto-rows: minmax(200px, auto);
+    }
 
-</style>
+    </style>
     </head>
     <body>
     <header>

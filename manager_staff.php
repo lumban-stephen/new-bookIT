@@ -175,7 +175,7 @@
                 <label class='Labelform-staff'>Salary Per Day</label><input type="text" class='input-staffsal' id="salary" name="salary" value="<?php echo $salary;?>"></span>
                 <span class="staffbox8">
                 <button type="submit" class="Greenbutton" name="save" >Save</button>
-                <!--This is the form when you want to add a new staff-->
+                <!--This is the form when you want to add a new staff -->
 	        </form>
         </div>
     </body>
