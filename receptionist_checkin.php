@@ -112,13 +112,7 @@
         $rooomId = "SELECT r.room_id AS room_id
             FROM    rooms r
             WHERE   r.roomtype_id=$roomtype_id AND 
-                    r.room_status = 'Available' AND 
-                    r.room_id NOT IN(SELECT g.room_id 
-                                    FROM guests g 
-                                    WHERE '{$_SESSION['checkin']}' between g.date_in and g.date_out) AND 
-                    r.room_id NOT IN(SELECT g.room_id 
-                                    FROM guests g 
-                                    WHERE '{$_SESSION['checkout']}' between g.date_in and g.date_out)";
+                    r.room_status = 'Available'";
         $result2 = $conn->query($rooomId); 
         while($rows = $result2->fetch_assoc()){
         $room_id=$rows['room_id'];}
