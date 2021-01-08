@@ -68,7 +68,7 @@ ob_start();
             <span class='checkinbox6'>
                 <label class='Labelform'>Number of Guests</label><div class='booking' id='numguest'>" .$_SESSION['numguest']."</div></span>
             <span class='checkinbox7'>
-                <label class='Labelform'>Room Selected</label><div class='booking' id='room_id'>" .$_SESSION['room_desc']."</div></span>
+                <label class='Labelform'>Room Selected</label><div class='booking' id='room_id'>" .$_SESSION['room_id']."</div></span>
             <span class='checkinbox8'>
                 <label class='Labelform'>Phone Number</label><input type='number' class='booking' id='phone' name='phone'></span>
             <span class='checkinbox9'>
