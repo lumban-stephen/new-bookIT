@@ -94,6 +94,8 @@
         </form> 
     </div>";
     }
+
+//input edited data in amenities
     if(isset($_POST['new_edit'])){
         unset($_SESSION['edit']);
         $name = $_POST['name'];
@@ -108,6 +110,8 @@
         header("location:manager_restock.php");
 
     }
+
+//add new amenities
     if(isset($_POST['save'])){
         $name = $_POST['name'];
         $price = $_POST['price'];
@@ -142,6 +146,7 @@
     $display = $conn->query($sql);
     
         if($rows = $display != NULL){
+//get rid of extra amenities
         while($rows = $display->fetch_assoc()){
             if($rows['amenity_id']<=8||$rows['amenity_id']>=16&&$rows['amenity_id']<=19||$rows['amenity_id']>=33&&$rows['amenity_id']!=100){
 //if it is not available
@@ -196,7 +201,7 @@
 
 
 
-
+//add stocks
     if(isset($_POST['add'])){
         $number=$_POST['number'];
         $amenity_id=$_POST['amenity_id'];
@@ -222,7 +227,7 @@
         header("location:manager_restock.php");
     }
 
-//when it is Activated. stock will be -1
+//when it is Activated. stock will be 0
     if(isset($_POST['activate'])){
         $amenity_id=$_POST['amenity_id'];
         $stock=0;
@@ -234,6 +239,7 @@
         header("location:manager_restock.php");
     }
 
+//after clicking edit. get info about the amenity and input them into SESSION
     if(isset($_POST['edit'])){
         $id = $_POST['amenity_id'];
         $deleteQuery = "SELECT * FROM amenities WHERE amenity_id=$id";

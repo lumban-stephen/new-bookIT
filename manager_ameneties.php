@@ -767,8 +767,8 @@ include 'connection.php';
     if(isset($_POST['process'])){
         $today=date("Y-m-d");
 
-        //insert date in bull_items
-//hygiene
+//insert date in bull_items
+//hygiene : add infor in bill_items
         if($_SESSION['h_num0']!=0){
             $amenity_id=$_POST['amenity_id_h0'];
             $prepareh10 = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_date,amenity_id) VALUES (?,?,?,?)");
@@ -818,7 +818,7 @@ include 'connection.php';
             $prepareh11->execute();      
         }
 
-//drink
+//drink : add infor in bill_items
         if($_SESSION['d_num0']!=0){
             $amenity_id=$_POST['amenity_id_d0'];
             $prepareh10 = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_date,amenity_id) VALUES (?,?,?,?)");
@@ -869,7 +869,7 @@ include 'connection.php';
         }
 
 
-//food
+//food : add infor in bill_items
         if($_SESSION['f_num0']!=0){
             $amenity_id=$_POST['amenity_id_f0'];
             $prepareh10 = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_date,amenity_id) VALUES (?,?,?,?)");
@@ -919,7 +919,7 @@ include 'connection.php';
             $prepareh11->execute();      
         }
 
-//extras
+//extras : add infor in bill_items
         if($_SESSION['e_num0']!=0){
             $amenity_id=$_POST['amenity_id_e0'];
             $prepareh10 = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_date,amenity_id) VALUES (?,?,?,?)");

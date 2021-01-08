@@ -188,7 +188,7 @@ ob_start();
             $prepare12->bind_param("ii", $bill_id, $payment_id);
             $prepare12->execute();
 
-            //create data in bill_items
+            //create data in bill_items(dummy data. no price)
             $q=1;
             $amenity=100;
             $prepare7 = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_date,amenity_id) VALUES (?,?,?,?)");
@@ -216,28 +216,16 @@ ob_start();
         
             header("location:receptionist_ameneties.php");
 
-        //unset($_SESSION['customer_id']);
-        //unset($_SESSION['fname']);
-        //unset($_SESSION['lname']);
-        //unset($_SESSION['mname']);
-        //unset($_SESSION['phone']);
-        //unset($_SESSION['email']);
         unset($_SESSION['checkin']);
         unset($_SESSION['checkout']);
         unset($_SESSION['numguest']);
-        unset($_SESSION['room_code']);
-        //unset($_SESSION['guest_id']);
         unset($_SESSION['room_id']);
-        //unset($_SESSION['roomtype_id']);
-        //unset($_SESSION['payment_id']);
-
             }
 
 //cancel check in
     if(isset($_POST['cancel'])){
         unset($_SESSION['customer_id']);
         unset($_SESSION['fname']);
-        unset($_SESSION['room_code']);
         unset($_SESSION['lname']);
         unset($_SESSION['mname']);
         unset($_SESSION['phone']);
@@ -245,7 +233,6 @@ ob_start();
         unset($_SESSION['checkin']);
         unset($_SESSION['checkout']);
         unset($_SESSION['numguest']);
-        unset($_SESSION['room_code']);
         header("location:receptionist_dashboard.php");}
 
 ob_end_flush();
