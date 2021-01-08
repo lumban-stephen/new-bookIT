@@ -136,7 +136,15 @@
     </select> 
     <br>
 
-    <label class='Labelform'>Check-in</label><input type="date" name="checkin" class='booking' required>
+    <?php
+    $sql1 = "SELECT CURDATE() as 'today'";
+    $display = $conn->query($sql1) or die('query did not work');
+    if($rows = $display != NULL){
+        while($rows = $display->fetch_assoc()){
+        $today=$rows['today'];}
+    }
+      ?>
+    <label class='Labelform'>Check-in</label><?php echo $today."<input type='hidden' name='checkin' value='$today' class='booking'>"?>
     <br>
 
     <label class='Labelform'>Check-out</label><input type="date" name="checkout" class='booking' required>
