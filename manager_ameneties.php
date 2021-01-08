@@ -734,14 +734,14 @@ include 'connection.php';
                     $_SESSION['d_price0']+$_SESSION['d_price1']+$_SESSION['d_price2']+$_SESSION['d_price3']+
                     $_SESSION['e_price0']+$_SESSION['e_price1'];
                     ;
-
+//get room_fee and payment_id
                     $sql2 = "SELECT p.payment_amount as room_fee, p.payment_id as payment_id FROM guests g, payments p WHERE g.payment_id=p.payment_id AND g.guest_id='{$_SESSION['guest_id']}'";
                     $result2 = $conn->query($sql2);
                     while($row= $result2->fetch_assoc()){
                         $room_fee=$row['room_fee'];
                         $payment_id=$row['payment_id'];
                     }
-
+//get total price of amenities added before.
                     $sql3 = "SELECT SUM(bi.quantity*a.amenity_price) as 'total_amenty' 
                     FROM bill b, bill_items bi, amenities a
                     WHERE bi.bill_id=b.bill_id AND bi.amenity_id=a.amenity_id AND b.guest_id='{$_SESSION['guest_id']}'";
