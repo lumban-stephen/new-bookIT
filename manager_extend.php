@@ -184,6 +184,11 @@ $prepare02= $conn->prepare("UPDATE payments SET payment_amount =?
         $prepare02->bind_param("ii", $payment, $payment_id);
         $prepare02->execute();
 
+//update schedule
+$schedule= $conn->prepare("UPDATE schedule SET room_id=? WHERE guest_id=?");
+        $schedule->bind_param("ii", $room_id, $_SESSION['guest_id']);
+        $schedule->execute();
+
     $_SESSION['room_id']=$room_id;
     header("location:manager_extend.php");
 

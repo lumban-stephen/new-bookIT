@@ -53,7 +53,6 @@
             <?php
             include 'connection.php';
             //error_reporting(0);
-
             echo "<form method='post' action=''>  
                 <label class='Labelform'>First Name</label>
                 <input type='text' name='fname'class='booking' required>

@@ -105,7 +105,7 @@
                                                 <button class='Extendbutton' name='extend'>Extend<br>Stay</button>
                                                 
                                                 <input type='submit' class='Checkoutbutton'  name='checkout' value='Early Checkout'></td>
-                                            <td><button class= 'Viewbutton'><a href= 'receptionist_guestview.php?id=".$rows['guest_id']."'>View</a></button></td></tr>
+                                            <td><button class= 'Viewbutton'><a href= 'manager_guestview.php?id=".$rows['guest_id']."'>View</a></button></td></tr>
                                             <input type='hidden' name='Date' value='{$rows['date']}'>
                                             <input type='hidden' name='guest_id' value='{$rows['guest_id']}'>
                                             <input type='hidden' name='bill_id' value='{$rows['bill_id']}'>
