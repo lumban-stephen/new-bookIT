@@ -69,9 +69,9 @@
             include 'connection.php';
             error_reporting(0);
             ob_start();
-            //to extend
             
-                
+            
+            //get info about the guest    
                 $sql0 = "SELECT g.room_id as room_id, g.date_in as date_in, g.date_out as date_out, g.payment_id as payment_id, g.guests_count as guests_count,g.customer_id as customer_id,p.payment_amount as 'payment_amount'
                     FROM guests g, payments p
                     WHERE g.guest_id='{$_SESSION['guest_id']}' AND g.payment_id=p.payment_id";
@@ -87,6 +87,7 @@
                 $payment_amount=$row['payment_amount'];
             }
 
+//show info about the guest. and input new checkout date
                 echo "<form method='post' action=''>
                 <div class='grid-form'>
                 <span><label class='Labelform'>Room</label><br>".$room_id."</span>
@@ -97,6 +98,7 @@
                 <button type='submit' name='search_room'  style='background-color: #003399; padding: 5px; ' class='button'>Search Room</button><a href='manager_guests.php' class='Greenbutton' style='width:15%;'>Back to Guests</a></form>
                 ";
 
+//find available rooms
 if(isset($_POST['search_room'])){
     $extend=$_POST['extend'];
     $_SESSION['extended_date']=$extend;
@@ -109,6 +111,7 @@ $sql1 = "SELECT r.room_id as 'room_id',t.room_desc AS room_desc
 
     $result1 = $conn->query($sql1); 
 
+//show available rooms
     if(mysqli_num_rows($result1) > 0){
         echo "<div class='grid-container'>";
     while($row = $result1->fetch_assoc()){
@@ -140,7 +143,7 @@ if(isset($_POST['select1'])){
 
     $stays=(strtotime($extend)-strtotime($date_out))/60/60/24; //number of stays
 
-//get room_cost
+//get new room_cost
 $sql2 = "SELECT t.room_cost as 'room_cost', g.payment_id as 'payment_id'
     FROM room_type t, rooms r, guests g
     WHERE t.roomtype_id=r.roomtype_id AND r.room_id=$room_id AND g.room_id=r.room_id";
@@ -157,7 +160,7 @@ $prepare02= $conn->prepare("UPDATE payments SET payment_amount =?
         $prepare02->bind_param("ii", $payment, $payment_id);
         $prepare02->execute();
 
-//update schedule
+//update room_id in schedule
 $schedule= $conn->prepare("UPDATE schedule SET room_id=? WHERE guest_id=?");
         $schedule->bind_param("ii", $room_id, $_SESSION['guest_id']);
         $schedule->execute();

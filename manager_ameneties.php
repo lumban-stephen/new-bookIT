@@ -63,8 +63,6 @@
             <!--receptionist check in form page code in here-->
 <?php
 include 'connection.php';
-//echo "<link rel='stylesheet' href='ameneties.css'>";
-
 ?>
 
 
@@ -730,7 +728,7 @@ include 'connection.php';
                 <p>Guest Details</p>
                 <div class="amty-desc">
                     <?php
-
+                    //calculate the total price of selected items
                     $_SESSION['total_amenity']=$_SESSION['h_price0']+$_SESSION['h_price1']+$_SESSION['h_price1']+$_SESSION['h_price3']+
                     $_SESSION['f_price0']+$_SESSION['f_price1']+$_SESSION['f_price2']+$_SESSION['f_price3']+
                     $_SESSION['d_price0']+$_SESSION['d_price1']+$_SESSION['d_price2']+$_SESSION['d_price3']+
@@ -751,7 +749,7 @@ include 'connection.php';
                     while($row= $result3->fetch_assoc()){
                         $total_amenty=$row['total_amenty'];
                     }
-                    $pre_total=$room_fee+$total_amenty;
+                    $pre_total=$room_fee+$total_amenty; //before adding new amenities
 
                     $_SESSION['total']=$_SESSION['total_amenity']+$pre_total;
 
