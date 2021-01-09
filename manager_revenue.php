@@ -82,7 +82,7 @@
                     echo "<div class='grid-container'>";
 
                     if($week != null){
-                        $sql3 = "SELECT SUM(record_paid) as weekly
+                        $sql3 = "SELECT SUM(record_payables) as weekly
                                 FROM    records
                                 WHERE   WEEK(record_date) = $week AND
                                         record_type = 'CHECKED OUT'";
@@ -91,7 +91,7 @@
                             echo "<button type='submit' name='select' style='background-color: #FEC200; padding: 20px;' class='button'><p>weekly</p><h1>".$row3['weekly']."</h1></button>";   
                         }
                     } else {
-                        $sql3 = "SELECT SUM(record_paid) as weekly
+                        $sql3 = "SELECT SUM(record_payables) as weekly
                                 FROM    records
                                 WHERE   WEEK(record_date) = WEEK(CURDATE()) AND
                                         record_type = 'CHECKED OUT'";
@@ -102,7 +102,7 @@
                     }
                     
                     if($month != null){
-                        $sql1 = "SELECT SUM(record_paid) as monthly
+                        $sql1 = "SELECT SUM(record_payables) as monthly
                                 FROM    records
                                 WHERE   MONTH(record_date) = $month AND
                                         record_type = 'CHECKED OUT'";
@@ -111,7 +111,7 @@
                             echo "<button type='submit' name='select' style='background-color: #E35D40; padding: 20px;' class='button'><p>monthly</p><h1>".$row1['monthly']."</h1></button>";   
                         }
                     } else {
-                        $sql1 = "SELECT SUM(record_paid) as monthly
+                        $sql1 = "SELECT SUM(record_payables) as monthly
                                 FROM    records
                                 WHERE   MONTH(record_date) = MONTH(CURDATE()) AND
                                         record_type = 'CHECKED OUT'";
@@ -122,7 +122,7 @@
                     }
 
                     if($year != null){
-                        $sql2 = "SELECT SUM(record_paid) as yearly
+                        $sql2 = "SELECT SUM(record_payables) as yearly
                                 FROM    records
                                 WHERE   YEAR(record_date) = $year AND
                                         record_type = 'CHECKED OUT'";
@@ -131,7 +131,7 @@
                             echo "<button type='submit' name='select' style='background-color: #C70039; padding: 20px; grid-column: 1 / span 2;' class='button'><p>yearly</p><h1>".$row2['yearly']."</h1></div>";   
                         }
                     } else {
-                        $sql2 = "SELECT SUM(record_paid) as yearly
+                        $sql2 = "SELECT SUM(record_payables) as yearly
                                 FROM    records
                                 WHERE   YEAR(record_date) = YEAR(CURDATE()) AND
                                         record_type = 'CHECKED OUT'";

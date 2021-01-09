@@ -313,6 +313,8 @@ CREATE TABLE `records` (
   `record_time` time DEFAULT NULL,
   `record_date` date DEFAULT NULL,
   `record_paid` float(10,2) DEFAULT NULL,
+  `record_payables` float(10,2) DEFAULT NULL,
+  `record_change` float(10,2) DEFAULT NULL, 
   `guest_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

@@ -54,6 +54,8 @@
                 <th>Record Type</th>
                 <th>Room Number</th>
                 <th>Paid Amount</th>
+                <th>Bill Amount</th>
+                <th>Change Amount</th>
                 <th>Date</th>
                 <th>Time</th>
               </tr>
@@ -65,7 +67,9 @@
 
             $sql = "SELECT  r.room_id as room_id, 
                             rec.record_type as record_type, 
-                            rec.record_paid as paid_amount, 
+                            rec.record_paid as paid_amount,
+                            rec.record_payables as bill_amount,
+                            rec.record_change as change_amount, 
                             rec.record_date as record_date, 
                             rec.record_time as record_time
                     FROM    records rec,rooms r,guests g
@@ -83,6 +87,8 @@
                         <td>".$row['record_type']."</td>
                         <td>".$row['room_id']."</td>
                         <td>".$row['paid_amount']."</td>
+                        <td>".$row['bill_amount']."</td>
+                        <td>".$row['change_amount']."</td>
                         <td>".$row['record_date']."</td>
                         <td>".$row['record_time']."</td>
                       </tr>"; 

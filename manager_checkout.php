@@ -150,97 +150,100 @@
             <?php
                 include 'connection.php';
 
-                $sql = "SELECT  rooms.room_id, 
-                                guests.guest_id, 
-                                customers.fname, 
-                                customers.lname,
-                                SUM(bill_items.quantity * amenities.amenity_price) AS 'payables', 
-                                payments.payment_amount as room_cost,
-                                SUM(bill_items.quantity * amenities.amenity_price) + payments.payment_amount AS 'total_amount',
-                                payments.payment_id,
-                                ch.paid_amount as payment_amount,
-                                
-                                CURRENT_DATE AS 'date',
-                                CURRENT_TIME AS 'time'                                 
-                        FROM guests, customers, rooms, room_type, payments, bill, bill_items, amenities,checked_in_guests ch
-                        WHERE guests.customer_id = customers.customer_id AND 
-                        guests.room_id = rooms.room_id AND 
-                        guests.payment_id = payments.payment_id AND 
-                        rooms.roomtype_id = room_type.roomtype_id AND 
-                        payments.bill_id = bill.bill_id AND
-                        bill.bill_id = bill_items.bill_id AND
-                        bill_items.amenity_id = amenities.amenity_id AND
-                        guests.guest_status = 'INCOMPLETE' AND
-                        guests.date_out = CURDATE() AND ch.guest_id=guests.guest_id
-                        GROUP BY guests.guest_id";
-                $result = mysqli_query($conn, $sql);
-
-                if(mysqli_num_rows($result) > 0){
-
-                    while($row = mysqli_fetch_assoc($result)){
-                        echo "
-                        
-                        <form action='' method='POST'>
-                        <tr>
-                            <td>".$row["room_id"]."</td> 
-                            <td>".$row["guest_id"]."</td>
-                            <td>".$row["fname"]." ".$row["lname"]."</td>
-                            <td>".$row["payables"]."</td>
-                            <td>".$row["room_cost"]."</td>
-                            <td>".$row["total_amount"]."</td>
-                            <td><input type='number' class='restocknum' name='newPay' value=".$row["payment_amount"].">
-                                <input type='submit' class='Greenbutton1' name='updatePay' value='Update Payment'></td>
-                            <td><input type='submit' class='Checkoutbutton' name='remove' value='Check Out'></td> 
-                        </tr>    
-                            <input type='hidden' name='guestID' value='{$row['guest_id']}'>
-                            <input type='hidden' name='roomID' value='{$row['room_id']}'>
-                            <input type='hidden' name='date' value='{$row['date']}'>
-                            <input type='hidden' name='time' value='{$row['time']}'>
-                            <input type='hidden' name='payAmount' value='{$row['payment_amount']}'>
-                            <input type='hidden' name='totAmount' value='{$row['total_amount']}'>
-                            <input type='hidden' name='payID' value='{$row['guest_id']}'>                               
-                    </form>                    
-                        ";
-                    }
-                    echo "</table>";
-                } else {
-                    echo 'No guests are checking out for today.';
-                }
-
-                if(isset($_POST['updatePay'])){
-                    $pID = $_POST['payID'];
-                    $newPay = $_POST['newPay'];
-                    $updatePayment = "UPDATE checked_in_guests SET paid_amount = $newPay WHERE guest_id = $pID";
-
-                    if ($conn->query($updatePayment) === TRUE) {
-                        echo "
-                            <script language='javascript'>
-                                    window.location.href='receptionist_checkout.php';
-                            </script>";
+                            $sql = "SELECT  rooms.room_id, 
+                                    guests.guest_id, 
+                                    customers.fname, 
+                                    customers.lname,
+                                    SUM(bill_items.quantity * amenities.amenity_price) AS 'payables', 
+                                    payments.payment_amount as room_cost,
+                                    SUM(bill_items.quantity * amenities.amenity_price) + payments.payment_amount AS 'total_amount',
+                                    payments.payment_id,
+                                    ch.paid_amount as payment_amount,
+                                    ch.paid_amount - (SUM(bill_items.quantity * amenities.amenity_price) + payments.payment_amount) AS 'change',
+                                    CURRENT_DATE AS 'date',
+                                    CURRENT_TIME AS 'time'                                 
+                            FROM guests, customers, rooms, room_type, payments, bill, bill_items, amenities,checked_in_guests ch
+                            WHERE guests.customer_id = customers.customer_id AND 
+                            guests.room_id = rooms.room_id AND 
+                            guests.payment_id = payments.payment_id AND 
+                            rooms.roomtype_id = room_type.roomtype_id AND 
+                            payments.bill_id = bill.bill_id AND
+                            bill.bill_id = bill_items.bill_id AND
+                            bill_items.amenity_id = amenities.amenity_id AND
+                            guests.guest_status = 'INCOMPLETE' AND
+                            guests.date_out = CURDATE() AND 
+                            ch.guest_id=guests.guest_id
+                            GROUP BY guests.guest_id";
+                    $result = mysqli_query($conn, $sql);
+                    //to display the query into the table by following the format from above
+                    if(mysqli_num_rows($result) > 0){
+                        while($row = mysqli_fetch_assoc($result)){
+                            echo "
+                            <form action='' method='POST'>
+                            <tr>
+                                <td>".$row["room_id"]."</td> 
+                                <td>".$row["guest_id"]."</td>
+                                <td>".$row["fname"]." ".$row["lname"]."</td>
+                                <td>".$row["payables"]."</td>
+                                <td>".$row["room_cost"]."</td>
+                                <td>".$row["total_amount"]."</td>
+                                <td><input type='number' class='restocknum' name='newPay' value=".$row["payment_amount"].">
+                                    <input type='submit' class='Greenbutton1' name='updatePay' value='Update Payment'></td>
+                                <td><input type='submit' class='Checkoutbutton' name='remove' value='Check Out'></td> 
+                            </tr>    
+                                <input type='hidden' name='guestID' value='{$row['guest_id']}'>
+                                <input type='hidden' name='roomID' value='{$row['room_id']}'>
+                                <input type='hidden' name='date' value='{$row['date']}'>
+                                <input type='hidden' name='time' value='{$row['time']}'>
+                                <input type='hidden' name='payAmount' value='{$row['payment_amount']}'>
+                                <input type='hidden' name='totAmount' value='{$row['total_amount']}'>
+                                <input type='hidden' name='change' value='{$row['change']}'>
+                                <input type='hidden' name='payID' value='{$row['guest_id']}'>                               
+                        </form>                    
+                            ";
+                        }
+                        echo "</table>";
                     } else {
-                        echo "Error: " .$updatePayment. "<br>" .$conn->error;
+                        echo 'No guests are checking out for today.';
                     }
-                }
+                    //code for updating the payment
+                    if(isset($_POST['updatePay'])){
+                        $pID = $_POST['payID'];
+                        $newPay = $_POST['newPay'];
+                        $updatePayment = "UPDATE checked_in_guests SET paid_amount = $newPay WHERE guest_id = $pID";
 
-                if(isset($_POST['remove'])){
-                    $total = $_POST['totAmount'];
-                    $payment = $_POST['payAmount'];
-                    $gID = $_POST['guestID'];
-                    $rID = $_POST['roomID'];
-                    $date = $_POST['date'];
-                    $time = $_POST['time'];
+                        if ($conn->query($updatePayment) === TRUE) {
+                            echo "
+                                <script language='javascript'>
+                                        window.location.href='receptionist_checkout.php';
+                                </script>";
+                        } else {
+                            echo "Error: " .$updatePayment. "<br>" .$conn->error;
+                        }
+                    }
+                    //code for the checkout
+                    if(isset($_POST['remove'])){
+                        $total = $_POST['totAmount'];
+                        $payment = $_POST['payAmount'];
+                        $gID = $_POST['guestID'];
+                        $rID = $_POST['roomID'];
+                        $date = $_POST['date'];
+                        $time = $_POST['time'];
+                        $change = $_POST['change'];
 
-                    if($payment >= $total){
-                        $updateGuest = "UPDATE guests SET guest_status = 'Complete' WHERE guest_id = $gID";
-                        $updateRoom = "UPDATE rooms SET room_status = 'Available' WHERE room_id = $rID";
-                        $newRecord = "INSERT INTO records (record_type, record_date, record_time, record_paid, guest_id)
-                                    VALUES ('CHECKED OUT', 
-                                            '$date', 
-                                            '$time',
-                                            $total,
-                                            $gID)";
-                        $deleteSched = "DELETE FROM schedule WHERE guest_id = $gID";
-                        $deleteCheckIn = "DELETE FROM checked_in_guests WHERE guest_id = $gID";
+                        if($payment >= $total){
+                            $updateGuest = "UPDATE guests SET guest_status = 'Complete' WHERE guest_id = $gID";
+                            $updateRoom = "UPDATE rooms SET room_status = 'Available' WHERE room_id = $rID";
+                            $newRecord = "INSERT INTO records (record_type, record_date, record_time, record_paid, record_payables, record_change, guest_id)
+                                        VALUES ('CHECKED OUT', 
+                                                '$date', 
+                                                '$time',
+                                                '$payment',
+                                                '$total',
+                                                '$change',
+                                                $gID)";
+                            $deleteSched = "DELETE FROM schedule WHERE guest_id = $gID";
+                            $deleteCheckIn = "DELETE FROM checked_in_guests WHERE guest_id = $gID";
             
                         if ($conn->query($updateGuest) === TRUE && 
                             $conn->query($updateRoom) === TRUE && 
@@ -248,7 +251,7 @@
                             $conn->query($deleteSched) === TRUE &&
                             $conn->query($deleteCheckIn) === TRUE) {
                             echo "<script language='javascript'>
-                                        window.location.href='receptionist_checkout.php';
+                                        window.location.href='manager_records.php';
                                       
                                 </script>";
                         } else if(!$conn->query($updateGuest) === TRUE) {
