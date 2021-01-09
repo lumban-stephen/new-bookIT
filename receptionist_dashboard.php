@@ -53,9 +53,9 @@
             <div class="dash box1" id="Modal1">
                      <?php
                         include 'connection.php';
-        
+                        //Displays the number of Guests that are checked in
                         $sql = "SELECT COUNT(*) AS 'Guests'
-                                 FROM guests WHERE guest_status = 'INCOMPLETE' AND date_in<= CURRENT_DATE ;";
+                                 FROM guests WHERE guest_status = 'INCOMPLETE' AND date_in<= CURRENT_DATE ;";/**Added 'date_in<= CURRENT_DATE' just to make sure it doesn't display any error */
                         $display = $conn->query($sql);
                         if($rows = $display != NULL){ 
                             while($rows = $display->fetch_assoc()){
@@ -83,7 +83,7 @@
                         </tr>
                         <?php
                                 include 'connection.php';
-                
+                                //Displays the guests that are checked in
                                 $sql = "SELECT g.guest_id AS 'ID',
                                                 CONCAT(c.fname, ' ', c.MI, ' ', c.lname) AS 'Guest Name',
                                                 r.room_id as 'Room Number'
@@ -94,7 +94,7 @@
                                                 g.customer_id = c.customer_id
                                                 AND g.room_id = r.room_id AND g.guest_status = 'INCOMPLETE' AND g.date_in<= CURRENT_DATE
                                         ORDER BY
-                                                g.date_in;";
+                                                g.date_in;";//Ordered by date checked in
                                         $display = $conn->query($sql);
                                         if($rows = $display != NULL){ 
                                             while($rows = $display->fetch_assoc()){
@@ -113,7 +113,8 @@
                 <div class="dash box2" id="Modal2"> 
                     <?php
                          include 'connection.php';
-        
+                        
+                        //Displays the number of guests about to check-out on the current date
                          $sql = "SELECT COUNT(*) AS 'checkout' 
                                  FROM guests g, customers c, rooms r
                                  WHERE g.customer_id = c.customer_id
@@ -144,7 +145,8 @@
                                 </tr>
                                 <?php
                                         include 'connection.php';
-                        
+
+                                        //Displays the guests who're about to checkout on the current date
                                         $sql = "SELECT CONCAT(c.fname, ' ', c.MI, ' ', c.lname) AS 'Guest Name',
                                                      r.room_id as 'Room Number'
                                                 FROM
@@ -172,7 +174,8 @@
                 <div class="dash box3" id="Modal3">                    
                     <?php
                          include 'connection.php';
-        
+
+                        //Displays the number of guests that are available for checkin
                          $sql = "SELECT COUNT(*) AS 'Vacancies' 
                                  FROM `rooms`
                                  WHERE room_status='Available';";
@@ -201,7 +204,8 @@
                                 </tr>
                                 <?php
                                         include 'connection.php';
-                        
+
+                                        //Displays the room and the room description that are available for checkin
                                         $sql = "SELECT r.room_id AS 'Room ID', rt.room_desc AS 'Room Description'
                                         FROM rooms r, room_type rt
                                         WHERE r.roomtype_id=rt.roomtype_id AND room_status='Available';";
@@ -222,7 +226,8 @@
                 <div class="dash box4" id="Modal4">
                     <?php
                          include 'connection.php';
-        
+
+                        //Displays the number of guests that book a reservation
                          $sql = "SELECT COUNT(*) as 'count'
                                     FROM schedule s, guests g
                                     WHERE s.guest_id=g.guest_id AND g.guest_status = 'RESERVED' ";
@@ -252,7 +257,8 @@
                                 </tr>
                                 <?php
                                         include 'connection.php';
-                        
+
+                                        //Displays the guests that book a reservation
                                         $sql = "SELECT CONCAT(c.fname,' ',c.MI,' ',c.lname) as 'Guest Name', g.date_in as date_in
                                         FROM guests g, customers c, schedule s
                                         WHERE g.customer_id = c.customer_id AND s.guest_id=g.guest_id AND guest_status = 'RESERVED' 

@@ -52,7 +52,8 @@
                 <div class="dash box1" id="Modal1">
                 <?php
                         include 'connection.php';
-        
+
+                        //Displays the number of guests that are checked in
                         $sql = "SELECT COUNT(*) AS 'Guests'
                                  FROM guests WHERE guest_status = 'INCOMPLETE' ;";
                         $display = $conn->query($sql);
@@ -82,7 +83,8 @@
                         </tr>
                         <?php
                                 include 'connection.php';
-                
+
+                                //Displays the Guests that are checked in
                                 $sql = "SELECT g.guest_id AS 'ID',
                                                 CONCAT(c.fname, ' ', c.MI, ' ', c.lname) AS 'Guest Name',
                                                 r.room_id as 'Room Number'
@@ -110,7 +112,8 @@
                         </div></div>
                 <div class="dash box2" id="Modal2"><?php
                          include 'connection.php';
-        
+
+                        //Displays the number of vacant rooms
                          $sql = "SELECT COUNT(*) AS 'Vacancies' 
                                  FROM `rooms`
                                  WHERE room_status='Available';";
@@ -139,7 +142,8 @@
                                 </tr>
                                 <?php
                                         include 'connection.php';
-                        
+
+                                        //Diplasy the vacant rooms and their room description
                                         $sql = "SELECT r.room_id AS 'Room ID', rt.room_desc AS 'Room Description'
                                         FROM rooms r, room_type rt
                                         WHERE r.roomtype_id=rt.roomtype_id AND room_status='Available';";
@@ -160,7 +164,8 @@
                 <div class="dash box3" id="Modal3">
                 <?php
                          include 'connection.php';
-        
+
+                        //Displays the number of reserved guests that are about to checkin on the current date
                          $sql = "SELECT COUNT(*) AS 'Checkin' 
                          FROM Guests g, Customers c,
                                Rooms r
@@ -192,7 +197,8 @@
                                 </tr>
                                 <?php
                                         include 'connection.php';
-                        
+
+                                        //Displays the reserved guests that are about to checkin on the current date
                                         $sql = "SELECT CONCAT(c.fname, ' ', c.MI, ' ', c.lname) AS 'Guest Name',
                                                      r.room_id as 'Room Number'
                                                 FROM
@@ -222,7 +228,8 @@
                 <div class="dash box4" id="Modal4">
                 <?php
                          include 'connection.php';
-        
+
+                        //Displays the number of guests that booked a reservation
                          $sql = "SELECT COUNT(*) as 'count'
                          FROM schedule s, guests g
                          WHERE s.guest_id=g.guest_id AND g.guest_status = 'RESERVED';";
@@ -252,7 +259,8 @@
                                 </tr>
                                 <?php
                                         include 'connection.php';
-                        
+
+                                        //Displays the guests that booked a reservation
                                         $sql = "SELECT CONCAT(c.fname,' ',c.MI,' ',c.lname) as 'Guest Name', g.date_in as date_in
                                         FROM guests g, customers c, schedule s
                                         WHERE g.customer_id = c.customer_id AND s.guest_id=g.guest_id AND guest_status = 'RESERVED'

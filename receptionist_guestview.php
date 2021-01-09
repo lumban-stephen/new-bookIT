@@ -50,7 +50,8 @@
         <a class="Checkoutbutton" href="receptionist_guests.php">Back to List</a>
 <?php
         include 'connection.php';
-
+        
+        //Displays the Information of the guest depending on the Id that was passed from the guests list 
         $sql = "SELECT g.guest_id AS 'SID', g.guest_id AS 'guest_id', b.bill_id as 'bill_id',
                     c.fname AS 'Firstname', c.MI AS 'Middlename', c.lname AS 'Lastname', c.phone AS 'Phone', c.email AS 'Email',
                     g.date_in AS 'Check-in Date', g.date_out AS 'Check-out Date',

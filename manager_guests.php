@@ -58,7 +58,7 @@
                         if (isset($_POST['keyword'])) {
                             $keyword = trim ($_POST['keyword']);
 
-                            $sql1 = "SELECT 
+                            $sql1 = "SELECT /**Displays the Guest and their room number */
                                         CONCAT(c.fname, ' ', c.MI, ' ', c.lname) AS 'Guest Name',
                                         c.fname as 'fname',
                                         c.MI as 'mname',
@@ -74,7 +74,7 @@
                                             g.customer_id = c.customer_id AND 
                                             g.room_id = r.room_id AND 
                                             b.guest_id=g.guest_id AND 
-                                            ch.guest_id=g.guest_id AND
+                                            ch.guest_id=g.guest_id AND /**Displays the guest depending on the keyword that is being inputted */
                                             g.guest_status = 'INCOMPLETE' AND CONCAT(c.fname, ' ', c.lname) LIKE '%$keyword%'
                                     GROUP BY
                                             g.guest_id /*I grouped it by guest id because it would be group by roomtype_id if isnt guest_id*/ 
@@ -153,7 +153,7 @@
                             g.customer_id = c.customer_id AND 
                             s.room_id = r.room_id AND 
                             b.guest_id=g.guest_id AND 
-                            g.guest_status = 'INCOMPLETE'
+                            g.guest_status = 'INCOMPLETE'/**Displays the guest with the status as incomplete which means not yet checked-out */
                     GROUP BY
                             g.guest_id 
                     ORDER BY
