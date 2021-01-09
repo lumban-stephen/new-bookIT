@@ -115,8 +115,9 @@
                          include 'connection.php';
         
                          $sql = "SELECT COUNT(*) AS 'checkout' 
-                                 FROM guests g 
-                                 WHERE g.guest_status = 'INCOMPLETE' AND g.date_out= CURDATE();";
+                                 FROM guests g, customers c, rooms r
+                                 WHERE g.customer_id = c.customer_id
+                                        AND g.room_id = r.room_id AND g.guest_status = 'INCOMPLETE' AND g.date_out= CURDATE();";
                         $display = $conn->query($sql);
                         if($rows = $display != NULL){ 
                             while($rows = $display->fetch_assoc()){

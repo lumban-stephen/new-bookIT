@@ -162,8 +162,10 @@
                          include 'connection.php';
         
                          $sql = "SELECT COUNT(*) AS 'Checkin' 
-                         FROM guests g 
-                         WHERE g.date_in= CURDATE() AND g.guest_status = 'RESERVED';";
+                         FROM Guests g, Customers c,
+                               Rooms r
+                         WHERE g.customer_id = c.customer_id
+                               AND g.room_id = r.room_id AND g.date_in= CURDATE() AND g.guest_status = 'RESERVED';";
                         $display = $conn->query($sql);
                         if($rows = $display != NULL){ 
                             while($rows = $display->fetch_assoc()){

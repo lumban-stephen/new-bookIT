@@ -90,10 +90,11 @@
 //show info about the guest. and input new checkout date
                 echo "<form method='post' action=''>
                 <div class='grid-form'>
-                <span><label class='Labelform'>Room</label><br>".$room_id."</span>
-                <span><label class='Labelform'>Check-in</label><br>".$date_in."</span>
+                <span><label class='Labelform'>Room</label><br><div  class='booking' style='width:100%'>".$room_id."</div></span>
+                <span><label class='Labelform'>Check-in</label><br><div class='booking'  style='width:100%'>".$date_in."</div></span>
                 
-                <span><label class='Labelform'>Check-out</label><br>".$date_out."<input type='date' name='extend'  class='booking' required> 
+                <span><label class='Labelform'>Check-out</label><br><div class='booking'  style='width:100%'>".$date_out."</div><br><br>
+                <input type='date' name='extend'  class='booking' required> 
                  </div>
                 <button type='submit' name='search_room'  style='background-color: #003399; padding: 5px; ' class='button'>Search Room</button><a href='manager_guests.php' class='Greenbutton' style='width:15%;'>Back to Guests</a></form>
                 ";
