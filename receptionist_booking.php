@@ -92,8 +92,8 @@
                 $phone=$_POST['phone'];
                 $email=$_POST['email'];
                 $time=$_POST['time'];
-
-                $stays=(strtotime($_SESSION['checkout'])-strtotime($_SESSION['checkin']))/60/60/24; //number of stays
+        //number of stays
+                $stays=(strtotime($_SESSION['checkout'])-strtotime($_SESSION['checkin']))/60/60/24; 
 
                 //get room_id
                 $sql = "SELECT t.room_cost AS room_cost,t.roomtype_id AS roomtype_id
@@ -158,7 +158,7 @@
             
             $q=1;
             $amenity=100;
-            //create data in bill_items
+            //create data in bill_items (dummy data. no price)
             $prepare7 = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_date,amenity_id) VALUES (?,?,?,?)");
             $prepare7->bind_param("iisi",$q,$bill_id,$_SESSION['checkin'],$amenity);
             $prepare7->execute();

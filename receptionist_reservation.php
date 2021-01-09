@@ -93,6 +93,7 @@
         $_SESSION['checkout'] = $checkout;
         $_SESSION['numguest'] = $numguest;
 
+//select available room type
     $rooomtype = "SELECT DISTINCT t.room_desc AS room_desc, t.roomtype_id as roomtype_id
             FROM    room_type t, 
                     rooms r
@@ -124,6 +125,7 @@
                     echo 'No available room.';
                 }}
 
+//after selecting room type. select room_id
         if(isset($_POST['select'])){  
         $roomtype_id = $_POST['roomtype_id'];
         $room_desc = $_POST['room_desc'];

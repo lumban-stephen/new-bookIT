@@ -129,10 +129,10 @@ $sql1 = "SELECT r.room_id as 'room_id',t.room_desc AS room_desc
                 echo "</div>";
 
                 unset($_SESSION['extended_date']);
-    //header("location:receptionist_update.php");
+
 }}
 
-//update room
+//update room_id in guests
 if(isset($_POST['select1'])){
     $room_id=$_POST['room_id'];
     $date_out=$_POST['date_out'];

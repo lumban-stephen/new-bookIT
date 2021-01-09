@@ -144,6 +144,7 @@ while($row = $result->fetch_assoc()){
                 
               </tr></form>";}}
 
+//to check in. send data in SESSION
    if(isset($_POST['checkin'])){
     header("location:receptionist_checkinform_Fromlist.php");
         $fname=$_POST['fname'];
@@ -171,6 +172,7 @@ while($row = $result->fetch_assoc()){
 
 }
 
+//if cancel. delete data in schedule.
    if(isset($_POST['cancel'])){
     $guest_id=$_POST['guest_id'];
     
@@ -206,6 +208,7 @@ while($row = $result->fetch_assoc()){
     }      
 }
 
+//update guests info. send data in SESSION
    if(isset($_POST['update'])){
     header("location:receptionist_update.php");
         $fname=$_POST['fname'];

@@ -75,6 +75,7 @@
         echo 'No Task';
     }
 
+//if the task is done, change the status. 
     if(isset($_POST['done'])){
         $task_id=$_POST['task_id'];
         $task_status="COMPLETE";
