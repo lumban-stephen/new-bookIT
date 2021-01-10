@@ -60,8 +60,9 @@
 //edit
     if(isset($_SESSION['edit'])){
     unset($_SESSION['edit']); 
+    echo $_SESSION['image'];
     echo "<div>
-        <form method='post' action='' >
+        <form method='post' action='' enctype='multipart/form-data'>
         <label class='Labelform'>Name</label><input type='text' class='mngt' name='name' value='{$_SESSION['name']}'>
         <label class='Labelform'>PRICE</label><input type='number' class='mngt' style='width:20%;' name='price'value='{$_SESSION['price']}'><br>
         <label class='Labelform'>TYPE</label>
@@ -71,6 +72,7 @@
         <option value='Drinks'>Drinks</option>
         <option value='Extras'>Extras</option>
         </select>
+        <label class='Labelform'>File Upload</label><input type='file' id='file' class='mngt' style='width:40%;' name='file'>
         <input type='hidden' name='id' value='{$_SESSION['id']}'>
         <button type='submit' class='Greenbutton' name='new_edit'>SAVE</button>
         
@@ -79,7 +81,7 @@
 
 //add new items
         echo "<div>
-        <form method='post' action='' >
+        <form method='post' action='' enctype='multipart/form-data' >
         <label class='Labelform-Rev'>Name</label><input type='text' class='input-Rev' name='name' required>
         <label class='Labelform-Rev'>PRICE</label><input type='number' class='input-Rev' style='width:20%;' name='price' required><br>
         <label class='Labelform-Rev'>TYPE</label><select name='type' class='input-Rev' required>
@@ -88,7 +90,8 @@
             <option value='Drinks'>Drinks</option>
             <option value='Extras'>Extras</option>
             </select>
-        <label class='Labelform-Rev'>STOCK</label><input type='number' class='input-Rev' name='stock' required>
+        <label class='Labelform-Rev'>STOCK</label><input type='number' class='input-Rev' name='stock' required><br>
+        <label class='Labelform'>File Upload</label><input type='file' id='file' class='mngt' style='width:40%;' name='file' required>
         <button type='submit' class='Greenbutton' name='save' >SAVE</button>
         
         </form> 
@@ -103,9 +106,19 @@
         $type = $_POST['type'];
         $id=$_POST['id'];
 
-        $prepare= $conn->prepare("UPDATE amenities SET amenity_name =?,amenity_price=?,amenity_type=?
+        $files = $_FILES['file'];
+        $filename = $files['name'];
+        $tmp = $files['tmp_name'];
+        $location = 'assets/'.$filename;
+        move_uploaded_file($tmp,$location);
+
+        if(empty($filename)){
+            $filename=$_SESSION['image'];
+        }
+
+        $prepare= $conn->prepare("UPDATE amenities SET amenity_name =?,amenity_price=?,amenity_type=?,image=?
             WHERE amenity_id=?");
-        $prepare->bind_param("sisi", $name,$price,$type,$id);
+        $prepare->bind_param("sissi", $name,$price,$type,$filename,$id);
         $prepare->execute();
         header("location:manager_restock.php");
 
@@ -118,9 +131,15 @@
         $type = $_POST['type'];
         $stock = $_POST['stock'];
 
-    $save = $conn->prepare("INSERT INTO amenities(amenity_name, amenity_price, amenity_type, stock) 
-        VALUES(?,?,?,?)"); 
-    $save->bind_param("sisi",$name,$price,$type,$stock);
+        $files = $_FILES['file'];
+        $filename = $files['name'];
+        $tmp = $files['tmp_name'];
+        $location = 'assets/'.$filename;
+        move_uploaded_file($tmp,$location);
+
+    $save = $conn->prepare("INSERT INTO amenities(amenity_name, amenity_price, amenity_type, stock,image) 
+        VALUES(?,?,?,?,?)"); 
+    $save->bind_param("sisis",$name,$price,$type,$stock,$filename);
     $save->execute();
 }       
          
@@ -132,6 +151,7 @@
         
         <table id="Table">
             <tr>
+                <th>IMAGE</th>
                 <th>NAME</th>
                 <th>PRICE</th>
                 <th>TYPE</th>
@@ -141,18 +161,19 @@
             </tr>
 <?php
 
-    $sql = "SELECT amenity_id,amenity_name,amenity_type,stock,amenity_price FROM amenities ORDER BY amenity_type ASC;"; 
+    $sql = "SELECT * FROM amenities WHERE image IS NOT NULL ORDER BY amenity_type ASC;"; 
                   
     $display = $conn->query($sql);
     
         if($rows = $display != NULL){
 //get rid of extra amenities
         while($rows = $display->fetch_assoc()){
-            if($rows['amenity_id']<=8||$rows['amenity_id']>=16&&$rows['amenity_id']<=19||$rows['amenity_id']>=33&&$rows['amenity_id']!=100){
+            
 //if it is not available
             if($rows['stock']<0){
                 $rows['stock']="Not Available";
             echo "<tr><form action='' method='post'>
+            <td><img src='assets/".$rows['image']."' width=100px height=100px></td>
             <td>". $rows['amenity_name']. "</td>
             <td>". $rows['amenity_price']. "</td>
             <td>". $rows['amenity_type']. "</td>
@@ -172,6 +193,7 @@
             </tr>"; }else{
 //if available            
             echo "<tr><form action='' method='post'>
+            <td><img src='assets/".$rows['image']."' width=100px height=100px></td>
             <td>". $rows['amenity_name']. "</td>
             <td>". $rows['amenity_price']. "</td>
             <td>". $rows['amenity_type']. "</td>
@@ -192,7 +214,7 @@
             </td></form>
             </tr>";
 
-            }}
+            }
                                         }
             echo "</table>";
                             }else{
@@ -250,12 +272,14 @@
             $price = $row['amenity_price'];
             $type = $row['amenity_type'];
             $name=$row['amenity_name'];
+            $image=$row['image'];
         }
         $_SESSION['edit']="edit";
         $_SESSION['price']=$price;
         $_SESSION['type']=$type;
         $_SESSION['name']=$name;
         $_SESSION['id']=$id;
+        $_SESSION['image']=$image;
         header("location:manager_restock.php");
     }
 

@@ -64,684 +64,583 @@
 <?php
 include 'connection.php';
 ?>
-
-
-        <p>Hygiene</p>
-            <div class="amty">
-                <?php
-                $sql1 = "SELECT * FROM amenities WHERE amenity_type = 'Hygiene'";
-                $result1 = $conn->query($sql1);
-                $result1_id = array();
-                $result1_name = array();
-                $result1_price = array();
-                $result1_stock = array();
-                while($row1 = $result1->fetch_assoc()){
-                   $result1_id[] = $row1['amenity_id'];
-                   $result1_name[] = $row1['amenity_name'];
-                   $result1_price[] = $row1['amenity_price'];
-                   $result1_stock[] = $row1['stock'];
+    <p>Hygiene</p>
+        <div class="amty">
+            <?php
+                $sql1 = "SELECT * FROM amenities WHERE amenity_type = 'Hygiene' AND image IS NOT NULL AND stock>0";
+                $hygiene = $conn->query($sql1);
+                $hygiene_id = array();
+                $hygiene_name = array();
+                $hygiene_price = array();
+                $hygiene_stock = array();
+                $hygiene_image = array();
+                while($row1 = $hygiene->fetch_assoc()){
+                   $hygiene_id[] = $row1['amenity_id'];
+                   $hygiene_name[] = $row1['amenity_name'];
+                   $hygiene_price[] = $row1['amenity_price'];
+                   $hygiene_stock[] = $row1['stock'];
+                   $hygiene_image[] = $row1['image'];
                     }?>
 
-    <div class="amty-box">
-        <img src="assets/dove-shampoo.jpg">
-            <p class="name"><?php echo $result1_name[0]."<br>Price:".$result1_price[0]; ?></p>
-                <div class="counter">
-                    <form action="<?php echo $_SERVER['PHP_SELF'];  ?>" method="post">
+    <?php  if(!empty($hygiene_image[0]))
+echo "
+    <div class='amty-box'>
+        <img src='assets/".$hygiene_image[0]."'>
+            <p class='name'>".$hygiene_name[0]."<br>Price:".$hygiene_price[0]."</p>
+                <div class='counter'>
+                    <form action=".$_SERVER['PHP_SELF']." method='post'>
+                    <input type='submit' name='h_minus0' value='-' class='button'>
                     
-                    <input type="submit" name="h_minus0" value="-" class="button">
-                    
-                    <?php
-                        $_SESSION['h_num0']=((isset($_SESSION['h_num0']))?$_SESSION['h_num0']:0);
-                        $_SESSION['h_price0']=((isset($_SESSION['h_num0']))?$_SESSION['h_num0']:0);
-                        if($result1_stock[0]>0){
-                        if(isset($_POST['h_minus0'])){
-                            if($_SESSION['h_num0']<=0){
-                            $_SESSION['h_num0']=0;
-                        }else{
-                            $_SESSION['h_num0']--;
-                        }
-                        }
-                        if(isset($_POST['h_plus0'])){
-                            $_SESSION['h_num0']++;
-                        }
-                        echo $_SESSION['h_num0'];
-                        $_SESSION['h_price0']=$result1_price[0]*$_SESSION['h_num0'];}
-                    ?>            
-                    <input type="submit" name="h_plus0" value="+" class="button">
-                    <?php
-                    $_SESSION['h_stock0']=$result1_stock[0]-$_SESSION['h_num0'];
-                    if($result1_stock[0]<=0){
-                        echo "<br>not available";
-                    }else{
-                    echo "<br>stock: ".$_SESSION['h_stock0'];}
-                      ?>
-                
-                    <input type="hidden" name="amenity_id_h0" value="<?php echo $result1_id[0]; ?>">
-                    <input type="hidden" name="amenity_price" value="<?php echo $result1_price[0]; ?>"><br>
+                    ".$_SESSION['h_num0']."
+
+                    <input type='submit' name='h_plus0' value='+' class='button'>
+                    <br>stock:".$_SESSION['h_stock0']."
+                    <input type='hidden' name='amenity_id_h0' value='".$hygiene_id[0]."'>
+                    <input type='hidden' name='amenity_price' value='".$hygiene_price[0]."'><br>
                 
                 </div>
-    </div>
+    </div>";?>
 
 
 
-    <div class="amty-box">
-        <img src="assets/dove-conditioner.jpg">
-            <p class="name"><?php echo $result1_name[1]."<br>Price:".$result1_price[1]; ?></p>
-                <div class="counter">
+<?php  if(!empty($hygiene_image[1]))
+echo "
+    <div class='amty-box'>
+        <img src='assets/".$hygiene_image[1]."'>
+            <p class='name'>".$hygiene_name[1]."<br>Price:".$hygiene_price[1]."</p>
+                <div class='counter'>
                     
-                    <input type="submit" name="h_minus1" value="-" class="button">
+                    <input type='submit' name='h_minus1' value='-' class='button'>
                     
-                    <?php
-                        $_SESSION['h_num1']=((isset($_SESSION['h_num1']))?$_SESSION['h_num1']:0);
-                        $_SESSION['h_price1']=((isset($_SESSION['h_num1']))?$_SESSION['h_num1']:0);
-                        if($result1_stock[1]>0){
-                        if(isset($_POST['h_minus1'])){
-                            if($_SESSION['h_num1']<=0){
-                            $_SESSION['h_num1']=0;
-                        }else{
-                            $_SESSION['h_num1']--;
-                        }
-                        }
-                        if(isset($_POST['h_plus1'])){
-                            $_SESSION['h_num1']++;
-                        }
-                        echo $_SESSION['h_num1'];
-                        $_SESSION['h_price1']=$result1_price[1]*$_SESSION['h_num1'];}
-                        
-                    ?>            
-                    <input type="submit" name="h_plus1" value="+" class="button">
-                    <?php
-                    if($result1_stock[1]<=0){
-                        echo "<br>not available";
-                    }else{
-                    $_SESSION['h_stock1']=$result1_stock[1]-$_SESSION['h_num1'];
-                    echo "<br>stock: ".$_SESSION['h_stock1'];}
-                      ?>
-                
-                    <input type="hidden" name="amenity_id_h1" value="<?php echo $result1_id[1]; ?>">
-                    <input type="hidden" name="amenity_price" value="<?php echo $result1_price[1]; ?>"><br>
+                    ".$_SESSION['h_num1']."
+
+                    <input type='submit' name='h_plus1' value='+' class='button'>
+                    <br>stock:".$_SESSION['h_stock1']."
+                    <input type='hidden' name='amenity_id_h1' value='".$hygiene_id[1]."'>
+                    <input type='hidden' name='amenity_price' value='".$hygiene_price[1]."'><br>
                 
                 </div>
-    </div>
+    </div>";?>
 
 
-    <div class="amty-box">
-        <img src="assets/sunsilk-shampoo.png">
-            <p class="name"><?php echo $result1_name[2]."<br>Price:".$result1_price[2]; ?></p>
-                <div class="counter">
+    <?php  if(!empty($hygiene_stock[2]))
+echo "
+    <div class='amty-box'>
+        <img src='assets/".$hygiene_image[2]."'>
+            <p class='name'>".$hygiene_name[2]."<br>Price:".$hygiene_price[2]."</p>
+                <div class='counter'>
                     
-                    <input type="submit" name="h_minus2" value="-" class="button">
+                    <input type='submit' name='h_minus2' value='-' class='button'>
                     
-                    <?php
-                        $_SESSION['h_num2']=((isset($_SESSION['h_num2']))?$_SESSION['h_num2']:0);
-                        $_SESSION['h_price2']=((isset($_SESSION['h_num2']))?$_SESSION['h_num2']:0);
-                        if($result1_stock[2]>0){
-                        if(isset($_POST['h_minus2'])){
-                            if($_SESSION['h_num2']<=0){
-                            $_SESSION['h_num2']=0;
-                        }else{
-                            $_SESSION['h_num2']--;
-                        }
-                        }
-                        if(isset($_POST['h_plus2'])){
-                            $_SESSION['h_num2']++;
-                        }
-                        echo $_SESSION['h_num2'];
-                        $_SESSION['h_price2']=$result1_price[2]*$_SESSION['h_num2'];}
-                        
-                    ?>            
-                    <input type="submit" name="h_plus2" value="+" class="button">
-                    <?php
-                    if($result1_stock[2]<=0){
-                        echo "<br>not available";
-                    }else{
-                    $_SESSION['h_stock2']=$result1_stock[2]-$_SESSION['h_num2'];
-                    echo "<br>stock: ".$_SESSION['h_stock2'];}
-                    ?>
-                
-                    <input type="hidden" name="amenity_id_h2" value="<?php echo $result1_id[2]; ?>">
-                    <input type="hidden" name="amenity_price" value="<?php echo $result1_price[2]; ?>"><br>
+                    ".$_SESSION['h_num2']."
+
+                    <input type='submit' name='h_plus2' value='+' class='button'>
+                    <br>stock:".$_SESSION['h_stock2']."
+                    <input type='hidden' name='amenity_id_h2' value='".$hygiene_id[2]."'>
+                    <input type='hidden' name='amenity_price' value='".$hygiene_price[2]."'><br>
                 
                 </div>
-    </div>
+    </div>";?>
 
-    <div class="amty-box">
-        <img src="assets/creamsilk.jpg">
-            <p class="name"><?php echo $result1_name[3]."<br>Price:".$result1_price[3]; ?></p>
-                <div class="counter">
+<?php  if(!empty($hygiene_image[3]))
+echo "
+    <div class='amty-box'>
+        <img src='assets/".$hygiene_image[3]."'>
+            <p class='name'>".$hygiene_name[3]."<br>Price:".$hygiene_price[3]."</p>
+                <div class='counter'>
                     
-                    <input type="submit" name="h_minus3" value="-" class="button">
+                    <input type='submit' name='h_minus3' value='-' class='button'>
                     
-                    <?php
-                        $_SESSION['h_num3']=((isset($_SESSION['h_num3']))?$_SESSION['h_num3']:0);
-                        $_SESSION['h_price3']=((isset($_SESSION['h_num3']))?$_SESSION['h_num3']:0);
-                        if($result1_stock[3]>0){
-                        if(isset($_POST['h_minus3'])){
-                            if($_SESSION['h_num3']<=0){
-                            $_SESSION['h_num3']=0;
-                        }else{
-                            $_SESSION['h_num3']--;
-                        }
-                        }
-                        if(isset($_POST['h_plus3'])){
-                            $_SESSION['h_num3']++;
-                        }
-                        echo $_SESSION['h_num3'];
-                        $_SESSION['h_price3']=$result1_price[3]*$_SESSION['h_num3'];
-                        }
-                    ?>            
-                    <input type="submit" name="h_plus3" value="+" class="button">
-                    <?php
-                    if($result1_stock[3]<=0){
-                        echo "<br>not available";
-                    }else{
-                    $_SESSION['h_stock3']=$result1_stock[3]-$_SESSION['h_num3'];
-                    echo "<br>stock: ".$_SESSION['h_stock3'];}
-                      ?>
-                
-                    <input type="hidden" name="amenity_id_h3" value="<?php echo $result1_id[3]; ?>">
-                    <input type="hidden" name="amenity_price" value="<?php echo $result1_price[3]; ?>"><br>
+                    ".$_SESSION['h_num3']."
+
+                    <input type='submit' name='h_plus3' value='+' class='button'>
+                    <br>stock:".$_SESSION['h_stock3']."
+                    <input type='hidden' name='amenity_id_h3' value='".$hygiene_id[3]."'>
+                    <input type='hidden' name='amenity_price' value='".$hygiene_price[3]."'><br>
                 
                 </div>
-    </div>           
+    </div>";?>
+
+<?php  if(!empty($hygiene_image[4]))
+echo "
+    <div class='amty-box'>
+        <img src='assets/".$hygiene_image[4]."'>
+            <p class='name'>".$hygiene_name[4]."<br>Price:".$hygiene_price[4]."</p>
+                <div class='counter'>
+                    
+                    <input type='submit' name='h_minus4' value='-' class='button'>
+                    
+                    ".$_SESSION['h_num4']."
+
+                    <input type='submit' name='h_plus4' value='+' class='button'>
+                    <br>stock:".$_SESSION['h_stock4']."
+                    <input type='hidden' name='amenity_id_h4' value='".$hygiene_id[4]."'>
+                    <input type='hidden' name='amenity_price' value='".$hygiene_price[4]."'><br>
+                
+                </div>
+    </div>";?>
+
+<?php  if(!empty($hygiene_image[5]))
+echo "
+    <div class='amty-box'>
+        <img src='assets/".$hygiene_image[5]."'>
+            <p class='name'>".$hygiene_name[5]."<br>Price:".$hygiene_price[5]."</p>
+                <div class='counter'>
+                    
+                    <input type='submit' name='h_minus5' value='-' class='button'>
+                    
+                    ".$_SESSION['h_num5']."
+
+                    <input type='submit' name='h_plus5' value='+' class='button'>
+                    <br>stock:".$_SESSION['h_stock5']."
+                    <input type='hidden' name='amenity_id_h5' value='".$hygiene_id[5]."'>
+                    <input type='hidden' name='amenity_price' value='".$hygiene_price[5]."'><br>
+                
+                </div>
+    </div>";?>
+
+
             </div>
         <hr>
 
         <p>Food</p>
             <div class="amty">
-                <?php
-                $sql1 = "SELECT * FROM amenities WHERE amenity_type = 'Foods' AND stock>=0";
-                $result2 = $conn->query($sql1);
-                $result2_id = array();
-                $result2_name = array();
-                $result2_price = array();
-                $result2_stock = array();
-                while($row2 = $result2->fetch_assoc()){
-                   $result2_id[] = $row2['amenity_id'];
-                   $result2_name[] = $row2['amenity_name'];
-                   $result2_price[] = $row2['amenity_price'];
-                   $result2_stock[] = $row2['stock'];
+            <?php
+                $sql2 = "SELECT * FROM amenities WHERE amenity_type = 'Foods' AND image IS NOT NULL AND stock>0";
+                $food = $conn->query($sql2);
+                $food_id = array();
+                $food_name = array();
+                $food_price = array();
+                $food_stock = array();
+                $food_image = array();
+                while($row2 = $food->fetch_assoc()){
+                   $food_id[] = $row2['amenity_id'];
+                   $food_name[] = $row2['amenity_name'];
+                   $food_price[] = $row2['amenity_price'];
+                   $food_stock[] = $row2['stock'];
+                   $food_image[] = $row2['image'];
                     }?>
 
-    <div class="amty">
-                <?php
-                $sql1 = "SELECT * FROM amenities WHERE amenity_type = 'Foods'";
-                $result2 = $conn->query($sql1);
-                $result2_id = array();
-                $result2_name = array();
-                $result2_price = array();
-                $result2_stock = array();
-                while($row2 = $result2->fetch_assoc()){
-                   $result2_id[] = $row2['amenity_id'];
-                   $result2_name[] = $row2['amenity_name'];
-                   $result2_price[] = $row2['amenity_price'];
-                   $result2_stock[] = $row2['stock'];
-                    }?>
+    <?php  if(!empty($food_image[0]))
+echo "
+    <div class='amty-box'>
+        <img src='assets/".$food_image[0]."'>
+            <p class='name'>".$food_name[0]."<br>Price:".$food_price[0]."</p>
+                <div class='counter'>
+                  
+                    <input type='submit' name='f_minus0' value='-' class='button'>
+                    
+                    ".$_SESSION['f_num0']."
 
-    <div class="amty-box">
-        <img src="assets/Piattos.JFIF">
-            <p class="name"><?php echo $result2_name[0]."<br>Price:".$result2_price[0]; ?></p>
-                <div class="counter">
-                    
-                    <input type="submit" name="f_minus0" value="-" class="button">
-                    
-                    <?php
-                        $_SESSION['f_num0']=((isset($_SESSION['f_num0']))?$_SESSION['f_num0']:0);
-                        $_SESSION['f_price0']=((isset($_SESSION['f_num0']))?$_SESSION['f_num0']:0);
-                        if($result2_stock[0]>0){
-                        if(isset($_POST['f_minus0'])){
-                            if($_SESSION['f_num0']<=0){
-                            $_SESSION['f_num0']=0;
-                        }else{
-                            $_SESSION['f_num0']--;
-                        }
-                        }
-                        if(isset($_POST['f_plus0'])){
-                            $_SESSION['f_num0']++;
-                        }
-                        echo $_SESSION['f_num0'];
-                        $_SESSION['f_price0']=$result2_price[0]*$_SESSION['f_num0'];}
-                    ?>            
-                    <input type="submit" name="f_plus0" value="+" class="button">
-                    <?php
-                    if($result2_stock[0]<=0){
-                        echo "<br>not available";
-                    }else{
-                    $_SESSION['f_stock0']=$result2_stock[0]-$_SESSION['f_num0'];
-                    echo "<br>stock: ".$_SESSION['f_stock0'];}
-                      ?>
-                
-                    <input type="hidden" name="amenity_id_f0" value="<?php echo $result2_id[0]; ?>">
-                    <input type="hidden" name="amenity_price" value="<?php echo $result2_price[0]; ?>"><br>
+                    <input type='submit' name='f_plus0' value='+' class='button'>
+                    <br>stock:".$_SESSION['f_stock0']."
+                    <input type='hidden' name='amenity_id_f0' value='".$food_id[0]."'>
+                    <input type='hidden' name='amenity_price' value='".$food_price[0]."'><br>
                 
                 </div>
-    </div>
+    </div>";?>
 
 
 
-    <div class="amty-box">
-        <img src="assets/nova.png">
-            <p class="name"><?php echo $result2_name[1]."<br>Price:".$result2_price[1]; ?></p>
-                <div class="counter">
+<?php  if(!empty($food_image[1]))
+echo "
+    <div class='amty-box'>
+        <img src='assets/".$food_image[1]."'>
+            <p class='name'>".$food_name[1]."<br>Price:".$food_price[1]."</p>
+                <div class='counter'>
                     
-                    <input type="submit" name="f_minus1" value="-" class="button">
+                    <input type='submit' name='f_minus1' value='-' class='button'>
                     
-                    <?php
-                        $_SESSION['f_num1']=((isset($_SESSION['f_num1']))?$_SESSION['f_num1']:0);
-                        $_SESSION['f_price1']=((isset($_SESSION['f_num1']))?$_SESSION['f_num1']:0);
-                        if($result2_stock[1]>0){
-                        if(isset($_POST['f_minus1'])){
-                            if($_SESSION['f_num1']<=0){
-                            $_SESSION['f_num1']=0;
-                        }else{
-                            $_SESSION['f_num1']--;
-                        }
-                        }
-                        if(isset($_POST['f_plus1'])){
-                            $_SESSION['f_num1']++;
-                        }
-                        echo $_SESSION['f_num1'];
-                        $_SESSION['f_price1']=$result2_price[1]*$_SESSION['f_num1'];}
-                        
-                    ?>            
-                    <input type="submit" name="f_plus1" value="+" class="button">
-                    <?php
-                    if($result2_stock[1]<=0){
-                        echo "<br>not available";
-                    }else{
-                    $_SESSION['f_stock1']=$result2_stock[1]-$_SESSION['f_num1'];
-                    echo "<br>stock: ".$_SESSION['f_stock1'];}
-                      ?>
-                
-                    <input type="hidden" name="amenity_id_f1" value="<?php echo $result2_id[1]; ?>">
-                    <input type="hidden" name="amenity_price" value="<?php echo $result2_price[1]; ?>"><br>
+                    ".$_SESSION['f_num1']."
+
+                    <input type='submit' name='f_plus1' value='+' class='button'>
+                    <br>stock:".$_SESSION['f_stock1']."
+                    <input type='hidden' name='amenity_id_f1' value='".$food_id[1]."'>
+                    <input type='hidden' name='amenity_price' value='".$food_price[1]."'><br>
                 
                 </div>
-    </div>
+    </div>";?>
 
 
-    <div class="amty-box">
-        <img src="assets/taquitos.jpg">
-            <p class="name"><?php echo $result2_name[2]."<br>Price:".$result2_price[2]; ?></p>
-                <div class="counter">
+    <?php  if(!empty($food_stock[2]))
+echo "
+    <div class='amty-box'>
+        <img src='assets/".$food_image[2]."'>
+            <p class='name'>".$food_name[2]."<br>Price:".$food_price[2]."</p>
+                <div class='counter'>
                     
-                    <input type="submit" name="f_minus2" value="-" class="button">
+                    <input type='submit' name='f_minus2' value='-' class='button'>
                     
-                    <?php
-                        $_SESSION['f_num2']=((isset($_SESSION['f_num2']))?$_SESSION['f_num2']:0);
-                        $_SESSION['f_price2']=((isset($_SESSION['f_num2']))?$_SESSION['f_num2']:0);
-                        if($result2_stock[2]>0){
-                        if(isset($_POST['f_minus2'])){
-                            if($_SESSION['f_num2']<=0){
-                            $_SESSION['f_num2']=0;
-                        }else{
-                            $_SESSION['f_num2']--;
-                        }
-                        }
-                        if(isset($_POST['f_plus2'])){
-                            $_SESSION['f_num2']++;
-                        }
-                        echo $_SESSION['f_num2'];
-                        $_SESSION['f_price2']=$result2_price[2]*$_SESSION['f_num2'];}
-                        
-                    ?>            
-                    <input type="submit" name="f_plus2" value="+" class="button">
-                    <?php
-                    if($result2_stock[2]<=0){
-                        echo "<br>not available";
-                    }else{
-                    $_SESSION['f_stock2']=$result2_stock[2]-$_SESSION['f_num2'];
-                    echo "<br>stock: ".$_SESSION['f_stock2'];}
-                      ?>
-                
-                    <input type="hidden" name="amenity_id_f2" value="<?php echo $result2_id[2]; ?>">
-                    <input type="hidden" name="amenity_price" value="<?php echo $result2_price[2]; ?>"><br>
+                    ".$_SESSION['f_num2']."
+
+                    <input type='submit' name='f_plus2' value='+' class='button'>
+                    <br>stock:".$_SESSION['f_stock2']."
+                    <input type='hidden' name='amenity_id_f2' value='".$food_id[2]."'>
+                    <input type='hidden' name='amenity_price' value='".$food_price[2]."'><br>
                 
                 </div>
-    </div>
+    </div>";?>
 
-    <div class="amty-box">
-        <img src="assets/vcut.jpg">
-            <p class="name"><?php echo $result2_name[3]."<br>Price:".$result2_price[3]; ?></p>
-                <div class="counter">
+<?php  if(!empty($food_image[3]))
+echo "
+    <div class='amty-box'>
+        <img src='assets/".$food_image[3]."'>
+            <p class='name'>".$food_name[3]."<br>Price:".$food_price[3]."</p>
+                <div class='counter'>
                     
-                    <input type="submit" name="f_minus3" value="-" class="button">
+                    <input type='submit' name='f_minus3' value='-' class='button'>
                     
-                    <?php
-                        $_SESSION['f_num3']=((isset($_SESSION['f_num3']))?$_SESSION['f_num3']:0);
-                        $_SESSION['f_price3']=((isset($_SESSION['f_num3']))?$_SESSION['f_num3']:0);
-                        if($result2_stock[3]>0){
-                        if(isset($_POST['f_minus3'])){
-                            if($_SESSION['f_num3']<=0){
-                            $_SESSION['f_num3']=0;
-                        }else{
-                            $_SESSION['f_num3']--;
-                        }
-                        }
-                        if(isset($_POST['f_plus3'])){
-                            $_SESSION['f_num3']++;
-                        }
-                        echo $_SESSION['f_num3'];
-                        $_SESSION['f_price3']=$result2_price[3]*$_SESSION['f_num3'];}
-                        
-                    ?>            
-                    <input type="submit" name="f_plus3" value="+" class="button">
-                    <?php
-                    if($result2_stock[3]<=0){
-                        echo "<br>not available";
-                    }else{
-                    $_SESSION['f_stock3']=$result2_stock[3]-$_SESSION['f_num3'];
-                    echo "<br>stock: ".$_SESSION['f_stock3'];}
-                      ?>
+                    ".$_SESSION['f_num3']."
+
+                    <input type='submit' name='f_plus3' value='+' class='button'>
+                    <br>stock:".$_SESSION['f_stock3']."
+                    <input type='hidden' name='amenity_id_f3' value='".$food_id[3]."'>
+                    <input type='hidden' name='amenity_price' value='".$food_price[3]."'><br>
                 
-                    <input type="hidden" name="amenity_id_f3" value="<?php echo $result2_id[3]; ?>">
-                    <input type="hidden" name="amenity_price" value="<?php echo $result2_price[3]; ?>"><br>
-        
                 </div>
-    </div>           
+    </div>";?>
+
+<?php  if(!empty($food_image[4]))
+echo "
+    <div class='amty-box'>
+        <img src='assets/".$food_image[4]."'>
+            <p class='name'>".$food_name[4]."<br>Price:".$food_price[4]."</p>
+                <div class='counter'>
+                    
+                    <input type='submit' name='f_minus4' value='-' class='button'>
+                    
+                    ".$_SESSION['f_num4']."
+
+                    <input type='submit' name='f_plus4' value='+' class='button'>
+                    <br>stock:".$_SESSION['f_stock4']."
+                    <input type='hidden' name='amenity_id_f4' value='".$food_id[4]."'>
+                    <input type='hidden' name='amenity_price' value='".$food_price[4]."'><br>
+                
+                </div>
+    </div>";?>
+
+<?php  if(!empty($food_image[5]))
+echo "
+    <div class='amty-box'>
+        <img src='assets/".$food_image[5]."'>
+            <p class='name'>".$food_name[5]."<br>Price:".$food_price[5]."</p>
+                <div class='counter'>
+                    
+                    <input type='submit' name='f_minus5' value='-' class='button'>
+                    
+                    ".$_SESSION['f_num5']."
+
+                    <input type='submit' name='f_plus5' value='+' class='button'>
+                    <br>stock:".$_SESSION['f_stock5']."
+                    <input type='hidden' name='amenity_id_f5' value='".$food_id[5]."'>
+                    <input type='hidden' name='amenity_price' value='".$food_price[5]."'><br>
+                
+                </div>
+    </div>";?>
+
+
             </div>
-
         <hr>
+
 
     <p>Drinks</p>
-            <div class="amty">
-                <?php
-                $sql1 = "SELECT * FROM amenities WHERE amenity_type = 'Drinks'";
-                $result3 = $conn->query($sql1);
-                $result3_id = array();
-                $result3_name = array();
-                $result3_price = array();
-                $result3_stock = array();
-                while($row3 = $result3->fetch_assoc()){
-                   $result3_id[] = $row3['amenity_id'];
-                   $result3_name[] = $row3['amenity_name'];
-                   $result3_price[] = $row3['amenity_price'];
-                   $result3_stock[] = $row3['stock'];
+           <div class="amty">
+            <?php
+                $sql4 = "SELECT * FROM amenities WHERE amenity_type = 'Drinks' AND image IS NOT NULL AND stock>0";
+                $drink = $conn->query($sql4);
+                $drink_id = array();
+                $drink_name = array();
+                $drink_price = array();
+                $drink_stock = array();
+                $drink_image = array();
+                while($row4 = $drink->fetch_assoc()){
+                   $drink_id[] = $row4['amenity_id'];
+                   $drink_name[] = $row4['amenity_name'];
+                   $drink_price[] = $row4['amenity_price'];
+                   $drink_stock[] = $row4['stock'];
+                   $drink_image[] = $row4['image'];
                     }?>
 
-    <div class="amty-box">
-        <img src="assets/naturespring-350.png">
-            <p class="name"><?php echo $result3_name[0]."<br>Price:".$result3_price[0]; ?></p>
-                <div class="counter">
+    <?php  if(!empty($drink_image[0]))
+echo "
+    <div class='amty-box'>
+        <img src='assets/".$drink_image[0]."'>
+            <p class='name'>".$drink_name[0]."<br>Price:".$drink_price[0]."</p>
+                <div class='counter'>
+                  
+                    <input type='submit' name='d_minus0' value='-' class='button'>
                     
-                    <input type="submit" name="d_minus0" value="-" class="button">
-                    
-                    <?php
-                        $_SESSION['d_num0']=((isset($_SESSION['d_num0']))?$_SESSION['d_num0']:0);
-                        $_SESSION['d_price0']=((isset($_SESSION['d_num0']))?$_SESSION['d_num0']:0);
-                        if($result3_stock[0]>0){
-                        if(isset($_POST['d_minus0'])){
-                            if($_SESSION['d_num0']<=0){
-                            $_SESSION['d_num0']=0;
-                        }else{
-                            $_SESSION['d_num0']--;
-                        }
-                        }
-                        if(isset($_POST['d_plus0'])){
-                            $_SESSION['d_num0']++;
-                        }
-                        echo $_SESSION['d_num0'];
-                        $_SESSION['d_price0']=$result3_price[0]*$_SESSION['d_num0'];}
-                    ?>            
-                    <input type="submit" name="d_plus0" value="+" class="button">
-                    <?php
-                    if($result3_stock[0]<=0){
-                        echo "<br>not available";
-                    }else{
-                    $_SESSION['d_stock0']=$result3_stock[0]-$_SESSION['d_num0'];
-                    echo "<br>stock: ".$_SESSION['d_stock0'];}
-                      ?>
-                
-                    <input type="hidden" name="amenity_id_d0" value="<?php echo $result3_id[0]; ?>">
-                    <input type="hidden" name="amenity_price" value="<?php echo $result3_price[0]; ?>"><br>
+                    ".$_SESSION['d_num0']."
+
+                    <input type='submit' name='d_plus0' value='+' class='button'>
+                    <br>stock:".$_SESSION['d_stock0']."
+                    <input type='hidden' name='amenity_id_d0' value='".$drink_id[0]."'>
+                    <input type='hidden' name='amenity_price' value='".$drink_price[0]."'><br>
                 
                 </div>
-    </div>
+    </div>";?>
 
 
 
-    <div class="amty-box">
-        <img src="assets/naturespring-500.png">
-            <p class="name"><?php echo $result3_name[1]."<br>Price:".$result3_price[1]; ?></p>
-                <div class="counter">
+<?php  if(!empty($drink_image[1]))
+echo "
+    <div class='amty-box'>
+        <img src='assets/".$drink_image[1]."'>
+            <p class='name'>".$drink_name[1]."<br>Price:".$drink_price[1]."</p>
+                <div class='counter'>
                     
-                    <input type="submit" name="d_minus1" value="-" class="button">
+                    <input type='submit' name='d_minus1' value='-' class='button'>
                     
-                    <?php
-                        $_SESSION['d_num1']=((isset($_SESSION['d_num1']))?$_SESSION['d_num1']:0);
-                        $_SESSION['d_price1']=((isset($_SESSION['d_num1']))?$_SESSION['d_num1']:0);
-                        if($result3_stock[1]>0){
-                        if(isset($_POST['d_minus1'])){
-                            if($_SESSION['d_num1']<=0){
-                            $_SESSION['d_num1']=0;
-                        }else{
-                            $_SESSION['d_num1']--;
-                        }
-                        }
-                        if(isset($_POST['d_plus1'])){
-                            $_SESSION['d_num1']++;
-                        }
-                        echo $_SESSION['d_num1'];
-                        $_SESSION['d_price1']=$result3_price[1]*$_SESSION['d_num1'];}
-                        
-                    ?>            
-                    <input type="submit" name="d_plus1" value="+" class="button">
-                    <?php
-                    if($result3_stock[1]<=0){
-                        echo "<br>not available";
-                    }else{
-                    $_SESSION['d_stock1']=$result3_stock[1]-$_SESSION['d_num1'];
-                    echo "<br>stock: ".$_SESSION['d_stock1'];}
-                      ?>
-                
-                    <input type="hidden" name="amenity_id_d1" value="<?php echo $result3_id[1]; ?>">
-                    <input type="hidden" name="amenity_price" value="<?php echo $result3_price[1]; ?>"><br>
+                    ".$_SESSION['d_num1']."
+
+                    <input type='submit' name='d_plus1' value='+' class='button'>
+                    <br>stock:".$_SESSION['d_stock1']."
+                    <input type='hidden' name='amenity_id_d1' value='".$drink_id[1]."'>
+                    <input type='hidden' name='amenity_price' value='".$drink_price[1]."'><br>
                 
                 </div>
-    </div>
+    </div>";?>
 
 
-    <div class="amty-box">
-        <img src="assets/pepsi-8oz.jpg">
-            <p class="name"><?php echo $result3_name[2]."<br>Price:".$result3_price[2]; ?></p>
-                <div class="counter">
+    <?php  if(!empty($drink_stock[2]))
+echo "
+    <div class='amty-box'>
+        <img src='assets/".$drink_image[2]."'>
+            <p class='name'>".$drink_name[2]."<br>Price:".$drink_price[2]."</p>
+                <div class='counter'>
                     
-                    <input type="submit" name="d_minus2" value="-" class="button">
+                    <input type='submit' name='d_minus2' value='-' class='button'>
                     
-                    <?php
-                        $_SESSION['d_num2']=((isset($_SESSION['d_num2']))?$_SESSION['d_num2']:0);
-                        $_SESSION['d_price2']=((isset($_SESSION['d_num2']))?$_SESSION['d_num2']:0);
-                        if($result3_stock[2]>0){
-                        if(isset($_POST['d_minus2'])){
-                            if($_SESSION['d_num2']<=0){
-                            $_SESSION['d_num2']=0;
-                        }else{
-                            $_SESSION['d_num2']--;
-                        }
-                        }
-                        if(isset($_POST['d_plus2'])){
-                            $_SESSION['d_num2']++;
-                        }
-                        echo $_SESSION['d_num2'];
-                        $_SESSION['d_price2']=$result3_price[2]*$_SESSION['d_num2'];}
-                        
-                    ?>            
-                    <input type="submit" name="d_plus2" value="+" class="button">
-                    <?php
-                    if($result3_stock[2]<=0){
-                        echo "<br>not available";
-                    }else{
-                    $_SESSION['d_stock2']=$result3_stock[2]-$_SESSION['d_num2'];
-                    echo "<br>stock: ".$_SESSION['d_stock2'];}
-                      ?>
-                
-                    <input type="hidden" name="amenity_id_d2" value="<?php echo $result3_id[2]; ?>">
-                    <input type="hidden" name="amenity_price" value="<?php echo $result3_price[2]; ?>"><br>
+                    ".$_SESSION['d_num2']."
+
+                    <input type='submit' name='d_plus2' value='+' class='button'>
+                    <br>stock:".$_SESSION['d_stock2']."
+                    <input type='hidden' name='amenity_id_d2' value='".$drink_id[2]."'>
+                    <input type='hidden' name='amenity_price' value='".$drink_price[2]."'><br>
                 
                 </div>
-    </div>
+    </div>";?>
 
-    <div class="amty-box">
-        <img src="assets/mirinda-8.jpg">
-            <p class="name"><?php echo $result3_name[3]."<br>Price:".$result3_price[3]; ?></p>
-                <div class="counter">
+<?php  if(!empty($drink_image[3]))
+echo "
+    <div class='amty-box'>
+        <img src='assets/".$drink_image[3]."'>
+            <p class='name'>".$drink_name[3]."<br>Price:".$drink_price[3]."</p>
+                <div class='counter'>
                     
-                    <input type="submit" name="d_minus3" value="-" class="button">
+                    <input type='submit' name='d_minus3' value='-' class='button'>
                     
-                    <?php
-                        $_SESSION['d_num3']=((isset($_SESSION['d_num3']))?$_SESSION['d_num3']:0);
-                        $_SESSION['d_price3']=((isset($_SESSION['d_num3']))?$_SESSION['d_num3']:0);
-                        if($result3_stock[3]>0){
-                        if(isset($_POST['d_minus3'])){
-                            if($_SESSION['d_num3']<=0){
-                            $_SESSION['d_num3']=0;
-                        }else{
-                            $_SESSION['d_num3']--;
-                        }
-                        }
-                        if(isset($_POST['d_plus3'])){
-                            $_SESSION['d_num3']++;
-                        }
-                        echo $_SESSION['d_num3'];
-                        $_SESSION['d_price3']=$result3_price[3]*$_SESSION['d_num3'];}
-                        
-                    ?>            
-                    <input type="submit" name="d_plus3" value="+" class="button">
-                    <?php
-                    if($result3_stock[3]<=0){
-                        echo "<br>not available";
-                    }else{
-                    $_SESSION['d_stock3']=$result3_stock[3]-$_SESSION['d_num3'];
-                    echo "<br>stock: ".$_SESSION['d_stock3'];}
-                      ?>
-                
-                    <input type="hidden" name="amenity_id_d3" value="<?php echo $result3_id[3]; ?>">
-                    <input type="hidden" name="amenity_price" value="<?php echo $result3_price[3]; ?>"><br>
+                    ".$_SESSION['d_num3']."
+
+                    <input type='submit' name='d_plus3' value='+' class='button'>
+                    <br>stock:".$_SESSION['d_stock3']."
+                    <input type='hidden' name='amenity_id_d3' value='".$drink_id[3]."'>
+                    <input type='hidden' name='amenity_price' value='".$drink_price[3]."'><br>
                 
                 </div>
-    </div>           
+    </div>";?>
+
+<?php  if(!empty($drink_image[4]))
+echo "
+    <div class='amty-box'>
+        <img src='assets/".$drink_image[4]."'>
+            <p class='name'>".$drink_name[4]."<br>Price:".$drink_price[4]."</p>
+                <div class='counter'>
+                    
+                    <input type='submit' name='d_minus4' value='-' class='button'>
+                    
+                    ".$_SESSION['d_num4']."
+
+                    <input type='submit' name='d_plus4' value='+' class='button'>
+                    <br>stock:".$_SESSION['d_stock4']."
+                    <input type='hidden' name='amenity_id_d4' value='".$drink_id[4]."'>
+                    <input type='hidden' name='amenity_price' value='".$drink_price[4]."'><br>
+                
+                </div>
+    </div>";?>
+
+<?php  if(!empty($drink_image[5]))
+echo "
+    <div class='amty-box'>
+        <img src='assets/".$drink_image[5]."'>
+            <p class='name'>".$drink_name[5]."<br>Price:".$drink_price[5]."</p>
+                <div class='counter'>
+                    
+                    <input type='submit' name='d_minus5' value='-' class='button'>
+                    
+                    ".$_SESSION['d_num5']."
+
+                    <input type='submit' name='d_plus5' value='+' class='button'>
+                    <br>stock:".$_SESSION['d_stock5']."
+                    <input type='hidden' name='amenity_id_d5' value='".$drink_id[5]."'>
+                    <input type='hidden' name='amenity_price' value='".$drink_price[5]."'><br>
+                
+                </div>
+    </div>";?>
+
+
             </div>
-
         <hr>
+
+
+
             <p>Extras</p>
-            <div class="amty">
-                <?php
-                $sql1 = "SELECT * FROM amenities WHERE amenity_type = 'Extras'";
-                $result4 = $conn->query($sql1);
-                $result4_id = array();
-                $result4_name = array();
-                $result4_price = array();
-                $result4_stock = array();
-                while($row4= $result4->fetch_assoc()){
-                   $result4_id[] = $row4['amenity_id'];
-                   $result4_name[] = $row4['amenity_name'];
-                   $result4_price[] = $row4['amenity_price'];
-                   $result4_stock[] = $row4['stock'];
+           <div class="amty">
+            <?php
+                $sql3 = "SELECT * FROM amenities WHERE amenity_type = 'Extras' AND image IS NOT NULL AND stock>0";
+                $extra = $conn->query($sql3);
+                $extra_id = array();
+                $extra_name = array();
+                $extra_price = array();
+                $extra_stock = array();
+                $extra_image = array();
+                while($row3 = $extra->fetch_assoc()){
+                   $extra_id[] = $row3['amenity_id'];
+                   $extra_name[] = $row3['amenity_name'];
+                   $extra_price[] = $row3['amenity_price'];
+                   $extra_stock[] = $row3['stock'];
+                   $extra_image[] = $row3['image'];
                     }?>
 
-    <div class="amty-box">
-        <img src="assets/Pillow.jpg">
-            <p class="name"><?php echo $result4_name[0]."<br>Price:".$result4_price[0]; ?></p>
-                <div class="counter">
+    <?php  if(!empty($extra_image[0]))
+echo "
+    <div class='amty-box'>
+        <img src='assets/".$extra_image[0]."'>
+            <p class='name'>".$extra_name[0]."<br>Price:".$extra_price[0]."</p>
+                <div class='counter'>
+                  
+                    <input type='submit' name='e_minus0' value='-' class='button'>
                     
-                    <input type="submit" name="e_minus0" value="-" class="button">
-                    
-                    <?php
-                        $_SESSION['e_num0']=((isset($_SESSION['e_num0']))?$_SESSION['e_num0']:0);
-                        $_SESSION['e_price0']=((isset($_SESSION['e_num0']))?$_SESSION['e_num0']:0);
-                        if($result4_stock[0]>0){
-                        if(isset($_POST['e_minus0'])){
-                            if($_SESSION['e_num0']<=0){
-                            $_SESSION['e_num0']=0;
-                        }else{
-                            $_SESSION['e_num0']--;
-                        }
-                        }
-                        if(isset($_POST['e_plus0'])){
-                            $_SESSION['e_num0']++;
-                        }
-                        echo $_SESSION['e_num0'];
-                        $_SESSION['e_price0']=$result4_price[0]*$_SESSION['e_num0'];}
-                    ?>            
-                    <input type="submit" name="e_plus0" value="+" class="button">
-                    <?php
-                    if($result4_stock[0]<=0){
-                        echo "<br>not available";
-                    }else{
-                    $_SESSION['e_stock0']=$result4_stock[0]-$_SESSION['e_num0'];
-                    echo "<br>stock: ".$_SESSION['e_stock0'];}
-                      ?>
-                
-                    <input type="hidden" name="amenity_id_e0" value="<?php echo $result4_id[0]; ?>">
-                    <input type="hidden" name="amenity_price" value="<?php echo $result4_price[0]; ?>"><br>
+                    ".$_SESSION['e_num0']."
+
+                    <input type='submit' name='e_plus0' value='+' class='button'>
+                    <br>stock:".$_SESSION['e_stock0']."
+                    <input type='hidden' name='amenity_id_e0' value='".$extra_id[0]."'>
+                    <input type='hidden' name='amenity_price' value='".$extra_price[0]."'><br>
                 
                 </div>
-    </div>
+    </div>";?>
 
 
 
-    <div class="amty-box">
-        <img src="assets/lights.JFIF">
-            <p class="name"><?php echo $result4_name[1]."<br>Price:".$result4_price[1]; ?></p>
-                <div class="counter">
+<?php  if(!empty($extra_image[1]))
+echo "
+    <div class='amty-box'>
+        <img src='assets/".$extra_image[1]."'>
+            <p class='name'>".$extra_name[1]."<br>Price:".$extra_price[1]."</p>
+                <div class='counter'>
                     
-                    <input type="submit" name="e_minus1" value="-" class="button">
+                    <input type='submit' name='e_minus1' value='-' class='button'>
                     
-                    <?php
-                        $_SESSION['e_num1']=((isset($_SESSION['e_num1']))?$_SESSION['e_num1']:0);
-                        $_SESSION['e_price1']=((isset($_SESSION['e_num1']))?$_SESSION['e_num1']:0);
-                        if($result4_stock[1]>0){
-                        if(isset($_POST['e_minus1'])){
-                            if($_SESSION['e_num1']<=0){
-                            $_SESSION['e_num1']=0;
-                        }else{
-                            $_SESSION['e_num1']--;
-                        }
-                        }
-                        if(isset($_POST['e_plus1'])){
-                            $_SESSION['e_num1']++;
-                        }
-                        echo $_SESSION['e_num1'];
-                        $_SESSION['e_price1']=$result4_price[0]*$_SESSION['e_num1'];}
-                        
-                    ?>            
-                    <input type="submit" name="e_plus1" value="+" class="button">
-                    <?php
-                    if($result4_stock[1]<=0){
-                        echo "<br>not available";
-                    }else{
-                    $_SESSION['e_stock1']=$result4_stock[1]-$_SESSION['e_num1'];
-                    echo "<br>stock: ".$_SESSION['e_stock1'];}
-                      ?>
-                
-                    <input type="hidden" name="amenity_id_e1" value="<?php echo $result4_id[1]; ?>">
-                    <input type="hidden" name="amenity_price" value="<?php echo $result4_price[1]; ?>"><br>
+                    ".$_SESSION['e_num1']."
+
+                    <input type='submit' name='e_plus1' value='+' class='button'>
+                    <br>stock:".$_SESSION['e_stock1']."
+                    <input type='hidden' name='amenity_id_e1' value='".$extra_id[1]."'>
+                    <input type='hidden' name='amenity_price' value='".$extra_price[1]."'><br>
                 
                 </div>
-    </div>
+    </div>";?>
 
+
+    <?php  if(!empty($extra_stock[2]))
+echo "
+    <div class='amty-box'>
+        <img src='assets/".$extra_image[2]."'>
+            <p class='name'>".$extra_name[2]."<br>Price:".$extra_price[2]."</p>
+                <div class='counter'>
+                    
+                    <input type='submit' name='e_minus2' value='-' class='button'>
+                    
+                    ".$_SESSION['e_num2']."
+
+                    <input type='submit' name='e_plus2' value='+' class='button'>
+                    <br>stock:".$_SESSION['e_stock2']."
+                    <input type='hidden' name='amenity_id_e2' value='".$extra_id[2]."'>
+                    <input type='hidden' name='amenity_price' value='".$extra_price[2]."'><br>
+                
                 </div>
+    </div>";?>
 
+<?php  if(!empty($extra_image[3]))
+echo "
+    <div class='amty-box'>
+        <img src='assets/".$extra_image[3]."'>
+            <p class='name'>".$extra_name[3]."<br>Price:".$extra_price[3]."</p>
+                <div class='counter'>
+                    
+                    <input type='submit' name='e_minus3' value='-' class='button'>
+                    
+                    ".$_SESSION['e_num3']."
+
+                    <input type='submit' name='e_plus3' value='+' class='button'>
+                    <br>stock:".$_SESSION['e_stock3']."
+                    <input type='hidden' name='amenity_id_e3' value='".$extra_id[3]."'>
+                    <input type='hidden' name='amenity_price' value='".$extra_price[3]."'><br>
+                
+                </div>
+    </div>";?>
+
+<?php  if(!empty($extra_image[4]))
+echo "
+    <div class='amty-box'>
+        <img src='assets/".$extra_image[4]."'>
+            <p class='name'>".$extra_name[4]."<br>Price:".$extra_price[4]."</p>
+                <div class='counter'>
+                    
+                    <input type='submit' name='e_minus4' value='-' class='button'>
+                    
+                    ".$_SESSION['e_num4']."
+
+                    <input type='submit' name='e_plus4' value='+' class='button'>
+                    <br>stock:".$_SESSION['e_stock4']."
+                    <input type='hidden' name='amenity_id_e4' value='".$extra_id[4]."'>
+                    <input type='hidden' name='amenity_price' value='".$extra_price[4]."'><br>
+                
+                </div>
+    </div>";?>
+
+<?php  if(!empty($extra_image[5]))
+echo "
+    <div class='amty-box'>
+        <img src='assets/".$extra_image[5]."'>
+            <p class='name'>".$extra_name[5]."<br>Price:".$extra_price[5]."</p>
+                <div class='counter'>
+                    
+                    <input type='submit' name='e_minus5' value='-' class='button'>
+                    
+                    ".$_SESSION['e_num5']."
+
+                    <input type='submit' name='e_plus5' value='+' class='button'>
+                    <br>stock:".$_SESSION['e_stock5']."
+                    <input type='hidden' name='amenity_id_e5' value='".$extra_id[5]."'>
+                    <input type='hidden' name='amenity_price' value='".$extra_price[5]."'><br>
+                
+                </div>
+    </div>";?>
+
+
+            </div>
         <hr>
 
             <div class="amty">
                 <p>Guest Details</p>
                 <div class="amty-desc">
                     <?php
-                    //calculate the total price of selected items
-                    $_SESSION['total_amenity']=$_SESSION['h_price0']+$_SESSION['h_price1']+$_SESSION['h_price1']+$_SESSION['h_price3']+
-                    $_SESSION['f_price0']+$_SESSION['f_price1']+$_SESSION['f_price2']+$_SESSION['f_price3']+
-                    $_SESSION['d_price0']+$_SESSION['d_price1']+$_SESSION['d_price2']+$_SESSION['d_price3']+
-                    $_SESSION['e_price0']+$_SESSION['e_price1'];
+
+                    $_SESSION['total_amenity']=$_SESSION['h_price0']+$_SESSION['h_price1']+$_SESSION['h_price1']+$_SESSION['h_price3']+$_SESSION['h_price4']+$_SESSION['h_price5']+
+                    $_SESSION['f_price0']+$_SESSION['f_price1']+$_SESSION['f_price2']+$_SESSION['f_price3']+$_SESSION['f_price4']+$_SESSION['f_price5']+
+                    $_SESSION['d_price0']+$_SESSION['d_price1']+$_SESSION['d_price2']+$_SESSION['d_price3']+$_SESSION['d_price4']+$_SESSION['d_price5']+
+                    $_SESSION['e_price0']+$_SESSION['e_price1']+$_SESSION['e_price2']+$_SESSION['e_price3']+$_SESSION['e_price4']+$_SESSION['e_price5'];
                     ;
-//get room_fee and payment_id
+
                     $sql2 = "SELECT p.payment_amount as room_fee, p.payment_id as payment_id FROM guests g, payments p WHERE g.payment_id=p.payment_id AND g.guest_id='{$_SESSION['guest_id']}'";
                     $result2 = $conn->query($sql2);
                     while($row= $result2->fetch_assoc()){
                         $room_fee=$row['room_fee'];
                         $payment_id=$row['payment_id'];
                     }
-//get total price of amenities added before.
+
                     $sql3 = "SELECT SUM(bi.quantity*a.amenity_price) as 'total_amenty' 
                     FROM bill b, bill_items bi, amenities a
                     WHERE bi.bill_id=b.bill_id AND bi.amenity_id=a.amenity_id AND b.guest_id='{$_SESSION['guest_id']}'";
@@ -749,14 +648,14 @@ include 'connection.php';
                     while($row= $result3->fetch_assoc()){
                         $total_amenty=$row['total_amenty'];
                     }
-                    $pre_total=$room_fee+$total_amenty; //before adding new amenities
+                    $pre_total=$room_fee+$total_amenty;
 
                     $_SESSION['total']=$_SESSION['total_amenity']+$pre_total;
 
                     echo "<p>Guest Name:".$_SESSION['fname']." ".$_SESSION['mname']." ".$_SESSION['lname']." </p>
                      <p>Bill ID: ".$_SESSION['bill_id']."</p>
                      <p>Total Amount: ".$_SESSION['total']."(previous total: ".$pre_total.")</p>";
-                     
+                    
 
                       ?>
                     
@@ -765,196 +664,860 @@ include 'connection.php';
 
     <?php
     if(isset($_POST['process'])){
+        unset($_SERVER['PHP_SELF']);
+
+        header("location:manager_guests.php");
         $today=date("Y-m-d");
 
-//insert date in bull_items
-//hygiene : add infor in bill_items
+
+        //insert date in bull_items 
+//hygiene 1
         if($_SESSION['h_num0']!=0){
             $amenity_id=$_POST['amenity_id_h0'];
-            $prepareh10 = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_date,amenity_id) VALUES (?,?,?,?)");
-            $prepareh10->bind_param("iisi",$_SESSION['h_num0'],$_SESSION['bill_id'],$today,
+            $hBillItem = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_date,amenity_id) VALUES (?,?,?,?)");
+            $hBillItem->bind_param("iisi",$_SESSION['h_num0'],$_SESSION['bill_id'],$today,
                 $amenity_id);
-            $prepareh10->execute();
+            $hBillItem->execute();
 
-            $prepareh11= $conn->prepare("UPDATE amenities SET stock=? WHERE amenity_id=?");
-            $prepareh11->bind_param("ii",$_SESSION['h_stock0'], $amenity_id);
-            $prepareh11->execute();      
+            $hStock= $conn->prepare("UPDATE amenities SET stock=? WHERE amenity_id=?");
+            $hStock ->bind_param("ii",$_SESSION['h_stock0'], $amenity_id);
+            $hStock ->execute();      
         }
 
+/////////////////////////////REPEAT//////////////////////////
         if($_SESSION['h_num1']!=0){
             $amenity_id=$_POST['amenity_id_h1'];
-            $prepareh10 = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_date,amenity_id) VALUES (?,?,?,?)");
-            $prepareh10->bind_param("iisi",$_SESSION['h_num1'],$_SESSION['bill_id'],$today,
+            $hBillItem = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_date,amenity_id) VALUES (?,?,?,?)");
+            $hBillItem->bind_param("iisi",$_SESSION['h_num1'],$_SESSION['bill_id'],$today,
                 $amenity_id);
-            $prepareh10->execute();
+            $hBillItem->execute();
 
-            $prepareh11= $conn->prepare("UPDATE amenities SET stock=? WHERE amenity_id=?");
-            $prepareh11->bind_param("ii",$_SESSION['h_stock1'], $amenity_id);
-            $prepareh11->execute();      
+            $hStock= $conn->prepare("UPDATE amenities SET stock=? WHERE amenity_id=?");
+            $hStock ->bind_param("ii",$_SESSION['h_stock1'], $amenity_id);
+            $hStock ->execute();      
         }
 
 
-        if($_SESSION['h_num2']!=0){
+      if($_SESSION['h_num2']!=0){
             $amenity_id=$_POST['amenity_id_h2'];
-            $prepareh10 = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_date,amenity_id) VALUES (?,?,?,?)");
-            $prepareh10->bind_param("iisi",$_SESSION['h_num2'],$_SESSION['bill_id'],$today,
+            $hBillItem = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_date,amenity_id) VALUES (?,?,?,?)");
+            $hBillItem->bind_param("iisi",$_SESSION['h_num2'],$_SESSION['bill_id'],$today,
                 $amenity_id);
-            $prepareh10->execute();
+            $hBillItem->execute();
 
-            $prepareh11= $conn->prepare("UPDATE amenities SET stock=? WHERE amenity_id=?");
-            $prepareh11->bind_param("ii",$_SESSION['h_stock2'], $amenity_id);
-            $prepareh11->execute();      
+            $hStock= $conn->prepare("UPDATE amenities SET stock=? WHERE amenity_id=?");
+            $hStock ->bind_param("ii",$_SESSION['h_stock2'], $amenity_id);
+            $hStock ->execute();      
         }
 
         if($_SESSION['h_num3']!=0){
             $amenity_id=$_POST['amenity_id_h3'];
-            $prepareh10 = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_date,amenity_id) VALUES (?,?,?,?)");
-            $prepareh10->bind_param("iisi",$_SESSION['h_num3'],$_SESSION['bill_id'],$today,
+            $hBillItem = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_date,amenity_id) VALUES (?,?,?,?)");
+            $hBillItem->bind_param("iisi",$_SESSION['h_num3'],$_SESSION['bill_id'],$today,
                 $amenity_id);
-            $prepareh10->execute();
+            $hBillItem->execute();
 
-            $prepareh11= $conn->prepare("UPDATE amenities SET stock=? WHERE amenity_id=?");
-            $prepareh11->bind_param("ii",$_SESSION['h_stock3'], $amenity_id);
-            $prepareh11->execute();      
+            $hStock= $conn->prepare("UPDATE amenities SET stock=? WHERE amenity_id=?");
+            $hStock ->bind_param("ii",$_SESSION['h_stock3'], $amenity_id);
+            $hStock ->execute();      
         }
 
-//drink : add infor in bill_items
+      if($_SESSION['h_num4']!=0){
+            $amenity_id=$_POST['amenity_id_h4'];
+            $hBillItem = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_date,amenity_id) VALUES (?,?,?,?)");
+            $hBillItem->bind_param("iisi",$_SESSION['h_num4'],$_SESSION['bill_id'],$today,
+                $amenity_id);
+            $hBillItem->execute();
+
+            $hStock= $conn->prepare("UPDATE amenities SET stock=? WHERE amenity_id=?");
+            $hStock ->bind_param("ii",$_SESSION['h_stock4'], $amenity_id);
+            $hStock ->execute();      
+        }
+
+
+      if($_SESSION['h_num5']!=0){
+            $amenity_id=$_POST['amenity_id_h5'];
+            $hBillItem = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_date,amenity_id) VALUES (?,?,?,?)");
+            $hBillItem->bind_param("iisi",$_SESSION['h_num5'],$_SESSION['bill_id'],$today,
+                $amenity_id);
+            $hBillItem->execute();
+
+            $hStock= $conn->prepare("UPDATE amenities SET stock=? WHERE amenity_id=?");
+            $hStock ->bind_param("ii",$_SESSION['h_stock5'], $amenity_id);
+            $hStock ->execute();      
+        }
+
+
+
+//drink
         if($_SESSION['d_num0']!=0){
             $amenity_id=$_POST['amenity_id_d0'];
-            $prepareh10 = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_date,amenity_id) VALUES (?,?,?,?)");
-            $prepareh10->bind_param("iisi",$_SESSION['d_num0'],$_SESSION['bill_id'],$today,
+            $hBillItem = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_date,amenity_id) VALUES (?,?,?,?)");
+            $hBillItem->bind_param("iisi",$_SESSION['d_num0'],$_SESSION['bill_id'],$today,
                 $amenity_id);
-            $prepareh10->execute();
+            $hBillItem->execute();
 
-            $prepareh11= $conn->prepare("UPDATE amenities SET stock=? WHERE amenity_id=?");
-            $prepareh11->bind_param("ii",$_SESSION['d_stock0'], $amenity_id);
-            $prepareh11->execute();      
+            $hStock= $conn->prepare("UPDATE amenities SET stock=? WHERE amenity_id=?");
+            $hStock ->bind_param("ii",$_SESSION['d_stock0'], $amenity_id);
+            $hStock ->execute();      
         }
 
+/////////////////////////////REPEAT//////////////////////////
         if($_SESSION['d_num1']!=0){
             $amenity_id=$_POST['amenity_id_d1'];
-            $prepareh10 = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_date,amenity_id) VALUES (?,?,?,?)");
-            $prepareh10->bind_param("iisi",$_SESSION['d_num1'],$_SESSION['bill_id'],$today,
+            $hBillItem = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_date,amenity_id) VALUES (?,?,?,?)");
+            $hBillItem->bind_param("iisi",$_SESSION['d_num1'],$_SESSION['bill_id'],$today,
                 $amenity_id);
-            $prepareh10->execute();
+            $hBillItem->execute();
 
-            $prepareh11= $conn->prepare("UPDATE amenities SET stock=? WHERE amenity_id=?");
-            $prepareh11->bind_param("ii",$_SESSION['d_stock1'], $amenity_id);
-            $prepareh11->execute();      
+            $hStock= $conn->prepare("UPDATE amenities SET stock=? WHERE amenity_id=?");
+            $hStock ->bind_param("ii",$_SESSION['d_stock1'], $amenity_id);
+            $hStock ->execute();      
         }
 
 
-        if($_SESSION['d_num2']!=0){
+      if($_SESSION['d_num2']!=0){
             $amenity_id=$_POST['amenity_id_d2'];
-            $prepareh10 = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_date,amenity_id) VALUES (?,?,?,?)");
-            $prepareh10->bind_param("iisi",$_SESSION['d_num2'],$_SESSION['bill_id'],$today,
+            $hBillItem = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_date,amenity_id) VALUES (?,?,?,?)");
+            $hBillItem->bind_param("iisi",$_SESSION['d_num2'],$_SESSION['bill_id'],$today,
                 $amenity_id);
-            $prepareh10->execute();
+            $hBillItem->execute();
 
-            $prepareh11= $conn->prepare("UPDATE amenities SET stock=? WHERE amenity_id=?");
-            $prepareh11->bind_param("ii",$_SESSION['d_stock2'], $amenity_id);
-            $prepareh11->execute();      
+            $hStock= $conn->prepare("UPDATE amenities SET stock=? WHERE amenity_id=?");
+            $hStock ->bind_param("ii",$_SESSION['d_stock2'], $amenity_id);
+            $hStock ->execute();      
         }
 
         if($_SESSION['d_num3']!=0){
             $amenity_id=$_POST['amenity_id_d3'];
-            $prepareh10 = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_date,amenity_id) VALUES (?,?,?,?)");
-            $prepareh10->bind_param("iisi",$_SESSION['d_num3'],$_SESSION['bill_id'],$today,
+            $hBillItem = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_date,amenity_id) VALUES (?,?,?,?)");
+            $hBillItem->bind_param("iisi",$_SESSION['d_num3'],$_SESSION['bill_id'],$today,
                 $amenity_id);
-            $prepareh10->execute();
+            $hBillItem->execute();
 
-            $prepareh11= $conn->prepare("UPDATE amenities SET stock=? WHERE amenity_id=?");
-            $prepareh11->bind_param("ii",$_SESSION['d_stock3'], $amenity_id);
-            $prepareh11->execute();      
+            $hStock= $conn->prepare("UPDATE amenities SET stock=? WHERE amenity_id=?");
+            $hStock ->bind_param("ii",$_SESSION['d_stock3'], $amenity_id);
+            $hStock ->execute();      
+        }
+
+      if($_SESSION['d_num4']!=0){
+            $amenity_id=$_POST['amenity_id_d4'];
+            $hBillItem = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_date,amenity_id) VALUES (?,?,?,?)");
+            $hBillItem->bind_param("iisi",$_SESSION['d_num4'],$_SESSION['bill_id'],$today,
+                $amenity_id);
+            $hBillItem->execute();
+
+            $hStock= $conn->prepare("UPDATE amenities SET stock=? WHERE amenity_id=?");
+            $hStock ->bind_param("ii",$_SESSION['d_stock4'], $amenity_id);
+            $hStock ->execute();      
         }
 
 
-//food : add infor in bill_items
-        if($_SESSION['f_num0']!=0){
-            $amenity_id=$_POST['amenity_id_f0'];
-            $prepareh10 = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_date,amenity_id) VALUES (?,?,?,?)");
-            $prepareh10->bind_param("iisi",$_SESSION['f_num0'],$_SESSION['bill_id'],$today,
+      if($_SESSION['d_num5']!=0){
+            $amenity_id=$_POST['amenity_id_d5'];
+            $hBillItem = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_date,amenity_id) VALUES (?,?,?,?)");
+            $hBillItem->bind_param("iisi",$_SESSION['d_num5'],$_SESSION['bill_id'],$today,
                 $amenity_id);
-            $prepareh10->execute();
+            $hBillItem->execute();
 
-            $prepareh11= $conn->prepare("UPDATE amenities SET stock=? WHERE amenity_id=?");
-            $prepareh11->bind_param("ii",$_SESSION['f_stock0'], $amenity_id);
-            $prepareh11->execute();      
+            $hStock= $conn->prepare("UPDATE amenities SET stock=? WHERE amenity_id=?");
+            $hStock ->bind_param("ii",$_SESSION['d_stock5'], $amenity_id);
+            $hStock ->execute();      
         }
 
+
+
+//food
+                if($_SESSION['f_num0']!=0){
+            $amenity_id=$_POST['amenity_if_f0'];
+            $hBillItem = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_fate,amenity_id) VALUES (?,?,?,?)");
+            $hBillItem->binf_param("iisi",$_SESSION['f_num0'],$_SESSION['bill_id'],$today,
+                $amenity_id);
+            $hBillItem->execute();
+
+            $hStock= $conn->prepare("UPDATE amenities SET stock=? WHERE amenity_id=?");
+            $hStock ->binf_param("ii",$_SESSION['f_stock0'], $amenity_id);
+            $hStock ->execute();      
+        }
+
+/////////////////////////////REPEAT//////////////////////////
         if($_SESSION['f_num1']!=0){
-            $amenity_id=$_POST['amenity_id_f1'];
-            $prepareh10 = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_date,amenity_id) VALUES (?,?,?,?)");
-            $prepareh10->bind_param("iisi",$_SESSION['f_num1'],$_SESSION['bill_id'],$today,
+            $amenity_id=$_POST['amenity_if_f1'];
+            $hBillItem = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_fate,amenity_id) VALUES (?,?,?,?)");
+            $hBillItem->binf_param("iisi",$_SESSION['f_num1'],$_SESSION['bill_id'],$today,
                 $amenity_id);
-            $prepareh10->execute();
+            $hBillItem->execute();
 
-            $prepareh11= $conn->prepare("UPDATE amenities SET stock=? WHERE amenity_id=?");
-            $prepareh11->bind_param("ii",$_SESSION['f_stock1'], $amenity_id);
-            $prepareh11->execute();      
+            $hStock= $conn->prepare("UPDATE amenities SET stock=? WHERE amenity_id=?");
+            $hStock ->binf_param("ii",$_SESSION['f_stock1'], $amenity_id);
+            $hStock ->execute();      
         }
 
 
-        if($_SESSION['f_num2']!=0){
-            $amenity_id=$_POST['amenity_id_f2'];
-            $prepareh10 = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_date,amenity_id) VALUES (?,?,?,?)");
-            $prepareh10->bind_param("iisi",$_SESSION['f_num2'],$_SESSION['bill_id'],$today,
+      if($_SESSION['f_num2']!=0){
+            $amenity_id=$_POST['amenity_if_f2'];
+            $hBillItem = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_fate,amenity_id) VALUES (?,?,?,?)");
+            $hBillItem->binf_param("iisi",$_SESSION['f_num2'],$_SESSION['bill_id'],$today,
                 $amenity_id);
-            $prepareh10->execute();
+            $hBillItem->execute();
 
-            $prepareh11= $conn->prepare("UPDATE amenities SET stock=? WHERE amenity_id=?");
-            $prepareh11->bind_param("ii",$_SESSION['f_stock2'], $amenity_id);
-            $prepareh11->execute();      
+            $hStock= $conn->prepare("UPDATE amenities SET stock=? WHERE amenity_id=?");
+            $hStock ->binf_param("ii",$_SESSION['f_stock2'], $amenity_id);
+            $hStock ->execute();      
         }
 
         if($_SESSION['f_num3']!=0){
-            $amenity_id=$_POST['amenity_id_f3'];
-            $prepareh10 = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_date,amenity_id) VALUES (?,?,?,?)");
-            $prepareh10->bind_param("iisi",$_SESSION['f_num3'],$_SESSION['bill_id'],$today,
+            $amenity_id=$_POST['amenity_if_f3'];
+            $hBillItem = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_fate,amenity_id) VALUES (?,?,?,?)");
+            $hBillItem->binf_param("iisi",$_SESSION['f_num3'],$_SESSION['bill_id'],$today,
                 $amenity_id);
-            $prepareh10->execute();
+            $hBillItem->execute();
 
-            $prepareh11= $conn->prepare("UPDATE amenities SET stock=? WHERE amenity_id=?");
-            $prepareh11->bind_param("ii",$_SESSION['f_stock3'], $amenity_id);
-            $prepareh11->execute();      
+            $hStock= $conn->prepare("UPDATE amenities SET stock=? WHERE amenity_id=?");
+            $hStock ->binf_param("ii",$_SESSION['f_stock3'], $amenity_id);
+            $hStock ->execute();      
         }
 
-//extras : add infor in bill_items
-        if($_SESSION['e_num0']!=0){
-            $amenity_id=$_POST['amenity_id_e0'];
-            $prepareh10 = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_date,amenity_id) VALUES (?,?,?,?)");
-            $prepareh10->bind_param("iisi",$_SESSION['e_num0'],$_SESSION['bill_id'],$today,
+      if($_SESSION['f_num4']!=0){
+            $amenity_id=$_POST['amenity_if_f4'];
+            $hBillItem = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_fate,amenity_id) VALUES (?,?,?,?)");
+            $hBillItem->binf_param("iisi",$_SESSION['f_num4'],$_SESSION['bill_id'],$today,
                 $amenity_id);
-            $prepareh10->execute();
+            $hBillItem->execute();
 
-            $prepareh11= $conn->prepare("UPDATE amenities SET stock=? WHERE amenity_id=?");
-            $prepareh11->bind_param("ii",$_SESSION['e_stock0'], $amenity_id);
-            $prepareh11->execute();      
+            $hStock= $conn->prepare("UPDATE amenities SET stock=? WHERE amenity_id=?");
+            $hStock ->binf_param("ii",$_SESSION['f_stock4'], $amenity_id);
+            $hStock ->execute();      
         }
 
+
+      if($_SESSION['f_num5']!=0){
+            $amenity_id=$_POST['amenity_if_f5'];
+            $hBillItem = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_fate,amenity_id) VALUES (?,?,?,?)");
+            $hBillItem->binf_param("iisi",$_SESSION['f_num5'],$_SESSION['bill_id'],$today,
+                $amenity_id);
+            $hBillItem->execute();
+
+            $hStock= $conn->prepare("UPDATE amenities SET stock=? WHERE amenity_id=?");
+            $hStock ->binf_param("ii",$_SESSION['f_stock5'], $amenity_id);
+            $hStock ->execute();      
+        }
+
+
+//extras
+                if($_SESSION['e_num0']!=0){
+            $amenity_id=$_POST['amenity_ie_e0'];
+            $hBillItem = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_eate,amenity_id) VALUES (?,?,?,?)");
+            $hBillItem->bine_param("iisi",$_SESSION['e_num0'],$_SESSION['bill_id'],$today,
+                $amenity_id);
+            $hBillItem->execute();
+
+            $hStock= $conn->prepare("UPDATE amenities SET stock=? WHERE amenity_id=?");
+            $hStock ->bine_param("ii",$_SESSION['e_stock0'], $amenity_id);
+            $hStock ->execute();      
+        }
+
+/////////////////////////////REPEAT//////////////////////////
         if($_SESSION['e_num1']!=0){
-            $amenity_id=$_POST['amenity_id_e1'];
-            $prepareh10 = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_date,amenity_id) VALUES (?,?,?,?)");
-            $prepareh10->bind_param("iisi",$_SESSION['e_num1'],$_SESSION['bill_id'],$today,
+            $amenity_id=$_POST['amenity_ie_e1'];
+            $hBillItem = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_eate,amenity_id) VALUES (?,?,?,?)");
+            $hBillItem->bine_param("iisi",$_SESSION['e_num1'],$_SESSION['bill_id'],$today,
                 $amenity_id);
-            $prepareh10->execute();
+            $hBillItem->execute();
 
-            $prepareh11= $conn->prepare("UPDATE amenities SET stock=? WHERE amenity_id=?");
-            $prepareh11->bind_param("ii",$_SESSION['e_stock1'], $amenity_id);
-            $prepareh11->execute();      
+            $hStock= $conn->prepare("UPDATE amenities SET stock=? WHERE amenity_id=?");
+            $hStock ->bine_param("ii",$_SESSION['e_stock1'], $amenity_id);
+            $hStock ->execute();      
         }
 
-        
+
+      if($_SESSION['e_num2']!=0){
+            $amenity_id=$_POST['amenity_ie_e2'];
+            $hBillItem = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_eate,amenity_id) VALUES (?,?,?,?)");
+            $hBillItem->bine_param("iisi",$_SESSION['e_num2'],$_SESSION['bill_id'],$today,
+                $amenity_id);
+            $hBillItem->execute();
+
+            $hStock= $conn->prepare("UPDATE amenities SET stock=? WHERE amenity_id=?");
+            $hStock ->bine_param("ii",$_SESSION['e_stock2'], $amenity_id);
+            $hStock ->execute();      
+        }
+
+        if($_SESSION['e_num3']!=0){
+            $amenity_id=$_POST['amenity_ie_e3'];
+            $hBillItem = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_eate,amenity_id) VALUES (?,?,?,?)");
+            $hBillItem->bine_param("iisi",$_SESSION['e_num3'],$_SESSION['bill_id'],$today,
+                $amenity_id);
+            $hBillItem->execute();
+
+            $hStock= $conn->prepare("UPDATE amenities SET stock=? WHERE amenity_id=?");
+            $hStock ->bine_param("ii",$_SESSION['e_stock3'], $amenity_id);
+            $hStock ->execute();      
+        }
+
+      if($_SESSION['e_num4']!=0){
+            $amenity_id=$_POST['amenity_ie_e4'];
+            $hBillItem = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_eate,amenity_id) VALUES (?,?,?,?)");
+            $hBillItem->bine_param("iisi",$_SESSION['e_num4'],$_SESSION['bill_id'],$today,
+                $amenity_id);
+            $hBillItem->execute();
+
+            $hStock= $conn->prepare("UPDATE amenities SET stock=? WHERE amenity_id=?");
+            $hStock ->bine_param("ii",$_SESSION['e_stock4'], $amenity_id);
+            $hStock ->execute();      
+        }
+
+
+      if($_SESSION['e_num5']!=0){
+            $amenity_id=$_POST['amenity_ie_e5'];
+            $hBillItem = $conn->prepare("INSERT INTO bill_items(quantity,bill_id,bill_eate,amenity_id) VALUES (?,?,?,?)");
+            $hBillItem->bine_param("iisi",$_SESSION['e_num5'],$_SESSION['bill_id'],$today,
+                $amenity_id);
+            $hBillItem->execute();
+
+            $hStock= $conn->prepare("UPDATE amenities SET stock=? WHERE amenity_id=?");
+            $hStock ->bine_param("ii",$_SESSION['e_stock5'], $amenity_id);
+            $hStock ->execute();      
+        }
+
+        ob_end_flush();
         unset($_SERVER['PHP_SELF']);
         session_destroy();
-        header("location:manager_guests.php");
+        
+
     }
 
 
-ob_end_flush();
       ?>
 
                 </div>
             </div>
         </div>
     </body>
+
+
+
+
+<?php
+//////////////////////calculation REPEAT BELOW////////////////////////////
+//first HYGIENE item
+$_SESSION['h_num0']=((isset($_SESSION['h_num0']))?$_SESSION['h_num0']:0);
+$_SESSION['h_price0']=((isset($_SESSION['h_num0']))?$_SESSION['h_num0']:0);
+        
+if(isset($_POST['h_minus0'])){
+    if($_SESSION['h_num0']<=0){
+        $_SESSION['h_num0']=0;
+    }else{
+        $_SESSION['h_num0']--;}
+    }
+
+if(isset($_POST['h_plus0'])){
+    if($_SESSION['h_stock0']>0){
+        $_SESSION['h_num0']++;}
+    }
+                        
+    $_SESSION['h_price0']=$hygiene_price[0]*$_SESSION['h_num0'];
+    $_SESSION['h_stock0']=$hygiene_stock[0]-$_SESSION['h_num0'];
+?>
+
+
+<?php
+//REPEAT
+//2 hygiene item
+$_SESSION['h_num1']=((isset($_SESSION['h_num1']))?$_SESSION['h_num1']:0);
+$_SESSION['h_price1']=((isset($_SESSION['h_num1']))?$_SESSION['h_num1']:0);
+        
+if(isset($_POST['h_minus1'])){
+    if($_SESSION['h_num1']<=0){
+        $_SESSION['h_num1']=0;
+    }else{
+        $_SESSION['h_num1']--;}
+    }
+
+if(isset($_POST['h_plus1'])){
+    if($_SESSION['h_stock1']>0){
+        $_SESSION['h_num1']++;}
+    }
+                        
+    $_SESSION['h_price1']=$hygiene_price[1]*$_SESSION['h_num1'];
+    $_SESSION['h_stock1']=$hygiene_stock[1]-$_SESSION['h_num1'];
+?>
+
+<?php
+//3 hygiene item
+$_SESSION['h_num2']=((isset($_SESSION['h_num2']))?$_SESSION['h_num2']:0);
+$_SESSION['h_price2']=((isset($_SESSION['h_num2']))?$_SESSION['h_num2']:0);
+        
+if(isset($_POST['h_minus2'])){
+    if($_SESSION['h_num2']<=0){
+        $_SESSION['h_num2']=0;
+    }else{
+        $_SESSION['h_num2']--;}
+    }
+
+if(isset($_POST['h_plus2'])){
+    if($_SESSION['h_stock2']>0){
+        $_SESSION['h_num2']++;}
+    }
+                        
+    $_SESSION['h_price2']=$hygiene_price[2]*$_SESSION['h_num2'];
+    $_SESSION['h_stock2']=$hygiene_stock[2]-$_SESSION['h_num2'];
+?>
+
+<?php
+//4 hygiene item
+$_SESSION['h_num3']=((isset($_SESSION['h_num3']))?$_SESSION['h_num3']:0);
+$_SESSION['h_price3']=((isset($_SESSION['h_num3']))?$_SESSION['h_num3']:0);
+        
+if(isset($_POST['h_minus3'])){
+    if($_SESSION['h_num3']<=0){
+        $_SESSION['h_num3']=0;
+    }else{
+        $_SESSION['h_num3']--;}
+    }
+
+if(isset($_POST['h_plus3'])){
+    if($_SESSION['h_stock3']>0){
+        $_SESSION['h_num3']++;}
+    }
+                        
+    $_SESSION['h_price3']=$hygiene_price[3]*$_SESSION['h_num3'];
+    $_SESSION['h_stock3']=$hygiene_stock[3]-$_SESSION['h_num3'];
+?>
+
+<?php
+//5 hygiene item
+$_SESSION['h_num4']=((isset($_SESSION['h_num4']))?$_SESSION['h_num4']:0);
+$_SESSION['h_price4']=((isset($_SESSION['h_num4']))?$_SESSION['h_num4']:0);
+        
+if(isset($_POST['h_minus4'])){
+    if($_SESSION['h_num4']<=0){
+        $_SESSION['h_num4']=0;
+    }else{
+        $_SESSION['h_num4']--;}
+    }
+
+if(isset($_POST['h_plus4'])){
+    if($_SESSION['h_stock4']>0){
+        $_SESSION['h_num4']++;}
+    }
+                        
+    $_SESSION['h_price4']=$hygiene_price[4]*$_SESSION['h_num4'];
+    $_SESSION['h_stock4']=$hygiene_stock[4]-$_SESSION['h_num4'];
+?>
+
+<?php
+//6 hygiene item
+$_SESSION['h_num5']=((isset($_SESSION['h_num5']))?$_SESSION['h_num5']:0);
+$_SESSION['h_price5']=((isset($_SESSION['h_num5']))?$_SESSION['h_num5']:0);
+        
+if(isset($_POST['h_minus5'])){
+    if($_SESSION['h_num5']<=0){
+        $_SESSION['h_num5']=0;
+    }else{
+        $_SESSION['h_num5']--;}
+    }
+
+if(isset($_POST['h_plus5'])){
+    if($_SESSION['h_stock5']>0){
+        $_SESSION['h_num5']++;}
+    }
+                        
+    $_SESSION['h_price5']=$hygiene_price[5]*$_SESSION['h_num5'];
+    $_SESSION['h_stock5']=$hygiene_stock[5]-$_SESSION['h_num5'];
+?>
+
+
+<?php
+//calculation REPEAT BELOW
+///////////////////////////////FOOD//////////////////////////////////
+//first FOOD item
+$_SESSION['f_num0']=((isset($_SESSION['f_num0']))?$_SESSION['f_num0']:0);
+$_SESSION['f_price0']=((isset($_SESSION['f_num0']))?$_SESSION['f_num0']:0);
+        
+if(isset($_POST['f_minus0'])){
+    if($_SESSION['f_num0']<=0){
+        $_SESSION['f_num0']=0;
+    }else{
+        $_SESSION['f_num0']--;}
+    }
+
+if(isset($_POST['f_plus0'])){
+    if($_SESSION['f_stock0']>0){
+        $_SESSION['f_num0']++;}
+    }
+                        
+    $_SESSION['f_price0']=$food_price[0]*$_SESSION['f_num0'];
+    $_SESSION['f_stock0']=$food_stock[0]-$_SESSION['f_num0'];
+?>
+
+
+<?php
+//REPEAT
+//2 FOOD item
+$_SESSION['f_num1']=((isset($_SESSION['f_num1']))?$_SESSION['f_num1']:0);
+$_SESSION['f_price1']=((isset($_SESSION['f_num1']))?$_SESSION['f_num1']:0);
+        
+if(isset($_POST['f_minus1'])){
+    if($_SESSION['f_num1']<=0){
+        $_SESSION['f_num1']=0;
+    }else{
+        $_SESSION['f_num1']--;}
+    }
+
+if(isset($_POST['f_plus1'])){
+    if($_SESSION['f_stock1']>0){
+        $_SESSION['f_num1']++;}
+    }
+                        
+    $_SESSION['f_price1']=$food_price[1]*$_SESSION['f_num1'];
+    $_SESSION['f_stock1']=$food_stock[1]-$_SESSION['f_num1'];
+?>
+
+<?php
+//3 FOOD item
+$_SESSION['f_num2']=((isset($_SESSION['f_num2']))?$_SESSION['f_num2']:0);
+$_SESSION['f_price2']=((isset($_SESSION['f_num2']))?$_SESSION['f_num2']:0);
+        
+if(isset($_POST['f_minus2'])){
+    if($_SESSION['f_num2']<=0){
+        $_SESSION['f_num2']=0;
+    }else{
+        $_SESSION['f_num2']--;}
+    }
+
+if(isset($_POST['f_plus2'])){
+    if($_SESSION['f_stock2']>0){
+        $_SESSION['f_num2']++;}
+    }
+                        
+    $_SESSION['f_price2']=$food_price[2]*$_SESSION['f_num2'];
+    $_SESSION['f_stock2']=$food_stock[2]-$_SESSION['f_num2'];
+?>
+
+<?php
+//4 FOOD item
+$_SESSION['f_num3']=((isset($_SESSION['f_num3']))?$_SESSION['f_num3']:0);
+$_SESSION['f_price3']=((isset($_SESSION['f_num3']))?$_SESSION['f_num3']:0);
+        
+if(isset($_POST['f_minus3'])){
+    if($_SESSION['f_num3']<=0){
+        $_SESSION['f_num3']=0;
+    }else{
+        $_SESSION['f_num3']--;}
+    }
+
+if(isset($_POST['f_plus3'])){
+    if($_SESSION['f_stock3']>0){
+        $_SESSION['f_num3']++;}
+    }
+                        
+    $_SESSION['f_price3']=$food_price[3]*$_SESSION['f_num3'];
+    $_SESSION['f_stock3']=$food_stock[3]-$_SESSION['f_num3'];
+?>
+
+<?php
+//5 FOOD item
+$_SESSION['f_num4']=((isset($_SESSION['f_num4']))?$_SESSION['f_num4']:0);
+$_SESSION['f_price4']=((isset($_SESSION['f_num4']))?$_SESSION['f_num4']:0);
+        
+if(isset($_POST['f_minus4'])){
+    if($_SESSION['f_num4']<=0){
+        $_SESSION['f_num4']=0;
+    }else{
+        $_SESSION['f_num4']--;}
+    }
+
+if(isset($_POST['f_plus4'])){
+    if($_SESSION['f_stock4']>0){
+        $_SESSION['f_num4']++;}
+    }
+                        
+    $_SESSION['f_price4']=$food_price[4]*$_SESSION['f_num4'];
+    $_SESSION['f_stock4']=$food_stock[4]-$_SESSION['f_num4'];
+?>
+
+<?php
+//6 FOOD item
+$_SESSION['f_num5']=((isset($_SESSION['f_num5']))?$_SESSION['f_num5']:0);
+$_SESSION['f_price5']=((isset($_SESSION['f_num5']))?$_SESSION['f_num5']:0);
+        
+if(isset($_POST['f_minus5'])){
+    if($_SESSION['f_num5']<=0){
+        $_SESSION['f_num5']=0;
+    }else{
+        $_SESSION['f_num5']--;}
+    }
+
+if(isset($_POST['f_plus5'])){
+    if($_SESSION['f_stock5']>0){
+        $_SESSION['f_num5']++;}
+    }
+                        
+    $_SESSION['f_price5']=$food_price[5]*$_SESSION['f_num5'];
+    $_SESSION['f_stock5']=$food_stock[5]-$_SESSION['f_num5'];
+?>
+
+<?php
+//calculation REPEAT BELOW
+///////////////////////////////DRINK//////////////////////////////////
+//first DRINK item
+$_SESSION['d_num0']=((isset($_SESSION['d_num0']))?$_SESSION['d_num0']:0);
+$_SESSION['d_price0']=((isset($_SESSION['d_num0']))?$_SESSION['d_num0']:0);
+        
+if(isset($_POST['d_minus0'])){
+    if($_SESSION['d_num0']<=0){
+        $_SESSION['d_num0']=0;
+    }else{
+        $_SESSION['d_num0']--;}
+    }
+
+if(isset($_POST['d_plus0'])){
+    if($_SESSION['d_stock0']>0){
+        $_SESSION['d_num0']++;}
+    }
+                        
+    $_SESSION['d_price0']=$food_price[0]*$_SESSION['d_num0'];
+    $_SESSION['d_stock0']=$food_stock[0]-$_SESSION['d_num0'];
+?>
+
+
+<?php
+//REPEAT
+//2 DRINK item
+$_SESSION['d_num1']=((isset($_SESSION['d_num1']))?$_SESSION['d_num1']:0);
+$_SESSION['d_price1']=((isset($_SESSION['d_num1']))?$_SESSION['d_num1']:0);
+        
+if(isset($_POST['d_minus1'])){
+    if($_SESSION['d_num1']<=0){
+        $_SESSION['d_num1']=0;
+    }else{
+        $_SESSION['d_num1']--;}
+    }
+
+if(isset($_POST['d_plus1'])){
+    if($_SESSION['d_stock1']>0){
+        $_SESSION['d_num1']++;}
+    }
+                        
+    $_SESSION['d_price1']=$food_price[1]*$_SESSION['d_num1'];
+    $_SESSION['d_stock1']=$food_stock[1]-$_SESSION['d_num1'];
+?>
+
+<?php
+//3 DRINK item
+$_SESSION['d_num2']=((isset($_SESSION['d_num2']))?$_SESSION['d_num2']:0);
+$_SESSION['d_price2']=((isset($_SESSION['d_num2']))?$_SESSION['d_num2']:0);
+        
+if(isset($_POST['d_minus2'])){
+    if($_SESSION['d_num2']<=0){
+        $_SESSION['d_num2']=0;
+    }else{
+        $_SESSION['d_num2']--;}
+    }
+
+if(isset($_POST['d_plus2'])){
+    if($_SESSION['d_stock2']>0){
+        $_SESSION['d_num2']++;}
+    }
+                        
+    $_SESSION['d_price2']=$food_price[2]*$_SESSION['d_num2'];
+    $_SESSION['d_stock2']=$food_stock[2]-$_SESSION['d_num2'];
+?>
+
+<?php
+//4 DRINK item
+$_SESSION['d_num3']=((isset($_SESSION['d_num3']))?$_SESSION['d_num3']:0);
+$_SESSION['d_price3']=((isset($_SESSION['d_num3']))?$_SESSION['d_num3']:0);
+        
+if(isset($_POST['d_minus3'])){
+    if($_SESSION['d_num3']<=0){
+        $_SESSION['d_num3']=0;
+    }else{
+        $_SESSION['d_num3']--;}
+    }
+
+if(isset($_POST['d_plus3'])){
+    if($_SESSION['d_stock3']>0){
+        $_SESSION['d_num3']++;}
+    }
+                        
+    $_SESSION['d_price3']=$food_price[3]*$_SESSION['d_num3'];
+    $_SESSION['d_stock3']=$food_stock[3]-$_SESSION['d_num3'];
+?>
+
+<?php
+//5 DRINK item
+$_SESSION['d_num4']=((isset($_SESSION['d_num4']))?$_SESSION['d_num4']:0);
+$_SESSION['d_price4']=((isset($_SESSION['d_num4']))?$_SESSION['d_num4']:0);
+        
+if(isset($_POST['d_minus4'])){
+    if($_SESSION['d_num4']<=0){
+        $_SESSION['d_num4']=0;
+    }else{
+        $_SESSION['d_num4']--;}
+    }
+
+if(isset($_POST['d_plus4'])){
+    if($_SESSION['d_stock4']>0){
+        $_SESSION['d_num4']++;}
+    }
+                        
+    $_SESSION['d_price4']=$food_price[4]*$_SESSION['d_num4'];
+    $_SESSION['d_stock4']=$food_stock[4]-$_SESSION['d_num4'];
+?>
+
+<?php
+//6 DRINK item
+$_SESSION['d_num5']=((isset($_SESSION['d_num5']))?$_SESSION['d_num5']:0);
+$_SESSION['d_price5']=((isset($_SESSION['d_num5']))?$_SESSION['d_num5']:0);
+        
+if(isset($_POST['d_minus5'])){
+    if($_SESSION['d_num5']<=0){
+        $_SESSION['d_num5']=0;
+    }else{
+        $_SESSION['d_num5']--;}
+    }
+
+if(isset($_POST['d_plus5'])){
+    if($_SESSION['d_stock5']>0){
+        $_SESSION['d_num5']++;}
+    }
+                        
+    $_SESSION['d_price5']=$food_price[5]*$_SESSION['d_num5'];
+    $_SESSION['d_stock5']=$food_stock[5]-$_SESSION['d_num5'];
+?>
+
+<?php
+//calculation REPEAT BELOW
+/////////////////////////////// EXTRAS //////////////////////////////////
+//first DRINK item
+$_SESSION['e_num0']=((isset($_SESSION['e_num0']))?$_SESSION['e_num0']:0);
+$_SESSION['e_price0']=((isset($_SESSION['e_num0']))?$_SESSION['e_num0']:0);
+        
+if(isset($_POST['e_minus0'])){
+    if($_SESSION['e_num0']<=0){
+        $_SESSION['e_num0']=0;
+    }else{
+        $_SESSION['e_num0']--;}
+    }
+
+if(isset($_POST['e_plus0'])){
+    if($_SESSION['e_stock0']>0){
+        $_SESSION['e_num0']++;}
+    }
+                        
+    $_SESSION['e_price0']=$extra_price[0]*$_SESSION['e_num0'];
+    $_SESSION['e_stock0']=$extra_stock[0]-$_SESSION['e_num0'];
+?>
+
+
+<?php
+//REPEAT
+//2 EXTRAS item
+$_SESSION['e_num1']=((isset($_SESSION['e_num1']))?$_SESSION['e_num1']:0);
+$_SESSION['e_price1']=((isset($_SESSION['e_num1']))?$_SESSION['e_num1']:0);
+        
+if(isset($_POST['e_minus1'])){
+    if($_SESSION['e_num1']<=0){
+        $_SESSION['e_num1']=0;
+    }else{
+        $_SESSION['e_num1']--;}
+    }
+
+if(isset($_POST['e_plus1'])){
+    if($_SESSION['e_stock1']>0){
+        $_SESSION['e_num1']++;}
+    }
+                        
+    $_SESSION['e_price1']=$extra_price[1]*$_SESSION['e_num1'];
+    $_SESSION['e_stock1']=$extra_stock[1]-$_SESSION['e_num1'];
+?>
+
+<?php
+//3 EXTRASitem
+$_SESSION['e_num2']=((isset($_SESSION['e_num2']))?$_SESSION['e_num2']:0);
+$_SESSION['e_price2']=((isset($_SESSION['e_num2']))?$_SESSION['e_num2']:0);
+        
+if(isset($_POST['e_minus2'])){
+    if($_SESSION['e_num2']<=0){
+        $_SESSION['e_num2']=0;
+    }else{
+        $_SESSION['e_num2']--;}
+    }
+
+if(isset($_POST['e_plus2'])){
+    if($_SESSION['e_stock2']>0){
+        $_SESSION['e_num2']++;}
+    }
+                        
+    $_SESSION['e_price2']=$extra_price[2]*$_SESSION['e_num2'];
+    $_SESSION['e_stock2']=$extra_stock[2]-$_SESSION['e_num2'];
+?>
+
+<?php
+//4 EXTRASitem
+$_SESSION['e_num3']=((isset($_SESSION['e_num3']))?$_SESSION['e_num3']:0);
+$_SESSION['e_price3']=((isset($_SESSION['e_num3']))?$_SESSION['e_num3']:0);
+        
+if(isset($_POST['e_minus3'])){
+    if($_SESSION['e_num3']<=0){
+        $_SESSION['e_num3']=0;
+    }else{
+        $_SESSION['e_num3']--;}
+    }
+
+if(isset($_POST['e_plus3'])){
+    if($_SESSION['e_stock3']>0){
+        $_SESSION['e_num3']++;}
+    }
+                        
+    $_SESSION['e_price3']=$extra_price[3]*$_SESSION['e_num3'];
+    $_SESSION['e_stock3']=$extra_stock[3]-$_SESSION['e_num3'];
+?>
+
+<?php
+//5 EXTRASitem
+$_SESSION['e_num4']=((isset($_SESSION['e_num4']))?$_SESSION['e_num4']:0);
+$_SESSION['e_price4']=((isset($_SESSION['e_num4']))?$_SESSION['e_num4']:0);
+        
+if(isset($_POST['e_minus4'])){
+    if($_SESSION['e_num4']<=0){
+        $_SESSION['e_num4']=0;
+    }else{
+        $_SESSION['e_num4']--;}
+    }
+
+if(isset($_POST['e_plus4'])){
+    if($_SESSION['e_stock4']>0){
+        $_SESSION['e_num4']++;}
+    }
+                        
+    $_SESSION['e_price4']=$extra_price[4]*$_SESSION['e_num4'];
+    $_SESSION['e_stock4']=$extra_stock[4]-$_SESSION['e_num4'];
+?>
+
+<?php
+//6 EXTRASitem
+$_SESSION['e_num5']=((isset($_SESSION['e_num5']))?$_SESSION['e_num5']:0);
+$_SESSION['e_price5']=((isset($_SESSION['e_num5']))?$_SESSION['e_num5']:0);
+        
+if(isset($_POST['e_minus5'])){
+    if($_SESSION['e_num5']<=0){
+        $_SESSION['e_num5']=0;
+    }else{
+        $_SESSION['e_num5']--;}
+    }
+
+if(isset($_POST['e_plus5'])){
+    if($_SESSION['e_stock5']>0){
+        $_SESSION['e_num5']++;}
+    }
+                        
+    $_SESSION['e_price5']=$extra_price[5]*$_SESSION['e_num5'];
+    $_SESSION['e_stock5']=$extra_stock[5]-$_SESSION['e_num5'];
+
+        
+    ?>
+
+
