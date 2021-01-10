@@ -718,3 +718,7 @@ UPDATE amenities SET image='mirinda-8.jpg' WHERE (amenity_id=8);
 UPDATE amenities SET image='Pillow.jpg' WHERE (amenity_id=33);
 UPDATE amenities SET image='lights.JFIF' WHERE (amenity_id=34);
 
+ALTER TABLE records ADD record_payables FLOAT(10,2) NULL DEFAULT NULL AFTER record_paid;
+ALTER TABLE records ADD record_change FLOAT(10,2) NULL DEFAULT NULL AFTER record_payables;
+
+INSERT INTO amenities`(amenity_id`, amenity_name, amenity_price, amenity_type, stock) VALUES (100,'booking',0,'',0);

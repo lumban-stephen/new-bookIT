@@ -230,7 +230,7 @@
                         //Displays the number of guests that book a reservation
                          $sql = "SELECT COUNT(*) as 'count'
                                     FROM schedule s, guests g
-                                    WHERE s.guest_id=g.guest_id AND g.guest_status = 'RESERVED' ";
+                                    WHERE s.guest_id=g.guest_id AND g.guest_status = 'RESERVED' AND g.date_in >= CURRENT_DATE";
 
                         $display = $conn->query($sql);
                         if($rows = $display != NULL){ 
@@ -261,7 +261,7 @@
                                         //Displays the guests that book a reservation
                                         $sql = "SELECT CONCAT(c.fname,' ',c.MI,' ',c.lname) as 'Guest Name', g.date_in as date_in
                                         FROM guests g, customers c, schedule s
-                                        WHERE g.customer_id = c.customer_id AND s.guest_id=g.guest_id AND guest_status = 'RESERVED' 
+                                        WHERE g.customer_id = c.customer_id AND s.guest_id=g.guest_id AND guest_status = 'RESERVED' AND g.date_in >= CURRENT_DATE
                                         ORDER BY g.date_in";
                                                 $display = $conn->query($sql);
                                                 if($rows = $display != NULL){ 
