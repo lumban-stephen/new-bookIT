@@ -64,6 +64,8 @@
             <th>Task Name</th>
             <th>Task Description</th>
             <th>Action</th><div style='overflow-y:auto;'>";
+
+    //data is put into array $row
     while($row = $result->fetch_assoc()){
         echo "<tr><td><p>".$row['task_name']."</p></td><td><h3>".$row['task_desc']."</td>";
         echo "<form method='post' action=''>
@@ -75,7 +77,12 @@
         echo 'No Task';
     }
 
-//if the task is done, change the status. 
+/*if the task is done, change the status into COMPLETE. 
+$prepare1 : random keyword
+? : about to input data
+s : string (alphabets, varchar)
+i : integer (numbers)
+*/
     if(isset($_POST['done'])){
         $task_id=$_POST['task_id'];
         $task_status="COMPLETE";
@@ -101,7 +108,12 @@ if(isset($_POST['add'])){
     $task_desc=$_POST['task_desc'];
     $task_status="INCOMPLETE";
 
-    //create data in customers
+/*create data in task
+$prepare2 : random keyword
+? : about to input data
+s : string (alphabets, varchar)
+i : integer (numbers)
+*/
         $prepare2 = $conn->prepare("INSERT INTO task(task_name,task_desc,task_status) VALUES (?,?,?)");
             $prepare2->bind_param("sss",$task_name,$task_desc,$task_status);
             $prepare2->execute();

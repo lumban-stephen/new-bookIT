@@ -87,6 +87,9 @@ ob_start();
     $today=date("Y-d-m");
     $status="COMPLETE";
 
+/*g.date_in = CURRENT_DATE : show guests who will check in today
+show check in button
+*/
 $sql = "SELECT  CONCAT(c.fname,' ',c.MI,' ',c.lname) as name,
                 c.fname as fname,
                 c.MI as mname, 
@@ -114,6 +117,7 @@ $sql = "SELECT  CONCAT(c.fname,' ',c.MI,' ',c.lname) as name,
     $result = $conn->query($sql); 
 while($row = $result->fetch_assoc()){
     if($row['guest_status'] != $status){
+//if ID_number is null, the guest is not checked in yet.
         if($row['ID_number']==NULL)
          echo "<form method='post' action=''><tr>
         
@@ -144,7 +148,7 @@ while($row = $result->fetch_assoc()){
                 
               </tr></form>";}}
 
-//if check-in date is not today
+//if check-in date is not today, do not show "check in button"
 $sql2 = "SELECT  CONCAT(c.fname,' ',c.MI,' ',c.lname) as name,
                 c.fname as fname,
                 c.MI as mname, 
@@ -236,7 +240,7 @@ while($row2 = $result2->fetch_assoc()){
     
     $sql4 = "DELETE FROM schedule WHERE guest_id = $guest_id";
 
-//delete check_in and out dates. 
+//delete check_in and out dates in guests. 
 
     $null="1000-01-01";
     $cancelled="CANCELLED";
@@ -244,7 +248,7 @@ while($row2 = $result2->fetch_assoc()){
     $prepare1->bind_param("sssi", $null,$null,$cancelled, $guest_id);
     $prepare1->execute();
 
-//get payment_id
+//get payment_id to delete amount of payments
     $sql5="SELECT payment_id FROM guests WHERE guest_id=$guest_id";
     $result5 = $conn->query($sql5);
     while($row = $result5->fetch_assoc()){
@@ -257,7 +261,7 @@ while($row2 = $result2->fetch_assoc()){
     $prepare2->bind_param("ii", $a, $payment_id);
     $prepare2->execute();
 
-
+//$sql4 : delete data in schedule. if it is successful, TRUE.
     if($conn->query($sql4)===TRUE){
         echo "successfully deleted";
         header("location:receptionist_res-list.php");
@@ -266,7 +270,7 @@ while($row2 = $result2->fetch_assoc()){
     }      
 }
 
-//update guests info. send data in SESSION
+//update guests info. send data in SESSION to update.php
    if(isset($_POST['update'])){
     header("location:receptionist_update.php");
         $fname=$_POST['fname'];

@@ -60,6 +60,7 @@
              <?php
             include 'connection.php';
             error_reporting(0);
+            /*ob_start() : an output buffer. to eliminate an error. used with ob_end_flush();*/
             ob_start();
             
             echo "<form method='post' action=''>  
@@ -81,13 +82,20 @@
             </form>";
 
 
-//update name
+//update basic information
 if(isset($_POST['update'])){
     $fname=$_POST['fname'];
     $lname=$_POST['lname'];
     $mname=$_POST['mname'];
     $phone=$_POST['phone'];
     $email=$_POST['email'];
+
+/*customers
+$update : random keyword
+? : about to input data
+i : integer (numbers)
+s : string (alphabets)
+ */
     $update= $conn->prepare("UPDATE customers SET fname =?,lname =?,MI =?,phone =?,email =? WHERE customer_id=?");
         $update->bind_param("sssisi", $fname,$lname,$mname,$phone,$email,$_SESSION['customer_id']);
         $update->execute();
@@ -99,6 +107,7 @@ if(isset($_POST['update'])){
     header("location:receptionist_update.php");
     }
 
+    /*session variables come from receptionist_res-list.php*/
             echo "<hr><form method='post' action=''>
                 <label  class='Labelform'>Room Type</label>  ".$_SESSION['room_desc']."
                 <br>
@@ -116,15 +125,19 @@ if(isset($_POST['update'])){
     </select></span><br>
     <button type='submit' name='search_room'  style='background-color: #003399; padding: 5px; ' class='button'>Search Room</button></form><br><br>";
 
+/*after clicking search room*/
 if(isset($_POST['search_room'])){
     $checkin=$_POST['checkin'];
     $checkout=$_POST['checkout'];
     $numguest=$_POST['numguest'];
 
+/*SESSION variables will be updated*/
     $_SESSION['checkin'] = $checkin;
     $_SESSION['checkout'] = $checkout;
     $_SESSION['numguest'] = $numguest;
 
+/*SELECT DISTINCT :  return only distinct (different) values.
+NOT IN(SELECT) : choose the data that is not in the SELECTED one.*/
 $rooomtype = "SELECT DISTINCT t.room_desc AS room_desc, t.roomtype_id as roomtype_id
             FROM    room_type t, 
                     rooms r
@@ -139,14 +152,14 @@ $rooomtype = "SELECT DISTINCT t.room_desc AS room_desc, t.roomtype_id as roomtyp
                                     FROM guests g 
                                     WHERE $checkout between g.date_in and g.date_out) AND 
                     t.room_cap>=$numguest";
-
+/*result1 is an array of $roomtype*/
     $result1 = $conn->query($rooomtype); 
 
     if(mysqli_num_rows($result1) > 0){
         echo "Available Room Type<br><br>";
         echo "<div class='grid-container'>";
     while($row = $result1->fetch_assoc()){
-                
+/*show availavle room type*/                
                 echo "
                 <form  method='post' action=''>
                 <button type='submit' name='select' style='background-color: #28C479; padding: 10px; '><h1>".$row['room_desc']."</button>
@@ -185,7 +198,10 @@ header("location:receptionist_update.php");
         $prepare01->bind_param("ssiii", $_SESSION['checkin'],  $_SESSION['checkout'], $_SESSION['numguest'],$room_id, $_SESSION['customer_id']);
         $prepare01->execute();
 
-    $stays=(strtotime($_SESSION['checkout'])-strtotime($_SESSION['checkin']))/60/60/24; //number of stays
+/*number of stays
+strtotime : converts datetime to timestamp.
+60/60/24 : second/minute/hour*/
+    $stays=(strtotime($_SESSION['checkout'])-strtotime($_SESSION['checkin']))/60/60/24; 
 
 //get room_cost
 $sql2 = "SELECT t.room_cost as 'room_cost', g.payment_id as 'payment_id'
@@ -197,9 +213,15 @@ $sql2 = "SELECT t.room_cost as 'room_cost', g.payment_id as 'payment_id'
         $room_cost=$row['room_cost'];
         $payment_id=$row['payment_id'];}
 
+//total room cost. number of stays x room cost per night
     $payment = $stays*$room_cost;
 
-//update payment
+/*update payments
+$prepare02 : random keyword
+? : about to input data
+i : integer (numbers)
+s : string (alphabets)
+ */
 $prepare02= $conn->prepare("UPDATE payments SET payment_amount =? 
     WHERE payment_id=?");
         $prepare02->bind_param("ii", $payment, $payment_id);
@@ -211,7 +233,7 @@ header("location:receptionist_update.php");
 
 
 
-
+/*ob_end_flush() : an output buffer. to eliminate an error. used with ob_start();*/
 ob_end_flush();
 ?>
 <a href='receptionist_res-list.php' class='Greenbutton' style='width:20%;'>Back to Reservation List</a>

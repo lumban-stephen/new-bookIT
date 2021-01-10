@@ -147,12 +147,13 @@
                                     CURDATE() as 'date'
                     FROM
                             Schedule s, Guests g, Customers c,
-                            Rooms r,bill b
+                            Rooms r,bill b, checked_in_guests ch
                     WHERE
                             s.guest_id = g.guest_id AND 
                             g.customer_id = c.customer_id AND 
                             s.room_id = r.room_id AND 
                             b.guest_id=g.guest_id AND 
+                            ch.guest_id=g.guest_id AND
                             g.guest_status = 'INCOMPLETE'/**Displays the guest with the status as incomplete which means not yet checked-out */
                     GROUP BY
                             g.guest_id 
