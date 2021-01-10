@@ -51,7 +51,7 @@
             <br>
             <table id="Table">
               <tr>
-                <th>Record Type</th>
+                <th>Guest Name</th>
                 <th>Room Number</th>
                 <th>Paid Amount</th>
                 <th>Bill Amount</th>
@@ -66,15 +66,16 @@
             error_reporting(0);
 
             $sql = "SELECT  r.room_id as room_id, 
-                            rec.record_type as record_type, 
+                            CONCAT(c.fname, ' ', c.MI, ' ', c.lname) as guest_name,
                             rec.record_paid as paid_amount,
                             rec.record_payables as bill_amount,
                             rec.record_change as change_amount, 
                             rec.record_date as record_date, 
                             rec.record_time as record_time
-                    FROM    records rec,rooms r,guests g
-                    WHERE   g.room_id=r.room_id AND 
-                            g.guest_id=rec.guest_id AND
+                    FROM    records rec,rooms r,guests g, customers c
+                    WHERE   g.room_id = r.room_id AND 
+                            g.guest_id = rec.guest_id AND
+                            g.customer_id = c.customer_id AND
                             rec.record_type = 'CHECKED OUT'
                     ORDER BY rec.record_date";
             
@@ -84,7 +85,7 @@
         if($row = $result != NULL){ 
             while($row = $result->fetch_assoc()){
                 echo "<tr>
-                        <td>".$row['record_type']."</td>
+                        <td>".$row['guest_name']."</td>
                         <td>".$row['room_id']."</td>
                         <td>".$row['paid_amount']."</td>
                         <td>".$row['bill_amount']."</td>
