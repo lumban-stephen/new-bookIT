@@ -58,13 +58,12 @@
             <!--Code Here only-->
             <!--Reservation page code in here-->
             <form method="post" action="">  
-                <label class='Labelform'>Number of Guests</label><select name="numguest" class="booking" style='height: 10%;' required>
+                <label class='Labelform'>SELECT ROOM TYPE</label><select name="room_type" class="booking" style='height: 10%;' required>
                     <option value="Select">Select</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>  
+                    <option value="1">Single bed, Aircon, 1-2 people</option>
+                    <option value="2">Single bed, Fan only, 1-2 people</option>
+                    <option value="3">Two beds, Aircon, 2-4 people</option>
+                    <option value="4">Three beds, Aircon, 3-5 people</option>  
                 </select> 
                 <br><br>
 
@@ -87,14 +86,15 @@
                     
         $checkin=$_POST['checkin'];
         $checkout=$_POST['checkout'];
-        $numguest=$_POST['numguest'];
+        $room_type=$_POST['room_type'];
 
         $_SESSION['checkin'] = $checkin;
         $_SESSION['checkout'] = $checkout;
-        $_SESSION['numguest'] = $numguest;
+
 
 //select available room type
-    $rooomtype = "SELECT DISTINCT t.room_desc AS room_desc, t.roomtype_id as roomtype_id
+//r.room_id NOT IN : find rooms that are not booked by other guests
+    $rooomtype = "SELECT DISTINCT COUNT(r.room_id) as 'available', t.room_desc AS room_desc, t.roomtype_id as roomtype_id
             FROM    room_type t, 
                     rooms r
             WHERE   r.roomtype_id=t.roomtype_id AND 
@@ -105,16 +105,15 @@
                     r.room_id NOT IN(SELECT g.room_id 
                                     FROM guests g 
                                     WHERE $checkout between g.date_in and g.date_out) AND 
-                    t.room_cap>=$numguest";
+                    t.roomtype_id=$room_type";
 
     $result1 = $conn->query($rooomtype); 
 
     if(mysqli_num_rows($result1) > 0){
-        echo "Available Room Type<br><br>";
         echo "<div class='grid-container'>";
     while($row = $result1->fetch_assoc()){
                 
-                echo "
+                echo $row['available']." ROOMS available
                 <form  method='post' action=''>
                 <button type='submit' name='select' style='background-color: #28C479; padding: 10px; '><h1>".$row['room_desc']."</button>
                 <input type='hidden' name='roomtype_id' value='{$row['roomtype_id']}'>

@@ -70,7 +70,16 @@
                 <label class='Labelform'>Check-in Time</label>
                 <input type='time' name='time' class='booking' required>
                 <br><br>
-                <label class='Labelform'>Number of Guests</label><span class='booking'>".$_SESSION['numguest']."</span>
+
+                <label class='Labelform'>Number of Guests</label>
+                <select name='numguest' class='booking' style = 'height:10%;' required>
+                <option value='Select'>Select</option>
+                <option value='1'>1</option>
+                <option value='2'>2</option>
+                <option value='3'>3</option>
+                <option value='4'>4</option>
+                <option value='5'>5</option>  
+                </select></span>
                 <br><br>
                 <label class='Labelform'>Room Type</label><span class='booking'>".$_SESSION['room_desc']."</span>
                 <br><br>
@@ -91,6 +100,7 @@
                 $mname=$_POST['mname'];
                 $phone=$_POST['phone'];
                 $email=$_POST['email'];
+                $numguest=$_POST['numguest'];
                 $time=$_POST['time'];
         //number of stays
                 $stays=(strtotime($_SESSION['checkout'])-strtotime($_SESSION['checkin']))/60/60/24; 
@@ -121,7 +131,7 @@
             //create data in guests
             $status = 'RESERVED'; //added this to since this is a reservation
             $prepare2 = $conn->prepare("INSERT INTO guests(date_in,date_out,guest_status,guests_count,room_id,customer_id) VALUES (?,?,?,?,?,?)");
-            $prepare2->bind_param("sssiii",$_SESSION['checkin'],$_SESSION['checkout'],$status,$_SESSION['numguest'],$_SESSION['room_id'],$customer_id);
+            $prepare2->bind_param("sssiii",$_SESSION['checkin'],$_SESSION['checkout'],$status,$numguest,$_SESSION['room_id'],$customer_id);
             $prepare2->execute();
 
             //get guest_id ($conn->insert_id : get the last generated id)
