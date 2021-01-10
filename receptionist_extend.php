@@ -98,7 +98,9 @@
                 <button type='submit' name='search_room'  style='background-color: #003399; padding: 5px; ' class='button'>Search Room</button><a href='receptionist_guests.php' class='Greenbutton' style='width:15%;'>Back to Guests</a></form>
                 ";
 
-//find available rooms
+/*find available rooms
+NOT IN(SELECT : select data that is not in (SELECT)
+*/
 if(isset($_POST['search_room'])){
     $extend=$_POST['extend'];
     $_SESSION['extended_date']=$extend;
@@ -111,7 +113,7 @@ $sql1 = "SELECT r.room_id as 'room_id',t.room_desc AS room_desc
 
     $result1 = $conn->query($sql1); 
 
-//show available rooms
+//show available rooms from previoud checked-out date to new check-out date 
     if(mysqli_num_rows($result1) > 0){
         echo "<div class='grid-container'>";
     while($row = $result1->fetch_assoc()){
@@ -135,9 +137,15 @@ $sql1 = "SELECT r.room_id as 'room_id',t.room_desc AS room_desc
 if(isset($_POST['select1'])){
     $room_id=$_POST['room_id'];
     $date_out=$_POST['date_out'];
+    //$payment_amount : original total room_fee
     $payment_amount=$_POST['payment_amount'];
     $extend=$_POST['extend'];
-    $prepare01= $conn->prepare("UPDATE guests SET date_out=?,room_id=? WHERE guest_id=?");
+
+/*update guests
+? : data that wants to be updated.
+s : string(alphabets, date, varchar)
+i : integer (numbers)
+*/    $prepare01= $conn->prepare("UPDATE guests SET date_out=?,room_id=? WHERE guest_id=?");
         $prepare01->bind_param("sii", $extend,$room_id, $_SESSION['guest_id']);
         $prepare01->execute();
 
@@ -152,6 +160,7 @@ $sql2 = "SELECT t.room_cost as 'room_cost', g.payment_id as 'payment_id'
     while($row = $result2->fetch_assoc()){$room_cost=$row['room_cost'];
         $payment_id=$row['payment_id'];}
 
+//$payment_amount : original total room_fee + extended total room fee
     $payment = $payment_amount+$stays*$room_cost;
 
 //update payment
@@ -160,7 +169,11 @@ $prepare02= $conn->prepare("UPDATE payments SET payment_amount =?
         $prepare02->bind_param("ii", $payment, $payment_id);
         $prepare02->execute();
 
-//update room_id in schedule
+/*update room_id in schedule
+? : data that wants to be updated.
+s : string(alphabets, date, varchar)
+i : integer (numbers)
+*/
 $schedule= $conn->prepare("UPDATE schedule SET room_id=? WHERE guest_id=?");
         $schedule->bind_param("ii", $room_id, $_SESSION['guest_id']);
         $schedule->execute();

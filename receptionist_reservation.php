@@ -93,8 +93,9 @@
 
 
 //select available room type
-//r.room_id NOT IN : find rooms that are not booked by other guests
-    $rooomtype = "SELECT DISTINCT COUNT(r.room_id) as 'available', t.room_desc AS room_desc, t.roomtype_id as roomtype_id
+/*r.room_id NOT IN : find rooms that are not booked by other guests
+COUNT(r.room_id) : count the number of available rooms*/    
+$rooomtype = "SELECT DISTINCT COUNT(r.room_id) as 'available', t.room_desc AS room_desc, t.roomtype_id as roomtype_id
             FROM    room_type t, 
                     rooms r
             WHERE   r.roomtype_id=t.roomtype_id AND 
@@ -115,7 +116,8 @@
                 
                 echo $row['available']." ROOMS available
                 <form  method='post' action=''>
-                <button type='submit' name='select' style='background-color: #28C479; padding: 10px; '><h1>".$row['room_desc']."</button>
+                <button type='submit' name='select' style='background-color: #28C479; padding: 10px; '>
+                <h1>".$row['room_desc']."</button>
                 <input type='hidden' name='roomtype_id' value='{$row['roomtype_id']}'>
                 <input type='hidden' name='room_desc' value='{$row['room_desc']}'>
                 </form>";}
@@ -124,12 +126,13 @@
                     echo 'No available room.';
                 }}
 
-//after selecting room type. select room_id
+//after selecting room type. select room_id. send sessions to booking.php
         if(isset($_POST['select'])){  
         $roomtype_id = $_POST['roomtype_id'];
         $room_desc = $_POST['room_desc'];
         $_SESSION['room_desc']=$room_desc;
 
+//choose room which is not under maintenance
         $rooomId = "SELECT r.room_id AS room_id
             FROM    rooms r
             WHERE   r.roomtype_id=$roomtype_id AND 
