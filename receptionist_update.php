@@ -68,14 +68,14 @@
 
                 <label class='Labelform'>Last Name</label><input type='text' class='mngt' name='lname' value='{$_SESSION['lname']}'><br>
                 <label class='Labelform'>Middle Name</label><input type='text' class='mngt' name='mname' value='{$_SESSION['mname']}'>
-                <br><br>
+                <br>
               
                 <label class='Labelform'>Phone Number</label><input type='number' name='phone' class='mngt' value='{$_SESSION['phone']}' style='width:20%;'>
 
                 <br>
                 <label class='Labelform'>E-mail</label><input type='email' name='email' class='mngt' value='{$_SESSION['email']}' style='width:30%;'>
                 
-                <br>
+                <br><br>
                 
                 <button type='submit' name='update' class='Greenbutton'><h3>Update</h3></button>
             </form>";
@@ -106,7 +106,7 @@ if(isset($_POST['update'])){
                 
                 <label class='Labelform'>Check-out</label>  ".$_SESSION['checkout']."<input type='date' name='checkout' class='mngt' required>
                 
-                <label class='Labelform'>Number of Guests</label>  ".$_SESSION['numguest']."<select name='numguest' class='mngt' style='width:10%;' required>
+                <label class='Labelform'>Number of Guests</label>    ".$_SESSION['numguest']."   <select name='numguest' class='mngt' style='width:10%;' required>
     <option value='Select'>Select</option>
     <option value='1'>1</option>
     <option value='2'>2</option>
@@ -151,6 +151,7 @@ $rooomtype = "SELECT DISTINCT t.room_desc AS room_desc, t.roomtype_id as roomtyp
                 <form  method='post' action=''>
                 <button type='submit' name='select' style='background-color: #28C479; padding: 10px; '><h1>".$row['room_desc']."</button>
                 <input type='hidden' name='roomtype_id' value='{$row['roomtype_id']}'>
+                <input type='hidden' name='room_desc' value='{$row['room_desc']}'>
                 
                 </form>";}
                 echo "</div>";
@@ -161,6 +162,9 @@ $rooomtype = "SELECT DISTINCT t.room_desc AS room_desc, t.roomtype_id as roomtyp
 
 if(isset($_POST['select'])){
     $roomtype_id = $_POST['roomtype_id'];
+    $room_desc = $_POST['room_desc'];
+    $_SESSION['room_desc']=$room_desc;
+header("location:receptionist_update.php");
     $rooomId = "SELECT r.room_id AS room_id
             FROM    rooms r
             WHERE   r.roomtype_id=$roomtype_id AND 
@@ -210,7 +214,7 @@ header("location:receptionist_update.php");
 
 ob_end_flush();
 ?>
-<a href='receptionist_res-list.php' class='Graybutton' style='width:20%;'>Back to Reservation List</a>
+<a href='receptionist_res-list.php' class='Greenbutton' style='width:20%;'>Back to Reservation List</a>
 
                 
         </div>
