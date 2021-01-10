@@ -116,9 +116,10 @@
                         
                         //Displays the number of guests about to check-out on the current date
                          $sql = "SELECT COUNT(*) AS 'checkout' 
-                                 FROM guests g, customers c, rooms r
+                                 FROM guests g, customers c, rooms r, checked_in_guests ch
                                  WHERE g.customer_id = c.customer_id
-                                        AND g.room_id = r.room_id AND g.guest_status = 'INCOMPLETE' AND g.date_out= CURDATE();";
+                                        AND g.room_id = r.room_id AND g.guest_status = 'INCOMPLETE' AND g.date_out= CURDATE()AND 
+                                                        ch.guest_id=g.guest_id;";
                         $display = $conn->query($sql);
                         if($rows = $display != NULL){ 
                             while($rows = $display->fetch_assoc()){
@@ -151,10 +152,11 @@
                                                      r.room_id as 'Room Number'
                                                 FROM
                                                         Guests g, Customers c,
-                                                        Rooms r
+                                                        Rooms r, checked_in_guests ch
                                                 WHERE
                                                         g.customer_id = c.customer_id
-                                                        AND g.room_id = r.room_id AND g.date_out= CURDATE() AND g.guest_status = 'INCOMPLETE'
+                                                        AND g.room_id = r.room_id AND g.date_out= CURDATE() AND g.guest_status = 'INCOMPLETE' AND 
+                                                        ch.guest_id=g.guest_id
                                                 ORDER BY
                                                         g.date_in;";
                                                 $display = $conn->query($sql);
