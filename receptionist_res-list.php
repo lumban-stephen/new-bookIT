@@ -108,7 +108,7 @@ $sql = "SELECT  CONCAT(c.fname,' ',c.MI,' ',c.lname) as name,
                 s.guest_id=g.guest_id AND
                 t.roomtype_id = r.roomtype_id AND 
                 guest_status = 'RESERVED' AND 
-                g.date_in >= CURRENT_DATE
+                g.date_in = CURRENT_DATE
         ORDER BY g.date_in;";
 
     $result = $conn->query($sql); 
