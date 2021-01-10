@@ -90,14 +90,15 @@
 
                     $sqlinsert1 = "INSERT INTO room_type(room_cost, room_desc, room_cap) 
                             VALUES('$roomrate','$roomdesc', '$roomcap')";
-                    $conn->query($sqlinsert1) or die($conn->error);
+                    $conn->query($sqlinsert1) or die('error: You inputted a duplicate value. Please go back or click on the add room.');
                     
                     $sqlinsert2 = "INSERT INTO rooms(room_id, room_status,roomtype_id) 
                             VALUES('$roomnum','$roomstatus',LAST_INSERT_ID())";           
-                    $conn->query($sqlinsert2) or die($conn->error);
-            
+                    $conn->query($sqlinsert2) or die('error: You inputted a duplicate value. Please go back or click on the add room.');
+                    
                     header('location: manager_room-mgt.php');
-                }
+                
+                    }
             ?>
             
             <form action="room_server.php" method="get">
@@ -115,7 +116,8 @@
             $sql = "SELECT r.room_id AS 'Room Number',
                         r.room_status AS 'Room Status',
                         t.room_cost AS 'Room Cost', 
-                        t.room_desc AS 'Room Description'
+                        t.room_desc AS 'Room Description',
+                        r.room_cap AS 'Room ca'
                     FROM
                         Rooms r, room_type t
                     WHERE
