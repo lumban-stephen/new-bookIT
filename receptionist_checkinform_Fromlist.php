@@ -94,7 +94,7 @@ ob_start();
                 <label class='Labelform'>Address</label><input type='text' id='address'name='address' class='booking' required></span>
                 <br><br>
                 <input type='submit' name='amenities1' value='Proceed to Amenities' class='Greenbutton'>
-                <input type='submit' name='cancel' value='Cancel Check-in' class='Checkoutbutton'>
+                <a class='Checkoutbutton' href='receptionist_res-list.php' style='margin: auto;'>Cancel Check-in</a>
                 <br><br>
             </form>";
 
@@ -139,41 +139,9 @@ ob_start();
             $prepare5->bind_param("sssi",$record_type,$_SESSION['checkin'],$time,$_SESSION['guest_id']);
             $prepare5->execute();
 
-
-
-        unset($_SESSION['customer_id']);
-        //unset($_SESSION['fname']);
-        unset($_SESSION['room_code']);
-        //unset($_SESSION['lname']);
-        //unset($_SESSION['mname']);
-        unset($_SESSION['phone']);
-        unset($_SESSION['email']);
-        unset($_SESSION['checkin']);
-        unset($_SESSION['checkout']);
-        unset($_SESSION['numguest']);
-        unset($_SESSION['room_code']);
-        //unset($_SESSION['guest_id']);
-        unset($_SESSION['room_id']);
-        unset($_SESSION['roomtype_id']);
-        //unset($_SESSION['payment_id']);
-
          header("location:receptionist_ameneties.php");
     }
 
-//cancel check in
-    if(isset($_POST['cancel'])){
-        unset($_SESSION['customer_id']);
-        unset($_SESSION['fname']);
-        unset($_SESSION['room_code']);
-        unset($_SESSION['lname']);
-        unset($_SESSION['mname']);
-        unset($_SESSION['phone']);
-        unset($_SESSION['email']);
-        unset($_SESSION['checkin']);
-        unset($_SESSION['checkout']);
-        unset($_SESSION['numguest']);
-        unset($_SESSION['room_code']);
-        header("location:receptionist_res-list.php");}
 
 ob_end_flush();
 ?>

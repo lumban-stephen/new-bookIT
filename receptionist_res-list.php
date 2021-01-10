@@ -144,6 +144,64 @@ while($row = $result->fetch_assoc()){
                 
               </tr></form>";}}
 
+//if check-in date is not today
+$sql2 = "SELECT  CONCAT(c.fname,' ',c.MI,' ',c.lname) as name,
+                c.fname as fname,
+                c.MI as mname, 
+                c.lname as lname, 
+                r.room_id as room_id, 
+                g.date_in as date_in, 
+                g.date_out as date_out, 
+                g.guests_count as numguest, 
+                c.phone as phone, 
+                c.email as email, 
+                g.guest_status as guest_status, 
+                s.guest_id as guest_id, 
+                c.customer_id as customer_id,
+                g.ID_number as ID_number,
+                t.room_desc as room_desc
+        FROM    guests g, customers c, rooms r, schedule s, room_type t
+        WHERE   g.customer_id = c.customer_id and 
+                r.room_id = g.room_id and 
+                s.guest_id=g.guest_id AND
+                t.roomtype_id = r.roomtype_id AND 
+                guest_status = 'RESERVED' AND 
+                g.date_in > CURRENT_DATE
+        ORDER BY g.date_in;";
+
+    $result2 = $conn->query($sql2); 
+while($row2 = $result2->fetch_assoc()){
+    if($row2['guest_status'] != $status){
+        if($row2['ID_number']==NULL)
+         echo "<form method='post' action=''><tr>
+        
+                <td>".$row2['name']."</td>
+                <td>".$row2['room_id']."</td>
+                <td>".$row2['date_in']."</td>
+                <td>".$row2['date_out']."</td>
+                <td>
+                <span class='grid-container'>
+                
+                <button type='submit' name='update'  class='Graybutton'>Update<br>Reschedule</button>
+                <button type='submit' name='cancel' class='Checkoutbutton'>Cancel Booking</button>
+                </span>
+                </td>
+
+                <input type='hidden' name='fname' value='{$row2['fname']}'>
+                <input type='hidden' name='lname' value='{$row2['lname']}'>
+                <input type='hidden' name='mname' value='{$row2['mname']}'>
+                <input type='hidden' name='room_id' value='{$row2['room_id']}'>
+                <input type='hidden' name='date_in' value='{$row2['date_in']}'>
+                <input type='hidden' name='date_out' value='{$row2['date_out']}'>
+                <input type='hidden' name='numguest' value='{$row2['numguest']}'>
+                <input type='hidden' name='phone' value='{$row2['phone']}'>
+                <input type='hidden' name='email' value='{$row2['email']}'>
+                <input type='hidden' name='guest_id' value='{$row2['guest_id']}'>
+                <input type='hidden' name='customer_id' value='{$row2['customer_id']}'>
+                <input type='hidden' name='room_desc' value='{$row2['room_desc']}'>
+                
+              </tr></form>";}}
+
 //to check in. send data in SESSION
    if(isset($_POST['checkin'])){
     header("location:receptionist_checkinform_Fromlist.php");
