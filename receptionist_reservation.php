@@ -66,7 +66,7 @@
                         $options = $conn->query($sqldesc);
                         if(!empty($options)){
                         while($rows = $options->fetch_assoc()){
-                            echo "<option value=". $rows['roomtype_id'].">". $rows['room desc']. "</option>";
+                            echo "<option value='". $rows['roomtype_id']."'>". $rows['room desc']. "</option>";
                         }
                         echo "</select>";
                      }
