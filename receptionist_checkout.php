@@ -55,6 +55,7 @@
                 </form>
             </div>
                     <?php 
+                        error_reporting(0);
                         include 'connection.php';
                         if (isset($_POST['keyword'])) {
                             $keyword = trim ($_POST['keyword']);
@@ -102,7 +103,7 @@
                                         <th>Action</th>
                                     </tr>";
             
-                         $result = mysqli_query($conn, $sql1) or die('query did not work');;
+                         $result = mysqli_query($conn, $sql1) or die('Query did not work');;
 
                             if(mysqli_num_rows($result) > 0){
             
