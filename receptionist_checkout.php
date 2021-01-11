@@ -239,14 +239,14 @@
                     if($payment >= $total){
                         $updateGuest = "UPDATE guests SET guest_status = 'Complete' WHERE guest_id = $gID";
                         $updateRoom = "UPDATE rooms SET room_status = 'Available' WHERE room_id = $rID";
-                        $newRecord = "INSERT INTO records (record_type, record_date, record_time, record_paid, record_payables, record_change, guest_id)
-                                    VALUES ('CHECKED OUT', 
-                                            '$date', 
-                                            '$time',
-                                            '$payment',
-                                            '$total',
-                                            '$change',
-                                            $gID)";
+                        $newRecord = "UPDATE records 
+                                        SET record_type = 'CHECKED OUT',
+                                            record_date = '$date',
+                                            record_time = '$time',
+                                            record_paid = '$payment',
+                                            record_payables = '$total',
+                                            record_change = '$change'
+                                        WHERE guest_id = $gID";
                         $deleteSched = "DELETE FROM schedule WHERE guest_id = $gID";
                         $deleteCheckIn = "DELETE FROM checked_in_guests WHERE guest_id = $gID";
                         //if all the queries are true, it will prompt to the records

@@ -100,6 +100,8 @@ $rooomtype = "SELECT DISTINCT COUNT(r.room_id) as 'available', t.room_desc AS ro
                     rooms r
             WHERE   r.roomtype_id=t.roomtype_id AND 
                     r.room_status != 'Maintenance' AND 
+                    r.room_status != 'Used by guest' AND
+                    r.room_status != 'Reserved' AND  
                     r.room_id NOT IN(SELECT g.room_id 
                                     FROM guests g 
                                     WHERE $checkin between g.date_in and g.date_out) AND 
