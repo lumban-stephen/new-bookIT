@@ -71,7 +71,7 @@
     $_SESSION['numguest'] = $numguest;
 
 //show available room type
-    $rooomtype = "SELECT DISTINCT t.room_desc AS room_desc, t.roomtype_id as roomtype_id
+    $rooomtype = "SELECT DISTINCT CONCAT(t.room_desc, '; ',t.room_cap,' pax ') AS room_desc, t.roomtype_id as roomtype_id
             FROM 	room_type t, 
                     rooms r
             WHERE 	r.roomtype_id=t.roomtype_id AND 

@@ -95,7 +95,7 @@
 //select available room type
 /*r.room_id NOT IN : find rooms that are not booked by other guests
 COUNT(r.room_id) : count the number of available rooms*/    
-$rooomtype = "SELECT DISTINCT COUNT(r.room_id) as 'available', t.room_desc AS room_desc, t.roomtype_id as roomtype_id
+$rooomtype = "SELECT DISTINCT COUNT(r.room_id) as 'available', CONCAT(t.room_desc, '; ',t.room_cap,' pax ') AS room_desc, t.roomtype_id as roomtype_id
             FROM    room_type t, 
                     rooms r
             WHERE   r.roomtype_id=t.roomtype_id AND 

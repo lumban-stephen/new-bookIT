@@ -65,10 +65,10 @@
                             <label class='Labelform-Rev'>Room Capacity</label><input type='number' class='input-Rev' name='roomcap' required><br>
                             <label class='Labelform-Rev'>Room Description</label><input type='text' class='input-Rev' list='desc' name='roomdesc' required />
                                 <datalist id='desc'>
-                                    <option value='Single bed, Aircon, 1-2 people'>Single bed, Aircon, 1-2 people</option>
-                                    <option value='Single bed, Fan only, 1-2 people'>Single bed, Fan only, 1-2 people</option>
-                                    <option value='Two beds, Aircon, 2-4 people'>Two beds, Aircon, 2-4 people</option>
-                                    <option value='Three beds, Aircon, 3-5 people'>Three beds, Aircon, 3-5 people</option>
+                                    <option value='Single bed, Aircon'>
+                                    <option value='Single bed, Fan only'>
+                                    <option value='Two beds, Aircon'>
+                                    <option value='Three beds, Aircon'>
                                 </datalist>
                                 <label class='Labelform-Rev'>Room Status</label><select name='roomstatus' class='input-Rev' id='status' required>
                                 <option value='Available'>Available</option>
@@ -116,8 +116,7 @@
             $sql = "SELECT r.room_id AS 'Room Number',
                         r.room_status AS 'Room Status',
                         t.room_cost AS 'Room Cost', 
-                        t.room_desc AS 'Room Description',
-                        r.room_cap AS 'Room ca'
+                        CONCAT(T.room_desc, '; ',t.room_cap,' pax ') AS 'Room Description'
                     FROM
                         Rooms r, room_type t
                     WHERE
@@ -135,6 +134,7 @@
                          <td>". $rows['Room Status']. "</td>
                          <td>". $rows['Room Cost']. "</td>
                          <td>". $rows['Room Description']. "</td>";
+                         
                     if ($rows['Room Status'] == 'Maintenance' || $rows['Room Status'] == 'Unavailable') {
                         echo "  <td>
                                     <form action='' method='POST'>

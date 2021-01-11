@@ -722,3 +722,8 @@ ALTER TABLE records ADD record_payables FLOAT(10,2) NULL DEFAULT NULL AFTER reco
 ALTER TABLE records ADD record_change FLOAT(10,2) NULL DEFAULT NULL AFTER record_payables;
 
 INSERT INTO amenities`(amenity_id`, amenity_name, amenity_price, amenity_type, stock) VALUES (100,'booking',0,'',0);
+
+UPDATE room_type SET room_desc = 'Single bed, Aircon' WHERE roomtype_id = 1;
+UPDATE room_type SET room_desc = 'Single bed, Fan only' WHERE roomtype_id = 2;
+UPDATE room_type SET room_desc = 'Two beds, Aircon' WHERE roomtype_id = 3;
+UPDATE room_type SET room_desc = 'Three beds, Aircon' WHERE roomtype_id = 4;

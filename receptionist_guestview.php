@@ -55,7 +55,7 @@
         $sql = "SELECT g.guest_id AS 'SID', g.guest_id AS 'guest_id', b.bill_id as 'bill_id',
                     c.fname AS 'Firstname', c.MI AS 'Middlename', c.lname AS 'Lastname', c.phone AS 'Phone', c.email AS 'Email',
                     g.date_in AS 'Check-in Date', g.date_out AS 'Check-out Date',
-                    r.room_id AS 'Room Number', rt.room_desc AS 'Room Type',
+                    r.room_id AS 'Room Number',CONCAT(rt.room_desc, '; ',rt.room_cap,' pax ') AS 'Room Type',
                     g.guest_status AS 'Guest Status', g.guests_count AS 'Number of Guests', C.Address AS 'address'
                 FROM
                     Schedule s, Guests g, Customers c,

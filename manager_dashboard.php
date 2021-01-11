@@ -144,7 +144,7 @@
                                         include 'connection.php';
 
                                         //Diplasy the vacant rooms and their room description
-                                        $sql = "SELECT r.room_id AS 'Room ID', rt.room_desc AS 'Room Description'
+                                        $sql = "SELECT r.room_id AS 'Room ID', CONCAT(rt.room_desc, '; ',rt.room_cap,' pax ') AS 'Room Description'
                                         FROM rooms r, room_type rt
                                         WHERE r.roomtype_id=rt.roomtype_id AND room_status='Available';";
                                                 $display = $conn->query($sql);
