@@ -102,7 +102,7 @@
                                         <th>Action</th>
                                     </tr>";
             
-                         $result = mysqli_query($conn, $sql1) or die('query did not work');;
+                         $result = mysqli_query($conn, $sql) or die('query did not work');
 
                             if(mysqli_num_rows($result) > 0){
             
