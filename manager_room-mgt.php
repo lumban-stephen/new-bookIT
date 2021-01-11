@@ -107,7 +107,7 @@
                     }
             ?>
             
-            <form action="room_server.php" method="get">
+            
             <table id="Table">
               <tr>
                 <th>Room Number</th>
