@@ -60,7 +60,7 @@
 //edit
     if(isset($_SESSION['edit'])){
     unset($_SESSION['edit']); 
-    echo $_SESSION['image'];
+    
     echo "<div>
         <form method='post' action='' enctype='multipart/form-data'>
         <label class='Labelform'>Name</label><input type='text' class='mngt' name='name' value='{$_SESSION['name']}'>
@@ -209,6 +209,7 @@
             <button type='submit' name='edit'class='Offerbutton'>Edit Information</button>
 
             <button type='submit' name='deactivate' class='Checkoutbutton' style='width: 80%;'>DEACTIVATE</button>
+            <button type='submit' name='delete' class='Graybutton' style='width: 80%;'>DELETE</button>
 
             
             </td></form>
@@ -245,6 +246,18 @@
         $prepare= $conn->prepare("UPDATE amenities SET stock =?
             WHERE amenity_id=?");
         $prepare->bind_param("ii", $stock,$amenity_id);
+        $prepare->execute();
+        header("location:manager_restock.php");
+    }
+
+//when it is DEactivated. image will be deleted
+    if(isset($_POST['delete'])){
+        $amenity_id=$_POST['amenity_id'];
+        $image=NULL;
+
+        $prepare= $conn->prepare("UPDATE amenities SET image =?
+            WHERE amenity_id=?");
+        $prepare->bind_param("si", $image,$amenity_id);
         $prepare->execute();
         header("location:manager_restock.php");
     }
