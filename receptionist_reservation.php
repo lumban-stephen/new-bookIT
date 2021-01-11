@@ -61,6 +61,7 @@
                 <label class='Labelform'>SELECT ROOM TYPE</label><select name="room_type" class="booking" style='height: 10%;' required>
                     <option value="Select">Select</option>
                    <?php
+                        include 'connection.php';
                         $sqldesc= "SELECT room_desc, roomtype_id FROM room_type";
                         $options = $conn->query($sqldesc);
                         if(!empty($options)){
