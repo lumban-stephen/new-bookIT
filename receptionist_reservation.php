@@ -62,11 +62,11 @@
                     <option value="Select">Select</option>
                    <?php
                         include 'connection.php';
-                        $sqldesc= "SELECT room_desc, roomtype_id FROM room_type";
+                        $sqldesc= "SELECT CONCAT(room_desc, '; ',room_cap,' pax ') AS 'room desc', roomtype_id FROM room_type";
                         $options = $conn->query($sqldesc);
                         if(!empty($options)){
                         while($rows = $options->fetch_assoc()){
-                            echo "<option value=". $rows['roomtype_id'].">". $rows['room_desc']. "</option>";
+                            echo "<option value='". $rows['roomtype_id']."'>". $rows['room desc']. "</option>";
                         }
                         echo "</select>";
                      }

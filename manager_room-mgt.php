@@ -64,12 +64,18 @@
                             <label class='Labelform-Rev'>Room Rate per night</label><input type='number' class='input-Rev' name='roomrate' required><br>
                             <label class='Labelform-Rev'>Room Capacity</label><input type='number' class='input-Rev' name='roomcap' required><br>
                             <label class='Labelform-Rev'>Room Description</label><input type='text' class='input-Rev' list='desc' name='roomdesc' required />
-                                <datalist id='desc'>
-                                    <option value='Single bed, Aircon'>
-                                    <option value='Single bed, Fan only'>
-                                    <option value='Two beds, Aircon'>
-                                    <option value='Three beds, Aircon'>
-                                </datalist>
+                                <datalist id='desc'>";
+
+                                $sqldesc= "SELECT room_desc FROM room_type";
+                                $options = $conn->query($sqldesc);
+                                if(!empty($options)){
+                                while($rows = $options->fetch_assoc()){
+                                    echo "<option value='". $rows['room_desc']."'>";
+                                }
+                                echo "</datalist>";
+                             }
+
+                            echo "
                                 <label class='Labelform-Rev'>Room Status</label><select name='roomstatus' class='input-Rev' id='status' required>
                                 <option value='Available'>Available</option>
                                 <option value='Maintenance'>Maintenance</option>
