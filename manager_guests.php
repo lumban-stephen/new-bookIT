@@ -145,6 +145,7 @@
                                     g.guest_id AS 'guest_id',
                                     b.bill_id as 'bill_id',
                                     CURDATE() as 'date'
+                                    g.date_out as 'checkout'
                     FROM
                             Schedule s, Guests g, Customers c,
                             Rooms r,bill b, checked_in_guests ch
@@ -182,12 +183,16 @@
                                     <input type='hidden' name='mname' value='{$rows['mname']}'>
                                     
                                     </form>"; 
+                                if($rows['checkout'] > $rows['date']>){
+                                    $sqlupdate = "UPDATE guests SET date_out = DATE_ADD(date_out, INTERVAL 1 YEAR)";
+                                    $conn->query($sqlupdate);
+                                }
                             }
                             echo "</table>";
                         }else{
                         echo "No guest checked-in. ";
                         }
-
+                
                 if(isset($_POST['extend'])){
                     $guest_id=$_POST['guest_id'];
                     $_SESSION['guest_id']=$guest_id;
