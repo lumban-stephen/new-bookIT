@@ -281,7 +281,7 @@
                         </div></div>
                 <div class="dash longbox5" id="Modal5">
                     <?php
-                $sql = "SELECT SUM(record_paid) as monthly
+                $sql = "SELECT SUM(record_payables) as monthly
                             FROM    records
                             WHERE   MONTH(record_date)= MONTH(CURRENT_DATE()) AND
                                     record_type = 'CHECKED OUT'";

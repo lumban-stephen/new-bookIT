@@ -158,6 +158,14 @@
                                     </form>
                                 </td>
                              </tr>";
+                    }elseif ($rows['Room Status'] == 'Reserved') {
+                        echo "<td>
+                                    <form action='' method='POST'>
+                                        <input type='submit' class='Graybutton'  name='nothing' value='No Actions Room is reserved'>
+                                        <input type='hidden' name='roomID' value='{$rows['Room Number']}'>
+                                    </form>
+                                </td>
+                             </tr>";      
                     }elseif($rows['Room Status'] == 'Used by guest'){
                         echo "<td>
                                     <form action='' method='POST'>

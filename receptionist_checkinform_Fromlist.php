@@ -133,9 +133,9 @@ ob_start();
         $prepare4->bind_param("si",$room_status, $_SESSION['room_id']);
         $prepare4->execute();
 
-    //insert data in records
+    //update data in records
             $record_type="STAYING";
-            $prepare5 = $conn->prepare("INSERT INTO records(record_type,record_date,record_time,guest_id) VALUES (?,?,?,?)");
+            $prepare5 = $conn->prepare("UPDATE records SET record_type=?,record_date=?,record_time=? WHERE guest_id=?");
             $prepare5->bind_param("sssi",$record_type,$_SESSION['checkin'],$time,$_SESSION['guest_id']);
             $prepare5->execute();
 

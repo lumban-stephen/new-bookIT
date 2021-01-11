@@ -53,6 +53,7 @@
             <table id="Table">
               <tr>
                 <th>Guest Name</th>
+                <th>Record Type</th>
                 <th>Room Number</th>
                 <th>Paid Amount</th>
                 <th>Bill Amount</th>
@@ -68,6 +69,7 @@
             //the query for displaying the info needed for the records
             $sql = "SELECT  r.room_id as room_id, 
                             CONCAT(c.fname, ' ', c.MI, ' ', c.lname) as guest_name,
+                            rec.record_type as record_type,
                             rec.record_paid as paid_amount,
                             rec.record_payables as bill_amount,
                             rec.record_change as change_amount, 
@@ -76,8 +78,7 @@
                     FROM    records rec,rooms r,guests g, customers c
                     WHERE   g.room_id = r.room_id AND 
                             g.guest_id = rec.guest_id AND
-                            g.customer_id = c.customer_id AND
-                            rec.record_type = 'CHECKED OUT'
+                            g.customer_id = c.customer_id
                     ORDER BY rec.record_date";
             
         $result = $conn->query($sql);
@@ -87,6 +88,7 @@
             while($row = $result->fetch_assoc()){
                 echo "<tr>
                         <td>".$row['guest_name']."</td>
+                        <td>".$row['record_type']."</td>
                         <td>".$row['room_id']."</td>
                         <td>".$row['paid_amount']."</td>
                         <td>".$row['bill_amount']."</td>
