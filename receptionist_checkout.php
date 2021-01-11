@@ -46,21 +46,20 @@
             </ul>
         </nav>
         <div id="content">
-            <!--Code Here only-->
             <!--Check out page code in here-->
-            
+            <!--search bar in the checkout page that uses room number to find the guests-->
             <div class="search-container">
-                        <form method="POST">
-                            <label class="Labelform">Search Room Number: </label><input type="text" class="input-search"placeholder="Search.." name="keyword">
-                            <button class= "searchbutton"  name="search">Search</button>
-                        </form>
-                    </div>
+                <form method="POST">
+                    <label class="Labelform">Search Room Number: </label><input type="text" class="input-search"placeholder="Search.." name="keyword">
+                    <button class= "searchbutton"  name="search">Search</button>
+                </form>
+            </div>
                     <?php 
                         include 'connection.php';
                         if (isset($_POST['keyword'])) {
                             $keyword = trim ($_POST['keyword']);
 
-                            $sql1 = "SELECT  rooms.room_id, 
+                            $sql = "SELECT  rooms.room_id, 
                                             guests.guest_id, 
                                             customers.fname, 
                                             customers.lname,
@@ -69,7 +68,7 @@
                                             SUM(bill_items.quantity * amenities.amenity_price) + payments.payment_amount AS 'total_amount',
                                             payments.payment_id,
                                             ch.paid_amount as payment_amount,
-                                            
+                                            ch.paid_amount - (SUM(bill_items.quantity * amenities.amenity_price) + payments.payment_amount) AS 'change',
                                             CURRENT_DATE AS 'date',
                                             CURRENT_TIME AS 'time'                                 
                                     FROM guests, customers, rooms, room_type, payments, bill, bill_items, amenities,checked_in_guests ch
@@ -81,7 +80,8 @@
                                     bill.bill_id = bill_items.bill_id AND
                                     bill_items.amenity_id = amenities.amenity_id AND
                                     guests.guest_status = 'INCOMPLETE' AND
-                                    guests.date_out = CURDATE() AND ch.guest_id=guests.guest_id AND 
+                                    guests.date_out = CURDATE() AND 
+                                    ch.guest_id=guests.guest_id AND 
                                     rooms.room_id LIKE '%$keyword%'
                                     GROUP BY guests.guest_id";
                            
@@ -126,8 +126,9 @@
                                             <input type='hidden' name='time' value='{$row['time']}'>
                                             <input type='hidden' name='payAmount' value='{$row['payment_amount']}'>
                                             <input type='hidden' name='totAmount' value='{$row['total_amount']}'>
+                                            <input type='hidden' name='change' value='{$row['change']}'>
                                             <input type='hidden' name='payID' value='{$row['guest_id']}'>                               
-                                    </form>                    
+                                    </form>                        
                                 ";
                             }
                                     echo "</table></div>";
@@ -138,7 +139,7 @@
                         }
                     ?>
             <br>
-            
+            <!--the table format in displaying the guests that are about to check out today-->
             <table id="Table">
                 <tr>
                     <th>Room Number</th>
@@ -234,6 +235,7 @@
                     $time = $_POST['time'];
                     $change = $_POST['change'];
 
+                    //checks if payment is greater than or equal to the payables
                     if($payment >= $total){
                         $updateGuest = "UPDATE guests SET guest_status = 'Complete' WHERE guest_id = $gID";
                         $updateRoom = "UPDATE rooms SET room_status = 'Available' WHERE room_id = $rID";
@@ -247,7 +249,7 @@
                                             $gID)";
                         $deleteSched = "DELETE FROM schedule WHERE guest_id = $gID";
                         $deleteCheckIn = "DELETE FROM checked_in_guests WHERE guest_id = $gID";
-            
+                        //if all the queries are true, it will prompt to the records
                         if ($conn->query($updateGuest) === TRUE && 
                             $conn->query($updateRoom) === TRUE && 
                             $conn->query($newRecord) === TRUE && 
@@ -255,8 +257,8 @@
                             $conn->query($deleteCheckIn) === TRUE) {
                             echo "<script language='javascript'>
                                         window.location.href='receptionist_records.php';
-                                      
                                 </script>";
+                        //a simple error exception handling
                         } else if(!$conn->query($updateGuest) === TRUE) {
                             echo "Error: " .$updateGuest. "<br>" .$conn->error;
                         } else if(!$conn->query($updateRoom) === TRUE) {
@@ -268,11 +270,10 @@
                         } else if(!$conn->query($deleteCheckIn) === TRUE) {
                             echo "Error: " .$deleteCheckIn. "<br>" .$conn->error;
                         }
-                    
+                    //if payment is not enough, returns to the page itself
                     } else {
                         echo "<script language='javascript'>
-                                        window.location.href='receptionist_checkout.php';
-                                        
+                                        window.location.href='receptionist_checkout.php';    
                                 </script>";
                     }
                 }

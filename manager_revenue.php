@@ -58,6 +58,7 @@
         </nav>
         <div id="content">
             <!--Code here for manager revenue page code-->
+            <!--the search bar for the revenue where it will ask what week, month, or year you want your info is-->
             <form action='' method='POST'>
                 <h2>
                     <label class="Labelform-Rev" for='week'>Week: </label><input type='number' class="input-Rev"  name='week' id='weekly' min='1' max='53'>
@@ -72,15 +73,19 @@
                 include 'connection.php';
                 //error_reporting(0);
 
+                //code for revenue when you input those week, month, or year
                 if(isset($_POST['search'])){
                     $month = $_POST['month'];
                     $year = $_POST['year'];
                     $week = $_POST['week'];                
 
+                    //it tells you what week, month, or year you are looking at
                     echo "Week: ".$week." Month: ".$month." Year: ".$year."";
                     echo "<br><br>";
                     echo "<div class='grid-container'>";
 
+                    //the query for the week where if it is null then it will show up the revenue of the current week, 
+                    //if not then will show up the week you specify
                     if($week != null){
                         $sql3 = "SELECT SUM(record_payables) as weekly
                                 FROM    records
@@ -100,7 +105,8 @@
                             echo "<button type='submit' name='select' style='background-color: #FEC200; padding: 20px;' class='button'><p>weekly</p><h1>".$row3['weekly']."</h1></button>";   
                         }
                     }
-                    
+                    //the query for the month where if it is null then it will show up the revenue of the current month, 
+                    //if not then will show up the month you specify
                     if($month != null){
                         $sql1 = "SELECT SUM(record_payables) as monthly
                                 FROM    records
@@ -120,7 +126,8 @@
                             echo "<button type='submit' name='select' style='background-color: #E35D40; padding: 20px;' class='button'><p>monthly</p><h1>".$row1['monthly']."</h1></button>";   
                         }
                     }
-
+                    //the query for the year where if it is null then it will show up the revenue of the current year, 
+                    //if not then will show up the year you specify
                     if($year != null){
                         $sql2 = "SELECT SUM(record_payables) as yearly
                                 FROM    records
