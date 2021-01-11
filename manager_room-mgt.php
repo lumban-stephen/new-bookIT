@@ -117,7 +117,7 @@
                         r.room_status AS 'Room Status',
                         t.room_cost AS 'Room Cost', 
                         t.room_desc AS 'Room Description',
-                        r.room_cap AS 'Room ca'
+                        t.room_cap AS 'Room ca'
                     FROM
                         Rooms r, room_type t
                     WHERE
