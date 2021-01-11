@@ -60,11 +60,16 @@
             <form method="post" action="">  
                 <label class='Labelform'>SELECT ROOM TYPE</label><select name="room_type" class="booking" style='height: 10%;' required>
                     <option value="Select">Select</option>
-                    <option value="1">Single bed, Aircon, 1-2 people</option>
-                    <option value="2">Single bed, Fan only, 1-2 people</option>
-                    <option value="3">Two beds, Aircon, 2-4 people</option>
-                    <option value="4">Three beds, Aircon, 3-5 people</option>  
-                </select> 
+                   <?php
+                        $sqldesc= "SELECT room_desc, roomtype_id FROM room_type";
+                        $options = $conn->query($sqldesc);
+                        if(!empty($options)){
+                        while($rows = $options->fetch_assoc()){
+                            echo "<option value=". $rows['roomtype_id'].">". $rows['room_desc']. "</option>";
+                        }
+                        echo "</select>";
+                     }
+                   ?>
                 <br><br>
 
                 <label class='Labelform'>Check-in</label><input type="date" name="checkin" class="booking" required>

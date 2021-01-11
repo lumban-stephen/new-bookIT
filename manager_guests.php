@@ -137,62 +137,57 @@
                 ob_start();
                 
                 $sql = "SELECT  s.sched_id AS 'SID',
-                                    CONCAT(c.fname, ' ', c.MI, ' ', c.lname) AS 'Guest Name',
-                                    c.fname as 'fname',
-                                    c.MI as 'mname',
-                                    c.lname as 'lname',
-                                    r.room_id as 'Room Number', 
-                                    g.guest_id AS 'guest_id',
-                                    b.bill_id as 'bill_id',
-                                    CURDATE() as 'date'
-                                    g.date_out as 'checkout'
-                    FROM
-                            Schedule s, Guests g, Customers c,
-                            Rooms r,bill b, checked_in_guests ch
-                    WHERE
-                            s.guest_id = g.guest_id AND 
-                            g.customer_id = c.customer_id AND 
-                            s.room_id = r.room_id AND 
-                            b.guest_id=g.guest_id AND 
-                            ch.guest_id=g.guest_id AND
-                            g.guest_status = 'INCOMPLETE'/**Displays the guest with the status as incomplete which means not yet checked-out */
-                    GROUP BY
-                            g.guest_id 
-                    ORDER BY
-                            g.date_in;"; //Ordered the table by the dates they checked in
+                                CONCAT(c.fname, ' ', c.MI, ' ', c.lname) AS 'Guest Name',
+                                c.fname as 'fname',
+                                c.MI as 'mname',
+                                c.lname as 'lname',
+                                r.room_id as 'Room Number', 
+                                g.guest_id AS 'guest_id',
+                                b.bill_id as 'bill_id',
+                                CURDATE() as 'date'
+                        FROM
+                                Schedule s, Guests g, Customers c,
+                                Rooms r,bill b, checked_in_guests ch
+                        WHERE
+                                s.guest_id = g.guest_id AND 
+                                g.customer_id = c.customer_id AND 
+                                s.room_id = r.room_id AND 
+                                b.guest_id=g.guest_id AND 
+                                ch.guest_id=g.guest_id AND
+                                g.guest_status = 'INCOMPLETE'/**Displays the guest with the status as incomplete which means not yet checked-out */
+                        GROUP BY
+                                g.guest_id 
+                        ORDER BY
+                                g.date_in;"; //Ordered the table by the dates they checked in
 
-                    $display = $conn->query($sql);
+                        $display = $conn->query($sql);
 
-            
-                    if($rows = $display != NULL){ 
-                        while($rows = $display->fetch_assoc()){
-                            echo
-                                "<form action='' method='POST'>
-                                <tr><td>". $rows['Guest Name']. "</td>
-                                    <td>". $rows['Room Number']. "</td>
-                                    <td><button  class='Offerbutton' name='ameneties'>Offer<br>Amenities</a></button>
-                                        <button class='Extendbutton' name='extend'>Extend<br>Stay</button>
+
+                        if($rows = $display != NULL){
+                            while($rows = $display->fetch_assoc()){
+                                echo
+                                    "<form action='' method='POST'>
+                                    <tr><td>". $rows['Guest Name']. "</td>
+                                        <td>". $rows['Room Number']. "</td>
+                                        <td><button  class='Offerbutton' name='ameneties'>Offer<br>Amenities</a></button>
+                                            <button class='Extendbutton' name='extend'>Extend<br>Stay</button>
+                                            
+                                            <input type='submit' class='Checkoutbutton'  name='checkout' value='Early Checkout'></td>
+                                        <td><button class= 'Viewbutton'><a href= 'manager_guestview.php?id=".$rows['SID']."'>View</a></button></td></tr>
+                                        <input type='hidden' name='Date' value='{$rows['date']}'>
+                                        <input type='hidden' name='guest_id' value='{$rows['guest_id']}'>
+                                        <input type='hidden' name='bill_id' value='{$rows['bill_id']}'>
+                                        <input type='hidden' name='fname' value='{$rows['fname']}'>
+                                        <input type='hidden' name='lname' value='{$rows['lname']}'>
+                                        <input type='hidden' name='mname' value='{$rows['mname']}'>
                                         
-                                        <input type='submit' class='Checkoutbutton'  name='checkout' value='Early Checkout'></td>
-                                    <td><button class= 'Viewbutton'><a href= 'manager_guestview.php?id=".$rows['SID']."'>View</a></button></td></tr>
-                                    <input type='hidden' name='Date' value='{$rows['date']}'>
-                                    <input type='hidden' name='guest_id' value='{$rows['guest_id']}'>
-                                    <input type='hidden' name='bill_id' value='{$rows['bill_id']}'>
-                                    <input type='hidden' name='fname' value='{$rows['fname']}'>
-                                    <input type='hidden' name='lname' value='{$rows['lname']}'>
-                                    <input type='hidden' name='mname' value='{$rows['mname']}'>
-                                    
-                                    </form>"; 
-                                if($rows['checkout'] > $rows['date']>){
-                                    $sqlupdate = "UPDATE guests SET date_out = DATE_ADD(date_out, INTERVAL 1 YEAR)";
-                                    $conn->query($sqlupdate);
+                                        </form>"; 
                                 }
+                                echo "</table>";
+                            }else{
+                            echo "No guest checked-in. ";
                             }
-                            echo "</table>";
-                        }else{
-                        echo "No guest checked-in. ";
-                        }
-                
+
                 if(isset($_POST['extend'])){
                     $guest_id=$_POST['guest_id'];
                     $_SESSION['guest_id']=$guest_id;
