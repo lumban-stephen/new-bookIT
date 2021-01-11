@@ -208,7 +208,7 @@
                                         include 'connection.php';
 
                                         //Displays the room and the room description that are available for checkin
-                                        $sql = "SELECT r.room_id AS 'Room ID', rt.room_desc AS 'Room Description'
+                                        $sql = "SELECT r.room_id AS 'Room ID', CONCAT(rt.room_desc, '; ',rt.room_cap,' pax ') AS 'Room Description'
                                         FROM rooms r, room_type rt
                                         WHERE r.roomtype_id=rt.roomtype_id AND room_status='Available';";
                                                 $display = $conn->query($sql);
