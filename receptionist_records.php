@@ -47,6 +47,7 @@
         </nav>
         <div id="content">
             <!--Code Here only-->
+            <!--table format for the records to show up-->
             <h2>Records</h2>
             <br>
             <table id="Table">
@@ -64,7 +65,7 @@
         <?php
             include 'connection.php';
             error_reporting(0);
-
+            //the query for displaying the info needed for the records
             $sql = "SELECT  r.room_id as room_id, 
                             CONCAT(c.fname, ' ', c.MI, ' ', c.lname) as guest_name,
                             rec.record_paid as paid_amount,
@@ -81,7 +82,7 @@
             
         $result = $conn->query($sql);
 
-    
+        //if the query is not null then it will display in this format like the one above
         if($row = $result != NULL){ 
             while($row = $result->fetch_assoc()){
                 echo "<tr>

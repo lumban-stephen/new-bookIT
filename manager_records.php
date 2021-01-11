@@ -47,9 +47,8 @@
         </nav>
         <div id="content">
             <!--Code here for manager records page code-->
-
-
-           <h2>Records</h2>
+            <!--table format for the records to show up-->
+            <h2>Records</h2>
             <br>
             <table id="Table">
             <tr>
@@ -60,13 +59,13 @@
                 <th>Change Amount</th>
                 <th>Date</th>
                 <th>Time</th>
-              </tr>
+            </tr>
 
 
         <?php
             include 'connection.php';
             error_reporting(0);
-
+            //the query for displaying the info needed for the records
             $sql = "SELECT  r.room_id as room_id, 
                             CONCAT(c.fname, ' ', c.MI, ' ', c.lname) as guest_name,
                             rec.record_paid as paid_amount,
@@ -81,25 +80,25 @@
                             rec.record_type = 'CHECKED OUT'
                     ORDER BY rec.record_date";
             
-            $result = $conn->query($sql);
+        $result = $conn->query($sql);
 
-        
-            if($row = $result != NULL){ 
-                while($row = $result->fetch_assoc()){
-                    echo "<tr>
-                            <td>".$row['guest_name']."</td>
-                            <td>".$row['room_id']."</td>
-                            <td>".$row['paid_amount']."</td>
-                            <td>".$row['bill_amount']."</td>
-                            <td>".$row['change_amount']."</td>
-                            <td>".$row['record_date']."</td>
-                            <td>".$row['record_time']."</td>
-                        </tr>"; 
-                    }
-                    echo "</table>";
-            }else{
-                echo "No records made. ";
+        //if the query is not null then it will display in this format like the one above
+        if($row = $result != NULL){ 
+            while($row = $result->fetch_assoc()){
+                echo "<tr>
+                        <td>".$row['guest_name']."</td>
+                        <td>".$row['room_id']."</td>
+                        <td>".$row['paid_amount']."</td>
+                        <td>".$row['bill_amount']."</td>
+                        <td>".$row['change_amount']."</td>
+                        <td>".$row['record_date']."</td>
+                        <td>".$row['record_time']."</td>
+                    </tr>"; 
                 }
+                echo "</table>";
+        }else{
+            echo "No records made. ";
+            }
             ?>
             </table>        
 

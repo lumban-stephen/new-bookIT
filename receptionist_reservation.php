@@ -100,6 +100,8 @@ $rooomtype = "SELECT DISTINCT COUNT(r.room_id) as 'available', CONCAT(t.room_des
                     rooms r
             WHERE   r.roomtype_id=t.roomtype_id AND 
                     r.room_status != 'Maintenance' AND 
+                    r.room_status != 'Used by guest' AND
+                    r.room_status != 'Reserved' AND  
                     r.room_id NOT IN(SELECT g.room_id 
                                     FROM guests g 
                                     WHERE $checkin between g.date_in and g.date_out) AND 
@@ -132,11 +134,13 @@ $rooomtype = "SELECT DISTINCT COUNT(r.room_id) as 'available', CONCAT(t.room_des
         $room_desc = $_POST['room_desc'];
         $_SESSION['room_desc']=$room_desc;
 
-//choose room which is not under maintenance
+//choose room which is not under maintenance, used by guest, and reserved
         $rooomId = "SELECT r.room_id AS room_id
             FROM    rooms r
             WHERE   r.roomtype_id=$roomtype_id AND 
-                    r.room_status != 'Maintenance'";
+                    r.room_status != 'Maintenance' AND
+                    r.room_status != 'Used by guest' AND
+                    r.room_status != 'Reserved'";
         $result2 = $conn->query($rooomId); 
         while($rows = $result2->fetch_assoc()){
         $room_id=$rows['room_id'];

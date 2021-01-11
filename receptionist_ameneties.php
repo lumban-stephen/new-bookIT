@@ -669,7 +669,7 @@ echo "
     if(isset($_POST['process'])){
         unset($_SERVER['PHP_SELF']);
 
-        header("location:manager_guests.php");
+        header("location:receptionist_guests.php");
         $today=date("Y-m-d");
 
 
